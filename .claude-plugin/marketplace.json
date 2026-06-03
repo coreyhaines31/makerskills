@@ -1,0 +1,19 @@
+{
+  "name": "corey-skills",
+  "owner": {
+    "name": "Corey Haines",
+    "url": "https://corey.co"
+  },
+  "metadata": {
+    "description": "Personal skills repo for Corey's day-to-day work",
+    "version": "0.1.0",
+    "repository": "https://github.com/coreyhaines31/corey-skills"
+  },
+  "plugins": [
+    {
+      "name": "corey-skills",
+      "description": "Personal skills for Corey Haines — daily workflows, writing, building, and running businesses",
+      "source": "./"
+    }
+  ]
+}

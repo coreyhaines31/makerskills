@@ -1,0 +1,13 @@
+{
+  "name": "corey-skills",
+  "description": "Corey Haines's personal skills — day-to-day work across writing, building, running businesses, and life",
+  "version": "0.1.0",
+  "author": {
+    "name": "Corey Haines",
+    "url": "https://corey.co"
+  },
+  "homepage": "https://github.com/coreyhaines31/corey-skills",
+  "repository": "https://github.com/coreyhaines31/corey-skills",
+  "license": "MIT",
+  "skills": "./skills"
+}
