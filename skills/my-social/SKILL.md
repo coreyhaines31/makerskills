@@ -1,11 +1,11 @@
 ---
-name: social
+name: my-social
 description: When Corey wants to plan, pick the next post, audit coverage, or draft + syndicate personal social posts on X and LinkedIn. Enforces a portfolio rotation so each of his six properties (Conversion Factory, Swipe Files, Magister, Truelist, Marketing Skills, ebooks) gets promoted at least once every ~3 weeks, with build-in-public and educational content filling the rest. Drafts go into his personal Typefully workspace via MCP. Triggers on "what should I post," "plan my socials," "next promo," "social rotation," "promote [property]," "BIP post," "audit my socials," "what haven't I posted about." This is for Corey's personal feed — for CF partner syndication use cf-skills:x-li, for generic frameworks use marketing-skills:social.
 metadata:
   version: 0.1.0
 ---
 
-# /social — Personal portfolio rotation + drafting
+# /my-social — Personal portfolio rotation + drafting
 
 Keeps Corey's personal X + LinkedIn feed consistently promoting his six properties while mixing in build-in-public and educational content. Drafts to personal Typefully workspace.
 
