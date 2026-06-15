@@ -68,7 +68,7 @@ If ambiguous, confirm.
 
 Follow `references/voice.md` and `references/content-types.md`. Default: **single post**, one per platform (X version + LinkedIn version). Thread only if the second post earns its place.
 
-For **promo** posts, always end with the property URL on its own line. For LinkedIn, put a blank line before the URL — no embedded links inside the body.
+**Link placement (load-bearing)**: never put a URL in the body. Default is no link at all — let curiosity drive the click. When a link is needed, draft it as a **first comment** for LinkedIn (Typefully supports auto-comment) or a **reply** for X. The body always stands alone.
 
 ### Optional: inspiration scan
 
@@ -89,8 +89,9 @@ Ask: *"Push to Typefully now? (X + LinkedIn, your personal workspace)"*
 If yes:
 1. Read social set ID from `references/typefully-config.md`
 2. Call `mcp__typefully__typefully_create_draft` once for X, once for LinkedIn (or once with both platforms if the social set spans both)
-3. Default to **draft** state (not scheduled) — Corey reviews in Typefully UI before sending
-4. Return the Typefully draft URLs
+3. If the draft has a first-comment link, configure Typefully to add it automatically (LinkedIn auto-comment / X reply). If the MCP doesn't support auto-comment for one of the platforms, surface the comment text so Corey can paste it after publishing.
+4. Default to **draft** state (not scheduled) — Corey reviews in Typefully UI before sending
+5. Return the Typefully draft URLs
 
 ## Cross-references
 

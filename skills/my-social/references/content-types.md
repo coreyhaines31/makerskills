@@ -6,7 +6,7 @@ Three types. Weekly target: 2 promo + 2–3 BIP + 2–3 educational = 5–7 post
 
 ## promo (~2/week, one of the 6 properties)
 
-Direct mention of one property. Always ends with URL on its own line.
+Direct mention of one property by name. **Default: no link in the body.** If a link is included, it goes in a first comment below the post (Typefully supports this on LinkedIn) or a reply on X — never inline. See `voice.md`.
 
 **Hook = the angle, not "check out X."** Best openers:
 
@@ -18,11 +18,18 @@ Direct mention of one property. Always ends with URL on its own line.
 **Structure**:
 ```
 [hook — a take, outcome, or story]
-[1–2 sentence development]
-[CTA — conviction-coded, reader-perspective]
-
-[URL]
+[1–2 sentence development naming the property]
+[conviction-coded close — invites action without linking]
 ```
+
+If a first-comment link is being added, draft it separately as:
+```
+[short context line + URL]
+```
+
+**Decision: link or no link?**
+- No link: when the post stands alone — readers can find the property by name. Default for short promo, BIP-adjacent promo, and when the property is well-known to the audience.
+- Link in first comment: when there's a specific destination (an ebook, a new feature page, a newsletter issue) that wouldn't be obvious from the property name alone.
 
 **Avoid**:
 - "Just dropped X, link below"

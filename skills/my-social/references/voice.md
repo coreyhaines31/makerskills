@@ -20,17 +20,23 @@ First-person "I" voice. Direct, dry, conviction-coded. No hype.
 - No "Just dropped," "Just shipped" unless something actually shipped today.
 - No questions just to bait engagement.
 
+## Link placement (load-bearing)
+
+- **Default: no link in the post body.** Many promo posts work better with no link at all — let curiosity drive people to profile or search. Mention the property by name; trust the reader.
+- **When a link is needed: put it in a first comment below the post, not in the body.** Platforms downrank posts with outbound links. The comment also lets the link be richer (longer, with context) without bloating the post.
+- Never inline a URL inside the post body.
+
 ## Per-platform
 
 ### X
 - Single post default, ≤280 chars
 - Thread only if post #2 earns its place (genuinely adds, not just continues)
-- URL on its own line at the end (or in thread reply 1 for threads)
+- Link goes in a reply to the original post, not in the post itself
 - Reply game matters more than posting volume — note in plans when a post is "join the conversation" worthy
 
 ### LinkedIn
-- 200–400 chars body, blank line, then URL on its own line
-- **Do not embed links inside the body** — LinkedIn strips paste hygiene and hides the link preview. URL goes last, alone.
+- 200–400 chars body. No URL in the body.
+- Link goes in a first comment (Typefully supports this on LinkedIn drafts)
 - No hashtags (Corey doesn't use them)
 - First line is the hook — gets cut off in feed if too long, so make line 1 self-contained
 
