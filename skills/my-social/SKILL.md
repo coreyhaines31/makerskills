@@ -70,6 +70,18 @@ Follow `references/voice.md` and `references/content-types.md`. Default: **singl
 
 For **promo** posts, always end with the property URL on its own line. For LinkedIn, put a blank line before the URL — no embedded links inside the body.
 
+### Optional: inspiration scan
+
+For `promo` and `educational` posts, optionally scan inspiration accounts (`references/inspiration.md`) before drafting:
+
+1. Pick 1–2 accounts whose audience overlaps with the property
+2. Pull recent posts (agent-browser if it works on LinkedIn; otherwise ask Corey to paste examples or fall back to their X/newsletter)
+3. Extract structural patterns: hook openers, post length, line-break rhythm, CTA styles
+4. Apply ONE pattern to Corey's voice — never mimic phrasing
+5. Log new patterns in `references/patterns.md` (create if missing) so they accumulate
+
+Skip inspiration scan when Corey says "just draft it" or when iterating on an existing post.
+
 ## Step 5 — Syndicate to Typefully
 
 Ask: *"Push to Typefully now? (X + LinkedIn, your personal workspace)"*
