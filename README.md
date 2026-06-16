@@ -66,5 +66,8 @@ Claude resolves these by description match at load time. No manifest linking nee
 
 | Skill | What it does |
 |---|---|
+| [`add-skill`](./skills/add-skill/SKILL.md) | Bootstrap a new skill in this plugin. Generates SKILL.md frontmatter, creates references/, updates README, commits + pushes. Meta — speeds every other skill we build. |
+| [`business-brainstorm`](./skills/business-brainstorm/SKILL.md) | Pressure-test a potential new business or product against Corey's serial-founder filter (9 dimensions). Composes with `deep-research` and `/domain`. Archives every brainstorm so past ideas are searchable + revisit-able. |
+| [`deep-research`](./skills/deep-research/SKILL.md) | Multi-source research with citations and archive. Uses WebSearch, WebFetch, agent-browser, `/last30days`, memory, Notion. Outputs structured brief with contradictions and gaps. Compounds — every run adds to the archive. |
 | [`my-social`](./skills/my-social/SKILL.md) | Personal portfolio rotation for X + LinkedIn. Ensures each of Corey's 6 properties gets promoted ~1× every 3 weeks, with build-in-public + educational filling the rest. Drafts and syndicates to personal Typefully workspace. |
 | [`paste`](./skills/paste/SKILL.md) | Clean terminal output for any destination (Slack, Notion, Twitter, LinkedIn, email, GitHub, plain, HTML). Strips ANSI codes, box-drawing chars, prompts. Reads clipboard, writes back to clipboard + chat preview. Scans for secrets first. |
