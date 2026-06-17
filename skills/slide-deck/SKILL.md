@@ -271,6 +271,6 @@ Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Ver
 - `decide` — for talks that hinge on a decision (e.g., "should I take VC money?"), `/decide` first
 - `deep-research` — for talks needing data the deck doesn't have yet
 - `second-brain` — pull relevant `[[wiki]]` pages as content sources; the deck can cite them
-- `youtube-transcript` — turn a Factory Floor episode or talk recording into a deck outline
+- `video-watch` — turn a Factory Floor episode, Loom, or talk recording into a deck outline (run in `visual` mode to also capture key moments + slides shown)
 - `my-social` — once delivered, the talk becomes promo angles for the BIP rotation
 - `frontend-skills` (external) — for non-branded HTML decks where coreyco isn't the home
