@@ -4,15 +4,6 @@ Skills queued for future sessions. Use `/add-skill` to scaffold when ready.
 
 ## Up next
 
-### `second-brain`
-Tiago Forte / PARA-style capture-and-distill system. Possible scope:
-- Capture: fast inbox (URLs, notes, ideas, screenshots)
-- Organize: Projects / Areas / Resources / Archives
-- Distill: progressive summarization passes
-- Express: turn captured notes into outputs (posts, deck slides, briefs)
-- Storage: Notion (via `$NOTION_API_KEY`), local markdown, or both
-- Adjacent / overlap candidate: the `swipe-save` skill from earlier shortlist — decide whether to merge or split
-
 ### `slide-deck`
 Generate slide decks from a brief or topic. Possible scope:
 - Output formats: Marp / Reveal.js / Google Slides (export) / PDF
