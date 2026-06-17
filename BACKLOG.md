@@ -4,14 +4,6 @@ Skills queued for future sessions. Use `/add-skill` to scaffold when ready.
 
 ## Up next
 
-### `project-management`
-Personal project tracker across Corey's portfolio (CF, Magister, Truelist, Workhouse, peptidepatterns, Swipe Files, etc.). Possible scope:
-- Status snapshot per project (last activity, what's blocked, next action)
-- Triage incoming asks against projects
-- Cross-repo issue/PR pulse
-- Integration candidates: Plane (CF uses it), GitHub Issues, Notion
-- Composes with `weekly-review` (still on the earlier shortlist)
-
 ### `second-brain`
 Tiago Forte / PARA-style capture-and-distill system. Possible scope:
 - Capture: fast inbox (URLs, notes, ideas, screenshots)
