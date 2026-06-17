@@ -2,15 +2,6 @@
 
 Skills queued for future sessions. Use `/add-skill` to scaffold when ready.
 
-## Up next
-
-### `slide-deck`
-Generate slide decks from a brief or topic. Possible scope:
-- Output formats: Marp / Reveal.js / Google Slides (export) / PDF
-- Use cases: client pitches (CF), conference talks, internal updates, sales decks
-- Voice + visual style encoded in `references/voice.md` and `references/style.md`
-- Composes with `deep-research` (for content), `business-brainstorm` (for pitch decks), and Corey's design taste
-
 ## Also still on the earlier shortlist (not yet scoped)
 
 - `weekly-review` — Friday pulse across all properties
