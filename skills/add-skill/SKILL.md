@@ -1,20 +1,20 @@
 ---
 name: add-skill
-description: When Corey wants to bootstrap a new skill in the corey-skills plugin. Generates the SKILL.md with proper frontmatter, creates a references/ subdirectory, updates the README.md skill table, commits, and pushes. Saves the ~5 min of manual scaffolding every time. Triggers on "add a skill," "new skill," "/add-skill," "create skill called," "bootstrap skill," "scaffold skill." This skill only works inside the corey-skills repo at ~/code/corey-skills.
+description: When Corey wants to bootstrap a new skill in the makerskills plugin. Generates the SKILL.md with proper frontmatter, creates a references/ subdirectory, updates the README.md skill table, commits, and pushes. Saves the ~5 min of manual scaffolding every time. Triggers on "add a skill," "new skill," "/add-skill," "create skill called," "bootstrap skill," "scaffold skill." This skill only works inside the makerskills repo at ~/code/makerskills.
 metadata:
   version: 0.1.0
 ---
 
-# /add-skill — Bootstrap a new corey-skills skill
+# /add-skill — Bootstrap a new makerskills skill
 
-Scaffolds a new skill in `~/code/corey-skills/skills/<name>/` with the right structure, updates the README, and commits.
+Scaffolds a new skill in `~/code/makerskills/skills/<name>/` with the right structure, updates the README, and commits.
 
 ## Step 1 — Gather inputs
 
 Ask (or infer from the trigger):
 
 1. **Name** — kebab-case (e.g., `weekly-review`). Confirm it doesn't collide with existing skills:
-   - Run: `ls ~/code/corey-skills/skills/` to check this plugin
+   - Run: `ls ~/code/makerskills/skills/` to check this plugin
    - Also flag if name matches a skill in `marketing-skills` or `cf-skills` (Claude resolves by namespace, but reduces ambiguity)
 2. **One-line purpose** — what the skill does, in plain language
 3. **Trigger phrases** — what Corey will say to invoke it (the description's job). Examples: `/<name>`, `"<verb> <noun>"`, `"<keyword>"`. If not given, draft from purpose.
@@ -61,7 +61,7 @@ If seeded reference files are requested, create them with frontmatter-less markd
 
 ## Step 4 — Update README.md
 
-Append a row to the Skills table in `~/code/corey-skills/README.md`:
+Append a row to the Skills table in `~/code/makerskills/README.md`:
 
 ```markdown
 | [`<name>`](./skills/<name>/SKILL.md) | <one-line purpose> |
@@ -72,7 +72,7 @@ Insert in alphabetical order if the table is sorted, otherwise append.
 ## Step 5 — Commit and push
 
 ```bash
-cd ~/code/corey-skills && git add -A && git commit -m "Add <name> skill: <one-line purpose>" && git push
+cd ~/code/makerskills && git add -A && git commit -m "Add <name> skill: <one-line purpose>" && git push
 ```
 
 Report:

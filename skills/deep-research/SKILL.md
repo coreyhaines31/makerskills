@@ -30,7 +30,7 @@ Pick from this menu based on the question type. Note which sources you'll hit an
 | Browsable pages (auth-walled, JS-heavy) | Pricing pages, product tours, profiles | `agent-browser` via the `compound-engineering:agent-browser` skill |
 | Memory | Prior research / decisions / context Corey already captured | grep `~/.claude/projects/-Users-coreyhaines/memory/` |
 | Notion | If the topic touches a known Notion workspace (e.g., CF positioning) | Direct Notion API (key in `$NOTION_API_KEY`, see `reference_notion_api.md`) |
-| Research archive | Prior `/deep-research` runs that touched this topic | grep `~/code/corey-skills/skills/deep-research/references/research-archive/` |
+| Research archive | Prior `/deep-research` runs that touched this topic | grep `~/code/makerskills/skills/deep-research/references/research-archive/` |
 
 Run discovery passes **in parallel** where possible. Sequential only when one source needs another's output (e.g., agent-browser a URL discovered by WebSearch).
 

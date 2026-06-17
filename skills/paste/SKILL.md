@@ -83,7 +83,7 @@ Twitter and LinkedIn have practical limits. Corey said "let me trim" — don't r
 If the content has URLs and destination is **twitter** or **linkedin**:
 - Surface the URLs separately (don't include them in the body)
 - Remind Corey: links go in a first comment (LinkedIn) or reply (X), not the body
-- See `corey-skills:my-social` and `~/.claude/projects/-Users-coreyhaines/memory/feedback_social_link_placement.md`
+- See `makerskills:my-social` and `~/.claude/projects/-Users-coreyhaines/memory/feedback_social_link_placement.md`
 
 ## Examples
 

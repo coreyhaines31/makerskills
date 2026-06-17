@@ -1,13 +1,13 @@
 {
-  "name": "corey-skills",
-  "description": "Corey Haines's personal skills — day-to-day work across writing, building, running businesses, and life",
+  "name": "makerskills",
+  "description": "Corey Haines's personal maker skills — day-to-day work for a craft-forward founder running multiple products",
   "version": "0.1.0",
   "author": {
     "name": "Corey Haines",
     "url": "https://corey.co"
   },
-  "homepage": "https://github.com/coreyhaines31/corey-skills",
-  "repository": "https://github.com/coreyhaines31/corey-skills",
+  "homepage": "https://github.com/coreyhaines31/makerskills",
+  "repository": "https://github.com/coreyhaines31/makerskills",
   "license": "MIT",
   "skills": "./skills"
 }

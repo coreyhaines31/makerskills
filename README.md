@@ -1,37 +1,36 @@
-# corey-skills
+# makerskills
 
-Personal Claude Code skills for Corey Haines's day-to-day work.
+Personal Claude Code skills for Corey Haines — sibling to [`marketingskills`](https://github.com/coreyhaines31/marketingskills) and `cf-skills`.
 
-This is a private plugin — a collection of skills (specialized prompts + workflows) that Claude Code can load on demand. Each skill teaches Claude how to do one thing well, in the way I want it done.
+Where `marketingskills` covers marketing tactics and `cf-skills` covers Conversion Factory operations, **`makerskills`** covers the cross-cutting craft-forward operator work: decisions, research, brainstorming, content rotation, utilities, and the meta skill that scaffolds new skills.
 
 ## Install
 
 ```bash
 # In Claude Code
-/plugin marketplace add coreyhaines31/corey-skills
-/plugin install corey-skills@corey-skills
+/plugin marketplace add coreyhaines31/makerskills
+/plugin install makerskills@makerskills
 ```
 
 Or for local development, symlink into `~/.claude/plugins/`:
 
 ```bash
-ln -s ~/code/corey-skills ~/.claude/plugins/corey-skills
+ln -s ~/code/makerskills ~/.claude/plugins/makerskills
 ```
 
 ## Structure
 
 ```
-corey-skills/
+makerskills/
 ├── .claude-plugin/
 │   ├── plugin.json        # plugin manifest
 │   └── marketplace.json   # marketplace listing
 ├── skills/
 │   └── <skill-name>/
-│       └── SKILL.md       # skill instructions + frontmatter
+│       ├── SKILL.md       # skill instructions + frontmatter
+│       └── references/    # optional supporting files (templates, archives, etc.)
 └── README.md
 ```
-
-Each skill lives in its own directory under `skills/` with a `SKILL.md` file. Optional `references/` and `evals/` subdirs per skill (see `marketingskills` for reference).
 
 ### SKILL.md frontmatter
 
@@ -50,17 +49,17 @@ The `description` is what Claude uses to decide when to load the skill — be sp
 
 Skills can reference each other across plugins by name. In a SKILL.md description or body:
 
-- **Within this plugin:** mention by skill name (`see content-strategy`)
-- **From `marketing-skills`:** mention with prefix (`see marketing-skills:cro` or just `cro`)
-- **From `cf-skills`:** (`see cf-skills:positioning`)
+- **Within this plugin:** mention by skill name (`see decide`)
+- **From `marketing-skills`:** mention with prefix (`see marketing-skills:cro`)
+- **From `cf-skills`:** mention with prefix (`see cf-skills:positioning`)
 - **From other plugins (`compound-engineering`, `vercel`, `expo`, etc.):** mention by plugin-prefixed name
 
 Claude resolves these by description match at load time. No manifest linking needed — keep references readable in prose.
 
 ## Related skill collections
 
-- [`marketingskills`](https://github.com/coreyhaines31/marketingskills) — 43 marketing skills (CRO, copywriting, SEO, ads, etc.)
-- `cf-skills` — Conversion Factory-specific skills (positioning, brand strategy, growth engine, etc.)
+- [`marketingskills`](https://github.com/coreyhaines31/marketingskills) — 44 marketing skills (CRO, copywriting, SEO, ads, etc.)
+- `cf-skills` — Conversion Factory-specific skills (positioning, brand strategy, growth engine, cf-blog, x-li, etc.)
 
 ## Skills
 

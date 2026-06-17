@@ -1,18 +1,18 @@
 {
-  "name": "corey-skills",
+  "name": "makerskills",
   "owner": {
     "name": "Corey Haines",
     "url": "https://corey.co"
   },
   "metadata": {
-    "description": "Personal skills repo for Corey's day-to-day work",
+    "description": "Personal maker skills for Corey — day-to-day operator workflows, decisions, research, and craft",
     "version": "0.1.0",
-    "repository": "https://github.com/coreyhaines31/corey-skills"
+    "repository": "https://github.com/coreyhaines31/makerskills"
   },
   "plugins": [
     {
-      "name": "corey-skills",
-      "description": "Personal skills for Corey Haines — daily workflows, writing, building, and running businesses",
+      "name": "makerskills",
+      "description": "Personal skills for Corey Haines — decision-making, research, brainstorming, social rotation, paste utility, YouTube transcripts, and the meta skill that scaffolds new skills. Sibling to marketingskills and cf-skills.",
       "source": "./"
     }
   ]
