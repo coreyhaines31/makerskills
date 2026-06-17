@@ -137,9 +137,20 @@ Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-li
 - `deep-research` — when `query` finds gaps in the wiki, route to deep-research to expand from external sources. Deep-research output can be captured back into `raw/` for future compilation.
 - `paste` — capture content cleanly into `raw/` (especially for terminal/CLI captures).
 - `business-brainstorm` — checks `Portfolio of Businesses` and `Entrepreneurship & Startups` wiki pages for relevant context before brainstorming.
-- `decide` — pull from `Personal Philosophy` / `Productivity & Systems` wiki for principles when scoring Q34 ("what principles are we bending").
-- `slide-deck` (backlog) — compile from wiki + outputs into a deck draft.
-- `pm` — Projects/ folder in the vault is off-limits to second-brain; pm owns it.
+- `decide` — pull from `Personal Philosophy` / `Productivity & Systems` wiki for principles when scoring Q34 ("what principles are we bending"). New: a `Decision Log` wiki page accumulates the narrative form of decisions over time (the `decide` archive is the structured form; the wiki page is the story).
+- `my-social` — a `Content Ideas` wiki page hoppers hooks, frameworks, and stories. `/my-social` drafts pull candidates from there.
+- `slide-deck` — content drafted in `outputs/` becomes deck source; speaker notes can reference relevant wiki pages.
+- `pm` — Projects/ folder in the vault is off-limits to second-brain; pm owns it. But a `Workflow Docs` wiki page captures operational patterns that show up across multiple projects.
+- `cf-blog` (in `cf-skills`) — pulls from `Content Ideas` and `Customer Language` wiki pages for blog drafts.
+
+## Sibling implementations (reference)
+
+Two other systems following the same raw → wiki → outputs pattern. Both are worth watching as upgrade paths.
+
+- **[Hermes' `llm-wiki` skill](https://hermes.team)** — off-the-shelf implementation of the 3-folder pattern. Pre-built workflows for compile / query / lint. Useful for comparing schema decisions.
+- **[Gbrain](https://github.com/garrytan/gbrain)** by Garry Tan — much more sophisticated. Treats the brain as a database (Postgres or PGLite) with synthesis, graph traversal, gap analysis, scheduled cron maintenance, and MCP integration. Powers a 146K-page deployment with 24K people entities. If Corey's vault outgrows the markdown-only pattern, Gbrain is the upgrade direction. Borrows worth adopting today even without migrating: **people-as-entities** (the `person-` raw type + `People` wiki page) and **scheduled maintenance** (wire `compile` and `lint` to fire on a recurring schedule via the `loop` or `compound-engineering:schedule` skill).
+
+## Notes on quality
 
 ## Notes on quality
 
