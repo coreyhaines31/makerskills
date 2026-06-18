@@ -13,10 +13,6 @@ Skills queued for future sessions. Use `/add-skill` to scaffold when ready.
 - `gh-triage` — cross-repo issue/PR summary
 - `bjj-log` — training log
 
-## Refactors / renames
-
-- **Rename `video-watch` → `watch-video`** (verb-noun matches `read-book`, `add-skill`, etc.). Touches: skill dir, frontmatter `name`, SKILL.md heading, README, cross-references in `slide-deck` + `social-fetch` + memory. Pair with this: audit other skill names for verb-noun consistency (`my-social` could stay — it's a noun; `business-brainstorm` is verb-y enough; `deep-research` is noun-noun but fine).
-
 ## Brainstorm candidates (for `/business-brainstorm`)
 
 Not skills — business / product ideas worth pressure-testing through the `business-brainstorm` skill.

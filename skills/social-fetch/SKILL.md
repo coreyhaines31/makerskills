@@ -23,7 +23,7 @@ Normalized fetcher for social posts across platforms. Detects platform from URL,
 | `<mastodon-instance>/@<user>/<id>` (e.g. mastodon.social, hachyderm.io) | **mastodon** |
 | `threads.net/@<user>/post/<id>` | **threads** |
 | `news.ycombinator.com/item?id=<id>` | **hn** |
-| `youtube.com/watch?v=<id>` or `youtu.be/<id>` | → defer to `video-watch` |
+| `youtube.com/watch?v=<id>` or `youtu.be/<id>` | → defer to `watch-video` |
 
 If the URL doesn't match any pattern, ask Corey what platform it is.
 
@@ -105,7 +105,7 @@ Skip cache if `--no-cache` flag is set or for `--with-replies` / `--thread` (lik
 - `business-brainstorm` — pull competitor / operator commentary as evidence during scoring.
 - `cf-blog` (in `cf-skills`) — source content from a viral tweet / LinkedIn post for blog draft.
 - `second-brain` — capture a post into `raw/` with the `tweet-` / `bookmark-` prefix; the structured output makes for cleaner raw files than a screenshot or copy-paste.
-- `video-watch` — for YouTube URLs (or any video — Loom, Vimeo, Riverside, MP4), route there instead.
+- `watch-video` — for YouTube URLs (or any video — Loom, Vimeo, Riverside, MP4), route there instead.
 
 ## Known limits
 

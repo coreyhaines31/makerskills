@@ -1,13 +1,13 @@
 ---
 name: read-book
-description: When Corey wants to read and extract structured notes from a book — PDF, EPUB, MOBI, markdown, .txt, pasted text, or URL to a public-domain work. Reads in chunks (by chapter when a TOC exists, by 50-page blocks otherwise), extracts per-chapter TL;DR + key concepts + quotes + action items + frameworks, and offers to capture to second-brain raw/ as a highlights- file. Four modes — notes (default, chapter-by-chapter), summary (whole-book TL;DR + 3–5 takeaways), quotes (pull-quote highlights only), study (notes + Q&A spaced-rep prep). Triggers on "/read-book," "read this book," "extract notes from this PDF," "what's in this book," "summarize this ebook," "pull quotes from this." Sibling to video-watch (same content-consumption pattern, different medium).
+description: When Corey wants to read and extract structured notes from a book — PDF, EPUB, MOBI, markdown, .txt, pasted text, or URL to a public-domain work. Reads in chunks (by chapter when a TOC exists, by 50-page blocks otherwise), extracts per-chapter TL;DR + key concepts + quotes + action items + frameworks, and offers to capture to second-brain raw/ as a highlights- file. Four modes — notes (default, chapter-by-chapter), summary (whole-book TL;DR + 3–5 takeaways), quotes (pull-quote highlights only), study (notes + Q&A spaced-rep prep). Triggers on "/read-book," "read this book," "extract notes from this PDF," "what's in this book," "summarize this ebook," "pull quotes from this." Sibling to watch-video (same content-consumption pattern, different medium).
 metadata:
   version: 0.1.0
 ---
 
 # /read-book — Extract structured notes from books and long PDFs
 
-Sibling to `video-watch`. Same content-consumption pattern: ingest → chunk → extract → optionally capture to second-brain.
+Sibling to `watch-video`. Same content-consumption pattern: ingest → chunk → extract → optionally capture to second-brain.
 
 ## Step 1 — Parse input
 
@@ -149,7 +149,7 @@ In chat:
 - `business-brainstorm` — when scoring an idea (e.g., business books on similar models), read-book provides the structured evidence.
 - `decide` — when a decision hinges on what an authority has written (e.g., "should I take VC money?" → read Naval / Jason Cohen), `read-book` extracts the relevant chapter.
 - `slide-deck` — book takeaways → talk material (book talk pattern).
-- `video-watch` — sibling skill, same content-consumption pattern. Audiobook? Use `video-watch transcript` mode.
+- `watch-video` — sibling skill, same content-consumption pattern. Audiobook? Use `watch-video transcript` mode.
 - `nonfictionskills` / `fictionskills` — when researching to *write* a book, this skill reads the comp titles.
 
 ## Error handling

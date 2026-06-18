@@ -1,11 +1,11 @@
 ---
-name: video-watch
-description: When Corey wants to extract content from a video — YouTube, Loom, Vimeo, Riverside, Zoom recording, local MP4, X/IG video, anything yt-dlp supports. Three depth modes user picks per invocation — transcript (just words, fast/free), visual (transcript + ffmpeg frame extraction + Claude vision pass on key moments), multimodal (Gemini native video ingestion if $GEMINI_API_KEY set, else dense Claude vision). Uses MLX-Whisper local on Mac for transcription, falls back to platform-provided transcripts when available (Loom, Riverside, YouTube auto-subs). Saves to ~/Documents/videos/<source>-<slug>-<date>/ and optionally captures summary to second-brain raw/ as call-/meeting-/note-. Triggers on "/video-watch <url>," "watch this video," "transcribe this loom," "analyze this video," "summarize this recording," "key moments from this," "what happened in this video." This skill replaces and broadens the prior youtube-transcript skill.
+name: watch-video
+description: When Corey wants to extract content from a video — YouTube, Loom, Vimeo, Riverside, Zoom recording, local MP4, X/IG video, anything yt-dlp supports. Three depth modes user picks per invocation — transcript (just words, fast/free), visual (transcript + ffmpeg frame extraction + Claude vision pass on key moments), multimodal (Gemini native video ingestion if $GEMINI_API_KEY set, else dense Claude vision). Uses MLX-Whisper local on Mac for transcription, falls back to platform-provided transcripts when available (Loom, Riverside, YouTube auto-subs). Saves to ~/Documents/videos/<source>-<slug>-<date>/ and optionally captures summary to second-brain raw/ as call-/meeting-/note-. Triggers on "/watch-video <url>," "watch this video," "transcribe this loom," "analyze this video," "summarize this recording," "key moments from this," "what happened in this video." This skill replaces and broadens the prior youtube-transcript skill.
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
-# /video-watch — Transcribe and analyze any video at the depth you choose
+# /watch-video — Transcribe and analyze any video at the depth you choose
 
 Replaces and broadens the prior `youtube-transcript` skill. YouTube is now one of many sources; depth is user-controlled.
 
@@ -26,10 +26,10 @@ Detect source from URL pattern or file extension. If ambiguous, ask.
 
 | Invocation | Mode | What you get |
 |---|---|---|
-| `/video-watch <url>` | **transcript** (default) | Clean text, metadata, optional chapters |
-| `/video-watch <url> transcript` | transcript | Same as default |
-| `/video-watch <url> visual` | visual | Transcript + frames at intervals + Claude vision pass identifying key moments |
-| `/video-watch <url> multimodal` | multimodal | Native video to Gemini (if `$GEMINI_API_KEY`), else dense Claude vision frame-by-frame |
+| `/watch-video <url>` | **transcript** (default) | Clean text, metadata, optional chapters |
+| `/watch-video <url> transcript` | transcript | Same as default |
+| `/watch-video <url> visual` | visual | Transcript + frames at intervals + Claude vision pass identifying key moments |
+| `/watch-video <url> multimodal` | multimodal | Native video to Gemini (if `$GEMINI_API_KEY`), else dense Claude vision frame-by-frame |
 
 If the depth isn't specified and the video is >10 minutes, ask before defaulting (visual/multimodal cost real money on long videos).
 
