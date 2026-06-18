@@ -1,6 +1,6 @@
 # Skill backlog
 
-Skills queued for future sessions. Use `/add-skill` to scaffold when ready.
+Skills queued for future sessions. Use `/create-skill` to scaffold when ready.
 
 ## Skill candidates (on the shortlist)
 
