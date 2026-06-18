@@ -51,7 +51,7 @@ skills/<name>/
     └── <seeded files>  # only if specified
 ```
 
-The SKILL.md body should follow the pattern of existing skills (`my-social`, `paste`):
+The SKILL.md body should follow the pattern of existing skills (`jab-hook`, `paste`):
 - `# /<name> — <one-line purpose>`
 - `## Step 1 — <first phase>` … etc.
 - Sections for: inputs, processing, outputs, cross-references
@@ -88,5 +88,5 @@ If yes, work through it interactively — the scaffold is intentionally minimal;
 
 ## Cross-references
 
-- The existing skills (`my-social`, `paste`, `deep-research`, `business-brainstorm`) are the best style references — match their structure (numbered steps, references/ subdir, voice).
+- The existing skills (`jab-hook`, `paste`, `deep-research`, `business-brainstorm`) are the best style references — match their structure (numbered steps, references/ subdir, voice).
 - For description-writing patterns, look at how `marketing-skills` skills describe themselves — heavy on trigger phrases.

@@ -278,5 +278,5 @@ Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Ver
 - `deep-research` — for talks needing data the deck doesn't have yet
 - `second-brain` — pull relevant `[[wiki]]` pages as content sources; the deck can cite them
 - `watch-video` — turn a Factory Floor episode, Loom, or talk recording into a deck outline (run in `visual` mode to also capture key moments + slides shown)
-- `my-social` — once delivered, the talk becomes promo angles for the BIP rotation
+- `jab-hook` — once delivered, the talk becomes promo angles for the BIP rotation
 - `frontend-skills` (external) — for non-branded HTML decks where coreyco isn't the home

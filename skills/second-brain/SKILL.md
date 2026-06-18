@@ -138,7 +138,7 @@ Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-li
 - `paste` — capture content cleanly into `raw/` (especially for terminal/CLI captures).
 - `business-brainstorm` — checks `Portfolio of Businesses` and `Entrepreneurship & Startups` wiki pages for relevant context before brainstorming.
 - `decide` — pull from `Personal Philosophy` / `Productivity & Systems` wiki for principles when scoring Q34 ("what principles are we bending"). New: a `Decision Log` wiki page accumulates the narrative form of decisions over time (the `decide` archive is the structured form; the wiki page is the story).
-- `my-social` — a `Content Ideas` wiki page hoppers hooks, frameworks, and stories. `/my-social` drafts pull candidates from there.
+- `jab-hook` — a `Content Ideas` wiki page hoppers hooks, frameworks, and stories. `/jab-hook` drafts pull candidates from there.
 - `slide-deck` — content drafted in `outputs/` becomes deck source; speaker notes can reference relevant wiki pages.
 - `pm` — Projects/ folder in the vault is off-limits to second-brain; pm owns it. But a `Workflow Docs` wiki page captures operational patterns that show up across multiple projects.
 - `cf-blog` (in `cf-skills`) — pulls from `Content Ideas` and `Customer Language` wiki pages for blog drafts.

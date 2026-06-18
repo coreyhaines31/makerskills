@@ -163,5 +163,5 @@ When generating status / weekly outputs:
 - `decide` — when a project hits a real decision, route to `/decide`
 - `deep-research` — when a card needs research before it's actionable
 - `business-brainstorm` — when an idea on the Backlog deserves pressure-testing before triage
-- `my-social` — when status / shipped items become BIP-post material
+- `jab-hook` — when status / shipped items become BIP-post material
 - Memory (`project_*.md`) — for portfolio context per business

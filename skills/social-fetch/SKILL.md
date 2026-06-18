@@ -1,6 +1,6 @@
 ---
 name: social-fetch
-description: When Corey or another skill needs to fetch the content of a social media post by URL — tweet, X thread, LinkedIn post, Instagram post, TikTok video, Bluesky post, Reddit thread, Mastodon status, Threads post, Hacker News thread. Returns normalized structured data (author, posted_at, text, engagement counts, media URLs, replies if requested) regardless of platform. Tries strategies in order: direct API (Bluesky, Mastodon, HN, Reddit), agent-browser with modal dismissal (LinkedIn, X preview), Wayback Machine (older posts), paid APIs (ScrapeCreators / Apify — only if env keys present). Triggers on "/social-fetch <url>," "fetch this tweet," "fetch this post," "what does this LinkedIn say," "read this thread," "pull this post." Used by deep-research (citing specific posts), my-social (inspiration account analysis), business-brainstorm (competitor / operator commentary), cf-blog (sourcing from social).
+description: When Corey or another skill needs to fetch the content of a social media post by URL — tweet, X thread, LinkedIn post, Instagram post, TikTok video, Bluesky post, Reddit thread, Mastodon status, Threads post, Hacker News thread. Returns normalized structured data (author, posted_at, text, engagement counts, media URLs, replies if requested) regardless of platform. Tries strategies in order: direct API (Bluesky, Mastodon, HN, Reddit), agent-browser with modal dismissal (LinkedIn, X preview), Wayback Machine (older posts), paid APIs (ScrapeCreators / Apify — only if env keys present). Triggers on "/social-fetch <url>," "fetch this tweet," "fetch this post," "what does this LinkedIn say," "read this thread," "pull this post." Used by deep-research (citing specific posts), jab-hook (inspiration account analysis), business-brainstorm (competitor / operator commentary), cf-blog (sourcing from social).
 metadata:
   version: 0.1.0
 ---
@@ -101,7 +101,7 @@ Skip cache if `--no-cache` flag is set or for `--with-replies` / `--thread` (lik
 ## Composes with
 
 - `deep-research` — cite specific posts in research briefs. When research surfaces a relevant tweet/post URL, fetch and include in the brief.
-- `my-social` — pull recent posts from inspiration accounts for deeper format analysis (currently uses agent-browser inline; should call this skill instead).
+- `jab-hook` — pull recent posts from inspiration accounts for deeper format analysis (currently uses agent-browser inline; should call this skill instead).
 - `business-brainstorm` — pull competitor / operator commentary as evidence during scoring.
 - `cf-blog` (in `cf-skills`) — source content from a viral tweet / LinkedIn post for blog draft.
 - `second-brain` — capture a post into `raw/` with the `tweet-` / `bookmark-` prefix; the structured output makes for cleaner raw files than a screenshot or copy-paste.

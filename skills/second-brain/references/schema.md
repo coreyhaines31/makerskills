@@ -101,7 +101,7 @@ Pages whose existence makes other skills sharper:
 | Wiki page | Composes with | Why |
 |---|---|---|
 | **Decision Log** | `decide` | Narrative version of decisions made — the `decide` skill archives one-off decisions; the wiki page is the story of how decisions stacked over time on a topic |
-| **Content Ideas** | `my-social`, `cf-blog` | Centralized hopper of hooks, frameworks, stories — drafted posts pull from here |
+| **Content Ideas** | `jab-hook`, `cf-blog` | Centralized hopper of hooks, frameworks, stories — drafted posts pull from here |
 | **Customer Language** | CF positioning + sales | Verbatim phrases from prospects/customers — used for copy, headlines, objections |
 | **Offer Notes** | CF positioning | What's been tried, what landed, what didn't |
 | **Recurring Questions** | CF sales, client onboarding | Questions asked >3 times across calls; pre-answered for SOP / FAQ / scripts |

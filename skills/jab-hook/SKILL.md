@@ -1,13 +1,13 @@
 ---
-name: my-social
-description: When Corey wants to plan, pick the next post, audit coverage, or draft + syndicate personal social posts on X and LinkedIn. Enforces a portfolio rotation so each of his six properties (Conversion Factory, Swipe Files, Magister, Truelist, Marketing Skills, ebooks) gets promoted at least once every ~3 weeks, with build-in-public and educational content filling the rest. Drafts go into his personal Typefully workspace via MCP. Triggers on "what should I post," "plan my socials," "next promo," "social rotation," "promote [property]," "BIP post," "audit my socials," "what haven't I posted about." This is for Corey's personal feed — for CF partner syndication use cf-skills:x-li, for generic frameworks use marketing-skills:social.
+name: jab-hook
+description: Gary Vaynerchuk's jab-jab-jab-right-hook framework applied to Corey's six-property portfolio rotation on X and LinkedIn. Jabs = build-in-public + educational (value). Hooks = promo (the ask). Each of his six properties (Conversion Factory, Swipe Files, Magister, Truelist, Marketing Skills, ebooks) gets a hook at least once every ~3 weeks; jabs fill the rest. Drafts go into his personal Typefully workspace via MCP. Modes — plan (7-day plan), pick-next (single post), audit (coverage report), draft (specific post). Triggers on "/jab-hook," "what should I post," "plan my socials," "next promo," "next jab," "next hook," "social rotation," "promote [property]," "BIP post," "audit my socials," "what haven't I posted about." This is for Corey's personal feed — for CF partner syndication use cf-skills:x-li, for generic frameworks use marketing-skills:social.
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
-# /my-social — Personal portfolio rotation + drafting
+# /jab-hook — Jab-jab-jab-right-hook for Corey's portfolio
 
-Keeps Corey's personal X + LinkedIn feed consistently promoting his six properties while mixing in build-in-public and educational content. Drafts to personal Typefully workspace.
+Gary Vaynerchuk's framework applied to your six properties: keep the feed mostly *jabs* (value — BIP + educational) so the *hooks* (promo) earn attention when they land. Drafts to personal Typefully workspace.
 
 ## Mental model
 
