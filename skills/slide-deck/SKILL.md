@@ -77,14 +77,20 @@ Slide types and which primitives fit:
 | Resource / link | `Body` + URL on its own line | Outbound (rare — Corey's voice says minimize) |
 | Close / CTA | `Heading` + `Body` + `BulletList` for next steps | What the audience should do |
 
-**Voice anchors** (see `narrative-and-voice.md`):
-- Direct, conviction-coded, reader-perspective ("you'll know X" not "I'll teach you X")
-- Specific nouns, short sentences, verbs that do work
-- No filler ("Today I want to talk about…") — open with a take
+**Voice anchors — write for the ear, not the page** (see `narrative-and-voice.md` for full rules):
+
+- **Decks are spoken aloud.** Slide text + speaker notes both get said out loud. Write as you'd talk.
+- **Read every slide out loud before saving.** If you stumble, if it sounds like a press release, rewrite.
+- **Contractions everywhere** (*don't, won't, you're, I'd*). Strip them only on reading-first decks.
+- **"You" — never "the audience," "users," "people."**
+- **Numbers said naturally** ("a quarter" not "23.7%").
+- Conviction-coded, listener-perspective, short sentences, specific nouns.
+- No filler ("Today I want to talk about…") — open with a take.
+- (Reading-first density mode exception: written voice is fine since no one will speak the slides — see `narrative-and-voice.md`.)
 
 ## Step 5 — Speaker notes
 
-Every slide gets 3–5 notes lines. Each line is a complete thought a speaker would say. Notes are spoken Corey, not written Corey — a bit more conversational than the slide body.
+Every slide gets 3–5 notes lines. Notes are *the full spoken talk* — write them the way you'd actually say them, pauses and asides included. Slide text is the headline; notes are the full thought.
 
 Notes structure:
 1. **The opener** — what you say when the slide comes up

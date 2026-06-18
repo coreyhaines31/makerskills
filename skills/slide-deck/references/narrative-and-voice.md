@@ -1,20 +1,39 @@
 # Narrative and voice for branded decks
 
-## Voice (load-bearing)
+## Voice (LOAD-BEARING — write for the ear, not the page)
 
-Corey's slide voice is the same as his social and copy voice:
+**Decks are spoken aloud.** Slide text gets read by the presenter (or the audience reads it WHILE the presenter is talking). Speaker notes are spoken verbatim. Write everything as you'd *say* it — not as you'd *write* it.
+
+The fastest gut check: **read the slide out loud.** If you stumble, if it sounds like a slide deck, if a friend listening would think "weird thing to say" — rewrite.
+
+This rule dominates everything below. For the rare exception (reading-first / async handouts where no one will speak the slides), see the bottom of this file.
+
+### Conversational rules (apply to slide text AND notes)
+
+1. **Use contractions everywhere.** *don't, won't, you're, I'd, we've, can't.* Formal writing strips them; spoken language requires them. A slide without contractions reads like a press release.
+2. **Sentences short enough for one breath.** If you have to inhale mid-sentence to finish it, split it.
+3. **"You" — never "the audience," "users," "people."** You're talking to a person, not a category.
+4. **Spell numbers the way you'd say them.** *"roughly a quarter"* not *"approximately 23.7%."* *"three out of four"* not *"75%."* If precision matters, say the number and then translate ("76% — three in four").
+5. **Cut words you wouldn't say.** *Therefore, furthermore, additionally, in conclusion* — never. *So, also, plus, here's the thing* — sometimes. Match how you actually transition between thoughts when talking.
+6. **No nouns that sound smart but feel dead.** *Optimization, utilization, implementation* — replace with verbs (*tightening, using, shipping*).
+7. **Read every slide aloud before saving.** If it doesn't sound like something you'd say, it won't sound like something you'd say.
+
+### Voice DNA (carries over from social + copy)
 
 1. **Conviction-coded** — make the audience feel the take, not the hedging
-2. **Reader-perspective** — "you'll know X" not "I'll teach you X"
+2. **Listener-perspective** — "you'll know X" not "I'll teach you X"
 3. **Specific nouns, short sentences, verbs that do work**
 4. **Lead with a take, not a question**
 
-Voice anti-patterns to avoid:
-- "Today I want to talk about…" / "Let me start by…"
+### Voice anti-patterns to avoid
+
+- "Today I want to talk about…" / "Let me start by…" / "First, let me…"
 - "I'm excited to be here" (save it for notes, not the slide)
 - "Has anyone ever…?" (engagement bait)
 - Emojis as decoration
-- Generic AI aesthetics in copy ("dive deep," "leverage synergies")
+- Generic AI aesthetics in copy ("dive deep," "leverage synergies" — full list below)
+- Sentences that *parse* on the page but *don't land* in the ear (compound subordinate clauses, parentheticals)
+- Words you'd never say in real life (*aforementioned, henceforth, utilize*)
 
 ## Anti-AI-slop discipline
 
@@ -43,7 +62,14 @@ LLMs converge toward generic copy. Hold a higher bar by avoiding these specific 
 
 The voice should be unmistakably Corey's. If you can imagine three other marketers reading the same slide and it landing, it's not voiced enough.
 
-Voice exceptions in **speaker notes**: notes are SPOKEN Corey — slightly more conversational, can include "you know," asides, callbacks. The slide text is written Corey — tighter.
+### Slide text vs speaker notes — the gap is small
+
+Both get spoken. The difference:
+
+- **Slide text** = the headline of what you're saying. Tight, scannable, the *take*. Still conversational — still uses contractions, still reads aloud naturally — but fewer words.
+- **Speaker notes** = the full spoken delivery. More room for asides, callbacks, "you know," story digressions, second-person directness. Still in your voice — just looser.
+
+Old framing said slide text was "written Corey" and notes were "spoken Corey." That's wrong — slide text is *abbreviated spoken Corey*. Both pass the read-aloud test.
 
 ## Narrative patterns (pick one, don't force any)
 
@@ -103,19 +129,29 @@ Best for: short decks (5–10 slides), lightning talks.
 
 ## Speaker notes discipline
 
-Notes should be **spoken Corey**, not written Corey. Slightly more conversational, more callbacks, more "you know" allowed.
+Notes are the *full spoken talk*. If a presenter could read just the notes (not the slides) and deliver the talk, the notes are doing their job. Write them as you'd actually say them — pauses, callbacks, asides included.
 
 Structure per slide (3–5 lines):
 
-1. **Opener** — what you say when the slide appears
+1. **Opener** — the exact phrase you say when the slide appears
 2. **Point** — the one idea this slide makes
 3. **Support** — example, data, color
 4. **Transition** — segue into the next slide
 5. *(Optional)* **Aside** — quip, callback, audience read
 
-Notes are the *full talk*. If a presenter could read just the notes (not the slides) and deliver the talk, the notes are doing their job.
-
 Title slides and section dividers get 2–3 notes lines, not 5.
+
+### Notes-specific tics that work (since notes are pure spoken)
+- "Here's the thing —" / "So check this out —"
+- Direct address: "You've probably felt this…"
+- Callbacks to earlier slides ("Remember when I said X? This is why.")
+- Mini-stories: "Last quarter, a client told me…"
+- One-line laughs / asides — fine in notes, awkward on slides
+
+### Notes-specific tics to skip
+- "I'm going to talk about…" (just talk about it)
+- Restating the slide verbatim — notes should *say more* than the slide does
+- Reading numbers or bullets aloud — translate them to natural speech ("the first one" not "bullet point one")
 
 ## Length calibration
 
@@ -157,6 +193,8 @@ Rules:
 - **Fewer slides, denser slides.** A 10-page reading-first deck conveys what a 25-page speaker-led deck would.
 - **Speaker notes optional** (no one's reading them; audience reads the slide).
 - **Favor: TwoCol, BulletList with longer items, framework slides with explanations under each bullet, tables.**
+
+**Voice exception:** the "write for the ear" rule at the top relaxes here. Reading-first decks are *read silently*, so written voice is fine (more formal sentences, fuller words, longer constructions). Still avoid AI-slop banned terms — those are bad written too. But the conversational gut check (read aloud, contractions everywhere) doesn't apply to reading-first decks.
 
 ### When stated needs are mixed
 
