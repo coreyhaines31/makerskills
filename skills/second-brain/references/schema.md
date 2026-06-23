@@ -134,3 +134,56 @@ The `outputs/` folder hosts generated artifacts. Common kinds:
 - **No orphan pages**
 - **Summaries are concise**
 - **Preserve nuance** — don't flatten contradictions
+
+---
+
+## Publishing alternatives — how to render `outputs/`
+
+When `outputs/<file>.md` should leave the vault as a polished artifact (research brief to a client, summary to share, slide-deck source, archive PDF), use one of these:
+
+### Default: pandoc + shared stylesheet
+
+```bash
+# PDF (requires basictex: brew install --cask basictex, then once:
+# sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended)
+pandoc "outputs/<file>.md" \
+  --css ~/.local/share/makerskills/render.css \
+  --metadata title="<title>" \
+  --pdf-engine=xelatex \
+  -o "outputs/<file>.pdf"
+
+# HTML (standalone, CSS inlined — drop into a static host or email as attachment)
+pandoc "outputs/<file>.md" \
+  --standalone \
+  --embed-resources \
+  --css ~/.local/share/makerskills/render.css \
+  --metadata title="<title>" \
+  -o "outputs/<file>.html"
+```
+
+Shared stylesheet at `~/.local/share/makerskills/render.css` — also used by `read-book`. Edit freely; system-font + max-width 720 + print-optimized.
+
+### Heavier option: Quarto (`.qmd`)
+
+[Quarto](https://quarto.org) is Posit's publishing system — markdown-superset with executable code blocks (Python/R/Julia), native citations + bibliography, cross-references, equations, and multi-format output (HTML, PDF, slides, ePub, books, websites).
+
+**Worth adopting if you want any of:**
+- A renderable **public-facing personal handbook / book / website** from the wiki (Quarto projects build full sites with navigation, search, themes)
+- **Native citations** in research briefs (BibTeX/CSL → consistent inline + bibliography)
+- **Executable analysis** inline in notes (bloodwork charts, financial models, ML experiments)
+- **Cross-references** to figures / tables / sections by name (richer than positional markdown links)
+
+**Costs:**
+- Obsidian doesn't render `.qmd` natively — daily-driver editing UX degrades
+- `[[wikilinks]]` are Obsidian-only; Quarto wants standard markdown links
+- YAML frontmatter conventions differ from Obsidian's
+- New tool (`brew install quarto`, ~500MB) + optional Python/R engines
+- Learning curve (callouts, cross-ref keys, project config, `_quarto.yml`)
+- Most second-brain operations (capture, compile, query) gain nothing from Quarto
+
+**Status: skipped by default.** Pandoc + shared CSS handles 80% of publishing needs with 5% of the complexity. Revisit Quarto if/when:
+1. You decide to publish the wiki as a personal handbook site, OR
+2. You start writing a book using the corpus, OR
+3. You add executable analysis to your notes
+
+For everyday capture / compile / query / outputs, plain markdown + pandoc is plenty.

@@ -141,6 +141,8 @@ In chat:
 | `/read-book <input> quotes` | quotes | Chapter-by-chapter, but only output quotes |
 | `/read-book <input> study` | study | Notes + Q&A spaced-rep cards |
 | `/read-book <input> --capture` | (any) | Skip the ask step, auto-write to second-brain raw/ |
+| `/read-book <input> --render pdf` | (any) | Also render the final `notes.md` to PDF via pandoc (uses `~/.local/share/makerskills/render.css`). See `references/output-modes.md`. |
+| `/read-book <input> --render html` | (any) | Same as above but HTML |
 
 ## Composes with
 

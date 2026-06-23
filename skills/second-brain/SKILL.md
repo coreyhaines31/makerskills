@@ -103,6 +103,7 @@ Answer a question using ONLY the wiki/raw corpus. Different from `deep-research`
    - The answer
    - List of wiki pages consulted
 5. **Show the answer in chat** + path to the saved output
+6. **Optional render**: if `--render pdf` or `--render html` was passed, pipe the output through pandoc using the shared stylesheet. See `references/schema.md` → "Publishing alternatives" for the commands.
 
 ### lint
 

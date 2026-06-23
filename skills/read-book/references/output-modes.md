@@ -174,3 +174,62 @@ The Q&A format makes the output directly importable to spaced-repetition apps. I
 - **Page numbers**: always include if available. For EPUB-converted books without stable page numbers, use chapter + paragraph approximation (`Ch 3, ¶12`).
 - **Frameworks** in the `notes` mode get their own bullet because they're the most reusable — a framework you remember outperforms 10 ideas you forget.
 - **Disagreements / pushback** in `notes` mode is mandatory if you have any. Reading critically beats reading reverently — surface the friction.
+
+---
+
+## Render to PDF / HTML (pandoc)
+
+Triggered by `--render pdf` or `--render html` flag on the invocation. Post-processes the final `notes.md` (or `summary.md` / `quotes.md` / `study.md`) into a shareable, styled document.
+
+### Prerequisites
+
+```bash
+# One-time
+brew install pandoc                                    # required
+brew install --cask basictex                           # required for PDF (smaller than full mactex)
+# After basictex install, run once:
+sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
+```
+
+### Commands
+
+```bash
+# PDF
+pandoc "<workdir>/notes.md" \
+  --css ~/.local/share/makerskills/render.css \
+  --metadata title="<book title>" \
+  --pdf-engine=xelatex \
+  -o "<workdir>/notes.pdf"
+
+# HTML (standalone — CSS inlined into the file)
+pandoc "<workdir>/notes.md" \
+  --standalone \
+  --embed-resources \
+  --css ~/.local/share/makerskills/render.css \
+  --metadata title="<book title>" \
+  -o "<workdir>/notes.html"
+```
+
+The shared stylesheet at `~/.local/share/makerskills/render.css` is system-font + max-width 720px + print-optimized. Edit it freely — it's your file, used by `read-book` and `second-brain`.
+
+After rendering, open:
+
+```bash
+open "<workdir>/notes.pdf"   # or notes.html
+```
+
+### When to render
+
+- **PDF** for archive / email / print — looks the same on any device, no JS
+- **HTML** for sharing via link (drop into a static-hosted folder) or browser viewing — preserves CSS, can be edited live
+- Don't auto-render unless `--render` is specified — most book notes stay as markdown for Obsidian / second-brain capture
+
+---
+
+## Alternative: Quarto (`.qmd`) for richer publishing
+
+If you ever want **executable code blocks** (Python/R/Julia analysis inline), **native citations + bibliography** (BibTeX/CSL), **multi-format publishing** (slides, websites, books — not just PDF/HTML), or to **turn your reading corpus into a published handbook/site**, consider [Quarto](https://quarto.org) instead of pandoc.
+
+Tradeoff: gains rich publishing features; costs an extra tool, breaks Obsidian native rendering (wikilinks especially), adds frontmatter complexity. Skipped by default — see `second-brain/references/schema.md` for the full pros/cons.
+
+For most book notes (one-off summaries, shared briefs, personal archive), **pandoc + the shared CSS above is plenty.**
