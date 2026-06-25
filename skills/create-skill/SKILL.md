@@ -14,6 +14,7 @@ Replaces the prior `add-skill`. Primary use case: you've been iterating on a wor
 | Invocation | Mode | What it means |
 |---|---|---|
 | `/create-skill` (mid-conversation) | **from-chat** (default) | Extract the skill from the workflow we've been discussing in this session. The most common case. |
+| `/create-skill from-video <url-or-path>` | **from-video** | Corey recorded a Loom / Zoom / screen-share of himself doing a process. Skill calls `watch-video` (visual mode) to get transcript + key visual moments, then synthesizes the workflow into a SKILL.md. Best for visual workflows hard to describe in text. |
 | `/create-skill from-dump` + pasted content | **from-dump** | User provides a brief, prior conversation transcript, exported chat, or notes. Skill structures it. |
 | `/create-skill from-scratch <name>` | **from-scratch** | Fresh idea with no source material — interactive Q&A to flesh it out (the prior `add-skill` behavior). |
 
@@ -67,6 +68,29 @@ Infer if obvious (a skill about pricing strategy → marketingskills; a skill ab
 1. **Parse the dump** — could be a Notion page, a Slack thread, a Loom transcript, a brief from a teammate, an exported ChatGPT conversation.
 2. **Apply the same synthesis logic** as from-chat — what's the trigger, steps, references, output, voice.
 3. **Cite the dump** in the SKILL.md (where in the dump did each rule come from).
+
+### from-video
+
+The pattern: **record a workflow once, AI converts to skill.** Best for visual processes that are hard to describe in text — clicking through specific apps, UI flows, browser-based workflows, multi-tool stitching.
+
+1. **Take the input** — a Loom / Zoom / Riverside / YouTube URL or a local MP4 file. Corey just hits record while doing the process and explains as he goes.
+2. **Call `watch-video <url> visual`** — get the transcript AND key visual moments (UI changes, decisions, tool switches). `visual` mode is the default here, not `transcript`, because the screen state matters as much as the words.
+3. **Read the watch-video outputs:**
+   - `<workdir>/transcript.txt` — what was said
+   - `<workdir>/moments.md` — what was on screen at each timestamp
+   - `<workdir>/summary.md` — synthesized overview
+4. **Synthesize the workflow:**
+   - **Trigger**: what was Corey doing when he started recording? (Often said in the first 30 seconds.)
+   - **Steps**: map from the visual moments + matching transcript. Each major UI change or decision = a step.
+   - **Tools used**: which apps appeared on screen. Note any API keys, files, URLs referenced.
+   - **Decision points**: moments where the transcript said "now if X, do Y; if Z, do this instead" — encode as conditional logic in the skill.
+   - **Output / success**: what did the final state look like? (Often the last few seconds.)
+   - **Voice / cadence**: how Corey talks through the process — that's the skill's voice baseline.
+5. **Surface gaps** — anything ambiguous in the video that needs clarification (e.g., "you said 'use the usual template' — which one?"). Ask 2–4 tight questions.
+6. **Draft the SKILL.md** — cite video moments inline by timestamp: *"Per the demo at 00:01:32, after clicking 'Create', the skill should..."*
+7. **Optionally also save to second-brain** as `call-<slug>.md` or `note-<slug>.md` so the source video is captured alongside the skill it produced.
+
+Heuristic: if Corey's recording is >10 minutes, the process is probably too big for one skill. Suggest splitting before drafting.
 
 ### from-scratch
 
@@ -141,9 +165,12 @@ After scaffolding:
 ## Composes with
 
 - `adapt-skill` — for porting an EXTERNAL skill into your namespace (different job — that's adapting, this is creating). If Corey says "let's borrow that skill from gstack," use `adapt-skill`. If he says "let's encode what we just did," use this.
+- `update-skill` — sibling. Use that for improving EXISTING skills from learnings (not creating new).
+- **`watch-video`** — load-bearing for `from-video` mode. Visual-mode output (transcript + key visual moments + summary) is the input for skill synthesis. Always call in `visual` mode for process recordings — UI state matters as much as words.
 - `compound-engineering:create-agent-skill` (agent) — call into this for format and best-practices expertise
 - `compound-engineering:skill-creator` (skill) — same
 - `compound-engineering:heal-skill` (skill) — for QA pass on the generated skill
+- `second-brain` — optionally capture the source video as `raw/call-<slug>.md` (Loom/Zoom recording) or `raw/note-<slug>.md` (live walkthrough) so the source artifact lives alongside the skill it produced.
 
 ## Notes on quality
 

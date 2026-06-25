@@ -274,6 +274,7 @@ In chat:
 - `cf-blog` (in `cf-skills`) — Factory Floor episodes: this skill replaces inline yt-dlp; outputs feed cf-blog's draft pipeline
 - `slide-deck` — talk recordings → outline extraction → deck draft (loop)
 - `jab-hook` — quotes + clip-worthy moments from podcast/talk videos feed BIP/promo posts
+- **`create-skill from-video`** — primary use case for `visual` mode on process recordings. Corey records himself doing a workflow (Loom/screen-share), this skill extracts transcript + key visual moments, then `create-skill` synthesizes the workflow into a SKILL.md. "Record once, AI converts to skill."
 
 ## Error handling
 
