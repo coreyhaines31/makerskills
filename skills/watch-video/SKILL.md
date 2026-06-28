@@ -198,14 +198,37 @@ After moments are identified, synthesize the whole video into `<workdir>/summary
 ### Backend selection
 
 1. **Gemini native** if `$GEMINI_API_KEY` is set (much cheaper + faster than per-frame for long videos):
+
+   **Default model: `gemini-3.5-flash`** (released May 2026, ~$1.50 input / $9 output per 1M tokens; ~$0.15/sec of video; beats 3.1 Pro on coding/agentic benchmarks at 4× the speed). Override to `gemini-3.1-pro` for brand audits / high-stakes analysis where details matter; `gemini-2.5-flash-lite` for bulk cheap processing.
+
    ```bash
-   # Upload via Files API
-   curl -X POST "https://generativelanguage.googleapis.com/upload/v1beta/files?key=$GEMINI_API_KEY" \
+   # Step 1: Upload video via Files API
+   FILE_URI=$(curl -s -X POST "https://generativelanguage.googleapis.com/upload/v1beta/files?key=$GEMINI_API_KEY" \
      -H "X-Goog-Upload-Command: start, upload, finalize" \
      -H "Content-Type: video/mp4" \
-     --data-binary "@<workdir>/video.mp4"
-   # Get file URI from response, then call generateContent with file_data + text prompt
+     --data-binary "@<workdir>/video.mp4" | jq -r '.file.uri')
+
+   # Wait until file is ACTIVE (Gemini processes the video first)
+   while true; do
+     STATE=$(curl -s "$FILE_URI?key=$GEMINI_API_KEY" | jq -r '.state')
+     [ "$STATE" = "ACTIVE" ] && break
+     sleep 3
+   done
+
+   # Step 2: Generate content with the file + multimodal-analysis prompt
+   curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=$GEMINI_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d "{
+       \"contents\":[{
+         \"parts\":[
+           {\"file_data\":{\"mime_type\":\"video/mp4\",\"file_uri\":\"$FILE_URI\"}},
+           {\"text\":\"<multimodal analysis prompt — see Step 7's summary template + use-case extensions>\"}
+         ]
+       }]
+     }"
    ```
+
+   Files persist in Gemini Files API for ~48 hours — useful for re-querying the same video with different prompts.
 
 2. **Dense Claude vision fallback** if no Gemini key:
    - Frame cadence: 1 frame per **3s** (much denser than visual mode)
