@@ -1,6 +1,6 @@
 ---
 name: paste
-description: When you want to clean and reformat content (usually from his terminal) for pasting into Slack, Notion, Twitter/X, LinkedIn, email, GitHub, or plain text. Strips ANSI codes, box-drawing chars, terminal prompt artifacts, and applies destination-specific formatting. Default input is the clipboard (read via `pbpaste`); default output is both the clipboard (`pbcopy`) and a chat preview. Triggers on "/paste", "/paste [destination]", "clean this for X," "format for slack/notion/twitter/linkedin/email/github," "render as markdown," "paste-ready," "strip formatting," "make this copy-pastable." Default destination is plain. Also scans for secrets (API keys, tokens, .env values) and warns before copying anything sensitive.
+description: When you want to clean and reformat content (usually from your terminal) for pasting into Slack, Notion, Twitter/X, LinkedIn, email, GitHub, or plain text. Strips ANSI codes, box-drawing chars, terminal prompt artifacts, and applies destination-specific formatting. Default input is the clipboard (read via `pbpaste`); default output is both the clipboard (`pbcopy`) and a chat preview. Triggers on "/paste", "/paste [destination]", "clean this for X," "format for slack/notion/twitter/linkedin/email/github," "render as markdown," "paste-ready," "strip formatting," "make this copy-pastable." Default destination is plain. Also scans for secrets (API keys, tokens, .env values) and warns before copying anything sensitive.
 metadata:
   version: 0.1.0
 ---
