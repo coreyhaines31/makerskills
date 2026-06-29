@@ -1,0 +1,48 @@
+# Properties — your rotation slots
+#
+# Copy this file to ~/.config/makerskills/jab-hook/properties.yaml
+# and fill in your real properties. The personal copy is gitignored.
+#
+# Each slot = one of YOUR things to promote on rotation.
+# Default cadence: ~1 promo every 3 weeks per slot, ~2 promos/week total.
+#
+# When picking "most overdue," count from the date of the last PROMO
+# post (not BIP / educational mentions).
+
+slots:
+  - name: "My SaaS product"
+    description: "What it is in one line"
+    url: "https://example.com"
+    primary_cta: "try it / book a demo / sign up"
+    angle_ideas:
+      - "Customer win or before/after"
+      - "Behind-the-scenes of recent work"
+      - "Specific feature or recent ship"
+      - "The methodology / framework you use"
+    notes: |
+      Any nuance about voice when promoting this one
+      (e.g., "use I-voice not we-voice here")
+
+  - name: "Newsletter"
+    description: "Topic, audience, why they should subscribe"
+    url: "https://example.com/newsletter"
+    primary_cta: "subscribe"
+    angle_ideas:
+      - "Lesson from most recent issue"
+      - "Archive gem"
+      - "Why I started it / editorial POV"
+
+  # Add as many slots as you have properties to rotate.
+  # Group ebooks / courses / other products as one slot with sub-rotation:
+  - name: "Ebooks (rotating)"
+    description: "All ebooks share one slot; rotate within"
+    rotation:
+      - title: "Ebook 1"
+        url: "https://example.com/ebook-1"
+      - title: "Ebook 2"
+        url: "https://example.com/ebook-2"
+    primary_cta: "buy now ($X)"
+    angle_ideas:
+      - "One specific lesson from the ebook"
+      - "Who the ebook is for (1-sentence ICP)"
+      - "Before/after of someone who applied it"

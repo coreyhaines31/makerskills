@@ -1,6 +1,6 @@
 ---
 name: read-book
-description: When Corey wants to read and extract structured notes from a book — PDF, EPUB, MOBI, markdown, .txt, pasted text, or URL to a public-domain work. Reads in chunks (by chapter when a TOC exists, by 50-page blocks otherwise), extracts per-chapter TL;DR + key concepts + quotes + action items + frameworks, and offers to capture to second-brain raw/ as a highlights- file. Four modes — notes (default, chapter-by-chapter), summary (whole-book TL;DR + 3–5 takeaways), quotes (pull-quote highlights only), study (notes + Q&A spaced-rep prep). Triggers on "/read-book," "read this book," "extract notes from this PDF," "what's in this book," "summarize this ebook," "pull quotes from this." Sibling to watch-video (same content-consumption pattern, different medium).
+description: When you want to read and extract structured notes from a book — PDF, EPUB, MOBI, markdown, .txt, pasted text, or URL to a public-domain work. Reads in chunks (by chapter when a TOC exists, by 50-page blocks otherwise), extracts per-chapter TL;DR + key concepts + quotes + action items + frameworks, and offers to capture to second-brain raw/ as a highlights- file. Four modes — notes (default, chapter-by-chapter), summary (whole-book TL;DR + 3–5 takeaways), quotes (pull-quote highlights only), study (notes + Q&A spaced-rep prep). Triggers on "/read-book," "read this book," "extract notes from this PDF," "what's in this book," "summarize this ebook," "pull quotes from this." Sibling to watch-video (same content-consumption pattern, different medium).
 metadata:
   version: 0.1.0
 ---
@@ -113,10 +113,10 @@ The cross-reference suggestions are advisory — they're suggestions for `/sb co
 
 Ask:
 
-> *"Want to capture this to second-brain? I'll write it to `~/SecondBrain/raw/highlights-<slug>.md` matching your vault's `highlights-` type prefix."*
+> *"Want to capture this to second-brain? I'll write it to `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/raw/highlights-<slug>.md` matching your vault's `highlights-` type prefix."*
 
 Default is **ask**, never auto-write. If yes:
-1. Copy the final `notes.md` (with the second-brain-compatible frontmatter at top) to `~/SecondBrain/raw/highlights-<slug>.md`
+1. Copy the final `notes.md` (with the second-brain-compatible frontmatter at top) to `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/raw/highlights-<slug>.md`
 2. Tell Corey the path
 3. Suggest: *"Run `/sb compile` later to merge this into wiki pages — the cross-reference suggestions in the footer are starting points."*
 

@@ -4,7 +4,7 @@ The Second Brain vault location and tool.
 
 | Field | Value |
 |---|---|
-| **Path** | `$HOME/SecondBrain/` |
+| **Path** | `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/` |
 | **Tool** | Obsidian (markdown-based) |
 | **Schema source** | `<path>/CLAUDE.md` (authoritative — always read first) |
 | **Backup** | _not configured here — assumes vault is in iCloud/Dropbox/git_ |

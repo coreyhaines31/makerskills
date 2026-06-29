@@ -6,3 +6,21 @@
 node_modules/
 .env
 .env.local
+
+# Personal overlays — never commit
+*.local.md
+*.local.yaml
+*.local.json
+*-local.md
+
+# Migration working files — not for public repo
+MIGRATION-TO-PUBLIC.md
+*-local-backup.md
+
+# Personal archive directories (in case anyone runs the skills in-repo)
+skills/*/references/decisions-archive/*.md
+skills/*/references/ideas-archive/*.md
+skills/*/references/research-archive/*.md
+skills/*/references/scenarios-archive/*.md
+!skills/*/references/*archive*/INDEX.md
+!skills/*/references/*archive*/INDEX.md.example

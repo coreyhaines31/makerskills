@@ -208,3 +208,15 @@ When using sections (`SectionRange[]`):
 - The first section is always `Title` (single slide)
 - The last section is always `Close` or `CTA`
 - Section names appear in the presenter view "where am I" header
+
+---
+
+## Local overlay (your personal voice DNA)
+
+Same pattern as `jab-hook/references/voice.md`: layer personal rules on top via `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/slide-deck/voice.local.md`. The skill loads generic rules first, then your overlay.
+
+This is the right place for:
+- Your stage voice tics
+- Your specific anti-AI-slop additions (the public list is solid; you may have personal additions)
+- Speaker-note conventions unique to your delivery
+- Brand-specific narrative patterns

@@ -1,13 +1,13 @@
 ---
 name: personal-cfo
-description: When Corey wants to model personal financial scenarios — house purchase + rental income (ADU, bedroom rentals, house-hacking), renovation budgets, monthly cash flow forecasts, big-purchase decisions, savings/investment what-ifs. Spin-off of cf-skills:cfo (which is for Conversion Factory's agency books) — this one is for personal life: Corey + fiancée, household budgets, real-estate decisions. v0.1 ships with the house scenario template (purchase + rental scenarios) as the first use case. Architected so other personal-finance scenarios (refi, car, education, retirement, side income) slot in as additional templates. Outputs scenario comparison tables in markdown. Saves every scenario to references/scenarios-archive/ for revisit + comparison. Composes with decide (formalize the call after modeling), deep-research (rental comps, mortgage rates, market data), business-brainstorm (when the scenario is a small business / side hustle), second-brain (capture the analysis to outputs/). Triggers on "/personal-cfo," "model this scenario," "house math," "rental forecast," "monthly cash flow," "what if I rent out the ADU," "compare these housing scenarios," "should we buy this house," "house-hack math," "renovation budget."
+description: When you want to model personal financial scenarios — house purchase + rental income (ADU, bedroom rentals, house-hacking), renovation budgets, monthly cash flow forecasts, big-purchase decisions, savings/investment what-ifs. Spin-off of cf-skills:cfo (which is for Conversion Factory's agency books) — this one is for personal life: a household (you + partner), household budgets, real-estate decisions. v0.1 ships with the house scenario template (purchase + rental scenarios) as the first use case. Architected so other personal-finance scenarios (refi, car, education, retirement, side income) slot in as additional templates. Outputs scenario comparison tables in markdown. Saves every scenario to references/scenarios-archive/ for revisit + comparison. Composes with decide (formalize the call after modeling), deep-research (rental comps, mortgage rates, market data), business-brainstorm (when the scenario is a small business / side hustle), second-brain (capture the analysis to outputs/). Triggers on "/personal-cfo," "model this scenario," "house math," "rental forecast," "monthly cash flow," "what if I rent out the ADU," "compare these housing scenarios," "should we buy this house," "house-hack math," "renovation budget."
 metadata:
   version: 0.1.0
 ---
 
 # /personal-cfo — Personal financial scenario modeling
 
-Personal-life counterpart to `cf-skills:cfo` (which handles CF's agency books). This skill is for Corey + fiancée: housing decisions, monthly cash flow, big purchases, scenario what-ifs.
+Personal-life counterpart to `cf-skills:cfo` (which handles CF's agency books). This skill is for a household (you + partner): housing decisions, monthly cash flow, big purchases, scenario what-ifs.
 
 ## Step 1 — Pick the scenario type
 
@@ -67,7 +67,7 @@ For the house mode, default scenarios to compare:
 | **C: 2 bedrooms only** | House-hack 2 bedrooms, ADU empty |
 | **D: ADU + 1 bedroom** | Both ADU and 1 bedroom rented |
 | **E: ADU + 2 bedrooms** | Maximum rental |
-| **F: ADU + bedrooms (year 2+)** | Year 1: just ADU while renovating. Year 2+: add bedrooms after fiancée's comfort |
+| **F: ADU + bedrooms (year 2+)** | Year 1: just ADU while renovating. Year 2+: add bedrooms after partner's comfort |
 
 Let Corey customize the scenario list — every house is different.
 

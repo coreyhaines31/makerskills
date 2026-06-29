@@ -1,4 +1,4 @@
-# Voice — Corey's personal posts
+# Voice — your personal posts
 
 First-person "I" voice. Direct, dry, conviction-coded. No hype.
 
@@ -43,3 +43,21 @@ First-person "I" voice. Direct, dry, conviction-coded. No hype.
 ## Iterate me
 
 This is a starting point. Add rules here as they come up. Trim rules that turn out wrong.
+
+---
+
+## Local overlay (your personal voice DNA)
+
+The rules above are a sensible public default. To layer your specific voice on top (your tics, your phrasings, your callbacks):
+
+1. Create `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/voice.local.md`
+2. Put your additional voice rules / banned phrases / personal stylistic preferences in there
+3. The `jab-hook` skill loads `voice.md` first (this file, generic), then `voice.local.md` (yours, additive) so your personal rules override or extend the defaults
+
+Example local overlay content:
+- Your own banned phrases beyond the AI-slop list
+- Personal sign-offs you do/don't use
+- Conviction-coded CTA phrasings unique to you
+- Account-specific tics (e.g., "always use 'lock it in' instead of 'book a call' on CF posts")
+
+`voice.local.md` is gitignored — your personal voice DNA never enters this repo.

@@ -1,21 +1,23 @@
 ---
 name: jab-hook
-description: Gary Vaynerchuk's jab-jab-jab-right-hook framework applied to Corey's six-property portfolio rotation on X and LinkedIn. Jabs = build-in-public + educational (value). Hooks = promo (the ask). Each of his six properties (Conversion Factory, Swipe Files, Magister, Truelist, Marketing Skills, ebooks) gets a hook at least once every ~3 weeks; jabs fill the rest. Drafts go into his personal Typefully workspace via MCP. Modes — plan (7-day plan), pick-next (single post), audit (coverage report), draft (specific post). Triggers on "/jab-hook," "what should I post," "plan my socials," "next promo," "next jab," "next hook," "social rotation," "promote [property]," "BIP post," "audit my socials," "what haven't I posted about." This is for Corey's personal feed — for CF partner syndication use cf-skills:x-li, for generic frameworks use marketing-skills:social.
+description: Gary Vaynerchuk's jab-jab-jab-right-hook framework applied to a personal portfolio rotation on X and LinkedIn. Jabs = build-in-public + educational (value). Hooks = promo (the ask). Each property in the user's configured portfolio (see `~/.config/makerskills/jab-hook/properties.yaml`) gets a hook at least once every ~3 weeks; jabs fill the rest. Drafts go into the user's Typefully workspace via MCP. Modes — plan (7-day plan), pick-next (single post), audit (coverage report), draft (specific post). Triggers on "/jab-hook," "what should I post," "plan my socials," "next promo," "next jab," "next hook," "social rotation," "promote [property]," "BIP post," "audit my socials," "what haven't I posted about."
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
-# /jab-hook — Jab-jab-jab-right-hook for Corey's portfolio
+# /jab-hook — Jab-jab-jab-right-hook for a personal portfolio
 
-Gary Vaynerchuk's framework applied to your six properties: keep the feed mostly *jabs* (value — BIP + educational) so the *hooks* (promo) earn attention when they land. Drafts to personal Typefully workspace.
+Gary Vaynerchuk's framework applied to your configured portfolio: keep the feed mostly *jabs* (value — BIP + educational) so the *hooks* (promo) earn attention when they land. Drafts to your personal Typefully workspace.
+
+**One-time setup**: see `references/properties.md` and `references/typefully-config.md` to configure your real portfolio + workspace. Personal config lives in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/`.
 
 ## Mental model
 
-- **6 rotation slots** (see `references/properties.md`): Conversion Factory, Swipe Files, Magister, Truelist, Marketing Skills, ebooks-rotating
+- **N rotation slots** (configured in `~/.config/makerskills/jab-hook/properties.yaml`): one per property you want to promote on rotation
 - **~2 promo posts/week** → each property cycles every ~3 weeks at equal weight
 - **Non-promo days**: 50/50 build-in-public vs educational
 - **Target weekly rhythm**: ~2 promo + ~2–3 BIP + ~2–3 educational
-- **Platforms**: X + LinkedIn via Corey's personal Typefully workspace
+- **Platforms**: X + LinkedIn via your personal Typefully workspace
 
 ## Step 1 — Pick the mode
 
@@ -35,8 +37,8 @@ If ambiguous, confirm.
 1. Read `references/properties.md` — the 6 rotation slots and angle ideas
 2. Read `references/voice.md` — Corey's voice rules per platform
 3. Read `references/content-types.md` — templates for promo / BIP / educational
-4. Pull recent posts from Corey's personal Typefully workspace:
-   - First run: call `mcp__typefully__typefully_list_social_sets` and ask which social set is Corey's personal (X + LinkedIn). Save the ID to `references/typefully-config.md` for future runs.
+4. Pull recent posts from your personal Typefully workspace:
+   - First run: call `mcp__typefully__typefully_list_social_sets` and ask which social set is your personal (X + LinkedIn). Save the ID to `references/typefully-config.md` for future runs.
    - Call `mcp__typefully__typefully_list_drafts` filtered to the last 30 days
    - Classify each as promo / BIP / educational by content
 5. Compute **days since last promo** for each of the 6 slots
@@ -98,5 +100,5 @@ If yes:
 - `cf-skills:x-li` — for posts syndicated across all three CF partner accounts (Corey + Zach + Nick). Use that instead when the post should land on the CF/agency accounts.
 - `marketing-skills:social` — generic social frameworks, useful for client work or when teaching social strategy.
 - `marketing-skills:copywriting` — for hook / headline ideation when stuck.
-- Memory: `feedback_cf_promo_voice.md` (conviction-coded CTAs, reader-perspective framing) — voice principles also apply to Corey's personal promo posts.
-- Memory: `feedback_cf_social_cadence.md` — CF-specific cap of 2 posts/day per platform. Same cap is sensible for Corey's personal account.
+- Memory: `feedback_cf_promo_voice.md` (conviction-coded CTAs, reader-perspective framing) — voice principles also apply to your personal promo posts.
+- Memory: `feedback_cf_social_cadence.md` — CF-specific cap of 2 posts/day per platform. Same cap is sensible for your personal account.

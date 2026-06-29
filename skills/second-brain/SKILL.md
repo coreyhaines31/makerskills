@@ -1,13 +1,13 @@
 ---
 name: second-brain
-description: When Corey wants to capture into, compile, query, lint, or connect his personal Second Brain. Wraps the Karpathy LLM Wiki schema he runs in Obsidian — raw/ (unprocessed sources), wiki/ (AI-compiled interlinked topic pages), outputs/ (generated artifacts). Tool-agnostic in design but defaults to his vault at ~/SecondBrain/. Six modes — capture (drop something into raw/), compile (process unprocessed raw files into wiki pages, update INDEX.md), query (answer a question from the wiki, save to outputs/), lint (orphans / contradictions / stale / unprocessed raw / topic gaps), connect (suggest new wikilinks between pages), search (quick lookup). Triggers on "/second-brain," "/sb," "capture this," "save this to my brain," "compile the wiki," "process raw notes," "query my wiki," "ask my brain," "lint the wiki," "find connections," "search my notes." Complements deep-research (external corpus) — this is the internal corpus.
+description: When you want to capture into, compile, query, lint, or connect his personal Second Brain. Wraps the Karpathy LLM Wiki schema he runs in Obsidian — raw/ (unprocessed sources), wiki/ (AI-compiled interlinked topic pages), outputs/ (generated artifacts). Tool-agnostic in design but defaults to his vault at ${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/. Six modes — capture (drop something into raw/), compile (process unprocessed raw files into wiki pages, update INDEX.md), query (answer a question from the wiki, save to outputs/), lint (orphans / contradictions / stale / unprocessed raw / topic gaps), connect (suggest new wikilinks between pages), search (quick lookup). Triggers on "/second-brain," "/sb," "capture this," "save this to my brain," "compile the wiki," "process raw notes," "query my wiki," "ask my brain," "lint the wiki," "find connections," "search my notes." Complements deep-research (external corpus) — this is the internal corpus.
 metadata:
   version: 0.1.0
 ---
 
 # /second-brain — Karpathy LLM Wiki workflow
 
-Wraps Corey's existing Second Brain in Obsidian. The wiki vault's CLAUDE.md is the authoritative schema — the skill orchestrates the operations he's been doing manually.
+Wraps an existing Second Brain in Obsidian (or any markdown-based vault). The wiki vault's CLAUDE.md is the authoritative schema — the skill orchestrates the operations he's been doing manually.
 
 ## Mental model
 
@@ -27,8 +27,8 @@ Folders to leave alone during wiki ops: `Projects/`, `Daily/`, `Templates/`, `In
 
 ## Step 1 — Load vault config + schema
 
-1. Read `references/vault-config.md` for the vault path (default: `$HOME/SecondBrain/`)
-2. Read `<vault>/CLAUDE.md` for the authoritative schema. If present, trust it over `references/schema.md` — Corey's vault is the source of truth.
+1. Read `references/vault-config.md` for the vault path (default: `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/`)
+2. Read `<vault>/CLAUDE.md` for the authoritative schema. If present, trust it over `references/schema.md` — the user's vault is the source of truth.
 3. If no `<vault>/CLAUDE.md`, fall back to `references/schema.md`.
 
 ## Step 2 — Parse mode

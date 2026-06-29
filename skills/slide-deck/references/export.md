@@ -17,7 +17,7 @@ If any are missing on first run, surface the install command to Corey; don't try
 
 ```bash
 # Detect coreyco's portless URL (he uses portless on :1355)
-curl -sf -o /dev/null -w "%{http_code}" http://${COREYCO_DEV_HOST:-localhost:3000}/slides/<slug> && echo " OK" || echo " not running"
+curl -sf -o /dev/null -w "%{http_code}" http://${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/<slug> && echo " OK" || echo " not running"
 ```
 
 If not running:
@@ -51,7 +51,7 @@ import path from 'node:path';
 
 const [, , slug, slideCountStr, outDir] = process.argv;
 const slideCount = parseInt(slideCountStr, 10);
-const baseUrl = `http://${COREYCO_DEV_HOST:-localhost:3000}/slides/${slug}`;
+const baseUrl = `http://${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/${slug}`;
 
 await mkdir(outDir, { recursive: true });
 

@@ -1,6 +1,6 @@
 ---
 name: slide-deck
-description: When Corey wants to draft, update, convert, or export a slide deck for his React/Next.js slide system at corey.co/slides (${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/). Writes TypeScript Slide[] arrays using his primitives (Eyebrow, Heading, Accent, Body, BulletList, Divider, TwoCol, GradientText), 12 cycling brand gradients, optional sections for "where am I" context, and speaker notes. Inspired by zarazhangrui/frontend-slides — "show, don't tell" applied to narrative (presents 3 angles, you pick) plus density modes (speaker-led vs reading-first). Four modes — new (draft from brief), update (modify existing, with overflow guards), ppt (convert legacy PPTX → React deck), export (Playwright snapshot existing React deck to standalone HTML, PDF, or Vercel URL — keeps brand). Triggers on "/slide-deck," "/slides new," "/slides export," "/slides update," "/slides ppt," "draft a deck," "deck for [topic]," "talk on [topic]," "keynote on [topic]," "internal deck for [audience]," "convert this pptx," "export this deck."
+description: When you want to draft, update, convert, or export a slide deck for his React/Next.js slide system at corey.co/slides (${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/). Writes TypeScript Slide[] arrays using his primitives (Eyebrow, Heading, Accent, Body, BulletList, Divider, TwoCol, GradientText), 12 cycling brand gradients, optional sections for "where am I" context, and speaker notes. Inspired by zarazhangrui/frontend-slides — "show, don't tell" applied to narrative (presents 3 angles, you pick) plus density modes (speaker-led vs reading-first). Four modes — new (draft from brief), update (modify existing, with overflow guards), ppt (convert legacy PPTX → React deck), export (Playwright snapshot existing React deck to standalone HTML, PDF, or Vercel URL — keeps brand). Triggers on "/slide-deck," "/slides new," "/slides export," "/slides update," "/slides ppt," "draft a deck," "deck for [topic]," "talk on [topic]," "keynote on [topic]," "internal deck for [audience]," "convert this pptx," "export this deck."
 metadata:
   version: 0.1.0
 ---
@@ -131,14 +131,14 @@ If a port is in use for coreyco (he uses portless — check `package.json` for t
 
 ```bash
 # Suggested URL pattern (he uses portless)
-echo "Preview at: http://${COREYCO_DEV_HOST:-localhost:3000}/slides/<slug>"
+echo "Preview at: http://${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/<slug>"
 ```
 
 If no dev server is running, tell Corey:
 
 ```bash
 cd ${COREYCO_REPO:-$HOME/code/coreyco} && npm run dev
-# then visit http://${COREYCO_DEV_HOST:-localhost:3000}/slides/<slug>
+# then visit http://${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/<slug>
 ```
 
 Don't auto-start the dev server (might disrupt other work).
@@ -230,14 +230,14 @@ Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Ver
 
 **Flow** (full details in `references/export.md`):
 
-1. **Verify dev server**: confirm `${COREYCO_DEV_HOST:-localhost:3000}/slides/<slug>` loads. If not, prompt Corey to `cd ${COREYCO_REPO:-$HOME/code/coreyco} && npm run dev`.
+1. **Verify dev server**: confirm `${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/<slug>` loads. If not, prompt Corey to `cd ${COREYCO_REPO:-$HOME/code/coreyco} && npm run dev`.
 2. **Count slides**: read `page.tsx`, count entries in the `slides` array.
 3. **Run Playwright snapshot**:
    ```bash
    bash references/export.md script: snapshot-deck <slug> <count>
    ```
    - Launches headless Chromium at 1920×1080
-   - Loads `http://${COREYCO_DEV_HOST:-localhost:3000}/slides/<slug>?present=1` (presenter mode hides chrome)
+   - Loads `http://${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/<slug>?present=1` (presenter mode hides chrome)
    - Sets `localStorage["slides:/slides/<slug>"] = "0"` to start at slide 0
    - Loops: screenshot → keyboard ArrowRight → wait — for N slides
    - Saves PNGs to `~/Documents/slide-exports/<slug>-<YYYY-MM-DD>/slide-<n>.png`

@@ -1,0 +1,28 @@
+# Typefully config — your personal workspace
+#
+# Copy this file to ~/.config/makerskills/jab-hook/typefully.yaml
+# and fill in your real values. The personal copy is gitignored.
+#
+# The skill reads from $MAKERSKILLS_CONFIG/jab-hook/typefully.yaml
+# (defaults to ~/.config/makerskills/jab-hook/typefully.yaml)
+
+personal_workspace:
+  social_set_id: 0           # your Typefully social set ID (integer)
+  username: "@yourhandle"
+  name: "Your Name"
+  team: "Your Team"
+  platforms:                 # confirm via mcp__typefully__typefully_get_social_set_details
+    - x
+    - linkedin
+
+# Other social sets in the same team — listed so the skill knows
+# NOT to draft into them by default. Leave empty if solo.
+other_social_sets:
+  - id: 0
+    name: "Partner / teammate handle"
+    # do_not_use: true       # uncomment to explicitly block this from /jab-hook
+
+# Behavior
+default:
+  state: draft               # draft | scheduled | published — usually draft
+  add_first_comment: ask     # ask | always | never (for the link-placement rule)

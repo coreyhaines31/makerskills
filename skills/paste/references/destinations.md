@@ -140,7 +140,7 @@ Render the cleaned markdown directly in chat — Claude Code renders it inline f
 
 ## html (render to file + open browser)
 
-For when Corey wants to copy rich-formatted content from a browser into a rich-text destination (Notion via browser, email composer, Google Docs).
+For when you want to copy rich-formatted content from a browser into a rich-text destination (Notion via browser, email composer, Google Docs).
 
 - Convert markdown → HTML
 - Minimal inline CSS for clean reading

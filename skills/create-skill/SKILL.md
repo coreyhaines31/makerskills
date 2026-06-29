@@ -1,6 +1,6 @@
 ---
 name: create-skill
-description: When Corey wants to create a new skill in one of his skill repos (makerskills, cf-skills, marketingskills, nonfictionskills, fictionskills, youtubeskills). Three input modes — from-chat (default when invoked mid-conversation; extract the skill from the workflow we've been discussing), from-dump (Corey pastes a brief / transcript / notes / past chat export), from-scratch (a fresh idea with no source material). Scaffolds SKILL.md frontmatter + body + references/ subdirectory, updates the README skill table, commits, pushes. Defers to Anthropic's skill creator skills (compound-engineering:create-agent-skill agent, compound-engineering:skill-creator skill) and the anthropics/skills GitHub repo for deep schema and best-practices guidance — this skill orchestrates Corey's specific workflow on top of those. Triggers on "/create-skill," "create a skill called X," "make this a skill," "skill from this chat," "skill from this brief," "skill from this dump," "extract a skill from what we've been doing," "let's make this a skill," "scaffold a new skill," "bootstrap a skill."
+description: When you want to create a new skill in one of his skill repos (makerskills, cf-skills, marketingskills, nonfictionskills, fictionskills, youtubeskills). Three input modes — from-chat (default when invoked mid-conversation; extract the skill from the workflow we've been discussing), from-dump (Corey pastes a brief / transcript / notes / past chat export), from-scratch (a fresh idea with no source material). Scaffolds SKILL.md frontmatter + body + references/ subdirectory, updates the README skill table, commits, pushes. Defers to Anthropic's skill creator skills (compound-engineering:create-agent-skill agent, compound-engineering:skill-creator skill) and the anthropics/skills GitHub repo for deep schema and best-practices guidance — this skill orchestrates Corey's specific workflow on top of those. Triggers on "/create-skill," "create a skill called X," "make this a skill," "skill from this chat," "skill from this brief," "skill from this dump," "extract a skill from what we've been doing," "let's make this a skill," "scaffold a new skill," "bootstrap a skill."
 metadata:
   version: 0.2.0
 ---
@@ -106,14 +106,14 @@ Interactive Q&A — the prior `add-skill` flow:
 ```yaml
 ---
 name: <kebab-case>
-description: <rich, trigger-rich, ~2–4 sentences. Lead with "When Corey wants to..." Include 4–8 trigger phrases in quotes. Differentiate from adjacent skills if relevant.>
+description: <rich, trigger-rich, ~2–4 sentences. Lead with "When you want to..." Include 4–8 trigger phrases in quotes. Differentiate from adjacent skills if relevant.>
 metadata:
   version: 0.1.0
 ---
 ```
 
 **Description rules** (load-bearing — Claude routes by description match):
-- Lead with the use case ("When Corey wants to X…")
+- Lead with the use case ("When you want to X…")
 - Include explicit trigger phrases the user might say
 - Differentiate from sibling skills if there's overlap
 - Mention key references the skill loads

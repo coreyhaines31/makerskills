@@ -65,7 +65,7 @@ Format patterns extracted from inspiration accounts (`inspiration.md`). Each ent
 4. Conclusion = an open question / observation, not a take
 
 **When to use:**
-- Educational posts when Corey wants to take a stance against a common pattern
+- Educational posts when you want to take a stance against a common pattern
 - LinkedIn only — question-stack rhythm doesn't compress to X
 
 **Lift to Corey's voice:**

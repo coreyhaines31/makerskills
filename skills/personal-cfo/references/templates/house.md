@@ -1,6 +1,6 @@
 # House template — full input questionnaire
 
-For `/personal-cfo house` mode. Walk Corey through this in a structured batch (one message, numbered questions). Don't proceed with placeholder numbers — bad inputs → dangerous output.
+For `/personal-cfo house` mode. Walk the user through this in a structured batch (one message, numbered questions). Don't proceed with placeholder numbers — bad inputs → dangerous output.
 
 ## Property fundamentals
 
@@ -80,7 +80,7 @@ For each potential rental unit:
 
 ## Lifestyle (qualitative — not in the math, but in the report)
 
-38. **Comfort level with roommates** (fiancée especially — this is a real variable)
+38. **Comfort level with roommates** (partner / spouse especially — this is a real variable in shared-living scenarios)
 39. **Distance / commute from this property** (vs. current)
 40. **Schools / future kids planning** (affects neighborhood weighting)
 41. **Exit plan** (how long do you plan to live here? sell when? rent out fully later?)

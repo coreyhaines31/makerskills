@@ -1,19 +1,31 @@
 # Typefully config
 
-Corey's personal Typefully workspace.
+**Personal config lives at `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/typefully.yaml`** — not in this repo (gitignored, on disk only).
 
-| Field | Value |
-|---|---|
-| Social set ID | `REDACTED_SOCIAL_SET_ID` |
-| Username | `@coreyhainesco` |
-| Name | Corey Haines |
-| Team | Conversion Factory |
-| Platforms | X + LinkedIn (confirm on first use; rerun `typefully_get_social_set_details` if uncertain) |
+## Setup (one-time)
 
-Other social sets in the team (do NOT use from this skill — they belong to CF partners and `h1 gallery`):
-- REDACTED_PARTNER_ID — Zach Stevens
-- REDACTED_PARTNER_ID — Nick Loudon
-- REDACTED_PARTNER_ID — Michael Henderson
-- REDACTED_PARTNER_ID — h1 gallery
+```bash
+# Create your personal config
+mkdir -p ~/.config/makerskills/jab-hook
+cp skills/jab-hook/references/typefully-config.example.yaml \
+   ~/.config/makerskills/jab-hook/typefully.yaml
 
-When drafting from `jab-hook`, always use social set `REDACTED_SOCIAL_SET_ID`. For CF partner syndication, use `cf-skills:x-li` instead.
+# Edit ~/.config/makerskills/jab-hook/typefully.yaml with your real Typefully social set ID.
+# Find it via: mcp__typefully__typefully_list_social_sets
+```
+
+## Schema
+
+See `typefully-config.example.yaml` in this directory for the full schema + comments.
+
+## How the skill loads it
+
+1. Read `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/typefully.yaml`
+2. If the file doesn't exist, fall back to interactive setup:
+   - Call `mcp__typefully__typefully_list_social_sets`
+   - Ask which one is the user's personal workspace
+   - Save the answer to the config file for next time
+
+## Other social sets in the same Typefully team
+
+If you're in a team workspace, the config file's `other_social_sets` list documents which sets to AVOID by default when drafting. The skill will not push to those without explicit override.

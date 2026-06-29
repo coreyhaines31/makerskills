@@ -33,14 +33,14 @@ Why: these are the source author's preferences. Yours differ.
 | **Tool defaults** | Their video tool | Your `watch-video` |
 | | Their kanban | Your `pm` |
 | | Their transcript tool | Your `watch-video transcript` mode |
-| | Their notes / KB | Your `second-brain` (or `~/SecondBrain/`) |
+| | Their notes / KB | Your `second-brain` (or `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/`) |
 | | Their decision framework | Your `decide` |
 | | Their social drafting | Your `jab-hook` or `cf-skills:x-li` |
 | | Their research | Your `deep-research` |
 | **Paths** | `~/outputs/` or `~/notes/` | `~/Documents/<skill>-<...>` convention |
 | | Custom config dirs | Your `references/` pattern |
 | **Voice** | Generic / corporate / theirs | Yours — direct, conviction-coded, listener-perspective, no AI-slop |
-| **Context** | "The user," generic examples | "Corey" + portfolio context (CF, Swipe Files, Magister, Truelist, Marketing Skills, ebooks) where the skill needs it |
+| **Context** | "The user," generic examples | Your specific context (your name, your products / portfolio / partnerships) where the skill needs it |
 | **Defaults** | Their assumed environment | Your Mac, MLX-Whisper, brew, uv, Notion API key, Typefully MCP, etc. |
 | **Cadence** | Their suggested frequency / WIP limits | Yours (e.g., 2 promo/week for social, 3 In-Progress WIP for pm) |
 
