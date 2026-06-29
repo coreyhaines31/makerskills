@@ -1,8 +1,14 @@
 # makerskills
 
-Personal Claude Code skills for Corey Haines — sibling to [`marketingskills`](https://github.com/coreyhaines31/marketingskills) and `cf-skills`.
+[![Stars](https://img.shields.io/github/stars/coreyhaines31/makerskills?style=flat-square&label=stars&color=000)](https://github.com/coreyhaines31/makerskills/stargazers) [![Release](https://img.shields.io/github/v/release/coreyhaines31/makerskills?style=flat-square&color=000)](https://github.com/coreyhaines31/makerskills/releases) [![License](https://img.shields.io/badge/license-MIT-000?style=flat-square)](./LICENSE)
 
-Where `marketingskills` covers marketing tactics and `cf-skills` covers Conversion Factory operations, **`makerskills`** covers the cross-cutting craft-forward operator work: decisions, research, brainstorming, content rotation, utilities, and the meta skill that scaffolds new skills.
+**AI agent skills for the personal operator's craft.** Decisions, research, second-brain workflows, content rotation, scenario modeling, and the meta-skills to author more.
+
+Built for founders and indie operators. Works with [Claude Code](https://claude.ai/code), Codex, Cursor, and other Agent Skills hosts.
+
+**Site:** [maker-skills.com](https://maker-skills.com)
+
+---
 
 ## Install
 
@@ -12,71 +18,102 @@ Where `marketingskills` covers marketing tactics and `cf-skills` covers Conversi
 /plugin install makerskills@makerskills
 ```
 
-Or for local development, symlink into `~/.claude/plugins/`:
+Or symlink for local dev:
 
 ```bash
+git clone https://github.com/coreyhaines31/makerskills ~/code/makerskills
 ln -s ~/code/makerskills ~/.claude/plugins/makerskills
 ```
 
-## Structure
+See [INSTALL.md](./INSTALL.md) for env vars, personal-config setup, and runtime dependencies.
 
-```
-makerskills/
-├── .claude-plugin/
-│   ├── plugin.json        # plugin manifest
-│   └── marketplace.json   # marketplace listing
-├── skills/
-│   └── <skill-name>/
-│       ├── SKILL.md       # skill instructions + frontmatter
-│       └── references/    # optional supporting files (templates, archives, etc.)
-└── README.md
+---
+
+## The 15 skills
+
+### Meta — manage skills themselves
+| Skill | What |
+|---|---|
+| [`create-skill`](./skills/create-skill/SKILL.md) | Turn a workflow, brief, or chat into a new skill. `from-chat`, `from-video`, `from-dump`, `from-scratch` modes. |
+| [`adapt-skill`](./skills/adapt-skill/SKILL.md) | Port an external skill into your namespace. Three-bucket classification (keep / adapt / add), license check, attribution file. |
+| [`update-skill`](./skills/update-skill/SKILL.md) | Improve existing skills from learnings. Cross-skill propagation, memory-vs-skill triage, semver discipline. |
+
+### Decision & strategy
+| Skill | What |
+|---|---|
+| [`decide`](./skills/decide/SKILL.md) | 37signals decision framework (38 questions triaged to 6–8 per decision). Archives with revisit dates. |
+| [`business-brainstorm`](./skills/business-brainstorm/SKILL.md) | Pressure-test a new business or product on 9 dimensions. Composes with `deep-research` + `/domain`. |
+| [`deep-research`](./skills/deep-research/SKILL.md) | Multi-source research with citations + archive. WebSearch, WebFetch, `agent-browser`, `/last30days`, memory. |
+
+### Knowledge & content consumption
+| Skill | What |
+|---|---|
+| [`second-brain`](./skills/second-brain/SKILL.md) | Karpathy LLM Wiki workflow over any markdown vault. Capture / compile / query / lint / connect / search. |
+| [`read-book`](./skills/read-book/SKILL.md) | PDFs, EPUBs, MOBI, markdown — chapter-by-chapter notes, quotes, summaries, or spaced-rep study mode. |
+| [`watch-video`](./skills/watch-video/SKILL.md) | YouTube, Loom, Vimeo, Riverside, Zoom, MP4. Transcript / visual / multimodal (Gemini-native) modes. |
+
+### Output & creative
+| Skill | What |
+|---|---|
+| [`jab-hook`](./skills/jab-hook/SKILL.md) | Gary Vee's jab-jab-jab-right-hook rhythm applied to your portfolio rotation on X + LinkedIn via Typefully. |
+| [`slide-deck`](./skills/slide-deck/SKILL.md) | Branded React decks (Next.js). "Show, don't tell" narrative pitching, density modes, PPT conversion, Playwright export. |
+
+### Operations & utilities
+| Skill | What |
+|---|---|
+| [`pm`](./skills/pm/SKILL.md) | Kanban (5-column) + Eisenhower across your portfolio. Tool-agnostic adapters (Notion, GitHub, Plane, Linear, Obsidian, manual). |
+| [`personal-cfo`](./skills/personal-cfo/SKILL.md) | Personal financial scenarios — house purchase + rental forecasting, monthly cash flow, big-purchase decisions. |
+| [`paste`](./skills/paste/SKILL.md) | Clean terminal output for 9 destinations (Slack, Notion, Twitter, LinkedIn, email, GitHub, plain, HTML). Secret-detection first. |
+| [`social-fetch`](./skills/social-fetch/SKILL.md) | Pull any social post by URL across 10 platforms (X, LinkedIn, IG, TikTok, Bluesky, Reddit, Mastodon, Threads, HN). Strategy chain with free + paid fallbacks. |
+
+---
+
+## Architecture
+
+The repo is **public + generic**. Your personal data (Typefully workspace IDs, portfolio properties, voice overlays, archives) lives separately in `~/.config/makerskills/` (gitignored, on disk only).
+
+Skills read from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/<skill>/` paths. Set env vars in `~/.zshenv` to point at your locations:
+
+```bash
+export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
+export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"
+export COREYCO_REPO="$HOME/code/your-site-repo"            # for slide-deck
 ```
 
-### SKILL.md frontmatter
+Full setup in [INSTALL.md](./INSTALL.md).
+
+## SKILL.md format
 
 ```yaml
 ---
 name: skill-name
-description: When the user wants to [X]. Also use when they mention "[trigger phrase]"...
+description: When the user wants to [X]. Triggers on "[trigger phrase]"...
 metadata:
   version: 0.1.0
 ---
 ```
 
-The `description` is what Claude uses to decide when to load the skill — be specific about triggers, what it does, and when to use it vs. other skills.
+The `description` is what Claude uses to decide when to load the skill — be specific about triggers and disambiguation from sibling skills.
 
-## Cross-referencing other skill collections
+## Cross-referencing other skill packs
 
-Skills can reference each other across plugins by name. In a SKILL.md description or body:
+Skills can reference each other across plugins. In a SKILL.md description or body:
 
-- **Within this plugin:** mention by skill name (`see decide`)
-- **From `marketing-skills`:** mention with prefix (`see marketing-skills:cro`)
-- **From `cf-skills`:** mention with prefix (`see cf-skills:positioning`)
-- **From other plugins (`compound-engineering`, `vercel`, `expo`, etc.):** mention by plugin-prefixed name
+- **Within this plugin**: mention by name (`see decide`)
+- **Cross-plugin**: prefix with the plugin (`see marketing-skills:cro`)
 
-Claude resolves these by description match at load time. No manifest linking needed — keep references readable in prose.
+Claude resolves references by description match at load time — no manifest linking needed.
 
-## Related skill collections
+## Related skill packs
 
 - [`marketingskills`](https://github.com/coreyhaines31/marketingskills) — 44 marketing skills (CRO, copywriting, SEO, ads, etc.)
-- `cf-skills` — Conversion Factory-specific skills (positioning, brand strategy, growth engine, cf-blog, x-li, etc.)
+- [`anthropics/skills`](https://github.com/anthropics/skills) — official Anthropic Agent Skills examples
+- [`garrytan/gstack`](https://github.com/garrytan/gstack) — engineering-focused skill stack
 
-## Skills
+## License
 
-| Skill | What it does |
-|---|---|
-| [`adapt-skill`](./skills/adapt-skill/SKILL.md) | Meta — port an external skill (gstack, frontend-slides, last30days, etc.) into one of your sibling repos. Identifies keep / adapt / add buckets, swaps tool defaults to your stack, applies your voice, adds attribution + license check. Sibling to `create-skill`. |
-| [`create-skill`](./skills/create-skill/SKILL.md) | Meta — turn a workflow, brief, or chat into a skill. Three modes: `from-chat` (default — extract the skill from the conversation we've been having), `from-dump` (paste a brief / transcript), `from-scratch` (interactive Q&A). Defers to `compound-engineering:create-agent-skill` + `compound-engineering:skill-creator` + `anthropics/skills` for format guidance. |
-| [`update-skill`](./skills/update-skill/SKILL.md) | Meta — improve existing skills from learnings. Cross-skill propagation: one learning often affects multiple SKILL.md files (e.g., a voice rule for `slide-deck` might also apply to `jab-hook`). Four modes: `from-chat` (default), `from-dump`, `targeted`, `usage`. Decides skill-vs-memory placement. Semver discipline. Third in the meta-skill trio with `create-skill` + `adapt-skill`. |
-| [`business-brainstorm`](./skills/business-brainstorm/SKILL.md) | Pressure-test a potential new business or product against Corey's serial-founder filter (9 dimensions). Composes with `deep-research` and `/domain`. Archives every brainstorm so past ideas are searchable + revisit-able. |
-| [`decide`](./skills/decide/SKILL.md) | Structured decision workflow based on the 37signals Guide to Making Decisions (38 questions). Triages to 6–8 load-bearing questions per decision, walks through them, reaches a call, archives the rationale with a revisit date. Composes with `business-brainstorm`. |
-| [`deep-research`](./skills/deep-research/SKILL.md) | Multi-source research with citations and archive. Uses WebSearch, WebFetch, agent-browser, `/last30days`, memory, Notion. Outputs structured brief with contradictions and gaps. Compounds — every run adds to the archive. |
-| [`jab-hook`](./skills/jab-hook/SKILL.md) | Personal portfolio rotation for X + LinkedIn. Ensures each of Corey's 6 properties gets promoted ~1× every 3 weeks, with build-in-public + educational filling the rest. Drafts and syndicates to personal Typefully workspace. |
-| [`paste`](./skills/paste/SKILL.md) | Clean terminal output for any destination (Slack, Notion, Twitter, LinkedIn, email, GitHub, plain, HTML). Strips ANSI codes, box-drawing chars, prompts. Reads clipboard, writes back to clipboard + chat preview. Scans for secrets first. |
-| [`personal-cfo`](./skills/personal-cfo/SKILL.md) | Personal financial scenario modeling — house purchase + rental scenarios (ADU / bedrooms), monthly cash flow forecasts, big-purchase decisions. Spin-off of `cf-skills:cfo` (which handles CF's agency books) — this one is for personal life. v0.1 ships with the house template; refi/cash-flow/savings-what-if templates sketched as stubs. Composes with `decide`, `deep-research`, `second-brain`. |
-| [`pm`](./skills/pm/SKILL.md) | Project management across your portfolio. Kanban (5-column) + Eisenhower methodology. Tool-agnostic adapters (Notion, GitHub Projects, Plane, Linear, Obsidian, manual). One board per business. Six modes: setup, triage, next, status, unblock, weekly. |
-| [`read-book`](./skills/read-book/SKILL.md) | Read PDFs, EPUBs, MOBI, markdown books with structured note extraction. Four modes: `notes` (chapter-by-chapter — default), `summary` (TL;DR + takeaways), `quotes` (pull quotes only), `study` (notes + spaced-rep Q&A). Chunks by chapter when TOC exists, by 50 pages otherwise. Captures to `second-brain raw/` as `highlights-`. Sibling to `watch-video`. |
-| [`second-brain`](./skills/second-brain/SKILL.md) | Karpathy LLM Wiki workflow over your Obsidian vault (`~/SecondBrain/`). Three layers: raw/ (sources) → wiki/ (compiled topic pages with [[wikilinks]]) → outputs/ (generated artifacts). Six modes: capture, compile, query, lint, connect, search. Complements `deep-research` (this is internal corpus). |
-| [`slide-deck`](./skills/slide-deck/SKILL.md) | Draft branded React decks for `corey.co/slides`. Generates TypeScript `Slide[]` for `${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/<slug>/page.tsx` using your primitives (Eyebrow, Heading, Accent, Body, BulletList, Divider, TwoCol). "Show, don't tell" applied to narrative — pitches 3 angles, you pick. Speaker notes per slide. For unbranded HTML/PDF decks, use `frontend-slides` instead. |
-| [`social-fetch`](./skills/social-fetch/SKILL.md) | Pull any social post by URL (X, LinkedIn, Instagram, TikTok, Bluesky, Reddit, Mastodon, Threads, HN). Detects platform, tries strategies in order (free APIs → agent-browser → Wayback → paid fallback), returns normalized JSON. Free strategies cover Bluesky/Mastodon/HN/Reddit fully; X/LinkedIn/IG/TikTok need ScrapeCreators or Apify keys for full data. |
-| [`watch-video`](./skills/watch-video/SKILL.md) | Transcribe and analyze any video — YouTube, Loom, Vimeo, Riverside, Zoom, local MP4. Three depth modes: `transcript` (Whisper local), `visual` (transcript + ffmpeg frames + Claude vision on key moments), `multimodal` (Gemini native if `$GEMINI_API_KEY`, else dense Claude vision). Optionally captures summary to `second-brain raw/` as `call-`/`meeting-`/`note-`/`resource-`. Replaces the prior `youtube-transcript` skill. |
+MIT — see [LICENSE](./LICENSE).
+
+## Built by
+
+[Corey Haines](https://corey.co) — founder, [Conversion Factory](https://conversionfactory.co) + [Magister](https://magistermarketing.com).
