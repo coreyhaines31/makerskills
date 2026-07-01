@@ -29,7 +29,7 @@ See [INSTALL.md](./INSTALL.md) for env vars, personal-config setup, and runtime 
 
 ---
 
-## The 15 skills
+## The 16 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -48,7 +48,8 @@ See [INSTALL.md](./INSTALL.md) for env vars, personal-config setup, and runtime 
 ### Knowledge & content consumption
 | Skill | What |
 |---|---|
-| [`second-brain`](./skills/second-brain/SKILL.md) | Karpathy LLM Wiki workflow over any markdown vault. Capture / compile / query / lint / connect / search. |
+| [`second-brain`](./skills/second-brain/SKILL.md) | Karpathy LLM Wiki workflow over any markdown vault. Capture / compile / query / lint / connect / search. Personal-scope. |
+| [`company-brain`](./skills/company-brain/SKILL.md) | Team-scope sibling to second-brain. Structured raw dirs (people / companies / meetings / sops / decisions / customer-language / recurring-questions / sales-objections), multi-author attribution, sensitivity tagging, optional auto-sync from Fathom / Gong / Granola / CRM. Backbone for the Company Brain Setup CF service. |
 | [`read-book`](./skills/read-book/SKILL.md) | PDFs, EPUBs, MOBI, markdown — chapter-by-chapter notes, quotes, summaries, or spaced-rep study mode. |
 | [`watch-video`](./skills/watch-video/SKILL.md) | YouTube, Loom, Vimeo, Riverside, Zoom, MP4. Transcript / visual / multimodal (Gemini-native) modes. |
 
@@ -76,7 +77,8 @@ Skills read from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/<skill>/` pat
 
 ```bash
 export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
-export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"
+export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"    # for second-brain (personal-scope vault)
+export COMPANY_BRAIN_VAULT="$HOME/Documents/CompanyBrain"  # for company-brain (team-scope vault)
 export COREYCO_REPO="$HOME/code/your-site-repo"            # for slide-deck
 ```
 

@@ -29,8 +29,11 @@ export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
 # Where the slide-deck skill writes branded React decks (only if you have one)
 export COREYCO_REPO="$HOME/code/your-personal-site-repo"
 
-# Where the second-brain skill reads/writes your wiki vault
+# Where the second-brain skill reads/writes your personal wiki vault
 export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"
+
+# Where the company-brain skill reads/writes your team's shared vault
+export COMPANY_BRAIN_VAULT="$HOME/Documents/CompanyBrain"
 
 # Optional: dev-server URL pattern for slide-deck preview (default: localhost:3000)
 export COREYCO_DEV_HOST="localhost:3000"
@@ -92,13 +95,14 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ## 6. Verify
 
 ```bash
-# Should see ~14 skills listed
+# Should see 16 skills listed
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:
 /skillify                                   # should respond with mode selection (CREATE / ADAPT / UPDATE)
 /decide                                     # should ask for the decision context
 /paste                                      # should read clipboard
+/company-brain                              # should route to a mode (needs COMPANY_BRAIN_VAULT set)
 ```
 
 ## What's next
