@@ -1,6 +1,6 @@
 # PPT conversion reference
 
-Convert a legacy PowerPoint deck (client deck, conference template, vendor pitch) into Corey's React system. Preserves text, structure, speaker notes, and images.
+Convert a legacy PowerPoint deck (client deck, conference template, vendor pitch) into the user's React system. Preserves text, structure, speaker notes, and images.
 
 ## Prerequisites
 
@@ -86,7 +86,7 @@ python3 ~/Documents/slide-conversions/_scripts/extract_pptx.py \
   ~/Documents/slide-conversions/<slug>-from-pptx/
 ```
 
-## Step 2 — Confirm summary with Corey
+## Step 2 — Confirm summary with the user
 
 Read `extracted.json`. Present a one-line-per-slide summary:
 
@@ -127,20 +127,20 @@ For images:
 
 ## Step 5 — Speaker notes
 
-Speaker notes in the PPTX → `notes` array on the corresponding Slide. Split notes on sentence boundaries or empty lines; aim for 3–5 lines per slide per Corey's voice rules.
+Speaker notes in the PPTX → `notes` array on the corresponding Slide. Split notes on sentence boundaries or empty lines; aim for 3–5 lines per slide per the user's voice rules.
 
-If a PPTX slide has no notes, generate 3 starter notes lines based on the slide's content. Mark these with a `// TODO: review` comment so Corey can refine in his voice.
+If a PPTX slide has no notes, generate 3 starter notes lines based on the slide's content. Mark these with a `// TODO: review` comment so the user can refine in his voice.
 
 ## Step 6 — Apply voice + density rules
 
 The extracted content is in whatever voice the original deck had — likely corporate. After mapping to primitives, do a voice pass:
 
-- Apply Corey's anti-AI-slop rules (`references/narrative-and-voice.md`)
+- Apply the user's anti-AI-slop rules (`references/narrative-and-voice.md`)
 - Rewrite generic headings into specific, take-coded ones
 - Trim wordy bullets — aim for 3–6 words each
 - Honor the chosen density mode (speaker-led vs reading-first)
 
-This is the most subjective step. When in doubt, show Corey the original and proposed rewrite side by side and let him pick.
+This is the most subjective step. When in doubt, show the user the original and proposed rewrite side by side and let him pick.
 
 ## Step 7 — Archive the conversion
 
@@ -152,7 +152,7 @@ Keep the original PPTX + extracted JSON forever. Never modify the source.
 ├── extracted.json         # parsed structure
 ├── assets/                # images extracted from PPTX
 │   └── slide-XXX-N.png
-└── conversion-notes.md    # any decisions made during mapping (Corey-readable audit)
+└── conversion-notes.md    # any decisions made during mapping (the user-readable audit)
 ```
 
 The audit lets future conversions of similar decks reuse the mapping decisions.

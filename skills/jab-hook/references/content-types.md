@@ -38,7 +38,7 @@ If a first-comment link is being added, draft it separately as:
 
 ## build-in-public / BIP (~2–3/week)
 
-Behind-the-scenes of running CF, Swipe Files, Magister, Truelist, or Corey's day. Usually no CTA, no URL.
+Behind-the-scenes of running CF, Swipe Files, Magister, Truelist, or the user's day. Usually no CTA, no URL.
 
 **Best openers**:
 - A number: *"$X MRR this month."* / *"Took 14 sales calls this week."*
@@ -55,7 +55,7 @@ Behind-the-scenes of running CF, Swipe Files, Magister, Truelist, or Corey's day
 
 **Topics that work**:
 - Revenue / pipeline updates
-- What Corey shipped this week
+- What the user shipped this week
 - A tool / process change
 - A mistake + what he learned
 - Behind-the-scenes of a project

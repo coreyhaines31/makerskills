@@ -135,7 +135,7 @@ What each platform typically provides on a successful free-strategy fetch:
   "raw_source": "agent-browser",
   "author": {
     "handle": "@coreyganim",
-    "name": "Corey Ganim",
+    "name": "the user Ganim",
     "verified": true,
     "follower_count": null
   },
@@ -180,6 +180,6 @@ When the skill completes, output:
 
 1. **One-line summary** in chat: `<author> · <platform> · <date> · "<first 80 chars>..."`
 2. **Path to the JSON output** if `--save` flag set (saved to `~/Documents/social-fetches/<platform>-<id>.json`)
-3. **Inline JSON** in chat for the calling skill / Corey to use
+3. **Inline JSON** in chat for the calling skill / the user to use
 
 If only partial data was retrievable (free strategy on X/LinkedIn/IG/TikTok), surface it clearly: *"Free strategy returned author + text + engagement. Replies + full thread require `$SCRAPECREATORS_API_KEY`. See references/auth-keys.md to set up."*

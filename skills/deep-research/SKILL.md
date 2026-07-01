@@ -11,7 +11,7 @@ Plans, executes, and synthesizes research from multiple sources. Archives the ou
 
 ## Step 1 — Frame the question
 
-Restate the research question in one tight sentence. If ambiguous, ask Corey:
+Restate the research question in one tight sentence. If ambiguous, ask the user:
 - What's the decision this research will inform?
 - What's the minimum useful answer? (Saves over-researching.)
 - Any sources to prioritize or avoid?
@@ -26,9 +26,9 @@ Pick from this menu based on the question type. Note which sources you'll hit an
 |---|---|---|
 | Web search (Google) | Authoritative articles, docs, official statements | `WebSearch` |
 | `/last30days` | What people are *actually saying* right now — Reddit, X, YouTube, HN, web recency | `Skill({skill: "last30days", args: "<topic>"})` |
-| Specific URLs | When Corey hands over starting URLs | `WebFetch` |
+| Specific URLs | When the user hands over starting URLs | `WebFetch` |
 | Browsable pages (auth-walled, JS-heavy) | Pricing pages, product tours, profiles | `agent-browser` via the `compound-engineering:agent-browser` skill |
-| Memory | Prior research / decisions / context Corey already captured | grep `~/.claude/projects/-Users-coreyhaines/memory/` |
+| Memory | Prior research / decisions / context the user already captured | grep `~/.claude/memory/` |
 | Notion | If the topic touches a known Notion workspace (e.g., CF positioning) | Direct Notion API (key in `$NOTION_API_KEY`, see `reference_notion_api.md`) |
 | Research archive | Prior `/deep-research` runs that touched this topic | grep `~/code/makerskills/skills/deep-research/references/research-archive/` |
 
@@ -103,7 +103,7 @@ Also append a one-line entry to `references/research-archive/INDEX.md` (create i
 
 After archiving:
 - Show the full brief in chat
-- Tell Corey the archive path
+- Tell the user the archive path
 - Offer: *"Push to Notion or save to a project's docs?"*
 
 ## Composes with

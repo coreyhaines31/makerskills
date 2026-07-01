@@ -25,7 +25,7 @@ Normalized fetcher for social posts across platforms. Detects platform from URL,
 | `news.ycombinator.com/item?id=<id>` | **hn** |
 | `youtube.com/watch?v=<id>` or `youtu.be/<id>` | → defer to `watch-video` |
 
-If the URL doesn't match any pattern, ask Corey what platform it is.
+If the URL doesn't match any pattern, ask the user what platform it is.
 
 ## Step 2 — Pick strategy chain
 
@@ -58,7 +58,7 @@ Return this shape regardless of platform (see `references/output-schema.md` for 
   "raw_source": "scrapecreators",
   "author": {
     "handle": "@coreyganim",
-    "name": "Corey Ganim",
+    "name": "the user Ganim",
     "verified": true
   },
   "posted_at": "2026-06-17T16:53:00Z",
@@ -115,4 +115,4 @@ Skip cache if `--no-cache` flag is set or for `--with-replies` / `--thread` (lik
 - **Bluesky / Mastodon / HN / Reddit**: free + reliable.
 - **Private / deleted posts**: nothing helps. Try Wayback Machine for deleted content.
 
-If a platform consistently fails on free strategies and Corey uses it often, prompt to set up the paid key (see `references/auth-keys.md`).
+If a platform consistently fails on free strategies and the user uses it often, prompt to set up the paid key (see `references/auth-keys.md`).

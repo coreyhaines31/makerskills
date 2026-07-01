@@ -10,7 +10,7 @@
 - **Flow over batch.** Small cards moving steadily beats heroic sprints.
 - **Inspect and adapt.** Look at flow weekly. If cards pile up in one column, that's the constraint.
 
-### The 5-column flow (Corey's default)
+### The 5-column flow (the user's default)
 
 ```
 Backlog  →  Ready  →  In Progress  →  Review/Blocked  →  Done/Archived

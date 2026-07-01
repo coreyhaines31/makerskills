@@ -1,6 +1,6 @@
 # Cross-skill propagation
 
-The unique value of `update-skill`. A learning often applies to multiple skills — surface all of them so Corey can approve per file.
+The unique value of `update-skill`. A learning often applies to multiple skills — surface all of them so the user can approve per file.
 
 ## Why this matters
 
@@ -56,7 +56,7 @@ Use the skill's *output type* as the heuristic:
 
 ## Output: confidence-tagged candidate list
 
-Present to Corey before proposing any diffs:
+Present to the user before proposing any diffs:
 
 ```markdown
 ## Learning: <one-line statement>
@@ -72,7 +72,7 @@ Present to Corey before proposing any diffs:
 - `<skill4>` — keyword present but in unrelated context
 
 ### Memory candidate (cross-cutting principle?)
-- Yes / no. If yes, suggested path: `~/.claude/projects/-Users-coreyhaines/memory/feedback_<slug>.md`
+- Yes / no. If yes, suggested path: `~/.claude/memory/feedback_<slug>.md`
 
 **Proceed with high-confidence diffs? Approve / edit / skip each.**
 ```
@@ -86,7 +86,7 @@ Default: search **only the current repo**. Most learnings are repo-local.
 Add `--cross-repo` flag when:
 - The learning is clearly meta (naming convention, file structure, frontmatter)
 - The skills span multiple repos (e.g., voice rule that applies to social skills in `makerskills:jab-hook`, `cf-skills:x-li`, `marketingskills:social`)
-- Corey explicitly asks ("apply this to all my skills")
+- the user explicitly asks ("apply this to all my skills")
 
 Cross-repo propagation: produce one commit per repo. Don't try to atomic-commit across repo boundaries.
 

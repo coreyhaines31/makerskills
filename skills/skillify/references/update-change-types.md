@@ -35,7 +35,7 @@ User confirmed a behavior worked well — bake it in so it doesn't regress.
 
 ## 3. New patterns
 
-Corey used a workflow not documented in any skill. Encode it.
+the user used a workflow not documented in any skill. Encode it.
 
 **Signals:**
 - A multi-step process performed manually
@@ -55,7 +55,7 @@ Refinements to how the skill writes / sounds.
 **Signals:**
 - Style feedback
 - "Make it more X" / "less Y"
-- Examples where Corey rewrote the skill's output
+- Examples where the user rewrote the skill's output
 
 **Examples from this session:**
 - Spoken-aloud rule for slide-deck — overhauled the voice section
@@ -67,7 +67,7 @@ Refinements to how the skill writes / sounds.
 
 ## 5. Tool changes
 
-Corey switched default tools or learned a tool integration works better.
+the user switched default tools or learned a tool integration works better.
 
 **Signals:**
 - "Use X instead of Y"
@@ -125,8 +125,8 @@ Each learning extracted from chat / dump should be a **single change** stated as
 Examples:
 - *"slide-deck voice should emphasize that slides are spoken aloud (write for the ear) because the current 'written voice' framing produced text that didn't sound natural when read out loud."*
 - *"jab-hook drafts should not include URLs in the post body (use first comments instead) because platforms downrank link-in-body posts."*
-- *"second-brain raw/ type catalog should include business-operational prefixes (call-, email-, sop-, etc.) because Corey uses these for CF work, not just personal intellectual capture."*
+- *"second-brain raw/ type catalog should include business-operational prefixes (call-, email-, sop-, etc.) because the user uses these for CF work, not just personal intellectual capture."*
 
 Format: skill (or area) + new behavior + because + (optional) current behavior contrast.
 
-If you can't phrase it this way, it's not concrete enough to be a change — push back / ask Corey for specifics.
+If you can't phrase it this way, it's not concrete enough to be a change — push back / ask the user for specifics.

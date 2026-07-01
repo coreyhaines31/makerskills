@@ -70,7 +70,7 @@ Strip all formatting. X is plain text.
 - Tables → flatten to a short list
 - URLs:
   - Surface them separately
-  - Per Corey's voice rule: links don't go in the body — surface for use as a reply
+  - Per the user's voice rule: links don't go in the body — surface for use as a reply
 - Char count: warn at >280
 
 ---
@@ -84,8 +84,8 @@ Strip formatting. LinkedIn is plain text.
 - Strip headers — use a bold-feeling first line instead (no actual bold available)
 - URLs:
   - Surface separately, don't include in body
-  - Per Corey's voice rule: links go in a first comment, not body
-- No hashtags (Corey's voice rule)
+  - Per the user's voice rule: links go in a first comment, not body
+- No hashtags (the user's voice rule)
 - Char count: note at >400 (comfort line, not hard limit)
 
 ---
@@ -103,13 +103,13 @@ Plain text email. Most safe across clients.
 
 ## email (rich / html)
 
-Render to HTML so Corey can copy from a browser into Gmail/Apple Mail with formatting preserved.
+Render to HTML so the user can copy from a browser into Gmail/Apple Mail with formatting preserved.
 
 - Convert markdown → HTML (use a simple converter: `pandoc` if installed, else hand-render)
 - Style with minimal inline CSS for readability (system font stack, 16px base, 1.5 line height, max-width 640px)
 - Write to `/tmp/paste-<timestamp>.html`
 - `open /tmp/paste-<timestamp>.html` to launch in default browser
-- Skip clipboard — Corey selects + copies from the browser
+- Skip clipboard — the user selects + copies from the browser
 
 ---
 
@@ -129,11 +129,11 @@ Markdown is native. Keep almost everything.
 
 ## markdown (render in chat)
 
-Render the cleaned markdown directly in chat — Claude Code renders it inline for Corey to read.
+Render the cleaned markdown directly in chat — Claude Code renders it inline for the user to read.
 
 - Apply universal cleaning
 - Keep markdown structure intact
-- Copy raw markdown to clipboard too (in case Corey wants to paste somewhere else)
+- Copy raw markdown to clipboard too (in case the user wants to paste somewhere else)
 - After rendering, offer: *"Want me to also open this as HTML in your browser?"* — if yes, write to `/tmp/paste-<ts>.html` and `open`
 
 ---
@@ -147,4 +147,4 @@ For when you want to copy rich-formatted content from a browser into a rich-text
 - Write to `/tmp/paste-<timestamp>.html`
 - `open <path>` to launch in default browser
 - Skip clipboard
-- Tell Corey: *"Open in [Chrome/Safari]. Cmd-A, Cmd-C to grab the formatted version."*
+- Tell the user: *"Open in [Chrome/Safari]. Cmd-A, Cmd-C to grab the formatted version."*

@@ -7,7 +7,7 @@ Skills queued for future sessions. Use `/skillify` to scaffold when ready.
 ## Shipped
 
 - **v0.3.0** — `company-brain` — team-scope sibling to `second-brain`. Structured raw dirs (people / companies / meetings / sops / decisions / customer-language / recurring-questions / sales-objections), multi-author attribution, sensitivity tagging, optional auto-sync from Fathom / Gong / Granola / CRM. Operational backbone for the **Company Brain Setup** productized CF service (renamed from "Second Brain as a Service" for vocabulary consistency with the skill name).
-- **v0.2.0** — The `-ify` trifecta: `skillify` (consolidated create/adapt/update), `toolify` (integration wizard), `loopify` (agent-loop setup). Vocabulary-moat family — memorable `-ify` rhythm mapping to the 3 primary Claude Code extension surfaces (skills, tools, loops). Ship notes: rule of 3 — do NOT extend the family further (no Hookify / Configify / Memorify). See `~/Corey's Projects/wiki/Founding Marketing Frameworks.md` for the broader vocabulary strategy.
+- **v0.2.0** — The `-ify` trifecta: `skillify` (consolidated create/adapt/update), `toolify` (integration wizard), `loopify` (agent-loop setup). Vocabulary-moat family — memorable `-ify` rhythm mapping to the 3 primary Claude Code extension surfaces (skills, tools, loops). Ship notes: rule of 3 — do NOT extend the family further (no Hookify / Configify / Memorify).
 
 ---
 
@@ -18,7 +18,7 @@ Skills queued for future sessions. Use `/skillify` to scaffold when ready.
 - `thanks-no` — polite declines for speaker/podcast/partnership asks
 - `daily-startup` — morning brief (priorities + overnight + calendar + top 3)
 - `swipe-save` — marketing inspiration capture (may merge with `second-brain`)
-- `new-project` — Next.js + Drizzle + Neon scaffold with Corey's patterns
+- `new-project` — Next.js + Drizzle + Neon scaffold with the user's patterns
 - `gh-triage` — cross-repo issue/PR summary
 - `bjj-log` — training log
 

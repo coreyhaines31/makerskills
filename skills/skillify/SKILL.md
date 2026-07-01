@@ -328,7 +328,7 @@ For each learning: **is this skill-specific or a broader principle?**
 | Type | Where it goes |
 |---|---|
 | Skill-specific rule | Edit the SKILL.md / references file directly |
-| Cross-cutting principle | `~/.claude/projects/-Users-coreyhaines/memory/feedback_<topic>.md` |
+| Cross-cutting principle | `~/.claude/memory/feedback_<topic>.md` |
 | Both | Write the memory file AND update the skill(s) that immediately apply |
 
 Example: *"links go in first comments, not body"* → applies to `jab-hook` AND is a broader social principle → both update jab-hook AND save `feedback_social_link_placement.md`.

@@ -92,7 +92,7 @@ Just `Read` it. No conversion. Chunk by character count (30K per chunk).
 
 Use what was pasted. Treat like a single chunk if short (<30K chars), or chunk by character count if long.
 
-If Corey pastes only a section of a book ("read this chapter for me"), treat as 1-chunk and skip the per-chapter aggregation.
+If the user pastes only a section of a book ("read this chapter for me"), treat as 1-chunk and skip the per-chapter aggregation.
 
 ---
 
@@ -128,4 +128,4 @@ For every source, extract these into the workdir's `metadata.json`:
 
 For PDFs: `pdfinfo` gives title, author, page count out of the box.
 For EPUB: `unzip -p <file> META-INF/container.xml` and the OPF file inside have full metadata.
-For markdown/text: ask Corey for title + author if not in the filename.
+For markdown/text: ask the user for title + author if not in the filename.

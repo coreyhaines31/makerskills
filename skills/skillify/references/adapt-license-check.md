@@ -1,6 +1,6 @@
 # License check
 
-Run this before adapting. Skill defaults to **stop** on unclear or restrictive licenses — don't proceed without explicit Corey approval on red cases.
+Run this before adapting. Skill defaults to **stop** on unclear or restrictive licenses — don't proceed without explicit the user approval on red cases.
 
 ## Policy
 
@@ -14,11 +14,11 @@ Run this before adapting. Skill defaults to **stop** on unclear or restrictive l
 | **Unlicense** | ✅ Proceed | Public domain equivalent. |
 | **MPL 2.0** | 🟡 Warn | File-level reciprocity — modified MPL files must stay MPL. Adapt sparingly; consider rewriting from scratch instead of copying. |
 | **LGPL** | 🟡 Warn | Library-linking exception, but skill files would be derivative. Usually rewrite from scratch is cleaner. |
-| **GPL 2.0 / 3.0** | ❌ Stop | Strong copyleft — adaptation creates a derivative work that must also be GPL. Stops your repo from being your-license-of-choice. Surface to Corey. |
+| **GPL 2.0 / 3.0** | ❌ Stop | Strong copyleft — adaptation creates a derivative work that must also be GPL. Stops your repo from being your-license-of-choice. Surface to the user. |
 | **AGPL** | ❌ Stop | Even stronger — network-use clause triggers. |
 | **Custom / proprietary** | ❌ Stop | No legal basis to copy. |
 | **No LICENSE file** | 🟡 Warn | Default copyright = no rights. Don't copy. Ask author OR rewrite from scratch using only the *ideas* (not the text). |
-| **Unclear / conflicting** | 🟡 Warn | Surface to Corey for a call. |
+| **Unclear / conflicting** | 🟡 Warn | Surface to the user for a call. |
 
 ## Detection script
 
@@ -43,7 +43,7 @@ Standard SPDX identifiers: `MIT`, `Apache-2.0`, `BSD-2-Clause`, `BSD-3-Clause`, 
 
 **CC0 / Unlicense / Public Domain**: attribution not required, but include in `attribution.md` for credit.
 
-**MPL / LGPL / GPL**: don't proceed without Corey's explicit call.
+**MPL / LGPL / GPL**: don't proceed without the user's explicit call.
 
 ## When the source has no license
 

@@ -7,7 +7,7 @@ metadata:
 
 # /slide-deck — Draft, update, convert, and export branded React decks
 
-Authors React/TypeScript decks for `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/page.tsx` using Corey's slide system. Branded output (no separate HTML pipeline) — when portable HTML/PDF is needed, export mode snapshots the rendered React deck via Playwright so the output is brand-perfect.
+Authors React/TypeScript decks for `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/page.tsx` using the user's slide system. Branded output (no separate HTML pipeline) — when portable HTML/PDF is needed, export mode snapshots the rendered React deck via Playwright so the output is brand-perfect.
 
 ## Modes (pick one before Step 1)
 
@@ -46,19 +46,19 @@ Pitch 3 angles in 1–2 sentences each:
 - **Bold** — contrarian or counterintuitive frame. Higher upside, slight risk.
 - **Wildcard** — unexpected structure (story-first, single-question deck, anti-thesis, etc.).
 
-Corey picks one. If he rejects all three, propose three more — don't force a path.
+the user picks one. If he rejects all three, propose three more — don't force a path.
 
 ## Step 3 — Outline
 
 For the chosen angle:
 
-1. **Sections** — propose 3–7 named sections (e.g., `Title`, `Hook`, `Problem`, `Framework`, `Examples`, `Close`). The default 3-act structure is OPTIONAL; only use it if Corey wants it or the deck is a keynote-length talk that benefits from one.
+1. **Sections** — propose 3–7 named sections (e.g., `Title`, `Hook`, `Problem`, `Framework`, `Examples`, `Close`). The default 3-act structure is OPTIONAL; only use it if the user wants it or the deck is a keynote-length talk that benefits from one.
 2. **Slide titles** within each section
 3. **One-line takeaway** per slide
 
 Total slide count should match the duration estimate from Step 1.
 
-Show the outline as a table. Corey edits / approves before expand.
+Show the outline as a table. the user edits / approves before expand.
 
 ## Step 4 — Expand to slide content
 
@@ -71,10 +71,10 @@ Slide types and which primitives fit:
 | Title | `Eyebrow` + `<h1>` with `<Accent>` keyword | First slide, sets brand and topic |
 | Hook | `Heading` + `Body` | A take, story open, contrarian frame, or specific stat |
 | Section divider | `Eyebrow` + `Heading` (centered, large) | Clean break between sections |
-| Framework | `Heading` + `BulletList` or custom layout | The thing Corey's teaching |
+| Framework | `Heading` + `BulletList` or custom layout | The thing the user's teaching |
 | Two-column | `TwoCol` | Comparison, before/after, problem/solution |
 | Quote / pull-quote | `Body` (large) | Authority or audience-recognition moment |
-| Resource / link | `Body` + URL on its own line | Outbound (rare — Corey's voice says minimize) |
+| Resource / link | `Body` + URL on its own line | Outbound (rare — the user's voice says minimize) |
 | Close / CTA | `Heading` + `Body` + `BulletList` for next steps | What the audience should do |
 
 **Voice anchors — write for the ear, not the page** (see `narrative-and-voice.md` for full rules):
@@ -114,7 +114,7 @@ Use the templates in `references/template.md` as the skeleton.
 - Have `"use client"` at the top
 - Import `SlideDeck` and `Slide` type from `@/components/slides/slide-deck`
 - Import `SectionRange` from `@/components/slides/sections` (only if using sections)
-- Import the primitives Corey uses from `@/components/slides/slide-primitives`
+- Import the primitives the user uses from `@/components/slides/slide-primitives`
 - Declare `const slides: Slide[] = [...]`
 - (Optional) Declare `const sections: SectionRange[] = [...]` with 0-indexed `from`/`to`
 - Export default a component that returns `<SlideDeck slides={slides} sections={sections} />`
@@ -182,7 +182,7 @@ Modify an existing deck without breaking it. Risks: overflowing slides, exceedin
 
 ## Mode: ppt
 
-Convert a legacy PPTX (client deck, conference template) into Corey's React system.
+Convert a legacy PPTX (client deck, conference template) into the user's React system.
 
 1. **Extract content** via `python3` and `python-pptx`:
    ```bash
@@ -202,7 +202,7 @@ Convert a legacy PPTX (client deck, conference template) into Corey's React syst
    ```
    See `references/ppt-conversion.md` for the full extraction + mapping recipe.
 
-2. **Show Corey the extracted summary** — slide titles, content excerpts, image count. Confirm before proceeding.
+2. **Show the user the extracted summary** — slide titles, content excerpts, image count. Confirm before proceeding.
 
 3. **Map to React primitives**:
    - First slide → title pattern (Eyebrow + h1 + Accent)
@@ -230,7 +230,7 @@ Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Ver
 
 **Flow** (full details in `references/export.md`):
 
-1. **Verify dev server**: confirm `${SLIDE_DECK_DEV_HOST:-localhost:3000}/slides/<slug>` loads. If not, prompt Corey to `cd ${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site} && npm run dev`.
+1. **Verify dev server**: confirm `${SLIDE_DECK_DEV_HOST:-localhost:3000}/slides/<slug>` loads. If not, prompt the user to `cd ${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site} && npm run dev`.
 2. **Count slides**: read `page.tsx`, count entries in the `slides` array.
 3. **Run Playwright snapshot**:
    ```bash
@@ -247,7 +247,7 @@ Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Ver
    - `vercel` → `vercel deploy ~/Documents/slide-exports/<slug>-<date>/`
 5. **Report** path / URL.
 
-**Caveats** (mention to Corey):
+**Caveats** (mention to the user):
 - Animations and presenter view are not preserved — exports are static snapshots.
 - For interactive demo, present the React version live; for sharing/PDF/portable, use exports.
 - Snapshots are 1920×1080 — high-quality on any device, but file size scales with slide count.

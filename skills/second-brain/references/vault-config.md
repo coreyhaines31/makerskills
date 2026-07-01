@@ -28,7 +28,7 @@ The Second Brain vault location and tool.
 
 ## Switching vaults
 
-If Corey moves the vault or wants to use a different setup (Logseq, plain markdown dir, Notion):
+If the user moves the vault or wants to use a different setup (Logseq, plain markdown dir, Notion):
 
 1. Update **Path** above
 2. If the tool changes, note any structural differences (e.g., Logseq uses `journals/` and `pages/`)
@@ -36,4 +36,4 @@ If Corey moves the vault or wants to use a different setup (Logseq, plain markdo
 
 ## Note
 
-The skill always reads `<vault>/CLAUDE.md` at start. If Corey updates his schema there, the skill picks it up automatically — no need to keep this skill's `schema.md` in sync.
+The skill always reads `<vault>/CLAUDE.md` at start. If the user updates his schema there, the skill picks it up automatically — no need to keep this skill's `schema.md` in sync.

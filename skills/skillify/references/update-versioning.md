@@ -15,7 +15,7 @@ Per-skill `metadata.version` follows semantic versioning. Bumps are small signal
 Most skills start at `0.1.0`. While in 0.x, breaking changes can bump MINOR instead of MAJOR (e.g., `0.1.0` → `0.2.0` for a rename, as we did for `jab-hook`). This signals "still iterating, expect changes." Move to `1.0.0` when:
 - The skill has been used successfully ~10+ times
 - The interface is stable
-- Corey explicitly says "lock it in"
+- the user explicitly says "lock it in"
 
 After `1.0.0`, the standard rules apply strictly.
 

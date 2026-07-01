@@ -53,7 +53,7 @@ const slides: Slide[] = [
           <DECK_TITLE_LINE_1> <Accent><DECK_TITLE_KEYWORD></Accent>
         </h1>
         <p className="text-[#4d4d4d]/50 text-xl font-heading">
-          Corey Haines
+          <SPEAKER_NAME>
         </p>
       </div>
     ),

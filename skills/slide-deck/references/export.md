@@ -1,6 +1,6 @@
 # Export reference
 
-Snapshot a rendered React deck to portable HTML / PDF / Vercel URL via Playwright. Output is brand-perfect because it's actual screenshots of the deck rendered in the corey.co dev server.
+Snapshot a rendered React deck to portable HTML / PDF / Vercel URL via Playwright. Output is brand-perfect because it's actual screenshots of the deck rendered in the dev server.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ Snapshot a rendered React deck to portable HTML / PDF / Vercel URL via Playwrigh
 | img2pdf (PDF alternative, simpler) | `pip install img2pdf` | `img2pdf --version` |
 | Vercel CLI | `npm install -g vercel` | `vercel --version` |
 
-If any are missing on first run, surface the install command to Corey; don't try to install silently.
+If any are missing on first run, surface the install command to the user; don't try to install silently.
 
 ## Step 1 — Verify dev server
 
@@ -51,7 +51,8 @@ import path from 'node:path';
 
 const [, , slug, slideCountStr, outDir] = process.argv;
 const slideCount = parseInt(slideCountStr, 10);
-const baseUrl = `http://${SLIDE_DECK_DEV_HOST:-localhost:3000}/slides/${slug}`;
+const host = process.env.SLIDE_DECK_DEV_HOST || 'localhost:3000';
+const baseUrl = `http://${host}/slides/${slug}`;
 
 await mkdir(outDir, { recursive: true });
 
@@ -168,11 +169,11 @@ open ~/Documents/slide-exports/<slug>-<date>/<slug>.pdf
    ```
 3. Report the URL Vercel returns.
 
-First-time only: Corey needs to be logged in (`vercel login`). The skill should check `vercel whoami` and prompt if needed.
+First-time only: the user needs to be logged in (`vercel login`). The skill should check `vercel whoami` and prompt if needed.
 
 To take a deployed deck down later: `vercel rm <project-name>`.
 
-## Caveats to surface to Corey
+## Caveats to surface to the user
 
 - **Animations are not preserved.** Exports are static slide snapshots — any micro-interactions, presenter view, or animations live only in the React version.
 - **For interactive demos, present the React version live.** Exports are for sharing, sending, printing, archiving.

@@ -1,6 +1,6 @@
 # Secret detection patterns
 
-Scan the input against these before any copy or paste. If any match, **stop** and ask Corey before proceeding.
+Scan the input against these before any copy or paste. If any match, **stop** and ask the user before proceeding.
 
 When reporting a hit, **mask the value** — show only the first 4 and last 4 characters:
 > *"Spotted what looks like an OpenAI API key: `sk-12...wxyz`. Continue, redact (replace with `[REDACTED]`), or abort?"*
@@ -53,7 +53,7 @@ Don't flag:
 
 1. **Stop processing immediately** — don't copy to clipboard
 2. **Mask** the matched value (first 4 + last 4 chars)
-3. **Ask** Corey: continue / redact / abort
+3. **Ask** the user: continue / redact / abort
 4. If **redact**: replace the matched value with `[REDACTED]` in the output
 5. If **abort** (or no answer in reasonable time): bail without copying anything
 

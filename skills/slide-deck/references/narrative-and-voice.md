@@ -60,7 +60,7 @@ LLMs converge toward generic copy. Hold a higher bar by avoiding these specific 
 
 **Test:** if a slide's heading could appear unchanged in a generic SaaS pitch deck, rewrite it. Specific > vague every time.
 
-The voice should be unmistakably Corey's. If you can imagine three other marketers reading the same slide and it landing, it's not voiced enough.
+The voice should be unmistakably the user's. If you can imagine three other marketers reading the same slide and it landing, it's not voiced enough.
 
 ### Slide text vs speaker notes — the gap is small
 
@@ -69,7 +69,7 @@ Both get spoken. The difference:
 - **Slide text** = the headline of what you're saying. Tight, scannable, the *take*. Still conversational — still uses contractions, still reads aloud naturally — but fewer words.
 - **Speaker notes** = the full spoken delivery. More room for asides, callbacks, "you know," story digressions, second-person directness. Still in your voice — just looser.
 
-Old framing said slide text was "written Corey" and notes were "spoken Corey." That's wrong — slide text is *abbreviated spoken Corey*. Both pass the read-aloud test.
+Old framing said slide text was "written the user" and notes were "spoken the user." That's wrong — slide text is *abbreviated spoken the user*. Both pass the read-aloud test.
 
 ## Narrative patterns (pick one, don't force any)
 
@@ -166,7 +166,7 @@ For pitch decks specifically: 10–15 slides is the sweet spot. 20+ becomes a do
 
 ## Density modes
 
-Borrowed from `frontend-slides`. Ask Corey up front — affects slide count, copy length per slide, and which primitives to favor.
+Borrowed from `frontend-slides`. Ask the user up front — affects slide count, copy length per slide, and which primitives to favor.
 
 ### speaker-led (low density)
 

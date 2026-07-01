@@ -2,7 +2,7 @@
 
 **Authoritative source: `<vault>/CLAUDE.md`.** This file is a fallback used only when the vault's CLAUDE.md is missing.
 
-The schema below mirrors Corey's vault as of 2026-06-17. Update this file only if you're seeding a new vault from scratch.
+The schema below mirrors the user's vault as of 2026-06-17. Update this file only if you're seeding a new vault from scratch.
 
 ---
 

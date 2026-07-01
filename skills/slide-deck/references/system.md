@@ -62,7 +62,7 @@ Only import the primitives the deck actually uses.
         Marketing Like an <Accent>Engineer</Accent>
       </h1>
       <p className="text-[#4d4d4d]/50 text-xl font-heading">
-        Corey Haines
+        <SPEAKER_NAME>
       </p>
     </div>
   ),

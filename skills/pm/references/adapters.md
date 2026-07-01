@@ -84,7 +84,7 @@ For Projects v2, the skill needs to discover field IDs once via `gh project fiel
 
 ## plane
 
-**Auth:** Plane API key (set as `$PLANE_API_KEY` in `~/.zshenv` if not yet — prompt Corey if missing). Workspace slug from `boards.md`.
+**Auth:** Plane API key (set as `$PLANE_API_KEY` in `~/.zshenv` if not yet — prompt the user if missing). Workspace slug from `boards.md`.
 
 **Pattern:** Plane has Projects → Modules/Cycles → Issues. The "board" maps to a Plane Project; columns map to Plane "State" values.
 
@@ -159,9 +159,9 @@ Watch out: Obsidian Kanban supports embedded YAML metadata blocks per card (prio
 
 **Auth:** none.
 
-When no tool is connected (or Corey doesn't want one for a particular business), `pm` works in conversation:
+When no tool is connected (or the user doesn't want one for a particular business), `pm` works in conversation:
 
-1. Ask Corey to paste the current board state (or describe verbally)
+1. Ask the user to paste the current board state (or describe verbally)
 2. Run the requested mode against that snapshot
 3. Output recommended moves as plain text
 4. Optionally: persist a snapshot to `references/boards-cache/<business>.md` so subsequent runs don't require re-pasting (with a clear warning that the cache is stale until next paste)
@@ -172,7 +172,7 @@ The cache file uses the same Obsidian-style markdown format above so it's portab
 
 ## Adding a new adapter
 
-When Corey starts using a new tool (Trello, Jira, Asana, ClickUp, etc.):
+When the user starts using a new tool (Trello, Jira, Asana, ClickUp, etc.):
 
 1. Add a new section above with: auth method, board structure, list/read/move/create operations
 2. Add the tool as a valid value in `boards.md`

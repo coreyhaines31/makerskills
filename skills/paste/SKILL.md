@@ -14,7 +14,7 @@ Cleans terminal output (ANSI, box-drawing, prompt artifacts, etc.) and reformats
 In order:
 1. If the user included content in the prompt (pasted, or referenced from earlier in the conversation), use that.
 2. Else, read clipboard: `pbpaste`
-3. If both empty, ask Corey what to paste.
+3. If both empty, ask the user what to paste.
 
 ## Step 2 — Parse destination
 
@@ -64,7 +64,7 @@ Read `references/destinations.md` and apply the relevant transform.
 | Destination | Output behavior |
 |---|---|
 | plain / slack / notion / twitter / linkedin / email / github | (a) Show preview in a code fence in chat. (b) Copy clean version to clipboard via `pbcopy`. |
-| email rich | Render to HTML, write to `/tmp/paste-<timestamp>.html`, `open` it in browser. Skip clipboard (Corey copies from browser to preserve rich text). |
+| email rich | Render to HTML, write to `/tmp/paste-<timestamp>.html`, `open` it in browser. Skip clipboard (the user copies from browser to preserve rich text). |
 | markdown | Render the cleaned markdown directly in chat (Claude Code renders it). Also copy raw markdown to clipboard. Offer: *"Open as HTML too?"* — if yes, write and open. |
 | html | Render to HTML, write to `/tmp/paste-<timestamp>.html`, `open` it. Skip clipboard. |
 
@@ -72,7 +72,7 @@ After output, report a one-line summary of what was cleaned (e.g., *"Stripped 12
 
 ## Length warnings
 
-Twitter and LinkedIn have practical limits. Corey said "let me trim" — don't refuse or auto-truncate.
+Twitter and LinkedIn have practical limits. the user said "let me trim" — don't refuse or auto-truncate.
 
 - **Twitter/X**: warn if >280 chars. Note the overage.
 - **LinkedIn**: warn if >400 chars (comfort line, not hard limit).
@@ -82,8 +82,8 @@ Twitter and LinkedIn have practical limits. Corey said "let me trim" — don't r
 
 If the content has URLs and destination is **twitter** or **linkedin**:
 - Surface the URLs separately (don't include them in the body)
-- Remind Corey: links go in a first comment (LinkedIn) or reply (X), not the body
-- See `makerskills:jab-hook` and `~/.claude/projects/-Users-coreyhaines/memory/feedback_social_link_placement.md`
+- Remind the user: links go in a first comment (LinkedIn) or reply (X), not the body
+- See `makerskills:jab-hook` and `~/.claude/memory/feedback_social_link_placement.md`
 
 ## Examples
 
@@ -96,13 +96,13 @@ If the content has URLs and destination is **twitter** or **linkedin**:
 /paste twitter
 [pasted error log]
 ```
-→ Uses pasted content (ignores clipboard), strips everything, warns at 412/280 chars, copies, asks if Corey wants to trim or pick a different destination.
+→ Uses pasted content (ignores clipboard), strips everything, warns at 412/280 chars, copies, asks if the user wants to trim or pick a different destination.
 
 ```
 /paste html
 [pasted markdown table]
 ```
-→ Renders table as HTML, opens in browser. Corey selects + copies into Notion/email with formatting preserved.
+→ Renders table as HTML, opens in browser. the user selects + copies into Notion/email with formatting preserved.
 
 ```
 /paste

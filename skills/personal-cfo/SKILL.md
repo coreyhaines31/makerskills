@@ -69,7 +69,7 @@ For the house mode, default scenarios to compare:
 | **E: ADU + 2 bedrooms** | Maximum rental |
 | **F: ADU + bedrooms (year 2+)** | Year 1: just ADU while renovating. Year 2+: add bedrooms after partner's comfort |
 
-Let Corey customize the scenario list — every house is different.
+Let the user customize the scenario list — every house is different.
 
 ## Step 4 — Run the math
 
@@ -147,7 +147,7 @@ This compounds — when you're considering Property #2 a year later, you can reu
 ## Step 7 — Surface + offer follow-ups
 
 - Show the comparison table in chat
-- Tell Corey the workdir path
+- Tell the user the workdir path
 - Offer:
   - *"Want to run `/deep-research` on rental comps for the area to firm up the ADU and bedroom rent assumptions?"*
   - *"Want to formalize the buy/don't-buy decision through `/decide` once the scenarios land?"*

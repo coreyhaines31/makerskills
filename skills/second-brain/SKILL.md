@@ -84,7 +84,7 @@ The expensive but valuable operation. Process unprocessed raw files into wiki pa
    - Add new pages under their category (Creative / Health & Longevity / Faith & Personal Growth / Business / Personal Growth / Tech / Hobbies / Sci-Fi / Pets — or new category if needed)
    - One line per entry: `- [[Page Name]] — brief description`
 5. **Connections section is mandatory** on every wiki page. If a new page has no connections, find one before saving.
-6. **Quality > quantity.** If a page would be <100 words, hold the raw file for now and ask Corey if it should be merged into an adjacent page.
+6. **Quality > quantity.** If a page would be <100 words, hold the raw file for now and ask the user if it should be merged into an adjacent page.
 
 Output: list of pages created/updated, what merged where, anything held for clarification.
 
@@ -127,11 +127,11 @@ Find pages that should be linked but aren't.
 1. Build a topic map from INDEX.md + page summaries
 2. For each page, find 2–5 other pages with thematic overlap
 3. Check whether each candidate is already linked
-4. Suggest the missing links — and if Corey approves, edit the pages to add them to their `## Connections` sections
+4. Suggest the missing links — and if the user approves, edit the pages to add them to their `## Connections` sections
 
 ### search
 
-Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-line excerpt around the match. Faster than `query` when Corey knows what page he's looking for.
+Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-line excerpt around the match. Faster than `query` when the user knows what page he's looking for.
 
 ## Composes with
 
@@ -149,7 +149,7 @@ Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-li
 Two other systems following the same raw → wiki → outputs pattern. Both are worth watching as upgrade paths.
 
 - **[Hermes' `llm-wiki` skill](https://hermes.team)** — off-the-shelf implementation of the 3-folder pattern. Pre-built workflows for compile / query / lint. Useful for comparing schema decisions.
-- **[Gbrain](https://github.com/garrytan/gbrain)** by Garry Tan — much more sophisticated. Treats the brain as a database (Postgres or PGLite) with synthesis, graph traversal, gap analysis, scheduled cron maintenance, and MCP integration. Powers a 146K-page deployment with 24K people entities. If Corey's vault outgrows the markdown-only pattern, Gbrain is the upgrade direction. Borrows worth adopting today even without migrating: **people-as-entities** (the `person-` raw type + `People` wiki page) and **scheduled maintenance** (wire `compile` and `lint` to fire on a recurring schedule via the `loop` or `compound-engineering:schedule` skill).
+- **[Gbrain](https://github.com/garrytan/gbrain)** by Garry Tan — much more sophisticated. Treats the brain as a database (Postgres or PGLite) with synthesis, graph traversal, gap analysis, scheduled cron maintenance, and MCP integration. Powers a 146K-page deployment with 24K people entities. If the user's vault outgrows the markdown-only pattern, Gbrain is the upgrade direction. Borrows worth adopting today even without migrating: **people-as-entities** (the `person-` raw type + `People` wiki page) and **scheduled maintenance** (wire `compile` and `lint` to fire on a recurring schedule via the `loop` or `compound-engineering:schedule` skill).
 
 ## Notes on quality
 

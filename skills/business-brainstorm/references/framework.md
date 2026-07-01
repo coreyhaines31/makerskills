@@ -1,6 +1,6 @@
 # Business brainstorm framework
 
-Corey's serial-founder filter. Run an idea through each dimension. Verdict per dimension: ✅ strong / 🟡 OK / ❌ weak / ❓ unknown — needs research.
+the user's serial-founder filter. Run an idea through each dimension. Verdict per dimension: ✅ strong / 🟡 OK / ❌ weak / ❓ unknown — needs research.
 
 ---
 
@@ -16,9 +16,9 @@ Is the pain real, frequent, and acute?
 
 ## 2. Audience
 
-Who has this problem, and can Corey reach them?
+Who has this problem, and can the user reach them?
 
-- **✅ Strong:** Audience Corey already talks to (SaaS founders, technical marketers, agency owners) OR a tight niche he can break into cheaply.
+- **✅ Strong:** Audience the user already talks to (SaaS founders, technical marketers, agency owners) OR a tight niche he can break into cheaply.
 - **🟡 OK:** Adjacent audience — would take work but feasible.
 - **❌ Weak:** Cold audience with no existing access (e.g., enterprise CIOs).
 
@@ -50,11 +50,11 @@ Who pays, how much, how often?
 
 Why is this hard to copy? Why won't bigger players crush it?
 
-- **✅ Strong:** Distribution advantage (Corey's audience), brand-as-moat (his name), or compounding asset (data, network effect, content corpus).
+- **✅ Strong:** Distribution advantage (the user's audience), brand-as-moat (his name), or compounding asset (data, network effect, content corpus).
 - **🟡 OK:** Some defensibility (speed, focus, design taste).
 - **❌ Weak:** Pure execution play any well-funded team could replicate in 6 months.
 
-Note: Corey's moats are usually *audience + voice + speed*, not tech. Honest scoring.
+Note: the user's moats are usually *audience + voice + speed*, not tech. Honest scoring.
 
 ---
 
@@ -72,7 +72,7 @@ Check memory's `project_*.md` files — does this idea overlap with workhouse, p
 
 ## 7. Distribution
 
-Which of Corey's audience assets can launch this?
+Which of the user's audience assets can launch this?
 
 - **✅ Strong:** Direct fit with Swipe Files newsletter, CF blog/podcast, Marketing Skills users, X/LinkedIn following, or coreyandco audience.
 - **🟡 OK:** Adjacent audience — could launch with partner collabs or paid push.
@@ -82,7 +82,7 @@ Which of Corey's audience assets can launch this?
 
 ## 8. Energy fit
 
-Does Corey actually want to build and run this for 2+ years?
+Does the user actually want to build and run this for 2+ years?
 
 - **✅ Strong:** Genuinely interested, plays to strengths (writing, marketing, design taste, audience), and isn't already burned out on the space.
 - **🟡 OK:** Interesting but not exciting. Probably needs a co-founder or strong operator.
@@ -94,13 +94,13 @@ INTJ honesty: if it requires constant context-switching, heavy sales motion, or 
 
 ## 9. Opportunity cost
 
-What does Corey NOT do if he does this?
+What does the user NOT do if he does this?
 
-- **✅ Strong:** Marginal capacity used (e.g., 4 hrs/week of Corey + Claude). Doesn't crowd out CF / Swipe Files / existing builds.
+- **✅ Strong:** Marginal capacity used (e.g., 4 hrs/week of the user + Claude). Doesn't crowd out CF / Swipe Files / existing builds.
 - **🟡 OK:** Real time investment but bounded.
 - **❌ Weak:** Would require pulling focus from CF, slowing Swipe Files, or pausing other in-flight projects (workhouse, peptidepatterns, Magister).
 
-The honest test: would adding this make Corey *less* effective on the things that are already working? If yes, the bar is much higher.
+The honest test: would adding this make the user *less* effective on the things that are already working? If yes, the bar is much higher.
 
 ---
 
@@ -116,4 +116,4 @@ Sum the verdicts:
 
 ## Iterate me
 
-This filter is a starting point. Refine the weights and add dimensions as Corey learns what actually predicted his own wins/losses. Especially: revisit after the next 2–3 brainstorms to see if any dimension was a load-bearing miss.
+This filter is a starting point. Refine the weights and add dimensions as the user learns what actually predicted his own wins/losses. Especially: revisit after the next 2–3 brainstorms to see if any dimension was a load-bearing miss.

@@ -35,7 +35,7 @@ If ambiguous, confirm.
 ## Step 2 — Load context
 
 1. Read `references/properties.md` — the 6 rotation slots and angle ideas
-2. Read `references/voice.md` — Corey's voice rules per platform
+2. Read `references/voice.md` — the user's voice rules per platform
 3. Read `references/content-types.md` — templates for promo / BIP / educational
 4. Pull recent posts from your personal Typefully workspace:
    - First run: call `mcp__typefully__typefully_list_social_sets` and ask which social set is your personal (X + LinkedIn). Save the ID to `references/typefully-config.md` for future runs.
@@ -50,7 +50,7 @@ If ambiguous, confirm.
 - Fill remaining 5 days with **alternating** BIP and educational (50/50)
 - Output as a table: `Day | Type | Property/Topic | Hook | Draft summary`
 - Don't stack two promo on consecutive days
-- After Corey approves the plan, offer to draft each one in sequence
+- After the user approves the plan, offer to draft each one in sequence
 
 ### pick-next
 - Identify the most overdue property
@@ -77,12 +77,12 @@ Follow `references/voice.md` and `references/content-types.md`. Default: **singl
 For `promo` and `educational` posts, optionally scan inspiration accounts (`references/inspiration.md`) before drafting:
 
 1. Pick 1–2 accounts whose audience overlaps with the property
-2. Pull recent posts (agent-browser if it works on LinkedIn; otherwise ask Corey to paste examples or fall back to their X/newsletter)
+2. Pull recent posts (agent-browser if it works on LinkedIn; otherwise ask the user to paste examples or fall back to their X/newsletter)
 3. Extract structural patterns: hook openers, post length, line-break rhythm, CTA styles
-4. Apply ONE pattern to Corey's voice — never mimic phrasing
+4. Apply ONE pattern to the user's voice — never mimic phrasing
 5. Log new patterns in `references/patterns.md` (create if missing) so they accumulate
 
-Skip inspiration scan when Corey says "just draft it" or when iterating on an existing post.
+Skip inspiration scan when the user says "just draft it" or when iterating on an existing post.
 
 ## Step 5 — Syndicate to Typefully
 
@@ -91,13 +91,13 @@ Ask: *"Push to Typefully now? (X + LinkedIn, your personal workspace)"*
 If yes:
 1. Read social set ID from `references/typefully-config.md`
 2. Call `mcp__typefully__typefully_create_draft` once for X, once for LinkedIn (or once with both platforms if the social set spans both)
-3. If the draft has a first-comment link, configure Typefully to add it automatically (LinkedIn auto-comment / X reply). If the MCP doesn't support auto-comment for one of the platforms, surface the comment text so Corey can paste it after publishing.
-4. Default to **draft** state (not scheduled) — Corey reviews in Typefully UI before sending
+3. If the draft has a first-comment link, configure Typefully to add it automatically (LinkedIn auto-comment / X reply). If the MCP doesn't support auto-comment for one of the platforms, surface the comment text so the user can paste it after publishing.
+4. Default to **draft** state (not scheduled) — the user reviews in Typefully UI before sending
 5. Return the Typefully draft URLs
 
 ## Cross-references
 
-- `cf-skills:x-li` — for posts syndicated across all three CF partner accounts (Corey + Zach + Nick). Use that instead when the post should land on the CF/agency accounts.
+- `cf-skills:x-li` — for posts syndicated across all three CF partner accounts (the user + Zach + Nick). Use that instead when the post should land on the CF/agency accounts.
 - `marketing-skills:social` — generic social frameworks, useful for client work or when teaching social strategy.
 - `marketing-skills:copywriting` — for hook / headline ideation when stuck.
 - Memory: `feedback_cf_promo_voice.md` (conviction-coded CTAs, reader-perspective framing) — voice principles also apply to your personal promo posts.

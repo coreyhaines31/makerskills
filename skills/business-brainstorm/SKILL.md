@@ -7,11 +7,11 @@ metadata:
 
 # /business-brainstorm — Pressure-test a business idea
 
-Takes a vague idea, runs it through Corey's filter, and outputs a structured viability brief. Composes with `deep-research` (for market) and `/domain` (for naming).
+Takes a vague idea, runs it through the user's filter, and outputs a structured viability brief. Composes with `deep-research` (for market) and `/domain` (for naming).
 
 ## Step 1 — Capture the idea
 
-Get from Corey:
+Get from the user:
 - The idea in 1–2 sentences (the *what*)
 - The reason it's on his mind (the *why now*)
 - Any starting context (a chat where this came up, a tweet that inspired it, a problem he's hit)
@@ -22,7 +22,7 @@ If the idea is too vague to score, ask 1–2 clarifying questions and stop. Don'
 
 ## Step 2 — Load the framework
 
-Read `references/framework.md` — Corey's filter. Apply each dimension in order.
+Read `references/framework.md` — the user's filter. Apply each dimension in order.
 
 ## Step 3 — Score each dimension
 
@@ -32,7 +32,7 @@ Don't BS the unknowns. Mark them ❓ and route to deep-research in Step 4.
 
 ## Step 4 — Trigger research where needed (optional)
 
-If 2+ dimensions are ❓ unknown, offer Corey: *"Want me to run `/deep-research` on [topic] before scoring?"*
+If 2+ dimensions are ❓ unknown, offer the user: *"Want me to run `/deep-research` on [topic] before scoring?"*
 
 Useful research targets:
 - Market size / who pays signal → `/last30days <space>` + `WebSearch`
@@ -40,7 +40,7 @@ Useful research targets:
 - ICP signal → forums / Reddit / X where the audience hangs out
 - Pricing benchmarks → look at competitor pricing pages
 
-If Corey says yes, run `Skill({skill: "deep-research", args: "<topic>"})` and incorporate the brief.
+If the user says yes, run `Skill({skill: "deep-research", args: "<topic>"})` and incorporate the brief.
 
 ## Step 5 — Check the .com
 
@@ -112,7 +112,7 @@ Write to `references/ideas-archive/<YYYY-MM-DD>-<slug>.md`. Append to `reference
 
 ## Step 8 — Surface
 
-Show the brief in chat. Tell Corey the archive path. Offer:
+Show the brief in chat. Tell the user the archive path. Offer:
 - *"Want to push to Notion as a positioning canvas?"*
 - *"Want me to scaffold a project repo / landing page?"* (if verdict = Build)
 - *"Want me to revisit in 30 days?"* (if verdict = Sleep on it)

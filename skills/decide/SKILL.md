@@ -11,7 +11,7 @@ Picks load-bearing questions from the 37signals guide, walks through them, reach
 
 ## Step 1 — Capture the decision
 
-Get from Corey:
+Get from the user:
 - **The decision** in one sentence (what are we deciding between?)
 - **Stakes**: low / medium / high (how much does this matter?)
 - **Reversibility**: easy / hard / one-way door
@@ -46,11 +46,11 @@ Read `references/questions.md` for the full 38 and category mapping. Pick 6–8 
 
 Cap at ~8 questions. More than that turns into analysis paralysis (which is itself one of the things this skill exists to prevent).
 
-Tell Corey which questions you picked and why, then proceed.
+Tell the user which questions you picked and why, then proceed.
 
 ## Step 3 — Walk through
 
-Ask the questions one at a time, or in a tight cluster if Corey wants to write fast. Capture his answers verbatim — don't paraphrase into corporate-speak.
+Ask the questions one at a time, or in a tight cluster if the user wants to write fast. Capture his answers verbatim — don't paraphrase into corporate-speak.
 
 For Q9 (first instinct), get the answer BEFORE diving into analysis. The point is to surface the gut call so we can later check if "analysis" was just rationalization.
 
@@ -125,7 +125,7 @@ Append to `references/decisions-archive/INDEX.md`:
 
 ## Step 7 — Surface
 
-Show the archive entry in chat. Tell Corey the archive path. Offer:
+Show the archive entry in chat. Tell the user the archive path. Offer:
 
 - *"Want me to schedule a /loop reminder for the revisit date?"* (would use the `loop` skill to fire at the right time)
 - *"Push to Notion as a decision card?"*

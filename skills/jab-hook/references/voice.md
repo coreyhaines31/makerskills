@@ -5,7 +5,7 @@ First-person "I" voice. Direct, dry, conviction-coded. No hype.
 ## Voice rules (load-bearing)
 
 1. **Conviction-coded CTAs over transactional** — "lock it in" beats "book a call now." "Grab the playbook" beats "click here to download." Make the CTA sound like a decision, not a transaction.
-2. **Reader-perspective framing** — write what the reader gets, not what Corey provides. "What you're guaranteed" not "what we'd guarantee." "You'll know X" not "we'll teach you X."
+2. **Reader-perspective framing** — write what the reader gets, not what the user provides. "What you're guaranteed" not "what we'd guarantee." "You'll know X" not "we'll teach you X."
 3. **Lead with a take, not a question** — questions feel needy; takes feel earned.
 4. **One idea per post** — if it sprawls, split into a thread or cut it.
 5. **Short sentences. Specific nouns. Verbs that do work.**
@@ -37,7 +37,7 @@ First-person "I" voice. Direct, dry, conviction-coded. No hype.
 ### LinkedIn
 - 200–400 chars body. No URL in the body.
 - Link goes in a first comment (Typefully supports this on LinkedIn drafts)
-- No hashtags (Corey doesn't use them)
+- No hashtags (the user doesn't use them)
 - First line is the hook — gets cut off in feed if too long, so make line 1 self-contained
 
 ## Iterate me

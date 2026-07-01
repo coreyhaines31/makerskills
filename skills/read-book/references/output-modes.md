@@ -164,7 +164,7 @@ Notes-mode aggregation + add at the end:
 - After that: standard SRS schedule
 ```
 
-The Q&A format makes the output directly importable to spaced-repetition apps. If Corey wants Anki-importable TSV, add a `--anki` flag (one Q-tab-A per line).
+The Q&A format makes the output directly importable to spaced-repetition apps. If the user wants Anki-importable TSV, add a `--anki` flag (one Q-tab-A per line).
 
 ---
 

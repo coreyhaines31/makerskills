@@ -1,6 +1,6 @@
 # Three-bucket classification
 
-When porting a skill, every piece of the source maps to one of three buckets. Surface this classification to Corey **before** writing the adapted skill — never silently rewrite.
+When porting a skill, every piece of the source maps to one of three buckets. Surface this classification to the user **before** writing the adapted skill — never silently rewrite.
 
 ## Bucket 1: Keep verbatim
 
@@ -57,14 +57,14 @@ Examples:
 - "Outputs to `second-brain raw/` as `<prefix>-`"
 - "Falls back to `social-fetch` for the URL fetch step"
 - "Uses MLX-Whisper local (see install in `watch-video` references)"
-- Memory references: `feedback_*` files in `~/.claude/projects/-Users-coreyhaines/memory/`
+- Memory references: `feedback_*` files in `~/.claude/memory/`
 - BACKLOG.md entry if the adapt spawns sub-ideas
 
 Action: **add net-new sections** to the adapted SKILL.md — typically a `## Composes with` section and inline references in the body.
 
 ## Bucket report format
 
-Present to Corey before writing:
+Present to the user before writing:
 
 ```markdown
 ## Three-bucket classification — <source skill name>
@@ -84,4 +84,4 @@ Present to Corey before writing:
 **Proceed?** y/n / edit
 ```
 
-Corey approves, edits, or rejects. Only then proceed to write the adapted SKILL.md.
+the user approves, edits, or rejects. Only then proceed to write the adapted SKILL.md.

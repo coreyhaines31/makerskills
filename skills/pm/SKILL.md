@@ -76,7 +76,7 @@ Adapters use:
 - **Plane** → Plane API (CF uses Plane — need `$PLANE_API_KEY` and workspace slug).
 - **Linear** → Linear MCP or API key.
 - **Obsidian** → local kanban markdown files in the vault. Read/write directly.
-- **Manual** → ask Corey to paste the current board state; offer to write back to a local markdown file.
+- **Manual** → ask the user to paste the current board state; offer to write back to a local markdown file.
 
 ## Step 4 — Run the mode
 
@@ -84,17 +84,17 @@ Adapters use:
 - Ask which tool the business uses
 - Walk through column setup (default 5 columns; offer custom)
 - Save mapping to `references/boards.md`
-- Optionally seed the board with starter cards from a conversation about what's on Corey's mind for that business
+- Optionally seed the board with starter cards from a conversation about what's on the user's mind for that business
 
 ### triage
 - Pull the Backlog column
-- Apply Eisenhower (Q1/Q2/Q3/Q4) — show Corey the matrix view
+- Apply Eisenhower (Q1/Q2/Q3/Q4) — show the user the matrix view
 - Recommend moves:
   - Q1 (urgent + important) → move to Ready or In Progress now
   - Q2 (important, not urgent) → move to Ready, schedule when
   - Q3 (urgent, not important) → delegate (to whom?) or move to Ready if no one
   - Q4 (neither) → archive
-- Apply moves via the adapter (or output text Corey applies manually)
+- Apply moves via the adapter (or output text the user applies manually)
 
 ### next
 - **Single board**: pull Ready, then In Progress. If WIP exceeded, surface what to finish first. If WIP available, recommend top Ready item by Eisenhower priority.

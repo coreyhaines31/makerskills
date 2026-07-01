@@ -117,10 +117,10 @@ Ask:
 
 Default is **ask**, never auto-write. If yes:
 1. Copy the final `notes.md` (with the second-brain-compatible frontmatter at top) to `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/raw/highlights-<slug>.md`
-2. Tell Corey the path
+2. Tell the user the path
 3. Suggest: *"Run `/sb compile` later to merge this into wiki pages — the cross-reference suggestions in the footer are starting points."*
 
-If Corey skips capture, the workdir still has everything — he can grab the file later.
+If the user skips capture, the workdir still has everything — he can grab the file later.
 
 ## Step 7 — Report
 
@@ -158,16 +158,16 @@ In chat:
 
 | Failure | Response |
 |---|---|
-| EPUB/MOBI without pandoc / ebook-convert | Tell Corey: `brew install pandoc` or `brew install calibre` (calibre includes `ebook-convert`) |
+| EPUB/MOBI without pandoc / ebook-convert | Tell the user: `brew install pandoc` or `brew install calibre` (calibre includes `ebook-convert`) |
 | PDF is scanned (no text layer) | Suggest OCR first: `brew install ocrmypdf && ocrmypdf <pdf> <pdf-ocr.pdf>` |
 | PDF has no detectable TOC | Fall back to 50-page chunks. Note in the metadata. |
-| Book is unusually long (>500 pages) | Warn cost / time, ask if Corey wants summary mode instead of full notes |
+| Book is unusually long (>500 pages) | Warn cost / time, ask if the user wants summary mode instead of full notes |
 | Chunk extraction empty | Skip the chunk, log, continue. Don't fail the whole run. |
 
 ## Notes on quality
 
 - **Don't summarize beyond recognition.** A 30-page chapter should produce 8–15 lines of notes, not 3. Compression is good; flattening is bad.
-- **Preserve specifics.** Names, numbers, dates, quotes — keep them. The whole point is later-Corey can grep "what did Andy Wilkinson say about X" and find it.
+- **Preserve specifics.** Names, numbers, dates, quotes — keep them. The whole point is later-the user can grep "what did Andy Wilkinson say about X" and find it.
 - **Quotes are sacred.** When you flag a quote, copy it verbatim. Note the page if possible.
 - **Action items are explicit.** If the book makes you think "I should do X," flag it explicitly. These are the highest-leverage outputs.
 - **Frameworks deserve their own bullets.** When the author names a framework (e.g., "the 9-dimension filter," "Save the Cat beats"), call it out by name in the notes.

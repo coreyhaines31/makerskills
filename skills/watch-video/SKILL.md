@@ -233,7 +233,7 @@ After moments are identified, synthesize the whole video into `<workdir>/summary
 2. **Dense Claude vision fallback** if no Gemini key:
    - Frame cadence: 1 frame per **3s** (much denser than visual mode)
    - Batch through Claude vision with the multimodal-analysis prompt
-   - Slower and more expensive than Gemini for long videos — warn Corey before running on >10min content
+   - Slower and more expensive than Gemini for long videos — warn the user before running on >10min content
 
 ### Multimodal output
 
@@ -297,15 +297,15 @@ In chat:
 - `cf-blog` (in `cf-skills`) — Factory Floor episodes: this skill replaces inline yt-dlp; outputs feed cf-blog's draft pipeline
 - `slide-deck` — talk recordings → outline extraction → deck draft (loop)
 - `jab-hook` — quotes + clip-worthy moments from podcast/talk videos feed BIP/promo posts
-- **`skillify from-video`** — primary use case for `visual` mode on process recordings. Corey records himself doing a workflow (Loom/screen-share), this skill extracts transcript + key visual moments, then `skillify` synthesizes the workflow into a SKILL.md. "Record once, AI converts to skill."
+- **`skillify from-video`** — primary use case for `visual` mode on process recordings. the user records himself doing a workflow (Loom/screen-share), this skill extracts transcript + key visual moments, then `skillify` synthesizes the workflow into a SKILL.md. "Record once, AI converts to skill."
 
 ## Error handling
 
 | Failure | Response |
 |---|---|
 | Video unavailable / private / region-locked | Report and stop |
-| No subtitles + Whisper not installed | Tell Corey: `pip install mlx-whisper` (Mac) |
-| ffmpeg missing (for visual/multimodal) | Tell Corey: `brew install ffmpeg` |
+| No subtitles + Whisper not installed | Tell the user: `pip install mlx-whisper` (Mac) |
+| ffmpeg missing (for visual/multimodal) | Tell the user: `brew install ffmpeg` |
 | Vision pass returns empty / unclear | Lower the frame count, retry, or fall back to transcript-only with a note |
 | Multimodal requested but no `$GEMINI_API_KEY` and >30min video | Warn cost, offer to fall back to visual mode |
 | `yt-dlp` binary missing | `brew install yt-dlp` |
