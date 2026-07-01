@@ -96,7 +96,7 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:
-/create-skill                               # should respond with mode selection
+/skillify                                   # should respond with mode selection (CREATE / ADAPT / UPDATE)
 /decide                                     # should ask for the decision context
 /paste                                      # should read clipboard
 ```

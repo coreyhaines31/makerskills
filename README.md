@@ -31,12 +31,12 @@ See [INSTALL.md](./INSTALL.md) for env vars, personal-config setup, and runtime 
 
 ## The 15 skills
 
-### Meta — manage skills themselves
+### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
 |---|---|
-| [`create-skill`](./skills/create-skill/SKILL.md) | Turn a workflow, brief, or chat into a new skill. `from-chat`, `from-video`, `from-dump`, `from-scratch` modes. |
-| [`adapt-skill`](./skills/adapt-skill/SKILL.md) | Port an external skill into your namespace. Three-bucket classification (keep / adapt / add), license check, attribution file. |
-| [`update-skill`](./skills/update-skill/SKILL.md) | Improve existing skills from learnings. Cross-skill propagation, memory-vs-skill triage, semver discipline. |
+| [`skillify`](./skills/skillify/SKILL.md) | Create, adapt, or update a skill in any sibling repo. Three modes: CREATE (from-chat / from-video / from-dump / from-scratch), ADAPT (port external skill with license check + attribution), UPDATE (improve existing skills with cross-skill propagation + semver discipline). |
+| [`toolify`](./skills/toolify/SKILL.md) | Wire up an integration, API, MCP server, or third-party service into a Next.js or Rails project. Interactive wizard for auth, env vars, client wrapper, webhook handling, and smoke-test. |
+| [`loopify`](./skills/loopify/SKILL.md) | Set up an agent loop, cron-scheduled task, or recurring workflow. Judgment layer on top of `ScheduleWakeup` / `CronCreate` / `/loop` — picks pattern (dynamic / cron / one-shot), tunes delay for cache windows, enforces idempotency + bail-out conditions. |
 
 ### Decision & strategy
 | Skill | What |
