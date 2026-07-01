@@ -2,7 +2,7 @@
 name: domain
 description: When you want to brainstorm and check available .com domains for a new project — brand naming, aftermarket pricing (HugeDomains / Afternic / Sedo / Dan), USPTO trademark screening, and social handle availability. Built on Laura Roeder's "work backwards from availability, not from a name you fell in love with" methodology. Uses Vercel CLI + whois + Domainr API + Namecheap API + agent-browser for the pieces each tool actually reliably supports (multi-tool ensemble because no single tool covers everything cleanly). 11-step workflow: budget → brainstorm → primary availability check → whois cross-check → Domainr aggregation → Namecheap price → aftermarket sweep → bucket → negotiate → NAME research (trademark + socials) → buy. Triggers on "/domain," "find a domain," "check domain availability," "brainstorm a domain," "what .com is available for X," "domain hunt," "name my project," "is X.com available," "aftermarket price on X.com," "trademark check for X."
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /domain — Brainstorm + check available .com domains
@@ -57,22 +57,28 @@ Surface a numbered candidate list before checking — don't burn cycles checking
 
 ## Step 3 — Primary availability check (Vercel CLI)
 
-Loop candidates through `vercel domains buy --dry-run`:
+Use `vercel domains check` for availability and `vercel domains price` for registrar quotes. Loop candidates:
 
 ```bash
 for domain in candidate1.com candidate2.com candidate3.com; do
   echo -n "$domain: "
-  vercel domains buy "$domain" --dry-run 2>&1 | grep -E "available|unavailable|price|Error" || echo "checking..."
+  vercel domains check "$domain" 2>&1 | grep -E "available|not available|Error" || echo "checking..."
 done
 ```
 
-For a single deeper check (registrar status, expiration, nameservers):
+For pricing on the candidates that came back available:
+
+```bash
+vercel domains price candidate1.com candidate2.com candidate3.com
+```
+
+For a single deeper check on a taken domain (registrar status, expiration, nameservers if the domain is already Vercel-managed):
 
 ```bash
 vercel domains inspect candidate.com
 ```
 
-**TLD reliability**: Vercel CLI is rock-solid for `.com` and most gTLDs, but `--dry-run` returns errors for `.ai`, `.dev`, `.io`, `.app` (Vercel doesn't sell those registrar-side). Skip Step 3 for non-.com candidates and go straight to Step 4.
+**TLD reliability**: Vercel CLI is rock-solid for `.com` and most gTLDs, but returns errors for `.ai`, `.dev`, `.io`, `.app` (Vercel doesn't sell those registrar-side). Skip Step 3 for non-.com candidates and go straight to Step 4.
 
 ## Step 4 — Cross-check with `whois`
 
@@ -286,7 +292,7 @@ For aftermarket purchases: buy through the marketplace directly (HugeDomains/Aft
 
 ## Notes on quality
 
-- **Brainstorming-first, action-last.** Never run `vercel domains buy` (without `--dry-run`) until the user explicitly says "buy it." Real money.
+- **Brainstorming-first, action-last.** Never run `vercel domains buy` until the user explicitly says "buy it." Real money. Availability + price checks (Step 3) use `vercel domains check` + `vercel domains price` which are safe.
 - **Budget filter is non-negotiable.** If the user pushes back ("but I love it"), remind them that's exactly the trap Laura warned about.
 - **Multi-tool ensemble is intentional.** No single tool covers all the bases cleanly — Vercel is fast but limited to gTLDs; whois is definitive but per-TLD-specific; Domainr aggregates; Namecheap prices year-1 promo; RDAP fills the modern-TLD gap; agent-browser drives USPTO. Skipping any leaves a blind spot.
 - **Don't fight marketplace scraping.** HugeDomains/Afternic/Sedo/Dan all Cloudflare-block automation. Output click-through URLs. 30 seconds of manual click is more reliable than a headless-browser workaround.

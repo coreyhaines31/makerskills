@@ -4,6 +4,21 @@ Copy this to `${COMPANY_CFO_ROOT}/CLAUDE.md` when seeding a new company's CFO wo
 
 The file becomes the source of truth for HOW your company computes its financials. The `company-cfo` skill reads this first before every run.
 
+## Also seed a `.gitignore` in the repo root
+
+Raw financial data (bank transaction dumps, payroll payloads, expense-manager exports) MUST NOT be committed. Before running the CFO workflow for the first time, verify the repo has a `.gitignore` with at minimum:
+
+```
+# Raw financial data — never commit
+data/
+*.jsonl
+*.env
+*.env.local
+.mcp.json
+```
+
+The `company-cfo` skill's Phase 7 seeds this automatically if missing, but doing it manually at repo setup is safer.
+
 ---
 
 ```markdown

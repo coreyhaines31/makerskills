@@ -2,7 +2,7 @@
 name: toolify
 description: When you want to integrate an external tool, API, MCP server, or service into a project — the wizard walks you through auth, config, env vars, client wrapper code, example usage, and (optionally) a smoke-test. Scoped to Next.js and Rails projects (the two primary stacks). Interactive Q&A pattern — starts with the tool name, asks structured questions until the integration is fully specified, then scaffolds files. Examples of tools to toolify — Stripe, Kit, Sanity, Notion, Neon, Supabase, Fathom, Rewardful, SavvyCal, Riverside, ScrapeCreators, Anthropic, OpenAI, Gemini, Twilio, Resend, Postmark, Vercel Blob, custom internal APIs. For MCP servers specifically, also handles the .mcp.json wiring. Triggers on "/toolify," "integrate X," "add X to this project," "wire up X," "set up the X integration," "hook up X," "connect X," "add MCP for X." Part of the -ify trifecta (skillify / toolify / loopify) for extending Claude Code. NOT for adding new SKILL.md files — that's skillify. NOT for cron/agent loops — that's loopify.
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /toolify — Wire up an integration or MCP server
@@ -117,7 +117,18 @@ Apply the right auth pattern per tool category. Never invent — use the pattern
 Add to the appropriate file:
 
 - **Local dev**: `.env.local` (Next.js) / `.env` (Rails) — NEVER committed
-- **Vercel**: `vercel env add <VAR> production --value "<value>" --no-sensitive --yes` (use `--no-sensitive` for any `NEXT_PUBLIC_*` var per user's global CLAUDE.md — see `references/vercel-env-vars.md`)
+- **Vercel**: sensitivity depends on the var. Two rules — apply the right one:
+  - **Public / bundle-baked vars (`NEXT_PUBLIC_*`)** — these get inlined into the client bundle at build time and are ALREADY public. Use `--no-sensitive` so you can audit them later:
+    ```bash
+    vercel env add NEXT_PUBLIC_APP_URL production --value "<url>" --no-sensitive --yes
+    ```
+  - **Server-side secrets (API keys, webhook secrets, DB URLs)** — never enter the client bundle. Use Vercel's default `--sensitive` behavior so the value is write-only via the CLI (can't be read back via `vercel env pull`):
+    ```bash
+    vercel env add STRIPE_SECRET_KEY production --value "<key>" --sensitive --yes
+    vercel env add STRIPE_WEBHOOK_SECRET production --value "<secret>" --sensitive --yes
+    ```
+  - **The rule**: only `NEXT_PUBLIC_*` uses `--no-sensitive`. Everything else uses `--sensitive`. Getting this wrong means server secrets are readable via `vercel env pull` in someone's local terminal — same class of leak as committing them.
+  - See `references/vercel-env-vars.md` for the full policy + verification via `vercel env pull` + brackets-check.
 - **Heroku**: `heroku config:set <VAR>=<value> -a <app-name>`
 
 Also update `.env.example` / `.env.local.example` with the placeholder so teammates know the var is needed.

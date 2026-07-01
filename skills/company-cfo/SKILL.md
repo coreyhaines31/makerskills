@@ -2,7 +2,7 @@
 name: company-cfo
 description: Monthly CFO workflow for a company or agency — pull raw data from bank + payment processor + payroll + expense management, categorize and reconcile, compute end-of-month cash via transaction-sum method, update a scenario projector for forward forecasting, write the monthly snapshot report, surface decisions to leadership. Modes — monthly (default; the standing report), weekly (thin cash pulse), scenario (ad-hoc modeling in the projector), pickup (resume where the prior run left off). Anonymized team-scope sibling to personal-cfo (which handles personal household finances). Composes with company-brain (report gets stored + wiki-indexed there), toolify (wire company-specific data sources), loopify (schedule the monthly + weekly runs). Triggers on "/company-cfo," "/cfo," "monthly cash report," "do the CFO snapshot," "CFO monthly," "let's run CFO," "cash projection," "runway forecast," "monthly financials," "cash pulse."
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /company-cfo — Monthly company CFO workflow
@@ -150,14 +150,38 @@ Don't bloat the note. Replace stale facts; don't append indefinitely.
 
 Follow your company's git workflow:
 
+Before the first-ever run, verify `.gitignore` at the repo root excludes raw exports — Phase 1 dumps sensitive bank / payroll / payment-processor data to `data/` and that MUST NOT be committed. If missing, seed it:
+
+```bash
+cd ${COMPANY_CFO_ROOT}
+# Verify .gitignore excludes raw data + secrets
+if ! grep -q '^data/' .gitignore 2>/dev/null; then
+  cat >> .gitignore <<'GITIGNORE'
+# Raw financial data — never commit
+data/
+*.jsonl
+*.env
+*.env.local
+.mcp.json
+GITIGNORE
+  git add .gitignore
+  git commit -m "Seed .gitignore for raw financial data"
+fi
+```
+
+Then ship the report + projector changes ONLY (never `git add -A` in this repo — targeted adds only, so a stray `data/` file can't slip in):
+
 ```bash
 cd ${COMPANY_CFO_ROOT}
 git checkout -b feature/YYYY-MM-snapshot
-git add -A
+git add reports/monthly/YYYY-MM.md scenarios/index.html CLAUDE.md   # targeted
+git status --short                                                    # verify no data/ or .env files staged
 git commit -m "YYYY-MM monthly snapshot"
 git push -u origin feature/YYYY-MM-snapshot
 gh pr create --base main --title "YYYY-MM monthly snapshot"
 ```
+
+**Never `git add -A` in `${COMPANY_CFO_ROOT}`.** A silent `data/` file leak would push bank transaction history + partner distribution ACHs to a git remote. Targeted adds only.
 
 Before merging: run a code review (if applicable) or manually review the diff. Then merge + delete branch.
 
