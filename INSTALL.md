@@ -35,6 +35,9 @@ export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"
 # Where the company-brain skill reads/writes your team's shared vault
 export COMPANY_BRAIN_VAULT="$HOME/Documents/CompanyBrain"
 
+# Where the company-cfo skill reads/writes company financial workflow (reports, projector, config)
+export COMPANY_CFO_ROOT="$HOME/code/company-cfo"
+
 # Optional: dev-server URL pattern for slide-deck preview (default: localhost:3000)
 export SLIDE_DECK_DEV_HOST="localhost:3000"
 ```
@@ -95,7 +98,7 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ## 6. Verify
 
 ```bash
-# Should see 16 skills listed
+# Should see 17 skills listed
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:
@@ -103,6 +106,7 @@ ls ~/code/makerskills/skills/
 /decide                                     # should ask for the decision context
 /paste                                      # should read clipboard
 /company-brain                              # should route to a mode (needs COMPANY_BRAIN_VAULT set)
+/company-cfo                                # should route to a mode (needs COMPANY_CFO_ROOT set)
 ```
 
 ## What's next

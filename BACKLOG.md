@@ -6,6 +6,7 @@ Skills queued for future sessions. Use `/skillify` to scaffold when ready.
 
 ## Shipped
 
+- **v0.4.0** — `company-cfo` — anonymized team-scope sibling to `personal-cfo`. Monthly snapshots + weekly cash pulse + scenario projector. Universal methodology (transaction-sum EOM, categorization discipline, cycle-low tracking) applied to company books. Data sources wired via `toolify` (bank + payment processor + payroll + expense mgmt); scheduled via `loopify`. First-run walkthrough seeds a per-company `CLAUDE.md` from `references/company-config-template.md`.
 - **v0.3.0** — `company-brain` — team-scope sibling to `second-brain`. Structured raw dirs (people / companies / meetings / sops / decisions / customer-language / recurring-questions / sales-objections), multi-author attribution, sensitivity tagging, optional auto-sync from Fathom / Gong / Granola / CRM. Operational backbone for the **Company Brain Setup** productized CF service (renamed from "Second Brain as a Service" for vocabulary consistency with the skill name).
 - **v0.2.0** — The `-ify` trifecta: `skillify` (consolidated create/adapt/update), `toolify` (integration wizard), `loopify` (agent-loop setup). Vocabulary-moat family — memorable `-ify` rhythm mapping to the 3 primary Claude Code extension surfaces (skills, tools, loops). Ship notes: rule of 3 — do NOT extend the family further (no Hookify / Configify / Memorify).
 

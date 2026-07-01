@@ -29,7 +29,7 @@ See [INSTALL.md](./INSTALL.md) for env vars, personal-config setup, and runtime 
 
 ---
 
-## The 16 skills
+## The 17 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -63,7 +63,8 @@ See [INSTALL.md](./INSTALL.md) for env vars, personal-config setup, and runtime 
 | Skill | What |
 |---|---|
 | [`pm`](./skills/pm/SKILL.md) | Kanban (5-column) + Eisenhower across your portfolio. Tool-agnostic adapters (Notion, GitHub, Plane, Linear, Obsidian, manual). |
-| [`personal-cfo`](./skills/personal-cfo/SKILL.md) | Personal financial scenarios — house purchase + rental forecasting, monthly cash flow, big-purchase decisions. |
+| [`personal-cfo`](./skills/personal-cfo/SKILL.md) | Personal financial scenarios — house purchase + rental forecasting, monthly cash flow, big-purchase decisions. Household scope. |
+| [`company-cfo`](./skills/company-cfo/SKILL.md) | Company / agency CFO workflow — monthly snapshots, weekly cash pulse, scenario projector. Transaction-sum EOM methodology, categorization discipline, forward forecasting. Pulls from bank + payment processor + payroll + expense-mgmt via `toolify`-wired integrations. Team scope. |
 | [`paste`](./skills/paste/SKILL.md) | Clean terminal output for 9 destinations (Slack, Notion, Twitter, LinkedIn, email, GitHub, plain, HTML). Secret-detection first. |
 | [`social-fetch`](./skills/social-fetch/SKILL.md) | Pull any social post by URL across 10 platforms (X, LinkedIn, IG, TikTok, Bluesky, Reddit, Mastodon, Threads, HN). Strategy chain with free + paid fallbacks. |
 
@@ -79,7 +80,8 @@ Skills read from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/<skill>/` pat
 export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
 export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"    # for second-brain (personal-scope vault)
 export COMPANY_BRAIN_VAULT="$HOME/Documents/CompanyBrain"  # for company-brain (team-scope vault)
-export SLIDE_DECK_REPO="$HOME/code/your-site-repo"            # for slide-deck
+export COMPANY_CFO_ROOT="$HOME/code/company-cfo"           # for company-cfo (reports, projector, config)
+export SLIDE_DECK_REPO="$HOME/code/your-site-repo"         # for slide-deck
 ```
 
 Full setup in [INSTALL.md](./INSTALL.md).
