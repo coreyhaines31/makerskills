@@ -2,7 +2,7 @@
 name: paste
 description: When you want to clean and reformat content (usually from your terminal) for pasting into Slack, Notion, Twitter/X, LinkedIn, email, GitHub, or plain text. Strips ANSI codes, box-drawing chars, terminal prompt artifacts, and applies destination-specific formatting. Default input is the clipboard (read via `pbpaste`); default output is both the clipboard (`pbcopy`) and a chat preview. Triggers on "/paste", "/paste [destination]", "clean this for X," "format for slack/notion/twitter/linkedin/email/github," "render as markdown," "paste-ready," "strip formatting," "make this copy-pastable." Default destination is plain. Also scans for secrets (API keys, tokens, .env values) and warns before copying anything sensitive.
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /paste — Clean content for any destination
@@ -109,3 +109,19 @@ If the content has URLs and destination is **twitter** or **linkedin**:
 [pasted output with sk-anthropic-key in it]
 ```
 → Stops. *"Spotted what looks like an Anthropic API key: `sk-an...3kf9`. Continue, redact, or abort?"*
+
+## Composes with
+
+- `jab-hook` — clean output for pasting into Typefully drafts when the MCP path doesn't fit; also enforces the link-placement rule for X/LinkedIn destinations
+- `social-fetch` — clean a fetched post before quoting it in a draft or newsletter
+- `second-brain` — `paste` output can be captured cleanly into `raw/note-<slug>.md` for future compilation
+- `watch-video` — transcript / summary output often flows through `paste` for platform-specific reformatting
+
+## Notes on quality
+
+- **Secret detection runs first, always.** Before any formatting or destination logic, `paste` scans for `sk-*`, `AKIA*`, `xoxb-*`, JWT-shaped strings, and long-hex tokens. Prompts before proceeding on any hit. Better to false-positive occasionally than to leak a real key.
+- **Destination-aware transforms, not one-size-fits-all.** Slack wants `*bold*`; LinkedIn wants unicode-styled bold; email wants HTML. Same input, 9 different valid outputs. The destination flag is not optional.
+- **ANSI codes get stripped for every destination.** Terminal escapes (`\033[31m` etc.) render as garbage everywhere except the source terminal.
+- **Character limits are enforced, not warnings.** X at 280, LinkedIn at 3000, Twitter at 25000 — paste refuses to copy over-limit output and offers a trim strategy.
+- **Links go in first comments for social destinations** — not the body. Enforced when destination is `twitter` or `linkedin`. Documented in `~/.claude/memory/feedback_social_link_placement.md`.
+- **HTML destination opens in a browser tab, not the clipboard.** Formatted tables + code blocks need a rendered surface to select-and-copy from with formatting preserved. Copying raw HTML to the clipboard produces garbage in Notion/email.

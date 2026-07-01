@@ -2,7 +2,7 @@
 name: pm
 description: When you want to manage projects across your businesses using a kanban + Eisenhower methodology. One kanban per business (whatever portfolio of businesses, projects, or initiatives you run). Tool-agnostic — connects via API/MCP to whatever PM tool each business uses (Notion, GitHub Projects, Plane, Linear, Obsidian file-based, or manual mode). Async-first output. Six modes — setup (scaffold a new board for a business), triage (Eisenhower-sort the backlog), next (pick the next thing to work on, single board or across all), status (paste-ready async snapshot), unblock (diagnose Review/Blocked column), weekly (Friday pulse + week planning). Triggers on "/pm," "/pm setup," "/pm triage," "/pm next," "/pm status," "/pm unblock," "/pm weekly," "what should I work on next," "kanban status," "Eisenhower this," "triage my backlog," "what's blocked."
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /pm — Project management across the portfolio
@@ -165,3 +165,13 @@ When generating status / weekly outputs:
 - `business-brainstorm` — when an idea on the Backlog deserves pressure-testing before triage
 - `jab-hook` — when status / shipped items become BIP-post material
 - Memory (`project_*.md`) — for portfolio context per business
+
+## Notes on quality
+
+- **Limit WIP.** Multitasking is the most reliable way to ship nothing. Cap In Progress at 3 (override in `references/boards.md` per business if truly needed). If the cap is hit, don't pull more — recommend finishing or moving something to Review/Blocked.
+- **Lead with the headline** in every status output — what shipped this week, or what's at risk. Not "made progress on X" — that's noise.
+- **Be specific.** "Shipped Truelist B1 logo" beats "made progress on Truelist branding." Specificity signals real motion; vagueness signals none.
+- **No verbs without subjects.** Write status so the reader can pick up cold — 3 weeks later or forwarded to a partner who missed the last update.
+- **Blockers name the blocker.** "Waiting on Zach's review of the CF homepage draft" — not "blocked." Blockers without names create no urgency.
+- **Open questions are explicit** — one bolded line per status that asks for what would unblock momentum. Async momentum lives or dies on how well open questions are surfaced.
+- **Tool-agnostic by design.** pm speaks Kanban + Eisenhower; the adapters (Notion / GitHub / Plane / Linear / Obsidian / manual) translate. Adding a new tool = one adapter file, not a rewrite.

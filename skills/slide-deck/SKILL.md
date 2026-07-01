@@ -2,7 +2,7 @@
 name: slide-deck
 description: When you want to draft, update, convert, or export a slide deck for a React/Next.js slide system (e.g., corey.co/slides) (${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/). Writes TypeScript Slide[] arrays using your primitives (Eyebrow, Heading, Accent, Body, BulletList, Divider, TwoCol, GradientText), 12 cycling brand gradients, optional sections for "where am I" context, and speaker notes. Inspired by zarazhangrui/frontend-slides — "show, don't tell" applied to narrative (presents 3 angles, you pick) plus density modes (speaker-led vs reading-first). Four modes — new (draft from brief), update (modify existing, with overflow guards), ppt (convert legacy PPTX → React deck), export (Playwright snapshot existing React deck to standalone HTML, PDF, or Vercel URL — keeps brand). Triggers on "/slide-deck," "/slides new," "/slides export," "/slides update," "/slides ppt," "draft a deck," "deck for [topic]," "talk on [topic]," "keynote on [topic]," "internal deck for [audience]," "convert this pptx," "export this deck."
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /slide-deck — Draft, update, convert, and export branded React decks
@@ -280,3 +280,14 @@ Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Ver
 - `watch-video` — turn a Factory Floor episode, Loom, or talk recording into a deck outline (run in `visual` mode to also capture key moments + slides shown)
 - `jab-hook` — once delivered, the talk becomes promo angles for the BIP rotation
 - `frontend-skills` (external) — for non-branded HTML decks where your React deck repo isn't the home
+
+## Notes on quality
+
+- **Show, don't tell — applied to narrative.** Present 3 different angles for the deck (not one polished draft); let the user pick. Committing to a narrative before the alternatives are surfaced produces decks that are workmanlike, not memorable.
+- **Density modes matter more than aesthetic.** A speaker-led deck has 3-word slides and 5-line speaker notes. A reading-first deck (leave-behind, async) reverses it. Same content, opposite artifact. Ask which mode before drafting.
+- **Slide text is *abbreviated spoken*.** Both pass the read-aloud test. If a slide reads like a memo, it's wrong. If speaker notes read like slides, they're wrong.
+- **Overflow guards on update mode.** Don't blindly cram more content into an existing slide — if the addition tips the slide over its target word count or line count, propose splitting the slide or trimming existing content. Silently overflowing produces cramped decks.
+- **Presenter-view stripped for exports.** Playwright snapshots the `?present=0` mode so the export is clean. Never export the presenter view.
+- **Brand-perfect > portable.** The React deck is the source of truth. HTML/PDF/Vercel exports are snapshots for sharing — animations, interactions, presenter view live only in the React version.
+- **1920×1080 default, 1280×720 for previews.** Full-res snapshots run 30-50 MB for a 20-slide deck; low-res halves that at minimal visual loss.
+- **Deploy is a real-money operation.** Export mode's `vercel` path prompts before deploying. Auto-renew is on for domains + Vercel projects.

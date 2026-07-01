@@ -2,7 +2,7 @@
 name: jab-hook
 description: Gary Vaynerchuk's jab-jab-jab-right-hook framework applied to a personal portfolio rotation on X and LinkedIn. Jabs = build-in-public + educational (value). Hooks = promo (the ask). Each property in the user's configured portfolio (see `~/.config/makerskills/jab-hook/properties.yaml`) gets a hook at least once every ~3 weeks; jabs fill the rest. Drafts go into the user's Typefully workspace via MCP. Modes — plan (7-day plan), pick-next (single post), audit (coverage report), draft (specific post). Triggers on "/jab-hook," "what should I post," "plan my socials," "next promo," "next jab," "next hook," "social rotation," "promote [property]," "BIP post," "audit my socials," "what haven't I posted about."
 metadata:
-  version: 0.3.0
+  version: 0.3.1
 ---
 
 # /jab-hook — Jab-jab-jab-right-hook for a personal portfolio
@@ -95,10 +95,28 @@ If yes:
 4. Default to **draft** state (not scheduled) — the user reviews in Typefully UI before sending
 5. Return the Typefully draft URLs
 
-## Cross-references
+## Composes with
 
-- `cf-skills:x-li` — for posts syndicated across all three CF partner accounts (the user + Zach + Nick). Use that instead when the post should land on the CF/agency accounts.
-- `marketing-skills:social` — generic social frameworks, useful for client work or when teaching social strategy.
-- `marketing-skills:copywriting` — for hook / headline ideation when stuck.
-- Memory: `feedback_cf_promo_voice.md` (conviction-coded CTAs, reader-perspective framing) — voice principles also apply to your personal promo posts.
+- `paste` — clean output for pasting into Typefully / LinkedIn / X manually if the MCP path doesn't fit
+- `social-fetch` — pull inspiration-account posts for structural analysis (replaces inline agent-browser)
+- `second-brain` — the `Content Ideas` wiki page hoppers hooks, frameworks, stories; `/jab-hook` drafts pull candidates from there
+- `deep-research` — when a promo needs a stat or citation the draft doesn't have yet
+- `cf-skills:x-li` (external plugin) — for CF partner-account syndication. Use that when the post should land on agency accounts.
+- `marketingskills:social` — generic social frameworks, useful when teaching strategy vs shipping your own posts
+- `marketingskills:copywriting` — for hook / headline ideation when stuck
+
+## Notes on quality
+
+- **1 promo per week per property is the floor, not the ceiling.** Rotation compounds when it's predictable — 4 properties × 1 promo/week = 4 promo weeks/month. Educational + BIP + community fill the rest.
+- **Never mimic phrasing from inspiration accounts.** Extract *structure* (hook opener type, line-break rhythm, CTA style) and apply to your own voice. Voice is the moat; copying phrasing destroys it.
+- **Links belong in first comments, not the body** for LinkedIn + X. Documented in `~/.claude/memory/feedback_social_link_placement.md`. Body posts with inline URLs get algorithm-suppressed on both platforms.
+- **Draft state, not scheduled state.** Every Typefully push defaults to draft — human review in the Typefully UI before publish is non-negotiable. Automated scheduling of unreviewed drafts has repeatedly produced posts the user regrets.
+- **Reader-perspective framing.** *"You'll know X"* not *"we'll teach you X."* *"What you're guaranteed"* not *"what we'd guarantee."* Documented in `~/.claude/memory/feedback_cf_promo_voice.md`.
+- **Voice.local.md overrides the shipped voice.md.** Personal voice rules never live in the public repo — always in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/voice.local.md`.
+- **Cadence cap: 2 posts/day per platform, per account.** More than that degrades reach + reads as spam. Documented in `~/.claude/memory/feedback_cf_social_cadence.md`.
+
+## Memory references
+
+- `~/.claude/memory/feedback_cf_promo_voice.md` — conviction-coded CTAs + reader-perspective framing
+- `~/.claude/memory/feedback_cf_social_cadence.md` — 2 posts/day per platform cap
 - Memory: `feedback_cf_social_cadence.md` — CF-specific cap of 2 posts/day per platform. Same cap is sensible for your personal account.

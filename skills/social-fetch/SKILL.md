@@ -2,7 +2,7 @@
 name: social-fetch
 description: When you or another skill needs to fetch the content of a social media post by URL — tweet, X thread, LinkedIn post, Instagram post, TikTok video, Bluesky post, Reddit thread, Mastodon status, Threads post, Hacker News thread. Returns normalized structured data (author, posted_at, text, engagement counts, media URLs, replies if requested) regardless of platform. Tries strategies in order: direct API (Bluesky, Mastodon, HN, Reddit), agent-browser with modal dismissal (LinkedIn, X preview), Wayback Machine (older posts), paid APIs (ScrapeCreators / Apify — only if env keys present). Triggers on "/social-fetch <url>," "fetch this tweet," "fetch this post," "what does this LinkedIn say," "read this thread," "pull this post." Used by deep-research (citing specific posts), jab-hook (inspiration account analysis), business-brainstorm (competitor / operator commentary), cf-blog (sourcing from social).
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /social-fetch — Pull any social post by URL
@@ -116,3 +116,13 @@ Skip cache if `--no-cache` flag is set or for `--with-replies` / `--thread` (lik
 - **Private / deleted posts**: nothing helps. Try Wayback Machine for deleted content.
 
 If a platform consistently fails on free strategies and the user uses it often, prompt to set up the paid key (see `references/auth-keys.md`).
+
+## Notes on quality
+
+- **Strategy chain, not single-source.** Every platform has a fallback ladder (native oEmbed → agent-browser → SCS API → Apify). If one step fails, degrade gracefully to the next. Never fail hard on the first attempt.
+- **Structured output over screenshots.** Downstream skills (jab-hook, deep-research, second-brain, cf-blog) need JSON with author + text + engagement fields, not an image. Even when the underlying strategy is a screenshot, extract text before returning.
+- **Cache aggressively, invalidate honestly.** 24h TTL on `~/Documents/social-fetches/_cache/` prevents API burn when the same post is referenced across multiple skills in a session. `--with-replies` / `--thread` skip cache because replies age fast.
+- **Respect paid-key economics.** ScrapeCreators / Apify calls cost real money. Prompt before hitting paid strategies if the user hasn't confirmed they want depth. Free strategies first, always.
+- **Media download is opt-in.** Default is post text only; `--media` downloads images/videos. Silent media downloads eat disk quickly.
+- **Private / deleted content is a hard stop.** No strategy chain rescues private accounts or deleted posts. Suggest Wayback Machine for deleted content and stop.
+- **Rate-limits are per-platform.** X free strategies hit rate limits fast; LinkedIn agent-browser burns session fingerprints. Space out calls in loops or the workflow degrades to worse-than-manual.

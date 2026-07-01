@@ -2,7 +2,7 @@
 name: business-brainstorm
 description: When you want to pressure-test a potential new business, product, or side project against the serial-founder filter. Not "marketing ideas for a product" (that's marketing-skills:marketing-ideas) — this is "should this business exist + can you win it." Runs the idea through a structured framework (problem, audience, wedge, monetization, moat, portfolio fit, distribution, energy fit, opportunity cost), checks domain availability via /domain, optionally triggers /deep-research for market validation, and outputs a viability brief: build / sleep on it / pass. Archives every idea to references/ideas-archive/ so past work is searchable. Triggers on "/business-brainstorm," "/brainstorm," "new business idea," "should I build X," "pressure test this idea," "validate this idea," "is X a good business," "what about a [type] for [audience]."
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /business-brainstorm — Pressure-test a business idea
@@ -123,3 +123,12 @@ Show the brief in chat. Tell the user the archive path. Offer:
 - `/domain` — for .com availability and naming brainstorm
 - `/last30days` — for audience/market recency signal (via deep-research)
 - Memory (`project_*.md`) — for portfolio context (don't pitch an idea that already exists)
+
+## Notes on quality
+
+- **Nine dimensions, not one hero metric.** Ideas fail because one dimension quietly rots even when the rest score high. Force each dimension to be scored — no "we'll figure that out later" cop-outs.
+- **Verdict discipline: Ship / Sleep on it / Kill.** Not "maybe." Ambiguity in the verdict compounds into ambiguity in the commit; the brief exists to prevent that.
+- **Portfolio-context check is non-negotiable.** Before writing, grep memory + wiki for existing property overlap. If the new idea is 80% one of your existing properties, propose extending the existing property instead of forking a new one — 4x cheaper to compound.
+- **Archive every brief, even Kills.** Killed ideas resurface — the brief with rationale prevents re-litigating. `references/ideas-archive/` + INDEX.md makes revisit trivial.
+- **"Angle to steal" section forces value from Kills.** Even ideas you won't build often have an angle that improves an existing property. Don't skip this section — it's the highest-leverage output of a Kill verdict.
+- **30-day revisit for "Sleep on it."** Set the calendar reminder. Sleep-on-it ideas that never get revisited become dead weight in the archive; ideas that get revisited resurface with better context.
