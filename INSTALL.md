@@ -91,6 +91,10 @@ export SCRAPECREATORS_API_KEY="..."         # social-fetch full data (X, IG, Tik
 export BRAVE_API_KEY="..."                  # deep-research / last30days web search
 export PLANE_API_KEY="..."                  # pm Plane adapter (if you use Plane)
 export LINEAR_API_KEY="..."                 # pm Linear adapter (if you use Linear)
+export DOMAINR_API_KEY="..."                # domain — Domainr aggregation (free at rapidapi.com/domainr/api/domainr)
+export NAMECHEAP_API_USER="..."             # domain — Namecheap availability + prices
+export NAMECHEAP_API_KEY="..."              # domain — pair with NAMECHEAP_API_USER
+export NAMECHEAP_CLIENT_IP="..."            # domain — must be whitelisted in Namecheap dashboard
 ```
 
 Free tiers exist for most. See each skill's `references/` directory for setup details.
@@ -98,7 +102,7 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ## 6. Verify
 
 ```bash
-# Should see 17 skills listed
+# Should see 18 skills listed
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:
@@ -107,6 +111,7 @@ ls ~/code/makerskills/skills/
 /paste                                      # should read clipboard
 /company-brain                              # should route to a mode (needs COMPANY_BRAIN_VAULT set)
 /company-cfo                                # should route to a mode (needs COMPANY_CFO_ROOT set)
+/domain                                     # domain-hunt workflow (needs Vercel CLI + whois; Domainr + Namecheap keys optional)
 ```
 
 ## What's next
