@@ -1,18 +1,18 @@
-# corey.co slide system reference
+# Slide-deck system reference
 
-The system Corey uses for branded React decks. Files live in the `coreyco` Next.js repo.
+Reference layout for the Next.js repo that hosts your branded React decks. Adopt the file structure below, then point `SLIDE_DECK_REPO` at your repo path.
 
 ## Locations
 
 | What | Path |
 |---|---|
-| **Deck routes** | `${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/<slug>/page.tsx` |
-| **Per-deck layout** | `${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/<slug>/layout.tsx` |
-| **Shared primitives** | `${COREYCO_REPO:-$HOME/code/coreyco}/src/components/slides/slide-primitives.tsx` |
-| **SlideDeck component** | `${COREYCO_REPO:-$HOME/code/coreyco}/src/components/slides/slide-deck.tsx` |
-| **Sections types** | `${COREYCO_REPO:-$HOME/code/coreyco}/src/components/slides/sections.ts` |
-| **Brand gradients** | `${COREYCO_REPO:-$HOME/code/coreyco}/src/lib/gradients.ts` (12 cycling, applied automatically) |
-| **Existing decks (style refs)** | `${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/marketing-like-an-engineer/page.tsx`, `${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/skill-for-your-skills/page.tsx` |
+| **Deck routes** | `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/page.tsx` |
+| **Per-deck layout** | `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/layout.tsx` |
+| **Shared primitives** | `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/components/slides/slide-primitives.tsx` |
+| **SlideDeck component** | `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/components/slides/slide-deck.tsx` |
+| **Sections types** | `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/components/slides/sections.ts` |
+| **Brand gradients** | `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/lib/gradients.ts` (12 cycling, applied automatically) |
+| **Existing decks (style refs)** | `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/marketing-like-an-engineer/page.tsx`, `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/skill-for-your-skills/page.tsx` |
 
 ## Imports a `page.tsx` typically needs
 

@@ -16,15 +16,15 @@ If any are missing on first run, surface the install command to Corey; don't try
 ## Step 1 — Verify dev server
 
 ```bash
-# Detect coreyco's portless URL (he uses portless on :1355)
-curl -sf -o /dev/null -w "%{http_code}" http://${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/<slug> && echo " OK" || echo " not running"
+# Ping the dev server (portless-compatible — set SLIDE_DECK_DEV_HOST to e.g. yoursite.localhost:1355)
+curl -sf -o /dev/null -w "%{http_code}" http://${SLIDE_DECK_DEV_HOST:-localhost:3000}/slides/<slug> && echo " OK" || echo " not running"
 ```
 
 If not running:
 
 ```
 Dev server isn't running. Start it with:
-  cd ${COREYCO_REPO:-$HOME/code/coreyco} && npm run dev
+  cd ${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site} && npm run dev
 
 Then re-run /slide-deck export <slug> <html|pdf|vercel>.
 ```
@@ -35,7 +35,7 @@ Don't auto-start — `npm run dev` is long-running.
 
 ```bash
 # Counts top-level objects in the `slides: Slide[]` array
-grep -E "^\s+\{$" ${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/<slug>/page.tsx | wc -l
+grep -E "^\s+\{$" ${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/page.tsx | wc -l
 ```
 
 Better: open the file and count `id:` entries in the slides array. Don't trust grep for production decks — verify by reading the file.
@@ -51,7 +51,7 @@ import path from 'node:path';
 
 const [, , slug, slideCountStr, outDir] = process.argv;
 const slideCount = parseInt(slideCountStr, 10);
-const baseUrl = `http://${COREYCO_DEV_HOST:-${COREYCO_DEV_HOST:-localhost:3000}}/slides/${slug}`;
+const baseUrl = `http://${SLIDE_DECK_DEV_HOST:-localhost:3000}/slides/${slug}`;
 
 await mkdir(outDir, { recursive: true });
 

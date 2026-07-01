@@ -117,12 +117,12 @@ For each extracted slide, choose a primitive composition based on its shape:
 
 ## Step 4 — Generate the React file
 
-Write to `${COREYCO_REPO:-$HOME/code/coreyco}/src/app/slides/<slug>/`:
+Write to `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/`:
 - `layout.tsx` (use the deck title from slide 1)
 - `page.tsx` (full Slide[] array)
 
 For images:
-1. Copy from `~/Documents/slide-conversions/<slug>-from-pptx/assets/` to `${COREYCO_REPO:-$HOME/code/coreyco}/public/slide-assets/<slug>/`
+1. Copy from `~/Documents/slide-conversions/<slug>-from-pptx/assets/` to `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/public/slide-assets/<slug>/`
 2. Reference in slides via `<img src="/slide-assets/<slug>/<filename>" alt="..." className="max-h-[60vh] mx-auto" />`
 
 ## Step 5 — Speaker notes

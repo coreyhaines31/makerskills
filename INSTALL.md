@@ -27,7 +27,7 @@ Add to `~/.zshenv` (or `~/.bashrc`). Defaults usually work; override only what's
 export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
 
 # Where the slide-deck skill writes branded React decks (only if you have one)
-export COREYCO_REPO="$HOME/code/your-personal-site-repo"
+export SLIDE_DECK_REPO="$HOME/code/your-personal-site-repo"
 
 # Where the second-brain skill reads/writes your personal wiki vault
 export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"
@@ -36,7 +36,7 @@ export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"
 export COMPANY_BRAIN_VAULT="$HOME/Documents/CompanyBrain"
 
 # Optional: dev-server URL pattern for slide-deck preview (default: localhost:3000)
-export COREYCO_DEV_HOST="localhost:3000"
+export SLIDE_DECK_DEV_HOST="localhost:3000"
 ```
 
 ## 3. Set up personal config files

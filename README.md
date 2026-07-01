@@ -79,7 +79,7 @@ Skills read from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/<skill>/` pat
 export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
 export SECOND_BRAIN_VAULT="$HOME/Documents/SecondBrain"    # for second-brain (personal-scope vault)
 export COMPANY_BRAIN_VAULT="$HOME/Documents/CompanyBrain"  # for company-brain (team-scope vault)
-export COREYCO_REPO="$HOME/code/your-site-repo"            # for slide-deck
+export SLIDE_DECK_REPO="$HOME/code/your-site-repo"            # for slide-deck
 ```
 
 Full setup in [INSTALL.md](./INSTALL.md).
@@ -109,8 +109,6 @@ Claude resolves references by description match at load time — no manifest lin
 ## Related skill packs
 
 - [`marketingskills`](https://github.com/coreyhaines31/marketingskills) — 44 marketing skills (CRO, copywriting, SEO, ads, etc.)
-- [`anthropics/skills`](https://github.com/anthropics/skills) — official Anthropic Agent Skills examples
-- [`garrytan/gstack`](https://github.com/garrytan/gstack) — engineering-focused skill stack
 
 ## License
 
