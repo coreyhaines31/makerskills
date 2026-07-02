@@ -56,4 +56,4 @@ This is the most common case for skills on personal GitHub repos. Treat it as �
 
 ## Edge case: skills you wrote yourself in another context
 
-If the source is YOUR OWN code in another repo of yours (e.g., personal note → adapt for cf-skills), license doesn't apply. Skip this step and just attribute for traceability.
+If the source is YOUR OWN code in another repo of yours (e.g., personal note → adapt for a sibling plugin), license doesn't apply. Skip this step and just attribute for traceability.

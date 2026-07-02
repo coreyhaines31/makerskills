@@ -58,6 +58,6 @@ Example local overlay content:
 - Your own banned phrases beyond the AI-slop list
 - Personal sign-offs you do/don't use
 - Conviction-coded CTA phrasings unique to you
-- Account-specific tics (e.g., "always use 'lock it in' instead of 'book a call' on CF posts")
+- Account-specific tics (e.g., "always use 'lock it in' instead of 'book a call' on agency posts")
 
 `voice.local.md` is gitignored — your personal voice DNA never enters this repo.

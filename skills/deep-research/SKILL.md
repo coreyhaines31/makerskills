@@ -29,7 +29,7 @@ Pick from this menu based on the question type. Note which sources you'll hit an
 | Specific URLs | When the user hands over starting URLs | `WebFetch` |
 | Browsable pages (auth-walled, JS-heavy) | Pricing pages, product tours, profiles | `agent-browser` via the `compound-engineering:agent-browser` skill |
 | Memory | Prior research / decisions / context the user already captured | grep `~/.claude/memory/` |
-| Notion | If the topic touches a known Notion workspace (e.g., CF positioning) | Direct Notion API (key in `$NOTION_API_KEY`, see `reference_notion_api.md`) |
+| Notion | If the topic touches a known Notion workspace | Direct Notion API (key in `$NOTION_API_KEY`, see `reference_notion_api.md`) |
 | Research archive | Prior `/deep-research` runs that touched this topic | grep `~/code/makerskills/skills/deep-research/references/research-archive/` |
 
 Run discovery passes **in parallel** where possible. Sequential only when one source needs another's output (e.g., agent-browser a URL discovered by WebSearch).

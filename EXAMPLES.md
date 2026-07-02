@@ -103,13 +103,13 @@ Audience: ✓ (creators with 1k-10k subs deciding to migrate)
 Wedge: ⚠️ (no obvious edge over "read both blogs")
 Monetization: ❌ (affiliate revenue would be <$2k/mo unrealistic)
 Moat: ❌ (both vendors could publish own comparison)
-Portfolio fit: ✓ (SwipeWell / SwipeFiles adjacent audience)
+Portfolio fit: ✓ (adjacent to your existing property audience)
 Distribution: ✓ (existing audience knows creator-tool space)
 Energy fit: ⚠️ (mostly maintenance work, not building)
 Opportunity cost: ❌ (Marketing Skills / Founding Marketing bigger)
 
 ## Angle to steal (even if killed)
-- Add a "which ESP" quiz to SwipeWell — one afternoon of work, no infra
+- Add a "which ESP" quiz to your existing comparison property — one afternoon of work, no infra
 ```
 
 Archives to `references/ideas-archive/2026-07-01-kit-vs-beehiiv-tool.md`.
@@ -282,10 +282,10 @@ Runs frame extraction (1 frame per 5s since it's a screen-share), pairs frames w
 
 | Day | Type | Property/Topic | Draft summary |
 |---|---|---|---|
-| Mon | Promo | SwipeWell (23 days overdue) | ORB framework applied to email newsletters |
+| Mon | Promo | Property A (23 days overdue) | ORB framework applied to email newsletters |
 | Tue | BIP | — | shipped v0.5.0 of makerskills last night |
 | Wed | Edu | — | first-principles thinking applied to positioning |
-| Thu | Promo | Truelist | new B1 logo + brand walkthrough |
+| Thu | Promo | Property B | new brand refresh + walkthrough |
 | Fri | BIP | — | last week's stats: X + LinkedIn |
 | Sat | Edu | — | why "Composes with" sections matter in AI skills |
 | Sun | (rest) | — | — |
@@ -320,16 +320,16 @@ Later: `/slide-deck export marketing-like-an-engineer pdf` → Playwright snapsh
 **Pm (next mode):** Reads `~/.config/makerskills/pm/boards.md` (your business list + tool per business). Queries each board's Ready column via the appropriate adapter (Notion, GitHub, Plane, Linear, Obsidian, or manual). Applies Eisenhower matrix across the portfolio. Reports:
 
 ```markdown
-Next up: **Truelist — B1 logo variants ready for review** (Q1: Urgent + Important)
+Next up: **Product B — brand refresh variants ready for review** (Q1: Urgent + Important)
 
 Why: 4 days on the Ready column, blocking the marketing site launch scheduled for
-2026-07-08. Zach flagged 3 variants; picking one unblocks the next 4 downstream cards.
+2026-07-08. Your design partner flagged 3 variants; picking one unblocks the next 4 downstream cards.
 
 If not that:
-- CF — Client Acme discovery synthesis (Q2: Not Urgent + Important, 2 days on Ready)
-- SwipeWell — pricing page copy (Q2, 6 days on Ready, waiting on brand voice sign-off)
+- Agency — Client Acme discovery synthesis (Q2: Not Urgent + Important, 2 days on Ready)
+- Property A — pricing page copy (Q2, 6 days on Ready, waiting on brand voice sign-off)
 
-WIP check: In Progress at 2/3 on Truelist board. Safe to pull next.
+WIP check: In Progress at 2/3 on Product B board. Safe to pull next.
 ```
 
 ---

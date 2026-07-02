@@ -1,6 +1,6 @@
 ---
 name: skillify
-description: When you want to create, adapt, or update a Claude Code skill in one of your sibling repos (makerskills, cf-skills, marketingskills, nonfictionskills, fictionskills, youtubeskills). Routes to the right mode automatically. Modes — CREATE (from-chat / from-video / from-dump / from-scratch) turns a workflow, brief, recording, or fresh idea into a new skill. ADAPT ports an external skill (GitHub URL, agentskills.io, local disk) into your namespace with three-bucket classification (keep/adapt/add) + license check + attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver discipline. Defers to Anthropic's guidance (compound-engineering:create-agent-skill, compound-engineering:skill-creator, compound-engineering:heal-skill) for schema and best-practice depth. Triggers on "/skillify," "create a skill," "make this a skill," "skill from this chat," "extract a skill from what we've been doing," "adapt this skill," "port this skill," "fork this skill," "borrow this skill," "update X skill," "apply this to the relevant skills," "propagate this learning," "improve [skill]," "fix [skill]," "iterate on [skill]." Part of the -ify trifecta (skillify / toolify / loopify) for extending Claude Code.
+description: When you want to create, adapt, or update a Claude Code skill in one of your sibling repos (list your own repos in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Routes to the right mode automatically. Modes — CREATE (from-chat / from-video / from-dump / from-scratch) turns a workflow, brief, recording, or fresh idea into a new skill. ADAPT ports an external skill (GitHub URL, agentskills.io, local disk) into your namespace with three-bucket classification (keep/adapt/add) + license check + attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver discipline. Defers to Anthropic's guidance (compound-engineering:create-agent-skill, compound-engineering:skill-creator, compound-engineering:heal-skill) for schema and best-practice depth. Triggers on "/skillify," "create a skill," "make this a skill," "skill from this chat," "extract a skill from what we've been doing," "adapt this skill," "port this skill," "fork this skill," "borrow this skill," "update X skill," "apply this to the relevant skills," "propagate this learning," "improve [skill]," "fix [skill]," "iterate on [skill]." Part of the -ify trifecta (skillify / toolify / loopify) for extending Claude Code.
 metadata:
   version: 0.2.0
 ---
@@ -57,16 +57,20 @@ Call those directly when in doubt about format. `skillify` orchestrates *your* w
 
 ### Step 3 — Pick target repo
 
-| Repo | What lives here | Path |
-|---|---|---|
-| **makerskills** | Personal cross-cutting operator work | `~/code/makerskills/` |
-| **cf-skills** | Conversion Factory agency operations | `~/code/cf-skills/` |
-| **marketingskills** | Generic marketing tactics (public) | `~/code/marketingskills/` |
-| **nonfictionskills** | Writing a nonfiction book | `~/code/nonfictionskills/` |
-| **fictionskills** | Writing fiction | `~/code/fictionskills/` |
-| **youtubeskills** | Making YouTube videos | `~/code/youtubeskills/` |
+Load the user's sibling repo list from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/skillify/repos.yaml` if present. Otherwise default to `makerskills` (this repo). Example format:
 
-Infer if obvious; ask if ambiguous.
+```yaml
+# ~/.config/makerskills/skillify/repos.yaml
+repos:
+  - name: makerskills
+    domain: Personal cross-cutting operator work
+    path: ~/code/makerskills
+  - name: marketingskills
+    domain: Generic marketing tactics
+    path: ~/code/marketingskills
+```
+
+Infer target if obvious from the skill's domain; ask if ambiguous.
 
 ### Step 4 — Synthesize per sub-mode
 
@@ -300,14 +304,14 @@ For **targeted**: skip extraction — user already named the change.
 
 ### Step 3 — Identify affected skills
 
-For each learning, search across all SKILL.md + references/ in the current repo (and optionally all 6 sibling repos with `--cross-repo`):
+For each learning, search across all SKILL.md + references/ in the current repo (and optionally all sibling repos from your `repos.yaml` with `--cross-repo`):
 
 ```bash
 grep -rln "<key terms>" ~/code/makerskills/skills/ --include="*.md"
 
-# Across all sibling repos:
-for repo in makerskills cf-skills marketingskills nonfictionskills fictionskills youtubeskills; do
-  grep -rln "<terms>" ~/code/$repo/skills/ --include="*.md" 2>/dev/null
+# Across all sibling repos (list yours in ~/.config/makerskills/skillify/repos.yaml):
+for repo in $(yq '.repos[].path' ~/.config/makerskills/skillify/repos.yaml); do
+  grep -rln "<terms>" "$repo/skills/" --include="*.md" 2>/dev/null
 done
 ```
 

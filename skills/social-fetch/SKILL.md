@@ -103,7 +103,6 @@ Skip cache if `--no-cache` flag is set or for `--with-replies` / `--thread` (lik
 - `deep-research` — cite specific posts in research briefs. When research surfaces a relevant tweet/post URL, fetch and include in the brief.
 - `jab-hook` — pull recent posts from inspiration accounts for deeper format analysis (currently uses agent-browser inline; should call this skill instead).
 - `business-brainstorm` — pull competitor / operator commentary as evidence during scoring.
-- `cf-blog` (in `cf-skills`) — source content from a viral tweet / LinkedIn post for blog draft.
 - `second-brain` — capture a post into `raw/` with the `tweet-` / `bookmark-` prefix; the structured output makes for cleaner raw files than a screenshot or copy-paste.
 - `watch-video` — for YouTube URLs (or any video — Loom, Vimeo, Riverside, MP4), route there instead.
 

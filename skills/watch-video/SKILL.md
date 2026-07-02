@@ -294,7 +294,6 @@ In chat:
 - `second-brain` — capture summary as `raw/call-<slug>.md`, `meeting-`, `note-`, or `resource-` per source type
 - `decide` — when a video contains a flagged decision, route to `/decide` for structured capture
 - `pm` — action items flagged in summary can be triaged to project boards
-- `cf-blog` (in `cf-skills`) — Factory Floor episodes: this skill replaces inline yt-dlp; outputs feed cf-blog's draft pipeline
 - `slide-deck` — talk recordings → outline extraction → deck draft (loop)
 - `jab-hook` — quotes + clip-worthy moments from podcast/talk videos feed BIP/promo posts
 - **`skillify from-video`** — primary use case for `visual` mode on process recordings. the user records himself doing a workflow (Loom/screen-share), this skill extracts transcript + key visual moments, then `skillify` synthesizes the workflow into a SKILL.md. "Record once, AI converts to skill."

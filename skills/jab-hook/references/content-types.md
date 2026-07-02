@@ -38,13 +38,13 @@ If a first-comment link is being added, draft it separately as:
 
 ## build-in-public / BIP (~2–3/week)
 
-Behind-the-scenes of running CF, Swipe Files, Magister, Truelist, or the user's day. Usually no CTA, no URL.
+Behind-the-scenes of running your businesses, properties, or the user's day. Usually no CTA, no URL.
 
 **Best openers**:
 - A number: *"$X MRR this month."* / *"Took 14 sales calls this week."*
 - A screenshot description: *"Here's what our pipeline looked like Monday morning."*
 - A lesson: *"Here's what didn't work this quarter."*
-- A workflow: *"How I'm using Claude Code + cf-skills to draft client decks."*
+- A workflow: *"How I'm using Claude Code to draft client decks."*
 
 **Structure**:
 ```

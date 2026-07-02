@@ -101,7 +101,6 @@ If yes:
 - `social-fetch` — pull inspiration-account posts for structural analysis (replaces inline agent-browser)
 - `second-brain` — the `Content Ideas` wiki page hoppers hooks, frameworks, stories; `/jab-hook` drafts pull candidates from there
 - `deep-research` — when a promo needs a stat or citation the draft doesn't have yet
-- `cf-skills:x-li` (external plugin) — for CF partner-account syndication. Use that when the post should land on agency accounts.
 - `marketingskills:social` — generic social frameworks, useful when teaching strategy vs shipping your own posts
 - `marketingskills:copywriting` — for hook / headline ideation when stuck
 
@@ -111,12 +110,11 @@ If yes:
 - **Never mimic phrasing from inspiration accounts.** Extract *structure* (hook opener type, line-break rhythm, CTA style) and apply to your own voice. Voice is the moat; copying phrasing destroys it.
 - **Links belong in first comments, not the body** for LinkedIn + X. Documented in `~/.claude/memory/feedback_social_link_placement.md`. Body posts with inline URLs get algorithm-suppressed on both platforms.
 - **Draft state, not scheduled state.** Every Typefully push defaults to draft — human review in the Typefully UI before publish is non-negotiable. Automated scheduling of unreviewed drafts has repeatedly produced posts the user regrets.
-- **Reader-perspective framing.** *"You'll know X"* not *"we'll teach you X."* *"What you're guaranteed"* not *"what we'd guarantee."* Documented in `~/.claude/memory/feedback_cf_promo_voice.md`.
+- **Reader-perspective framing.** *"You'll know X"* not *"we'll teach you X."* *"What you're guaranteed"* not *"what we'd guarantee."*
 - **Voice.local.md overrides the shipped voice.md.** Personal voice rules never live in the public repo — always in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/voice.local.md`.
-- **Cadence cap: 2 posts/day per platform, per account.** More than that degrades reach + reads as spam. Documented in `~/.claude/memory/feedback_cf_social_cadence.md`.
+- **Cadence cap: 2 posts/day per platform, per account.** More than that degrades reach + reads as spam.
 
 ## Memory references
 
-- `~/.claude/memory/feedback_cf_promo_voice.md` — conviction-coded CTAs + reader-perspective framing
-- `~/.claude/memory/feedback_cf_social_cadence.md` — 2 posts/day per platform cap
-- Memory: `feedback_cf_social_cadence.md` — CF-specific cap of 2 posts/day per platform. Same cap is sensible for your personal account.
+- `~/.claude/memory/feedback_promo_voice.md` (if present) — conviction-coded CTAs + reader-perspective framing
+- `~/.claude/memory/feedback_social_cadence.md` (if present) — cadence cap (e.g., 2 posts/day per platform)

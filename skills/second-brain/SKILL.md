@@ -142,7 +142,6 @@ Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-li
 - `jab-hook` — a `Content Ideas` wiki page hoppers hooks, frameworks, and stories. `/jab-hook` drafts pull candidates from there.
 - `slide-deck` — content drafted in `outputs/` becomes deck source; speaker notes can reference relevant wiki pages.
 - `pm` — Projects/ folder in the vault is off-limits to second-brain; pm owns it. But a `Workflow Docs` wiki page captures operational patterns that show up across multiple projects.
-- `cf-blog` (in `cf-skills`) — pulls from `Content Ideas` and `Customer Language` wiki pages for blog drafts.
 
 ## Sibling implementations (reference)
 

@@ -59,20 +59,20 @@ The "board" is the repo's issues filtered by label (e.g., `column:ready`, `colum
 
 ```bash
 # List issues in a column (label-based)
-gh issue list --repo coreyhaines31/<repo> --label "column:ready" --json number,title,labels
+gh issue list --repo <owner>/<repo> --label "column:ready" --json number,title,labels
 
 # Move (change label)
-gh issue edit <num> --repo coreyhaines31/<repo> --remove-label "column:ready" --add-label "column:in-progress"
+gh issue edit <num> --repo <owner>/<repo> --remove-label "column:ready" --add-label "column:in-progress"
 
 # Create
-gh issue create --repo coreyhaines31/<repo> --title "<title>" --label "column:backlog"
+gh issue create --repo <owner>/<repo> --title "<title>" --label "column:backlog"
 ```
 
 **Pattern B — GitHub Projects (v2):**
 
 ```bash
 # List items in a column (Status field)
-gh project item-list <project-number> --owner coreyhaines31 --format json
+gh project item-list <project-number> --owner <owner> --format json
 
 # Move item (set Status field)
 gh project item-edit --id <item-id> --field-id <status-field-id> --single-select-option-id <option-id> --project-id <project-id>
@@ -139,7 +139,7 @@ curl -X POST "https://api.linear.app/graphql" \
 - [ ] Card D
 
 ## Review/Blocked
-- [ ] Card E — blocked on Zach
+- [ ] Card E — blocked on <person>
 
 ## Done/Archived
 - [x] Card F

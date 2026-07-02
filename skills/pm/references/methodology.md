@@ -25,7 +25,7 @@ Backlog  →  Ready  →  In Progress  →  Review/Blocked  →  Done/Archived
 ### Card hygiene
 
 A good card has:
-- **Title** — verb-first ("Ship Magister waitlist email" not "Magister email")
+- **Title** — verb-first ("Ship waitlist email" not "Waitlist email")
 - **Acceptance criteria** — what does "done" look like? 1–3 bullets.
 - **Owner** — even for solo projects: which "hat" is wearing this?
 - **Size** — XS / S / M / L (XS = <2 hrs, S = <1 day, M = 2–3 days, L = >1 week — break it down)
@@ -61,7 +61,7 @@ Not Important       Q3: Delegate    Q4: Delete
 
 ## Async-first
 
-You're running multiple businesses with partners (CF: Zach, Nick) and async clients (Olo fCMO). Async-first PM means:
+You're likely running multiple businesses with partners and async clients. Async-first PM means:
 
 1. **Status visible without you.** Anyone should be able to look at the board and know where things stand. No "let me catch you up" calls.
 2. **Decisions documented.** When a card moves between columns, the why is in the card or a comment. Compose with `/decide` for big calls.

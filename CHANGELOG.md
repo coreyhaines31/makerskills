@@ -6,6 +6,20 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v0.5.3] — 2026-07-01
+
+### Changed
+- **Public-launch polish**: swept remaining personal brand names, partner names, and private-sibling references out of `EXAMPLES.md` and 8 skills (`business-brainstorm`, `pm`, `jab-hook`, `second-brain`, `company-brain`, `deep-research`, `personal-cfo`, `skillify`, `social-fetch`, `watch-video`) plus `ARCHITECTURE.md` and `README.md`. Placeholders (`<owner>`, `Property A`, `<person>`, etc.) replace anything user-specific.
+- **`skillify`**: sibling repo list moved out of hardcoded prose into `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/skillify/repos.yaml`. `--cross-repo` propagation now iterates over the user's declared repos instead of a fixed list.
+- **`business-brainstorm`**: portfolio-fit + distribution + opportunity-cost dimensions now load user-specific context from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/portfolio.local.md` if present, instead of hardcoding one operator's businesses.
+- **`pm`**: board config and team/partner overlay load from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/{boards.md, team.local.md}` — repo's `references/boards.md` is now just a template.
+
+### Removed
+- Dropped inline cross-references to `cf-skills` (a private companion plugin external users can't install) from `personal-cfo`, `jab-hook`, `company-brain`, `social-fetch`, `watch-video`, and `second-brain`. Fresh users no longer see "sibling for CF agency books" style references to something they can't get.
+- Dropped `~/.claude/memory/feedback_cf_*.md` references from `jab-hook` — those are personal memory files, not portable.
+
+---
+
 ## [v0.5.0] — 2026-07-01
 
 ### Added

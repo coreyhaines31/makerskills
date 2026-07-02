@@ -133,7 +133,7 @@ Skills call each other by name. The most-referenced skills are the "central" one
                           domain (32)
 ```
 
-**Reading the composition map**: `watch-video` is invoked by 54 other skill contexts (including `skillify from-video`, `slide-deck` for talk-recordings, `cf-blog` in cf-skills). `second-brain` is invoked by 48 (for captures + queries). The central skills carry more downstream load.
+**Reading the composition map**: `watch-video` is invoked by 54 other skill contexts (including `skillify from-video`, `slide-deck` for talk-recordings, and any blog/publish skills you compose with). `second-brain` is invoked by 48 (for captures + queries). The central skills carry more downstream load.
 
 Practical implication: **when adopting the plugin, install and set up the central skills first**. `watch-video` needs yt-dlp + ffmpeg + MLX-Whisper; `second-brain` needs a vault path. Get those working, and the rest of the plugin becomes progressively more useful.
 
@@ -156,18 +156,16 @@ This is why the collection is intentionally documentation-first. The plugin is a
 
 ## Sibling repo ecosystem
 
-`makerskills` sits in a family of related plugins:
+`makerskills` is designed to sit alongside your other skill plugins. Public siblings you can install today:
 
-| Repo | Scope | Public? |
-|---|---|---|
-| **[`makerskills`](https://github.com/coreyhaines31/makerskills)** | Personal operator's craft — this repo | ✅ Public |
-| **[`marketingskills`](https://github.com/coreyhaines31/marketingskills)** | 44 marketing skills (CRO, copywriting, SEO, ads) | ✅ Public |
-| **`cf-skills`** | Conversion Factory agency operations | Private |
-| **`youtubeskills`** | Making educational YouTube videos | Private (in-progress) |
-| **`nonfictionskills`** | Writing + shipping a nonfiction book | Private (planned) |
-| **`fictionskills`** | Writing + shipping fiction | Private (planned) |
+| Repo | Scope |
+|---|---|
+| **[`makerskills`](https://github.com/coreyhaines31/makerskills)** | Personal operator's craft — this repo |
+| **[`marketingskills`](https://github.com/coreyhaines31/marketingskills)** | 44 marketing skills (CRO, copywriting, SEO, ads) |
 
 Skills can cross-reference each other (`makerskills:paste` from a `marketingskills` skill, for example). Cross-plugin references resolve at invocation time — no manifest linking needed.
+
+If you maintain private domain-specific plugins of your own (agency, book, video, client work), `skillify` reads a list from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/skillify/repos.yaml` so you can propagate learnings across all of them.
 
 ---
 

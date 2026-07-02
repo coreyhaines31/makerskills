@@ -22,7 +22,7 @@ Who has this problem, and can the user reach them?
 - **🟡 OK:** Adjacent audience — would take work but feasible.
 - **❌ Weak:** Cold audience with no existing access (e.g., enterprise CIOs).
 
-Check: is this audience already in Swipe Files' reach? CF's reach? If yes, distribution is half-solved.
+Check: is this audience already in one of your existing property reaches? If yes, distribution is half-solved.
 
 ---
 
@@ -30,7 +30,7 @@ Check: is this audience already in Swipe Files' reach? CF's reach? If yes, distr
 
 How do you get the first 100 customers?
 
-- **✅ Strong:** Clear, concrete first-customer playbook. "I'd email 50 founders I know," "I'd post on r/SaaS," "I'd add this to Swipe Files thank-you page."
+- **✅ Strong:** Clear, concrete first-customer playbook. "I'd email 50 founders I know," "I'd post on r/SaaS," "I'd add this to my newsletter thank-you page."
 - **🟡 OK:** Plausible path but needs a few experiments.
 - **❌ Weak:** "We'll do paid ads" / "We'll do SEO" — too vague, too long-tail.
 
@@ -62,11 +62,11 @@ Note: the user's moats are usually *audience + voice + speed*, not tech. Honest 
 
 Does this complement or cannibalize the existing 6 properties?
 
-- **✅ Complements:** Audience overlap that boosts existing properties (e.g., a tool for the Swipe Files audience that drives newsletter subs).
+- **✅ Complements:** Audience overlap that boosts existing properties (e.g., a tool for one of your existing audiences that drives newsletter subs).
 - **🟡 Neutral:** Different audience, no interference.
-- **❌ Cannibalizes:** Competes with CF for attention, splits the audience, or muddies positioning. Or it's so similar to an existing property it should be a feature, not a standalone.
+- **❌ Cannibalizes:** Competes with an existing property for attention, splits the audience, or muddies positioning. Or it's so similar to an existing property it should be a feature, not a standalone.
 
-Check memory's `project_*.md` files — does this idea overlap with workhouse, peptidepatterns, Magister, Truelist, etc.? If yes, ask: should this be a feature of one of those?
+Check memory's `project_*.md` files — does this idea overlap with any in-flight projects? If yes, ask: should this be a feature of one of those?
 
 ---
 
@@ -74,7 +74,7 @@ Check memory's `project_*.md` files — does this idea overlap with workhouse, p
 
 Which of the user's audience assets can launch this?
 
-- **✅ Strong:** Direct fit with Swipe Files newsletter, CF blog/podcast, Marketing Skills users, X/LinkedIn following, or coreyandco audience.
+- **✅ Strong:** Direct fit with your existing newsletter, blog, podcast, product users, or social following.
 - **🟡 OK:** Adjacent audience — could launch with partner collabs or paid push.
 - **❌ Weak:** Requires building a new audience from zero. (Possible but slow — usually means it should wait until an existing property reaches it.)
 
@@ -96,9 +96,9 @@ INTJ honesty: if it requires constant context-switching, heavy sales motion, or 
 
 What does the user NOT do if he does this?
 
-- **✅ Strong:** Marginal capacity used (e.g., 4 hrs/week of the user + Claude). Doesn't crowd out CF / Swipe Files / existing builds.
+- **✅ Strong:** Marginal capacity used (e.g., 4 hrs/week of the user + Claude). Doesn't crowd out existing businesses or in-flight builds.
 - **🟡 OK:** Real time investment but bounded.
-- **❌ Weak:** Would require pulling focus from CF, slowing Swipe Files, or pausing other in-flight projects (workhouse, peptidepatterns, Magister).
+- **❌ Weak:** Would require pulling focus from an existing business, slowing a live property, or pausing other in-flight projects.
 
 The honest test: would adding this make the user *less* effective on the things that are already working? If yes, the bar is much higher.
 

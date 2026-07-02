@@ -35,7 +35,7 @@ Why: these are the source author's preferences. Yours differ.
 | | Their transcript tool | Your `watch-video transcript` mode |
 | | Their notes / KB | Your `second-brain` (or `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/`) |
 | | Their decision framework | Your `decide` |
-| | Their social drafting | Your `jab-hook` or `cf-skills:x-li` |
+| | Their social drafting | Your `jab-hook` |
 | | Their research | Your `deep-research` |
 | **Paths** | `~/outputs/` or `~/notes/` | `~/Documents/<skill>-<...>` convention |
 | | Custom config dirs | Your `references/` pattern |

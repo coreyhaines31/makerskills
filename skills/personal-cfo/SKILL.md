@@ -1,13 +1,13 @@
 ---
 name: personal-cfo
-description: When you want to model personal financial scenarios — house purchase + rental income (ADU, bedroom rentals, house-hacking), renovation budgets, monthly cash flow forecasts, big-purchase decisions, savings/investment what-ifs. Spin-off of cf-skills:cfo (which is for Conversion Factory's agency books) — this one is for personal life: a household (you + partner), household budgets, real-estate decisions. v0.1 ships with the house scenario template (purchase + rental scenarios) as the first use case. Architected so other personal-finance scenarios (refi, car, education, retirement, side income) slot in as additional templates. Outputs scenario comparison tables in markdown. Saves every scenario to references/scenarios-archive/ for revisit + comparison. Composes with decide (formalize the call after modeling), deep-research (rental comps, mortgage rates, market data), business-brainstorm (when the scenario is a small business / side hustle), second-brain (capture the analysis to outputs/). Triggers on "/personal-cfo," "model this scenario," "house math," "rental forecast," "monthly cash flow," "what if I rent out the ADU," "compare these housing scenarios," "should we buy this house," "house-hack math," "renovation budget."
+description: When you want to model personal financial scenarios — house purchase + rental income (ADU, bedroom rentals, house-hacking), renovation budgets, monthly cash flow forecasts, big-purchase decisions, savings/investment what-ifs. For personal life: a household (you + partner), household budgets, real-estate decisions. v0.1 ships with the house scenario template (purchase + rental scenarios) as the first use case. Architected so other personal-finance scenarios (refi, car, education, retirement, side income) slot in as additional templates. Outputs scenario comparison tables in markdown. Saves every scenario to references/scenarios-archive/ for revisit + comparison. Composes with decide (formalize the call after modeling), deep-research (rental comps, mortgage rates, market data), business-brainstorm (when the scenario is a small business / side hustle), second-brain (capture the analysis to outputs/). Triggers on "/personal-cfo," "model this scenario," "house math," "rental forecast," "monthly cash flow," "what if I rent out the ADU," "compare these housing scenarios," "should we buy this house," "house-hack math," "renovation budget."
 metadata:
   version: 0.1.0
 ---
 
 # /personal-cfo — Personal financial scenario modeling
 
-Personal-life counterpart to `cf-skills:cfo` (which handles CF's agency books). This skill is for a household (you + partner): housing decisions, monthly cash flow, big purchases, scenario what-ifs.
+This skill is for a household (you + partner): housing decisions, monthly cash flow, big purchases, scenario what-ifs. Pair it with a business-books CFO skill if you also run one for a company — the DNA is the same, the domain is different.
 
 ## Step 1 — Pick the scenario type
 
@@ -160,7 +160,6 @@ This compounds — when you're considering Property #2 a year later, you can reu
 - **`deep-research`** — for inputs that need market data: rental comps, mortgage rate trends, neighborhood trajectory, school ratings, comparable sales.
 - **`business-brainstorm`** — if the scenario tips into "this is a business" (e.g., short-term rental, multi-unit purchase, scaling to N properties), route there to pressure-test the business angle.
 - **`second-brain`** — capture analyses to `raw/note-house-<slug>.md` so they live in the personal wiki and can be referenced later.
-- `cf-skills:cfo` — sibling for CF agency books. Same skill DNA, different domain.
 
 ## Notes on quality
 

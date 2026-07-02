@@ -11,7 +11,7 @@ metadata:
 
 Team-scope sibling to `second-brain` (personal-scope). Same core compile → wiki → outputs pattern; different raw schema optimized for multi-author, sales-heavy, ops-heavy team use.
 
-Also the operational backbone for the **Company Brain Setup** productized service (CF offering — was previously called "Second Brain as a Service"; renamed to match the skill).
+Also the operational backbone for the **Company Brain Setup** productized service (was previously called "Second Brain as a Service"; renamed to match the skill).
 
 ## Mental model
 
@@ -177,7 +177,7 @@ Auto-sync is optional — most teams start with manual capture and add automatio
 - **`decide`** — `decisions/` folder complements `decide`'s structured archive. `decide` records the *evaluation*; `decisions/` records the *narrative + outcome + review notes*.
 - **`pm`** — team task management sits in `Projects/` (reserved from company-brain). `pm` owns Projects/; company-brain reads it for context but doesn't modify.
 - **`jab-hook`** — `customer-language/` fuels social copy that resonates with actual prospect language.
-- **`cf-blog`** (in `cf-skills`) — pulls from `customer-language/`, `recurring-questions/`, and `sops/` for authoritative blog drafts.
+- A blog-drafting skill (yours or a companion plugin) — pulls from `customer-language/`, `recurring-questions/`, and `sops/` for authoritative blog drafts.
 
 ## Sibling implementations (reference)
 

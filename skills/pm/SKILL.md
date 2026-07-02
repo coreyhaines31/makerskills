@@ -48,13 +48,15 @@ Parse the invocation:
 | `/pm weekly` | weekly | all boards (Friday pulse) |
 | `/pm weekly [business]` | weekly | the named business |
 
-## Step 2 — Load board config
+## Step 2 — Load board config + personal overlay
 
-Read `references/boards.md` to find the board mapping for the target business.
+Read `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards.md` (personal — real business list + tool mapping per business). Falls back to `references/boards.md` in the repo if the local file doesn't exist yet — that's a template.
+
+Also try to load `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/team.local.md` if present — this is where the user lists partners, active clients, and typical blocker phrasings. Use it to make status output specific ("Waiting on <partner>'s review") instead of generic.
 
 | Field | Example |
 |---|---|
-| business | `magister` |
+| business | `<slug>` |
 | tool | `notion` / `github` / `plane` / `linear` / `obsidian` / `manual` |
 | board_id or URL | tool-specific |
 | column overrides | only if this board doesn't use the default 5 columns |
@@ -73,7 +75,7 @@ Read the relevant section of `references/adapters.md` for the tool. Each adapter
 Adapters use:
 - **Notion** → `$NOTION_API_KEY` (already in zshenv). Database with `Status` select property.
 - **GitHub Projects** → `gh` CLI (already authed). `gh project item-list`, `gh project item-edit`.
-- **Plane** → Plane API (CF uses Plane — need `$PLANE_API_KEY` and workspace slug).
+- **Plane** → Plane API (needs `$PLANE_API_KEY` and workspace slug).
 - **Linear** → Linear MCP or API key.
 - **Obsidian** → local kanban markdown files in the vault. Read/write directly.
 - **Manual** → ask the user to paste the current board state; offer to write back to a local markdown file.
@@ -155,7 +157,7 @@ When generating status / weekly outputs:
 - **Lead with the headline** — what shipped this week, or what's at risk
 - **Be specific** — "shipped X" not "made progress on Y"
 - **No verbs without subjects** — write so the reader can pick up cold
-- **Blockers name the blocker** — "waiting on Zach's review" not "blocked"
+- **Blockers name the blocker** — "waiting on designer's review" not "blocked"
 - **Open questions are explicit** — one bolded line per status that asks for what would unblock momentum
 
 ## Composes with
@@ -170,8 +172,8 @@ When generating status / weekly outputs:
 
 - **Limit WIP.** Multitasking is the most reliable way to ship nothing. Cap In Progress at 3 (override in `references/boards.md` per business if truly needed). If the cap is hit, don't pull more — recommend finishing or moving something to Review/Blocked.
 - **Lead with the headline** in every status output — what shipped this week, or what's at risk. Not "made progress on X" — that's noise.
-- **Be specific.** "Shipped Truelist B1 logo" beats "made progress on Truelist branding." Specificity signals real motion; vagueness signals none.
+- **Be specific.** "Shipped the primary logo variant" beats "made progress on branding." Specificity signals real motion; vagueness signals none.
 - **No verbs without subjects.** Write status so the reader can pick up cold — 3 weeks later or forwarded to a partner who missed the last update.
-- **Blockers name the blocker.** "Waiting on Zach's review of the CF homepage draft" — not "blocked." Blockers without names create no urgency.
+- **Blockers name the blocker.** "Waiting on designer's review of the homepage draft" — not "blocked." Blockers without names create no urgency.
 - **Open questions are explicit** — one bolded line per status that asks for what would unblock momentum. Async momentum lives or dies on how well open questions are surfaced.
 - **Tool-agnostic by design.** pm speaks Kanban + Eisenhower; the adapters (Notion / GitHub / Plane / Linear / Obsidian / manual) translate. Adding a new tool = one adapter file, not a rewrite.

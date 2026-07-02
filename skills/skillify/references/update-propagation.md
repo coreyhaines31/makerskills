@@ -8,7 +8,7 @@ Examples from this session where a single learning crossed skills:
 
 | Learning | Affected skills |
 |---|---|
-| Link placement rule (no URLs in body) | `jab-hook` + memory `feedback_social_link_placement.md` (which also implicitly applies to `cf-skills:x-li` and `marketing-skills:social`) |
+| Link placement rule (no URLs in body) | `jab-hook` + memory `feedback_social_link_placement.md` (applies to any other social skills in your sibling repos too) |
 | Verb-noun naming convention | `watch-video`, `read-book`, `create-skill`, `adapt-skill`, `update-skill` (rename pass across multiple skills) |
 | Anti-AI-slop banned phrases | `slide-deck`, `jab-hook` (both write content; both should ban "dive deep," "leverage," etc.) |
 | Spoken-aloud voice rule | `slide-deck` (load-bearing); `jab-hook` partial relevance (social IS read silently usually, but voice still applies) |
@@ -27,10 +27,10 @@ Grep for terms that signal the topic. Cast a wide net.
 # Example: link placement learning
 grep -rln "URL\|link\|outbound\|first comment" ~/code/makerskills/skills/ --include="*.md"
 
-# Across all sibling repos:
-for repo in makerskills cf-skills marketingskills nonfictionskills fictionskills youtubeskills; do
-  if [ -d ~/code/$repo/skills/ ]; then
-    grep -rln "URL\|link\|outbound\|first comment" ~/code/$repo/skills/ --include="*.md" 2>/dev/null
+# Across all sibling repos (list yours in ~/.config/makerskills/skillify/repos.yaml):
+for repo in $(yq '.repos[].path' ~/.config/makerskills/skillify/repos.yaml 2>/dev/null); do
+  if [ -d "$repo/skills/" ]; then
+    grep -rln "URL\|link\|outbound\|first comment" "$repo/skills/" --include="*.md" 2>/dev/null
   fi
 done
 ```
@@ -85,7 +85,7 @@ Default: search **only the current repo**. Most learnings are repo-local.
 
 Add `--cross-repo` flag when:
 - The learning is clearly meta (naming convention, file structure, frontmatter)
-- The skills span multiple repos (e.g., voice rule that applies to social skills in `makerskills:jab-hook`, `cf-skills:x-li`, `marketingskills:social`)
+- The skills span multiple repos (e.g., a voice rule that applies to social skills in several of your sibling plugins)
 - the user explicitly asks ("apply this to all my skills")
 
 Cross-repo propagation: produce one commit per repo. Don't try to atomic-commit across repo boundaries.

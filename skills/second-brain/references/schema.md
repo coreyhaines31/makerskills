@@ -33,7 +33,7 @@ Type prefixes:
 - `tweet-` — single X post or thread
 - `bookmark-` — URL + a one-line "why I saved this"
 
-**Business / operational** (CF, fCMO, client work)
+**Business / operational** (agency, consulting, client work)
 - `call-` — call/meeting transcript (Riverside, Zoom, Otter)
 - `meeting-` — meeting notes (your own, not auto-transcripts)
 - `screenshot-` — image capture with context (UI, dashboard, competitor)
@@ -101,24 +101,24 @@ Pages whose existence makes other skills sharper:
 | Wiki page | Composes with | Why |
 |---|---|---|
 | **Decision Log** | `decide` | Narrative version of decisions made — the `decide` skill archives one-off decisions; the wiki page is the story of how decisions stacked over time on a topic |
-| **Content Ideas** | `jab-hook`, `cf-blog` | Centralized hopper of hooks, frameworks, stories — drafted posts pull from here |
-| **Customer Language** | CF positioning + sales | Verbatim phrases from prospects/customers — used for copy, headlines, objections |
-| **Offer Notes** | CF positioning | What's been tried, what landed, what didn't |
-| **Recurring Questions** | CF sales, client onboarding | Questions asked >3 times across calls; pre-answered for SOP / FAQ / scripts |
+| **Content Ideas** | `jab-hook` | Centralized hopper of hooks, frameworks, stories — drafted posts pull from here |
+| **Customer Language** | positioning + sales | Verbatim phrases from prospects/customers — used for copy, headlines, objections |
+| **Offer Notes** | positioning | What's been tried, what landed, what didn't |
+| **Recurring Questions** | sales, client onboarding | Questions asked >3 times across calls; pre-answered for SOP / FAQ / scripts |
 | **Workflow Docs** | `pm` | Documented operational patterns — what gets done, by whom, on what cadence |
-| **People** | CF, fundraising, partnerships | Contacts with context — a CRM-lite. Inspired by Gbrain's people entity. |
-| **Companies** | CF clients, prospects | Org profiles with last touchpoint, opportunity, status |
-| **Sales Objections** | CF sales scripts | Library of objections + best responses |
-| **Sales Scripts** | CF sales | Templates assembled from Customer Language + Objections |
+| **People** | agency, fundraising, partnerships | Contacts with context — a CRM-lite. Inspired by Gbrain's people entity. |
+| **Companies** | clients, prospects | Org profiles with last touchpoint, opportunity, status |
+| **Sales Objections** | sales scripts | Library of objections + best responses |
+| **Sales Scripts** | sales | Templates assembled from Customer Language + Objections |
 
 ### Outputs categories
 
 The `outputs/` folder hosts generated artifacts. Common kinds:
 - Posts (social drafts, blog drafts)
 - Reports
-- Proposals (especially CF)
+- Proposals (especially for agency work)
 - SOPs (your own + client deliverables)
-- Audits (CF deliverable)
+- Audits (typical agency deliverable)
 - Research briefs (composes with `deep-research`)
 - Sales scripts
 - Client summaries

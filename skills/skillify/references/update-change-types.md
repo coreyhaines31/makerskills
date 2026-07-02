@@ -125,7 +125,7 @@ Each learning extracted from chat / dump should be a **single change** stated as
 Examples:
 - *"slide-deck voice should emphasize that slides are spoken aloud (write for the ear) because the current 'written voice' framing produced text that didn't sound natural when read out loud."*
 - *"jab-hook drafts should not include URLs in the post body (use first comments instead) because platforms downrank link-in-body posts."*
-- *"second-brain raw/ type catalog should include business-operational prefixes (call-, email-, sop-, etc.) because the user uses these for CF work, not just personal intellectual capture."*
+- *"second-brain raw/ type catalog should include business-operational prefixes (call-, email-, sop-, etc.) because the user uses these for agency work, not just personal intellectual capture."*
 
 Format: skill (or area) + new behavior + because + (optional) current behavior contrast.
 

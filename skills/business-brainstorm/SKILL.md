@@ -16,13 +16,15 @@ Get from the user:
 - The reason it's on his mind (the *why now*)
 - Any starting context (a chat where this came up, a tweet that inspired it, a problem he's hit)
 
-If he points at a past chat / doc, load it first. Memory has `project_*.md` files for in-flight projects (workhouse, peptidepatterns, etc.) — check there before assuming the idea is brand-new.
+If he points at a past chat / doc, load it first. Memory has `project_*.md` files for in-flight projects — check there before assuming the idea is brand-new.
 
 If the idea is too vague to score, ask 1–2 clarifying questions and stop. Don't pad the brief with assumptions.
 
-## Step 2 — Load the framework
+## Step 2 — Load the framework + personal overlay
 
 Read `references/framework.md` — the user's filter. Apply each dimension in order.
+
+Also try to load `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/portfolio.local.md` if it exists — this is where the user lists their real in-flight businesses, properties, audiences, and partners. When present, use it for the "portfolio fit," "distribution," and "opportunity cost" dimensions instead of asking the user to name each one.
 
 ## Step 3 — Score each dimension
 
@@ -96,9 +98,9 @@ Use this template:
 
 ## If you don't build it
 - **Angle to steal for existing properties:**
-  - CF: …
-  - Swipe Files: …
-  - Magister: …
+  - Property A: …
+  - Property B: …
+  - Property C: …
   - (etc., only where relevant)
 ```
 
