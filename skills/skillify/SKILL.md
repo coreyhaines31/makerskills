@@ -309,8 +309,10 @@ For each learning, search across all SKILL.md + references/ in the current repo 
 ```bash
 grep -rln "<key terms>" ~/code/makerskills/skills/ --include="*.md"
 
-# Across all sibling repos (list yours in ~/.config/makerskills/skillify/repos.yaml):
-for repo in $(yq '.repos[].path' ~/.config/makerskills/skillify/repos.yaml); do
+# Across all sibling repos (list yours in $MAKERSKILLS_CONFIG/skillify/repos.yaml):
+config="${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/skillify/repos.yaml"
+for raw in $(yq -r '.repos[].path' "$config"); do
+  repo="${raw/#\~/$HOME}"  # expand leading ~ to $HOME so grep resolves the real path
   grep -rln "<terms>" "$repo/skills/" --include="*.md" 2>/dev/null
 done
 ```

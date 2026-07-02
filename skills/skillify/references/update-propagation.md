@@ -27,8 +27,10 @@ Grep for terms that signal the topic. Cast a wide net.
 # Example: link placement learning
 grep -rln "URL\|link\|outbound\|first comment" ~/code/makerskills/skills/ --include="*.md"
 
-# Across all sibling repos (list yours in ~/.config/makerskills/skillify/repos.yaml):
-for repo in $(yq '.repos[].path' ~/.config/makerskills/skillify/repos.yaml 2>/dev/null); do
+# Across all sibling repos (list yours in $MAKERSKILLS_CONFIG/skillify/repos.yaml):
+config="${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/skillify/repos.yaml"
+for raw in $(yq -r '.repos[].path' "$config" 2>/dev/null); do
+  repo="${raw/#\~/$HOME}"  # expand leading ~ to $HOME
   if [ -d "$repo/skills/" ]; then
     grep -rln "URL\|link\|outbound\|first comment" "$repo/skills/" --include="*.md" 2>/dev/null
   fi

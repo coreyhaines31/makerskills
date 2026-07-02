@@ -6,6 +6,17 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v0.5.4] — 2026-07-01
+
+### Fixed
+Three follow-up issues surfaced by `codex review` on v0.5.3:
+
+- **Missed brand mentions** — `skills/pm/references/boards.md` example row said `_example_magister_`, `skills/social-fetch/SKILL.md` + `references/output-schema.md` still cited `@coreyganim`, and `skills/watch-video/SKILL.md` + `skills/slide-deck/SKILL.md` still mentioned "Factory Floor." Genericized all four to placeholders.
+- **`/pm setup` re-introduced personal data** — the setup mode instructed the agent to save new board mappings back to `references/boards.md` in the tracked repo, which would leak real business names + board IDs. Changed to write to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards.md`. Repo's `references/boards.md` is now clearly marked TEMPLATE only.
+- **skillify cross-repo loop had two bugs** — (a) `yq` output includes a literal `~` in paths like `~/code/makerskills`, but the shell doesn't expand `~` inside a quoted variable, so `grep` looked under a directory called `~` and found nothing. Fixed by explicit `${raw/#\~/$HOME}` expansion. (b) The config path hardcoded `~/.config/makerskills`, ignoring users with `MAKERSKILLS_CONFIG` set to a different location. Both loops (`SKILL.md` + `references/update-propagation.md`) now honor the env var.
+
+---
+
 ## [v0.5.3] — 2026-07-01
 
 ### Changed

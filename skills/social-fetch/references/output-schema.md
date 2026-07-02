@@ -131,11 +131,11 @@ What each platform typically provides on a successful free-strategy fetch:
 ```json
 {
   "platform": "x",
-  "url": "https://x.com/coreyganim/status/2067289417803538931",
+  "url": "https://x.com/example/status/1234567890",
   "raw_source": "agent-browser",
   "author": {
-    "handle": "@coreyganim",
-    "name": "the user Ganim",
+    "handle": "@example",
+    "name": "Example User",
     "verified": true,
     "follower_count": null
   },

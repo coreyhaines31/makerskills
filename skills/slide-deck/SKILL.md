@@ -277,7 +277,7 @@ Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Ver
 - `decide` — for talks that hinge on a decision (e.g., "should I take VC money?"), `/decide` first
 - `deep-research` — for talks needing data the deck doesn't have yet
 - `second-brain` — pull relevant `[[wiki]]` pages as content sources; the deck can cite them
-- `watch-video` — turn a Factory Floor episode, Loom, or talk recording into a deck outline (run in `visual` mode to also capture key moments + slides shown)
+- `watch-video` — turn a podcast episode, Loom, or talk recording into a deck outline (run in `visual` mode to also capture key moments + slides shown)
 - `jab-hook` — once delivered, the talk becomes promo angles for the BIP rotation
 - `frontend-skills` (external) — for non-branded HTML decks where your React deck repo isn't the home
 

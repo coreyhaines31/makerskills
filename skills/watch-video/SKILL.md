@@ -283,7 +283,7 @@ In chat:
 | YouTube | `yt-dlp` | Auto-subs (`--write-auto-sub`) | Same as the prior youtube-transcript skill |
 | Loom | `yt-dlp` (Loom supported) | Yes — fetch via embed metadata or Loom API | Async screenshare focus — prime use case |
 | Vimeo | `yt-dlp` | Sometimes | Marketing/embed videos |
-| Riverside | Direct URL from export, or local file | Yes — Riverside generates them | Factory Floor pod episodes |
+| Riverside | Direct URL from export, or local file | Yes — Riverside generates them | Podcast episodes |
 | Zoom | Local `.mp4` (downloaded recordings) | Sometimes (Zoom audio transcript file) | Client calls |
 | X / IG / TikTok | Defer to `social-fetch` for metadata, yt-dlp for file | No | Short-form |
 | Local file | n/a | n/a | Drop a path |

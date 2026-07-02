@@ -85,7 +85,7 @@ Adapters use:
 ### setup
 - Ask which tool the business uses
 - Walk through column setup (default 5 columns; offer custom)
-- Save mapping to `references/boards.md`
+- Save mapping to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards.md` (NOT to `references/boards.md` in the repo — that's a template only). Create the parent directory if it doesn't exist yet.
 - Optionally seed the board with starter cards from a conversation about what's on the user's mind for that business
 
 ### triage
@@ -141,7 +141,7 @@ Output is paste-ready for Slack, Notion, email, partner DM.
 
 ## WIP limits
 
-Default WIP per column (override in `references/boards.md` per business):
+Default WIP per column (override in your local `boards.md` per business):
 
 | Column | Default WIP |
 |---|---|
@@ -170,7 +170,7 @@ When generating status / weekly outputs:
 
 ## Notes on quality
 
-- **Limit WIP.** Multitasking is the most reliable way to ship nothing. Cap In Progress at 3 (override in `references/boards.md` per business if truly needed). If the cap is hit, don't pull more — recommend finishing or moving something to Review/Blocked.
+- **Limit WIP.** Multitasking is the most reliable way to ship nothing. Cap In Progress at 3 (override in your local `boards.md` per business if truly needed). If the cap is hit, don't pull more — recommend finishing or moving something to Review/Blocked.
 - **Lead with the headline** in every status output — what shipped this week, or what's at risk. Not "made progress on X" — that's noise.
 - **Be specific.** "Shipped the primary logo variant" beats "made progress on branding." Specificity signals real motion; vagueness signals none.
 - **No verbs without subjects.** Write status so the reader can pick up cold — 3 weeks later or forwarded to a partner who missed the last update.

@@ -1,12 +1,14 @@
-# Boards — per-business config
+# Boards — per-business config (TEMPLATE)
+
+This is the template. Your real board mappings live in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards.md` — not in this repo. Copy the schema below and populate it there.
 
 One row per business. Populated by `/pm setup [business]` and edited freely.
 
-When the skill targets a business not listed here, it falls back to `manual` mode and prompts setup.
+When the skill targets a business not listed in your local config, it falls back to `manual` mode and prompts setup.
 
 | business | tool | board_id / URL / path | columns (if custom) | WIP override |
 |---|---|---|---|---|
-| _example_magister_ | _notion_ | _<db-id>_ | _default_ | _default_ |
+| _example_project_a_ | _notion_ | _<db-id>_ | _default_ | _default_ |
 
 _No boards configured yet. Run `/pm setup <business>` to start._
 
