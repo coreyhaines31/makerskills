@@ -161,7 +161,7 @@ This is why the collection is intentionally documentation-first. The plugin is a
 | Repo | Scope |
 |---|---|
 | **[`makerskills`](https://github.com/coreyhaines31/makerskills)** | Personal operator's craft — this repo |
-| **[`marketingskills`](https://github.com/coreyhaines31/marketingskills)** | 44 marketing skills (CRO, copywriting, SEO, ads) |
+| **[`marketingskills`](https://github.com/coreyhaines31/marketingskills)** | 46 marketing skills (CRO, copywriting, SEO, ads) |
 
 Skills can cross-reference each other (`makerskills:paste` from a `marketingskills` skill, for example). Cross-plugin references resolve at invocation time — no manifest linking needed.
 

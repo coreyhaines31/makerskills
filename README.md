@@ -208,7 +208,7 @@ Claude resolves references by description match at load time — no manifest lin
 
 ## Related skill packs
 
-- [`marketingskills`](https://github.com/coreyhaines31/marketingskills) — 44 marketing skills (CRO, copywriting, SEO, ads, etc.)
+- [`marketingskills`](https://github.com/coreyhaines31/marketingskills) — 46 marketing skills (CRO, copywriting, SEO, ads, etc.)
 
 ## Docs
 
