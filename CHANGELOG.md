@@ -6,6 +6,18 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.0.0] — 2026-07-06
+
+Public launch. 🚀
+
+18 skills for founders and indie operators, organized in five groups: meta (`skillify` / `toolify` / `loopify`), decision + strategy (`decide` / `business-brainstorm` / `deep-research` / `domain`), knowledge (`second-brain` / `company-brain` / `read-book` / `watch-video`), output (`jab-hook` / `slide-deck`), and operations (`pm` / `personal-cfo` / `company-cfo` / `paste` / `social-fetch`).
+
+### Changed
+- Genericized remaining brand mentions in `BACKLOG.md`, `ARCHITECTURE.md`, and `README.md` (follow-ups since v0.5.4).
+- Version bumped to 1.0.0 — no breaking changes from v0.5.4; this marks launch stability.
+
+---
+
 ## [v0.5.4] — 2026-07-01
 
 ### Fixed
