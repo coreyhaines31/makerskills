@@ -49,7 +49,7 @@ Every capture stamps:
 source: <URL / call / email / manual entry>
 author: <who added this — email or handle>
 captured: YYYY-MM-DD
-status: unreviewed
+trust: unreviewed
 ```
 
 Wiki pages track cumulative contributions in the `## Sources` section (per source file, per author). No overwriting — always append + attribute.
@@ -66,20 +66,24 @@ Default: `internal`. Query mode respects sensitivity — refuses to include `con
 
 ## Trust levels
 
-The other half of multi-author discipline: not everything captured deserves equal weight as context. Every structured-raw file carries a `status:`
+The other half of multi-author discipline: not everything captured deserves equal weight as context. Every structured-raw file carries a `trust:` field.
 
-| Status | Meaning | Query treatment |
+(The field is named `trust`, not `status`, because `companies/` and `decisions/` already use `status:` for lifecycle — prospect/customer, decided/reversed — and the two must not collide.)
+
+| Trust | Meaning | Query treatment |
 |---|---|---|
 | `unreviewed` | Captured but no human has confirmed it (default for every new capture) | Usable, but flagged — answers leaning on it note lower confidence |
 | `verified` | A human reviewed it and confirmed it's right | Full weight |
 | `deprecated` | Wrong or obsolete — kept for history only | Never used as context |
 | `superseded` | Replaced by something newer — add `superseded_by: [[target]]` | Never used as context; queries point to the replacement |
 
-Deliberately an enum, not a numeric weight — teams keep a four-value status current; nobody maintains a 0–1 float.
+Deliberately an enum, not a numeric weight — teams keep a four-value field current; nobody maintains a 0–1 float.
 
 **Deprecation replaces deletion.** The "never delete raw files" rule stays intact: when info turns out wrong or stale, mark it `deprecated` (or `superseded` with a pointer) instead of removing it. History is preserved; context is protected.
 
-Status is orthogonal to sensitivity — a file can be `verified` + `confidential`, or `unreviewed` + `internal`.
+Trust is orthogonal to sensitivity — a file can be `verified` + `confidential`, or `unreviewed` + `internal`.
+
+**Existing vaults**: files predating trust levels simply lack the `trust:` field — treat them as `unreviewed`. If the vault's `CLAUDE.md` schema predates trust levels, offer to add the trust spec to it on the first `/cb review` run (the vault's CLAUDE.md stays authoritative — extend it, don't override it).
 
 ## Step 1 — Load vault config + schema
 
@@ -121,7 +125,7 @@ Status is orthogonal to sensitivity — a file can be `verified` + `confidential
    source: <URL / call with X on YYYY-MM-DD / email from Y / etc.>
    author: <who captured this>
    captured: YYYY-MM-DD
-   status: unreviewed     # every capture starts unreviewed — review mode promotes it
+   trust: unreviewed      # every capture starts unreviewed — review mode promotes it
    sensitivity: internal  # or leadership / confidential
    ```
 
@@ -142,7 +146,7 @@ Same core pattern as `second-brain`'s compile mode — process unprocessed struc
   ```
 - **Cross-category compilation**: a wiki page on "Acme Corp deal" might pull from `companies/acme.md`, `meetings/2026-06-15-acme-discovery.md`, `sales-objections/acme-pricing.md`, and `people/jane-doe.md` — all into one wiki page.
 - **Sensitivity inheritance**: wiki pages inherit the highest sensitivity of any source. If any source is `confidential`, the wiki page is `confidential`.
-- **Status filtering**: `deprecated` and `superseded` sources are excluded from wiki pages. If a source that already fed a wiki page later gets deprecated, recompile flags the affected pages for re-review and drops the source (noting it in Sources: `- meetings/2026-06-15-x.md (deprecated 2026-07-01 by @alex)`). Pages built mostly from `unreviewed` sources get a `> ⚠ Mostly unreviewed sources` callout at the top.
+- **Trust filtering**: `deprecated` and `superseded` sources are excluded from wiki pages. If a source that already fed a wiki page later gets deprecated, recompile flags the affected pages for re-review and drops the source, noting it in Sources using the file's `reviewed` + `reviewed_by` stamps: `- meetings/2026-06-15-x.md (deprecated 2026-07-01 by @alex)`. Pages built mostly from `unreviewed` sources get a `> ⚠ Mostly unreviewed sources` callout at the top.
 - **INDEX.md categories** for teams: `Sales`, `Customers`, `Ops`, `Product`, `Team & People`, `Decisions`, `Playbooks`. Extend as needed.
 
 Everything else (one-page-per-concept, `[[wikilinks]]`, Connections mandatory, quality > quantity) is identical.
@@ -163,15 +167,17 @@ Save to `outputs/<YYYY-MM-DD>-<question-slug>.md` with the answer + wiki pages c
 
 **The human culling pass.** This is how a team keeps garbage-in from becoming garbage-context: everything gets captured freely (nothing is lost), but only reviewed info earns full weight.
 
-1. **Build the triage queue**:
-   - All `status: unreviewed` files across the structured-raw dirs, newest first
-   - Everything lint flags as stale, contradictory, or superseded-in-practice (checks 1–11)
-   - Files whose `review_by` / `last_reviewed` + `review_cadence` dates have lapsed
+0. **Sensitivity check first** — same rule as query mode: identify the invoker and exclude files above their sensitivity level from the queue. Report the exclusion count: *"3 items above your sensitivity level were skipped — someone on the leadership list needs to review those."*
 
-2. **Walk the queue one item at a time.** For each file show: one-line summary, source, author, captured date, and which wiki pages cite it. Offer four dispositions:
-   - **verify** → `status: verified`, stamp `reviewed: YYYY-MM-DD` + `reviewed_by: <handle>`
-   - **deprecate** → `status: deprecated` (wrong or obsolete; kept for history)
-   - **supersede** → `status: superseded` + `superseded_by: [[target]]` (ask for the replacement)
+1. **Build the triage queue**:
+   - All `trust: unreviewed` files across the structured-raw dirs (including files with no `trust:` field at all), newest first
+   - Everything lint flags (checks 1–12; check 13 is about review itself)
+   - Files whose review dates have lapsed, where those fields exist: `decisions/` files past `review_by`, `sops/` files past `last_reviewed` + `review_cadence`
+
+2. **Walk the queue one item at a time.** For each file show: one-line summary, source, author, captured date, and which wiki pages cite it. Offer four dispositions — every disposition except skip stamps `reviewed: YYYY-MM-DD` + `reviewed_by: <handle>`:
+   - **verify** → `trust: verified`
+   - **deprecate** → `trust: deprecated` (wrong or obsolete; kept for history)
+   - **supersede** → `trust: superseded` + `superseded_by: [[target]]` (ask for the replacement)
    - **skip** → leave as-is, resurfaces next review
 
 3. **Batch-apply the frontmatter updates** — don't rewrite file bodies, only the metadata block.
@@ -180,18 +186,18 @@ Save to `outputs/<YYYY-MM-DD>-<question-slug>.md` with the answer + wiki pages c
 
 5. **Close with a summary**: *"12 reviewed: 8 verified, 3 deprecated, 1 superseded. 2 wiki pages recompiled. Next review suggested: <date>."* Save the summary to `outputs/<YYYY-MM-DD>-review.md` so the cull itself has an audit trail.
 
-**Cadence**: weekly for active vaults; pair with `loopify` to schedule it so the cull actually happens instead of depending on someone remembering. A vault where reviews lapse >1 month shows up in lint (check 12).
+**Cadence**: weekly for active vaults; pair with `loopify` to schedule it so the cull actually happens instead of depending on someone remembering. A vault where reviews lapse >1 month shows up in lint (check 13).
 
 ### lint
 
-Same six checks as second-brain PLUS:
+Same seven checks as second-brain PLUS:
 
-7. **Stale people/companies** — `person-` or `companies/` file with no update in >6 months for active accounts
-8. **Recurring-questions above threshold** — questions asked 5+ times without a wiki page or SOP
-9. **Objections without responses** — `sales-objections/` files with no linked response in `sops/` or `wiki/`
-10. **SOP freshness** — SOPs not touched in >12 months (may be stale as the business evolves)
-11. **Author load imbalance** — one contributor doing >80% of captures (usually signals the vault is one-person-dependent — bad for team continuity)
-12. **Review backlog** — >20 files sitting at `status: unreviewed`, or no review pass (no `outputs/*-review.md`) in >1 month. Points at `/cb review`.
+8. **Stale people/companies** — `person-` or `companies/` file with no update in >6 months for active accounts
+9. **Recurring-questions above threshold** — questions asked 5+ times without a wiki page or SOP
+10. **Objections without responses** — `sales-objections/` files with no linked response in `sops/` or `wiki/`
+11. **SOP freshness** — SOPs not touched in >12 months (may be stale as the business evolves)
+12. **Author load imbalance** — one contributor doing >80% of captures (usually signals the vault is one-person-dependent — bad for team continuity)
+13. **Review backlog** — >20 files sitting at `trust: unreviewed`, or no review pass (no `outputs/*-review.md`) in >1 month. Points at `/cb review`.
 
 ### connect
 
@@ -239,8 +245,8 @@ Same lineage as `second-brain`:
 - **Structured raw > flat raw at team scale.** Second-brain's type-prefix works for one person; teams need dedicated dirs for people/companies/meetings/etc. so multi-author search stays fast.
 - **Multi-author attribution is non-negotiable.** Every file stamps `author:` and `captured:`. Wiki pages cite by source + author.
 - **Sensitivity is respected end-to-end.** Query mode refuses to include content above the invoker's level. Wiki pages inherit the highest sensitivity of any source.
-- **Never delete raw files.** Same rule as second-brain — the structured dirs are the source of truth. When info is wrong or stale, **deprecate, don't delete** — `status: deprecated` removes it from context while preserving history.
-- **Capture freely, weight deliberately.** The status enum means dumping information in is safe — nothing unreviewed poisons answers at full weight, and `/cb review` is the regular cull that promotes or retires it.
+- **Never delete raw files.** Same rule as second-brain — the structured dirs are the source of truth. When info is wrong or stale, **deprecate, don't delete** — `trust: deprecated` removes it from context while preserving history.
+- **Capture freely, weight deliberately.** The trust enum means dumping information in is safe — nothing unreviewed poisons answers at full weight, and `/cb review` is the regular cull that promotes or retires it.
 - **Never modify** `Projects/`, `Team/`, `Templates/`, `Drafts/` during company-brain operations.
 - **Auto-sync is optional.** Start manual; automate as the vault matures. Don't burn cycles on Fathom webhooks before the team is capturing meetings regularly by hand.
 - **One person shouldn't be the whole vault.** If lint flags author-load imbalance >80%, the team is one bus-factor away from losing the brain. Broaden contribution.
