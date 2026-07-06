@@ -70,7 +70,21 @@ Every file starts with:
 source: <URL / call with X on YYYY-MM-DD / email from Y / manual entry>
 author: <who captured this — email or handle>
 captured: YYYY-MM-DD
+status: unreviewed      # unreviewed / verified / deprecated / superseded
 sensitivity: internal   # or leadership / confidential
+```
+
+Once reviewed (via `/cb review`), files gain:
+```markdown
+status: verified
+reviewed: YYYY-MM-DD
+reviewed_by: <handle>
+```
+
+Deprecated/superseded files instead carry:
+```markdown
+status: deprecated      # or superseded
+superseded_by: [[replacement-page-or-file]]   # superseded only
 ```
 
 For `people/` files, extend with:
@@ -180,6 +194,17 @@ Extend categories as the team's brain matures.
 
 Wiki pages inherit the *highest* sensitivity of any source. If a wiki page cites 4 `internal` sources and 1 `confidential`, the wiki page is `confidential`.
 
+## Trust levels (status)
+
+| Status | Meaning | Query treatment | Compile treatment |
+|---|---|---|---|
+| `unreviewed` | No human has confirmed it (default for new captures) | Usable but flagged — answers note lower confidence | Included; pages mostly built on it get a warning callout |
+| `verified` | Human-reviewed and confirmed | Full weight | Included |
+| `deprecated` | Wrong or obsolete | Never used as context | Excluded; noted in Sources with deprecation date |
+| `superseded` | Replaced (`superseded_by: [[target]]`) | Never used; queries point to the replacement | Excluded; Sources link to replacement |
+
+Status is orthogonal to sensitivity. Status changes happen through `/cb review` (the human triage pass) — capture always starts at `unreviewed`.
+
 ## Rules
 
 - **One page per concept** — not per source. Multiple raw files about the same customer merge into one wiki page.
@@ -191,6 +216,8 @@ Wiki pages inherit the *highest* sensitivity of any source. If a wiki page cites
 - **Preserve nuance** — don't flatten contradictions between authors' captures; note the disagreement
 - **Multi-author attribution required** in Sources sections
 - **Sensitivity respected** in query mode
+- **Deprecate, don't delete** — wrong/stale info gets `status: deprecated` (or `superseded` + pointer), never removed
+- **Status respected end-to-end** — deprecated/superseded content never used as context in query or compile
 
 ## Publishing (same as second-brain)
 
