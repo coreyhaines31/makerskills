@@ -6,6 +6,23 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.1.0] — 2026-07-06
+
+### Added
+- **`company-brain` trust levels + review mode** (skill v0.2.0, closes #3) — answers "what stops dumped-in info from poisoning context?":
+  - `trust:` field on every structured-raw capture: `unreviewed` (default) / `verified` / `deprecated` / `superseded`. Named `trust`, not `status`, to avoid colliding with the lifecycle `status:` fields on `companies/` and `decisions/`. Files with no `trust:` field are treated as `unreviewed`.
+  - **Query trust rules** — prefer `verified` + recent; never use `deprecated`/`superseded` as context; surface conflicts; flag low-confidence answers built mostly on `unreviewed` sources.
+  - **New `/cb review` mode** — human triage queue (unreviewed captures + lint flags + lapsed review dates) with verify / deprecate / supersede / skip dispositions. Respects sensitivity levels; every non-skip disposition stamps `reviewed` + `reviewed_by`; saves a review summary to `outputs/` for an audit trail. Pair with `loopify` for a weekly cadence.
+  - **Compile trust filtering** — deprecated/superseded sources excluded from wiki pages; pages built mostly on unreviewed sources get a warning callout.
+  - **Lint check 13** — review backlog (>20 unreviewed files or no review pass in >1 month).
+  - Deprecation replaces deletion — the "never delete raw files" rule stays intact.
+
+### Fixed
+- `company-brain` lint said "same six checks as second-brain" but second-brain has seven; company-brain additions renumbered 8–13.
+- Meeting filename pattern and a `person-`/`people/` reference aligned between SKILL.md and schema.md.
+
+---
+
 ## [v1.0.0] — 2026-07-06
 
 Public launch. 🚀

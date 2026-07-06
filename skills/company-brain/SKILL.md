@@ -29,7 +29,7 @@ raw/          →  wiki/         →  outputs/
 |---|---|
 | `people/` | Contacts with context — CRM-lite. One markdown file per person. |
 | `companies/` | Org profiles — last touchpoint, opportunity size, status. One file per company. |
-| `meetings/` | Call/meeting transcripts + notes. Naming: `YYYY-MM-DD-<company-or-topic>.md`. Auto-sync source. |
+| `meetings/` | Call/meeting transcripts + notes. Naming: `YYYY-MM-DD-<company-or-topic>-<slug>.md`. Auto-sync source. |
 | `sops/` | Standard operating procedures. Named: `<team>-<process>.md` (e.g., `sales-outbound-cadence.md`). |
 | `decisions/` | Decision records (narrative form; `decide` skill's structured form is different). |
 | `customer-language/` | Verbatim phrases from prospects/customers/users. Fuels copy, headlines, objections. |
@@ -110,7 +110,7 @@ Trust is orthogonal to sensitivity — a file can be `verified` + `confidential`
 **Same intake mechanics as second-brain, but the routing is different — pick the structured dir based on content type.**
 
 1. **Detect content type + route to the right dir**:
-   - Call/meeting transcript → `meetings/YYYY-MM-DD-<slug>.md`
+   - Call/meeting transcript → `meetings/YYYY-MM-DD-<company-or-topic>-<slug>.md`
    - Person's LinkedIn / bio / contact context → `people/<name-slug>.md`
    - Company profile / prospect / client → `companies/<company-slug>.md`
    - Documented process / how-we-do-X → `sops/<team>-<process>.md`
@@ -192,7 +192,7 @@ Save to `outputs/<YYYY-MM-DD>-<question-slug>.md` with the answer + wiki pages c
 
 Same seven checks as second-brain PLUS:
 
-8. **Stale people/companies** — `person-` or `companies/` file with no update in >6 months for active accounts
+8. **Stale people/companies** — `people/` or `companies/` file with no update in >6 months for active accounts
 9. **Recurring-questions above threshold** — questions asked 5+ times without a wiki page or SOP
 10. **Objections without responses** — `sales-objections/` files with no linked response in `sops/` or `wiki/`
 11. **SOP freshness** — SOPs not touched in >12 months (may be stale as the business evolves)
