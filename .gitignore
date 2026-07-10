@@ -17,10 +17,7 @@ node_modules/
 MIGRATION-TO-PUBLIC.md
 *-local-backup.md
 
-# Personal archive directories (in case anyone runs the skills in-repo)
-skills/*/references/decisions-archive/*.md
-skills/*/references/ideas-archive/*.md
-skills/*/references/research-archive/*.md
-skills/*/references/scenarios-archive/*.md
-!skills/*/references/*archive*/INDEX.md
-!skills/*/references/*archive*/INDEX.md.example
+# Personal archives live in $MAKERSKILLS_CONFIG (~/.config/makerskills), never in-repo.
+# Guard against skills accidentally writing old-style in-repo archives:
+skills/*/references/*archive*/
+skills/*/references/decks-archive.md

@@ -120,7 +120,7 @@ Default is **ask**, never auto-write. If yes:
 2. Tell the user the path
 3. Suggest: *"Run `/sb compile` later to merge this into wiki pages — the cross-reference suggestions in the footer are starting points."*
 
-If the user skips capture, the workdir still has everything — he can grab the file later.
+If the user skips capture, the workdir still has everything — they can grab the file later.
 
 ## Step 7 — Report
 

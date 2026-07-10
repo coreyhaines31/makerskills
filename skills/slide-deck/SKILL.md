@@ -1,8 +1,8 @@
 ---
 name: slide-deck
-description: When you want to draft, update, convert, or export a slide deck for a React/Next.js slide system (e.g., corey.co/slides) (${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/). Writes TypeScript Slide[] arrays using your primitives (Eyebrow, Heading, Accent, Body, BulletList, Divider, TwoCol, GradientText), 12 cycling brand gradients, optional sections for "where am I" context, and speaker notes. Inspired by zarazhangrui/frontend-slides — "show, don't tell" applied to narrative (presents 3 angles, you pick) plus density modes (speaker-led vs reading-first). Four modes — new (draft from brief), update (modify existing, with overflow guards), ppt (convert legacy PPTX → React deck), export (Playwright snapshot existing React deck to standalone HTML, PDF, or Vercel URL — keeps brand). Triggers on "/slide-deck," "/slides new," "/slides export," "/slides update," "/slides ppt," "draft a deck," "deck for [topic]," "talk on [topic]," "keynote on [topic]," "internal deck for [audience]," "convert this pptx," "export this deck."
+description: When you want to draft, update, convert, or export a slide deck for a React/Next.js slide system (${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/). Writes TypeScript Slide[] arrays using your primitives (Eyebrow, Heading, Accent, Body, BulletList, Divider, TwoCol, GradientText), 12 cycling brand gradients, optional sections for "where am I" context, and speaker notes. Inspired by zarazhangrui/frontend-slides — "show, don't tell" applied to narrative (presents 3 angles, you pick) plus density modes (speaker-led vs reading-first). Four modes — new (draft from brief), update (modify existing, with overflow guards), ppt (convert legacy PPTX → React deck), export (Playwright snapshot existing React deck to standalone HTML, PDF, or Vercel URL — keeps brand). Triggers on "/slide-deck," "/slides new," "/slides export," "/slides update," "/slides ppt," "draft a deck," "deck for [topic]," "talk on [topic]," "keynote on [topic]," "internal deck for [audience]," "convert this pptx," "export this deck."
 metadata:
-  version: 0.1.1
+  version: 0.2.0
 ---
 
 # /slide-deck — Draft, update, convert, and export branded React decks
@@ -46,7 +46,7 @@ Pitch 3 angles in 1–2 sentences each:
 - **Bold** — contrarian or counterintuitive frame. Higher upside, slight risk.
 - **Wildcard** — unexpected structure (story-first, single-question deck, anti-thesis, etc.).
 
-the user picks one. If he rejects all three, propose three more — don't force a path.
+The user picks one. If they reject all three, propose three more — don't force a path.
 
 ## Step 3 — Outline
 
@@ -62,7 +62,7 @@ Show the outline as a table. the user edits / approves before expand.
 
 ## Step 4 — Expand to slide content
 
-For each slide, write the full content using his primitives. Reference `references/system.md` for the primitive vocabulary and `references/narrative-and-voice.md` for hook patterns and voice rules.
+For each slide, write the full content using the user's primitives. Reference `references/system.md` for the primitive vocabulary and `references/narrative-and-voice.md` for hook patterns and voice rules.
 
 Slide types and which primitives fit:
 
@@ -110,6 +110,8 @@ Write to `${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<sl
 
 Use the templates in `references/template.md` as the skeleton.
 
+The `<AUTHOR_HANDLE>` / `<AUTHOR_SITE>` tokens (close-slide footer) come from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/slide-deck/identity.yaml` (keys: `handle`, `site`) if it exists. Otherwise ask the user for their handle and site once, offer to save them there, and use those. If they don't want a footer, drop the `<p>` entirely — never ship a deck with someone else's identity on it.
+
 `page.tsx` must:
 - Have `"use client"` at the top
 - Import `SlideDeck` and `Slide` type from `@/components/slides/slide-deck`
@@ -145,7 +147,9 @@ Don't auto-start the dev server (might disrupt other work).
 
 ## Step 8 — Archive
 
-Append a one-liner to `references/decks-archive.md` (create if missing):
+The archive lives in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/slide-deck/archive/` (create the directory if missing). Never write the archive inside the skill's own folder — skill installs and upgrades re-sync from source and wipe anything saved there. **Migration:** if this skill's folder contains an old `references/decks-archive.md` with user entries, move it to `<archive dir>/INDEX.md` first.
+
+Append a one-liner to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
 - 2026-06-17 — [<title>](${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/page.tsx) — <audience> — <one-line angle>
@@ -221,7 +225,7 @@ Convert a legacy PPTX (client deck, conference template) into the user's React s
 
 ## Mode: export
 
-Snapshot a deck rendered in the corey.co dev server to portable HTML / PDF / Vercel URL. Output is brand-perfect because it's screenshots of your actual rendered React deck.
+Snapshot a deck rendered in your slide-site dev server to portable HTML / PDF / Vercel URL. Output is brand-perfect because it's screenshots of your actual rendered React deck.
 
 **Output options:**
 - `html` — standalone HTML file with snapshots as inline `<img>`, keyboard nav (arrow keys) baked in

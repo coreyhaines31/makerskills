@@ -129,7 +129,7 @@ For images:
 
 Speaker notes in the PPTX → `notes` array on the corresponding Slide. Split notes on sentence boundaries or empty lines; aim for 3–5 lines per slide per the user's voice rules.
 
-If a PPTX slide has no notes, generate 3 starter notes lines based on the slide's content. Mark these with a `// TODO: review` comment so the user can refine in his voice.
+If a PPTX slide has no notes, generate 3 starter notes lines based on the slide's content. Mark these with a `// TODO: review` comment so the user can refine in their voice.
 
 ## Step 6 — Apply voice + density rules
 
@@ -140,7 +140,7 @@ The extracted content is in whatever voice the original deck had — likely corp
 - Trim wordy bullets — aim for 3–6 words each
 - Honor the chosen density mode (speaker-led vs reading-first)
 
-This is the most subjective step. When in doubt, show the user the original and proposed rewrite side by side and let him pick.
+This is the most subjective step. When in doubt, show the user the original and proposed rewrite side by side and let them pick.
 
 ## Step 7 — Archive the conversion
 

@@ -252,7 +252,7 @@ export default function <DeckNameCamelCase>Page() {
         <ONE_SENTENCE_CTA>
       </Body>
       <p className="text-[#4d4d4d]/40 text-base mt-12 font-heading">
-        @coreyhaines · corey.co
+        <AUTHOR_HANDLE> · <AUTHOR_SITE>
       </p>
     </div>
   ),

@@ -85,13 +85,9 @@ No manifest linking, no import statement. Just names.
 
 ## Versioning + releases
 
-### Q: Why is the plugin at v0.5.0 but individual skills are at 0.1.0 / 0.1.1 / 0.2.0 / 0.3.1?
+### Q: Why is the plugin at one version (e.g. v1.2.0) but individual skills at another (0.1.0 / 0.2.0 / …)?
 
 Two levels of semver. Plugin tag = collection version. Skill `metadata.version` = individual skill iteration count. See the [Versioning policy in ARCHITECTURE.md](./ARCHITECTURE.md#versioning-policy).
-
-### Q: When will v1.0.0 ship?
-
-When the collection is stable enough that the invocation contracts, output schemas, and personal-config paths are locked. Currently at 18 skills with several backlog candidates ([BACKLOG.md](./BACKLOG.md)); expect v0.x for a while.
 
 ### Q: Where's the release history?
 

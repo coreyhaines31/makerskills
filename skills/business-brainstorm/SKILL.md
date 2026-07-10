@@ -1,8 +1,8 @@
 ---
 name: business-brainstorm
-description: "When you want to pressure-test a potential new business, product, or side project against the serial-founder filter. Not \"marketing ideas for a product\" (that's marketing-skills:marketing-ideas) — this is \"should this business exist + can you win it.\" Runs the idea through a structured framework (problem, audience, wedge, monetization, moat, portfolio fit, distribution, energy fit, opportunity cost), checks domain availability via /domain, optionally triggers /deep-research for market validation, and outputs a viability brief: build / sleep on it / pass. Archives every idea to references/ideas-archive/ so past work is searchable. Triggers on \"/business-brainstorm,\" \"/brainstorm,\" \"new business idea,\" \"should I build X,\" \"pressure test this idea,\" \"validate this idea,\" \"is X a good business,\" \"what about a [type] for [audience].\""
+description: "When you want to pressure-test a potential new business, product, or side project against the serial-founder filter. Not \"marketing ideas for a product\" (that's marketing-skills:marketing-ideas) — this is \"should this business exist + can you win it.\" Runs the idea through a structured framework (problem, audience, wedge, monetization, moat, portfolio fit, distribution, energy fit, opportunity cost), checks domain availability via /domain, optionally triggers /deep-research for market validation, and outputs a viability brief: build / sleep on it / pass. Archives every idea to ~/.config/makerskills/business-brainstorm/archive/ so past work is searchable. Triggers on \"/business-brainstorm,\" \"/brainstorm,\" \"new business idea,\" \"should I build X,\" \"pressure test this idea,\" \"validate this idea,\" \"is X a good business,\" \"what about a [type] for [audience].\""
 metadata:
-  version: 0.1.1
+  version: 0.2.0
 ---
 
 # /business-brainstorm — Pressure-test a business idea
@@ -13,10 +13,10 @@ Takes a vague idea, runs it through the user's filter, and outputs a structured 
 
 Get from the user:
 - The idea in 1–2 sentences (the *what*)
-- The reason it's on his mind (the *why now*)
-- Any starting context (a chat where this came up, a tweet that inspired it, a problem he's hit)
+- The reason it's on their mind (the *why now*)
+- Any starting context (a chat where this came up, a tweet that inspired it, a problem they've hit)
 
-If he points at a past chat / doc, load it first. Memory has `project_*.md` files for in-flight projects — check there before assuming the idea is brand-new.
+If they point at a past chat / doc, load it first. Memory has `project_*.md` files for in-flight projects — check there before assuming the idea is brand-new.
 
 If the idea is too vague to score, ask 1–2 clarifying questions and stop. Don't pad the brief with assumptions.
 
@@ -85,7 +85,7 @@ Use this template:
 - (other candidates if relevant)
 
 ## Research applied
-- <link to deep-research brief in ../deep-research/references/research-archive/, if run>
+- <link to deep-research brief in ~/.config/makerskills/deep-research/archive/, if run>
 
 ## Open questions
 - <what would change the verdict>
@@ -106,7 +106,9 @@ Use this template:
 
 ## Step 7 — Archive
 
-Write to `references/ideas-archive/<YYYY-MM-DD>-<slug>.md`. Append to `references/ideas-archive/INDEX.md`:
+Archives live in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/archive/` (create the directory if missing). Never write archives inside the skill's own folder — skill installs and upgrades re-sync from source and wipe anything saved there. **Migration:** if this skill's folder contains an old `references/ideas-archive/` with user entries, move those files into the archive directory first.
+
+Write to `<archive dir>/<YYYY-MM-DD>-<slug>.md`. Append to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
 - 2026-06-16 — [<idea>](./<filename>.md) — **<verdict>** — <one-line rationale>
@@ -131,6 +133,6 @@ Show the brief in chat. Tell the user the archive path. Offer:
 - **Nine dimensions, not one hero metric.** Ideas fail because one dimension quietly rots even when the rest score high. Force each dimension to be scored — no "we'll figure that out later" cop-outs.
 - **Verdict discipline: Ship / Sleep on it / Kill.** Not "maybe." Ambiguity in the verdict compounds into ambiguity in the commit; the brief exists to prevent that.
 - **Portfolio-context check is non-negotiable.** Before writing, grep memory + wiki for existing property overlap. If the new idea is 80% one of your existing properties, propose extending the existing property instead of forking a new one — 4x cheaper to compound.
-- **Archive every brief, even Kills.** Killed ideas resurface — the brief with rationale prevents re-litigating. `references/ideas-archive/` + INDEX.md makes revisit trivial.
+- **Archive every brief, even Kills.** Killed ideas resurface — the brief with rationale prevents re-litigating. The archive dir + INDEX.md makes revisit trivial.
 - **"Angle to steal" section forces value from Kills.** Even ideas you won't build often have an angle that improves an existing property. Don't skip this section — it's the highest-leverage output of a Kill verdict.
 - **30-day revisit for "Sleep on it."** Set the calendar reminder. Sleep-on-it ideas that never get revisited become dead weight in the archive; ideas that get revisited resurface with better context.

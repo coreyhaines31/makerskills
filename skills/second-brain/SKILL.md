@@ -7,7 +7,7 @@ metadata:
 
 # /second-brain — Karpathy LLM Wiki workflow
 
-Wraps an existing Second Brain in Obsidian (or any markdown-based vault). The wiki vault's CLAUDE.md is the authoritative schema — the skill orchestrates the operations he's been doing manually.
+Wraps an existing Second Brain in Obsidian (or any markdown-based vault). The wiki vault's CLAUDE.md is the authoritative schema — the skill orchestrates the operations the user has been doing manually.
 
 ## Mental model
 
@@ -131,7 +131,7 @@ Find pages that should be linked but aren't.
 
 ### search
 
-Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-line excerpt around the match. Faster than `query` when the user knows what page he's looking for.
+Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-line excerpt around the match. Faster than `query` when the user knows what page they're looking for.
 
 ## Composes with
 
