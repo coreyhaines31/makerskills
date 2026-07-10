@@ -174,7 +174,7 @@ Full recipes for common tools live in `references/` (populate as they're used):
 - `references/scrapecreators-nextjs.md` — social scraping API + retry policy
 - `references/rewardful-nextjs.md` — referral tracking + webhook events
 
-If a recipe doesn't exist yet, the wizard fetches the official docs, scaffolds fresh, and offers to save the recipe as `references/<tool>-<stack>.md` for reuse.
+If a recipe doesn't exist yet, the wizard fetches the official docs, scaffolds fresh, and offers to save the recipe as `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/toolify/recipes/<tool>-<stack>.md` for reuse (never inside the skill folder — upgrades wipe it). When looking up recipes, check both `references/` (shipped) and the config recipes dir (yours).
 
 ## Composes with
 
@@ -191,4 +191,4 @@ If a recipe doesn't exist yet, the wizard fetches the official docs, scaffolds f
 - **SDK version matters.** Pin the SDK version in `package.json` / `Gemfile.lock`. Note the version in the file header comment.
 - **One tool per invocation.** Don't scaffold Stripe + Kit + Sanity in one run. Wizard is designed for depth per tool, not breadth.
 - **Prefer official SDKs** unless they're bloated/abandoned. Raw fetch is fine when the SDK adds no value.
-- **Recipe-first for repeat tools.** If integrating a tool the user has done before, load the recipe from `references/` and adapt, don't re-derive.
+- **Recipe-first for repeat tools.** If integrating a tool the user has done before, load the recipe from `references/` or `$MAKERSKILLS_CONFIG/toolify/recipes/` and adapt, don't re-derive.

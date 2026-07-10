@@ -1,8 +1,8 @@
 ---
 name: personal-cfo
-description: "When you want to model personal financial scenarios — house purchase + rental income (ADU, bedroom rentals, house-hacking), renovation budgets, monthly cash flow forecasts, big-purchase decisions, savings/investment what-ifs. For personal life: a household (you + partner), household budgets, real-estate decisions. v0.1 ships with the house scenario template (purchase + rental scenarios) as the first use case. Architected so other personal-finance scenarios (refi, car, education, retirement, side income) slot in as additional templates. Outputs scenario comparison tables in markdown. Saves every scenario to references/scenarios-archive/ for revisit + comparison. Composes with decide (formalize the call after modeling), deep-research (rental comps, mortgage rates, market data), business-brainstorm (when the scenario is a small business / side hustle), second-brain (capture the analysis to outputs/). Triggers on \"/personal-cfo,\" \"model this scenario,\" \"house math,\" \"rental forecast,\" \"monthly cash flow,\" \"what if I rent out the ADU,\" \"compare these housing scenarios,\" \"should we buy this house,\" \"house-hack math,\" \"renovation budget.\""
+description: "When you want to model personal financial scenarios — house purchase + rental income (ADU, bedroom rentals, house-hacking), renovation budgets, monthly cash flow forecasts, big-purchase decisions, savings/investment what-ifs. For personal life: a household (you + partner), household budgets, real-estate decisions. v0.1 ships with the house scenario template (purchase + rental scenarios) as the first use case. Architected so other personal-finance scenarios (refi, car, education, retirement, side income) slot in as additional templates. Outputs scenario comparison tables in markdown. Saves every scenario to ~/Documents/personal-cfo/ with an index at ~/.config/makerskills/personal-cfo/archive/ for revisit + comparison. Composes with decide (formalize the call after modeling), deep-research (rental comps, mortgage rates, market data), business-brainstorm (when the scenario is a small business / side hustle), second-brain (capture the analysis to outputs/). Triggers on \"/personal-cfo,\" \"model this scenario,\" \"house math,\" \"rental forecast,\" \"monthly cash flow,\" \"what if I rent out the ADU,\" \"compare these housing scenarios,\" \"should we buy this house,\" \"house-hack math,\" \"renovation budget.\""
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /personal-cfo — Personal financial scenario modeling
@@ -136,10 +136,12 @@ Output to `~/Documents/personal-cfo/<scenario-slug>-<YYYY-MM-DD>/`:
 
 ## Step 6 — Archive
 
-Save the scenario folder so future revisits work. Append a one-liner to `references/scenarios-archive/INDEX.md`:
+Save the scenario folder so future revisits work. The archive index lives in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/personal-cfo/archive/` (create the directory if missing). Never write archives inside the skill's own folder — skill installs and upgrades re-sync from source and wipe anything saved there. **Migration:** if this skill's folder contains an old `references/scenarios-archive/` with user entries, move those files into the archive directory first.
+
+Append a one-liner to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
-- 2026-06-26 — [<property nickname>](./<slug>-2026-06-26/) — <type> — <headline takeaway>
+- 2026-06-26 — [<property nickname>](~/Documents/personal-cfo/<slug>-2026-06-26/) — <type> — <headline takeaway>
 ```
 
 This compounds — when you're considering Property #2 a year later, you can reuse the model and grep past analyses for patterns.

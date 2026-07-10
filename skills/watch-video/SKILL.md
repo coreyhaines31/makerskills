@@ -296,7 +296,7 @@ In chat:
 - `pm` — action items flagged in summary can be triaged to project boards
 - `slide-deck` — talk recordings → outline extraction → deck draft (loop)
 - `jab-hook` — quotes + clip-worthy moments from podcast/talk videos feed BIP/promo posts
-- **`skillify from-video`** — primary use case for `visual` mode on process recordings. the user records himself doing a workflow (Loom/screen-share), this skill extracts transcript + key visual moments, then `skillify` synthesizes the workflow into a SKILL.md. "Record once, AI converts to skill."
+- **`skillify from-video`** — primary use case for `visual` mode on process recordings. the user records themselves doing a workflow (Loom/screen-share), this skill extracts transcript + key visual moments, then `skillify` synthesizes the workflow into a SKILL.md. "Record once, AI converts to skill."
 
 ## Error handling
 

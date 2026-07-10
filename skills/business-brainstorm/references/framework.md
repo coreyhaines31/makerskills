@@ -18,7 +18,7 @@ Is the pain real, frequent, and acute?
 
 Who has this problem, and can the user reach them?
 
-- **✅ Strong:** Audience the user already talks to (SaaS founders, technical marketers, agency owners) OR a tight niche he can break into cheaply.
+- **✅ Strong:** Audience the user already talks to (SaaS founders, technical marketers, agency owners) OR a tight niche they can break into cheaply.
 - **🟡 OK:** Adjacent audience — would take work but feasible.
 - **❌ Weak:** Cold audience with no existing access (e.g., enterprise CIOs).
 
@@ -50,7 +50,7 @@ Who pays, how much, how often?
 
 Why is this hard to copy? Why won't bigger players crush it?
 
-- **✅ Strong:** Distribution advantage (the user's audience), brand-as-moat (his name), or compounding asset (data, network effect, content corpus).
+- **✅ Strong:** Distribution advantage (the user's audience), brand-as-moat (their name), or compounding asset (data, network effect, content corpus).
 - **🟡 OK:** Some defensibility (speed, focus, design taste).
 - **❌ Weak:** Pure execution play any well-funded team could replicate in 6 months.
 
@@ -94,7 +94,7 @@ INTJ honesty: if it requires constant context-switching, heavy sales motion, or 
 
 ## 9. Opportunity cost
 
-What does the user NOT do if he does this?
+What does the user NOT do if they do this?
 
 - **✅ Strong:** Marginal capacity used (e.g., 4 hrs/week of the user + Claude). Doesn't crowd out existing businesses or in-flight builds.
 - **🟡 OK:** Real time investment but bounded.
@@ -116,4 +116,4 @@ Sum the verdicts:
 
 ## Iterate me
 
-This filter is a starting point. Refine the weights and add dimensions as the user learns what actually predicted his own wins/losses. Especially: revisit after the next 2–3 brainstorms to see if any dimension was a load-bearing miss.
+This filter is a starting point. Refine the weights and add dimensions as the user learns what actually predicted their own wins/losses. Especially: revisit after the next 2–3 brainstorms to see if any dimension was a load-bearing miss.

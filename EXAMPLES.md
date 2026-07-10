@@ -80,7 +80,7 @@ toward 3 different freelance experiments instead. Q34 (Principles bending?): non
 2027-01-01 — reassess based on Q4 result and Q19 outcomes.
 ```
 
-Archives to `references/decisions-archive/2026-07-01-hire-vs-freelance-editor.md`, appends to `INDEX.md`.
+Archives to `~/.config/makerskills/decide/archive/2026-07-01-hire-vs-freelance-editor.md`, appends to `INDEX.md`.
 
 ---
 
@@ -112,7 +112,7 @@ Opportunity cost: ❌ (Marketing Skills / Founding Marketing bigger)
 - Add a "which ESP" quiz to your existing comparison property — one afternoon of work, no infra
 ```
 
-Archives to `references/ideas-archive/2026-07-01-kit-vs-beehiiv-tool.md`.
+Archives to `~/.config/makerskills/business-brainstorm/archive/2026-07-01-kit-vs-beehiiv-tool.md`.
 
 ---
 
@@ -146,7 +146,7 @@ prompt; only Mailglow has a proprietary personalization model.
 - Objective performance benchmarks (all sources are vendor-authored)
 ```
 
-Archives to `references/research-archive/2026-07-01-ai-native-esps.md`.
+Archives to `~/.config/makerskills/deep-research/archive/2026-07-01-ai-native-esps.md`.
 
 ---
 
@@ -349,7 +349,7 @@ WIP check: In Progress at 2/3 on Product B board. Safe to pull next.
 | C: full house-hack | +$1,100/mo | +$14K | +$28K | +$83K | 3 rentals, mgmt in-house |
 ```
 
-Archives to `references/scenarios-archive/2026-07-01-1400k-house-with-adu.md`.
+Archives to `~/Documents/personal-cfo/1400k-house-with-adu-2026-07-01/`, indexed in `~/.config/makerskills/personal-cfo/archive/INDEX.md`.
 
 ---
 

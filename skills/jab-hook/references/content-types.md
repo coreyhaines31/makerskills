@@ -57,7 +57,7 @@ Behind-the-scenes of running your businesses, properties, or the user's day. Usu
 - Revenue / pipeline updates
 - What the user shipped this week
 - A tool / process change
-- A mistake + what he learned
+- A mistake + what they learned
 - Behind-the-scenes of a project
 
 ## educational (~2–3/week, no plug)

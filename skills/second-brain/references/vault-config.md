@@ -36,4 +36,4 @@ If the user moves the vault or wants to use a different setup (Logseq, plain mar
 
 ## Note
 
-The skill always reads `<vault>/CLAUDE.md` at start. If the user updates his schema there, the skill picks it up automatically — no need to keep this skill's `schema.md` in sync.
+The skill always reads `<vault>/CLAUDE.md` at start. If the user updates their schema there, the skill picks it up automatically — no need to keep this skill's `schema.md` in sync.

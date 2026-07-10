@@ -24,8 +24,11 @@ Mental model for how the plugin is structured, why the personal-config pattern e
 │   jab-hook/typefully.yaml          — your Typefully workspace ID │
 │   jab-hook/voice.local.md          — your voice rules            │
 │   pm/boards.md                     — your kanban board configs   │
-│   personal-cfo/scenarios-archive/  — your financial scenarios    │
-│   deep-research/archives/          — your past research briefs   │
+│   decide/archive/                  — your decision log           │
+│   business-brainstorm/archive/     — your idea briefs            │
+│   deep-research/archive/           — your past research briefs   │
+│   personal-cfo/archive/            — your scenario index         │
+│   slide-deck/decks-archive.md      — your deck log               │
 │                                                                 │
 │   YOUR real data. Never leaves your machine.                    │
 └─────────────────────────────────────────────────────────────────┘

@@ -1,8 +1,8 @@
 ---
 name: deep-research
-description: "When you want multi-source, multi-step research on a topic — competitor research before a sales call, market research for a new business idea, positioning angles, due diligence on a partnership or podcast guest, tech decision research (which DB, which auth), or any \"I need to actually understand X.\" Combines WebSearch, WebFetch, agent-browser, /last30days (Reddit/X/YouTube/HN/web recency), memory, and Notion. Outputs a structured brief with citations, contradictions, gaps, and recommended next steps. Archives every research run to references/research-archive/ so past work is searchable. Triggers on \"/deep-research,\" \"research X,\" \"investigate X,\" \"do a deep dive on X,\" \"look into X,\" \"what's actually happening with X,\" \"due diligence on X,\" \"validate this market.\" Differs from a one-shot WebSearch: this is multi-pass with verification."
+description: "When you want multi-source, multi-step research on a topic — competitor research before a sales call, market research for a new business idea, positioning angles, due diligence on a partnership or podcast guest, tech decision research (which DB, which auth), or any \"I need to actually understand X.\" Combines WebSearch, WebFetch, agent-browser, /last30days (Reddit/X/YouTube/HN/web recency), memory, and Notion. Outputs a structured brief with citations, contradictions, gaps, and recommended next steps. Archives every research run to ~/.config/makerskills/deep-research/archive/ so past work is searchable. Triggers on \"/deep-research,\" \"research X,\" \"investigate X,\" \"do a deep dive on X,\" \"look into X,\" \"what's actually happening with X,\" \"due diligence on X,\" \"validate this market.\" Differs from a one-shot WebSearch: this is multi-pass with verification."
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /deep-research — Multi-source research with archive
@@ -30,7 +30,7 @@ Pick from this menu based on the question type. Note which sources you'll hit an
 | Browsable pages (auth-walled, JS-heavy) | Pricing pages, product tours, profiles | `agent-browser` via the `compound-engineering:agent-browser` skill |
 | Memory | Prior research / decisions / context the user already captured | grep `~/.claude/memory/` |
 | Notion | If the topic touches a known Notion workspace | Direct Notion API (key in `$NOTION_API_KEY`, see `reference_notion_api.md`) |
-| Research archive | Prior `/deep-research` runs that touched this topic | grep `~/code/makerskills/skills/deep-research/references/research-archive/` |
+| Research archive | Prior `/deep-research` runs that touched this topic | grep `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/deep-research/archive/` |
 
 Run discovery passes **in parallel** where possible. Sequential only when one source needs another's output (e.g., agent-browser a URL discovered by WebSearch).
 
@@ -91,9 +91,11 @@ Use this template:
 
 ## Step 6 — Archive
 
-Write the brief to `references/research-archive/<YYYY-MM-DD>-<slug>.md` so it's grep-able forever. Slug = kebab-case of the topic.
+Archives live in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/deep-research/archive/` (create the directory if missing). Never write archives inside the skill's own folder — skill installs and upgrades re-sync from source and wipe anything saved there. **Migration:** if this skill's folder contains an old `references/research-archive/` with user entries, move those files into the archive directory first.
 
-Also append a one-line entry to `references/research-archive/INDEX.md` (create if missing):
+Write the brief to `<archive dir>/<YYYY-MM-DD>-<slug>.md` so it's grep-able forever. Slug = kebab-case of the topic.
+
+Also append a one-line entry to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
 - 2026-06-15 — [<topic>](./<filename>.md) — <one-line TL;DR>
