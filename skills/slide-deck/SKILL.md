@@ -147,9 +147,9 @@ Don't auto-start the dev server (might disrupt other work).
 
 ## Step 8 — Archive
 
-The archive lives in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/slide-deck/` (create the directory if missing). Never write the archive inside the skill's own folder — skill installs and upgrades re-sync from source and wipe anything saved there. **Migration:** if this skill's folder contains an old `references/decks-archive.md` with user entries, move it into the archive directory first.
+The archive lives in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/slide-deck/archive/` (create the directory if missing). Never write the archive inside the skill's own folder — skill installs and upgrades re-sync from source and wipe anything saved there. **Migration:** if this skill's folder contains an old `references/decks-archive.md` with user entries, move it to `<archive dir>/INDEX.md` first.
 
-Append a one-liner to `<archive dir>/decks-archive.md` (create if missing):
+Append a one-liner to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
 - 2026-06-17 — [<title>](${SLIDE_DECK_REPO:-$HOME/code/your-slide-deck-site}/src/app/slides/<slug>/page.tsx) — <audience> — <one-line angle>

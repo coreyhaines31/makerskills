@@ -80,7 +80,7 @@ For `promo` and `educational` posts, optionally scan inspiration accounts (`refe
 2. Pull recent posts (agent-browser if it works on LinkedIn; otherwise ask the user to paste examples or fall back to their X/newsletter)
 3. Extract structural patterns: hook openers, post length, line-break rhythm, CTA styles
 4. Apply ONE pattern to the user's voice — never mimic phrasing
-5. Log new patterns in `references/patterns.md` (create if missing) so they accumulate
+5. Log new patterns in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/patterns.local.md` (create if missing) so they accumulate — `references/patterns.md` documents the starter patterns and stays read-only
 
 Skip inspiration scan when the user says "just draft it" or when iterating on an existing post.
 

@@ -28,7 +28,7 @@ Mental model for how the plugin is structured, why the personal-config pattern e
 │   business-brainstorm/archive/     — your idea briefs            │
 │   deep-research/archive/           — your past research briefs   │
 │   personal-cfo/archive/            — your scenario index         │
-│   slide-deck/decks-archive.md      — your deck log               │
+│   slide-deck/archive/              — your deck log               │
 │                                                                 │
 │   YOUR real data. Never leaves your machine.                    │
 └─────────────────────────────────────────────────────────────────┘

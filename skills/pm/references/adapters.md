@@ -164,7 +164,7 @@ When no tool is connected (or the user doesn't want one for a particular busines
 1. Ask the user to paste the current board state (or describe verbally)
 2. Run the requested mode against that snapshot
 3. Output recommended moves as plain text
-4. Optionally: persist a snapshot to `references/boards-cache/<business>.md` so subsequent runs don't require re-pasting (with a clear warning that the cache is stale until next paste)
+4. Optionally: persist a snapshot to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards-cache/<business>.md` so subsequent runs don't require re-pasting (with a clear warning that the cache is stale until next paste) — never inside the skill folder; upgrades wipe it
 
 The cache file uses the same Obsidian-style markdown format above so it's portable.
 
