@@ -76,6 +76,10 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
+
+# Optional: for vibecad (parametric CAD renders + STL/DXF export)
+brew install --cask openscad
+xattr -rd com.apple.quarantine /Applications/OpenSCAD-*.app   # cask is unsigned; skip and headless renders fail silently
 ```
 
 ## 5. API keys
