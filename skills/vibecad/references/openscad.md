@@ -11,7 +11,7 @@ xattr -rd com.apple.quarantine /Applications/OpenSCAD-*.app   # required: cask i
 
 Gatekeeper symptom: `openscad -o out.png file.scad` exits 1 with **no output and no file**. That's quarantine, not a script error. If a "Apple could not verify" dialog appears, click **Done** (not "Move to Trash"), then run the `xattr` line.
 
-`brew install --cask openscad@snapshot` gets a newer dev build (signed, newer language features) if 2021.01 limits bite.
+Note: the stable 2021.01 cask is an Intel binary — Apple Silicon Macs run it under Rosetta 2 (fine for typical renders; macOS prompts to install Rosetta if missing). `brew install --cask openscad@snapshot` gets a newer dev build (signed, Apple Silicon native, newer language features) if either limit bites.
 
 ## Standard 4-view render set
 
@@ -40,8 +40,8 @@ openscad -D 'explode=1' -o exploded.png --viewall --autocenter design.scad   # -
 
 ## 2021.01 language notes (stable cask)
 
-- No `^` exponent operator — use `pow(x, 2)`.
-- `text()` works but font metrics functions (`textmetrics()`) don't exist.
+- `^` exponent operator works (2021.01 is the version that introduced it); `pow()` only needed pre-2021.01.
+- `text()` works but font metrics functions (`textmetrics()`) are not available in stable 2021.01 — development snapshots only.
 - Modules can't return values; functions can't create geometry. Pure-math helpers = `function`, geometry = `module`.
 - `$fn=64` on cylinders/spheres for smooth previews; leave default for speed while iterating.
 

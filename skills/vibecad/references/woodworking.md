@@ -24,17 +24,21 @@ Standard sheet: **48 × 96** (4'×8'). Common thicknesses (plywood actuals run s
 
 | Nominal | Typical actual |
 |---|---|
-| 1/4" | 0.22" (7/32) |
-| 1/2" | 0.47" (15/32) |
-| 3/4" | 0.70" (23/32) |
+| 1/4" | 7/32 (0.22") |
+| 1/2" | 15/32 (0.47") |
+| 3/4" | 23/32 (0.72") |
+
+Sanded hardwood ply often measures a hair under even that (3/4" nominal ≈ 0.70" measured) — for snug dados, measure the actual sheet and parameterize the thickness.
 
 MDF and baltic birch run closer to true; baltic birch often comes in 60×60 (5'×5') sheets.
 
 ## Board feet
 
-`bf = (nominal_thickness_in × nominal_width_in × length_ft) / 12`
+`bf = (thickness_in × width_in × length_ft) / 12`
 
-Board feet use NOMINAL thickness/width (the one place nominal is correct). Sheet goods are priced per sheet, not per board foot.
+- **Softwood dimensional lumber**: use NOMINAL thickness and width (the one place nominal is correct) — though yards mostly price per stick, not per board foot.
+- **Hardwood (random width)**: use quarter thickness (4/4 = 1", 8/4 = 2") × ACTUAL measured width × length; suppliers round per their own policy, so treat estimates as ±10%.
+- Sheet goods are priced per sheet, not per board foot.
 
 ## Cut list format
 

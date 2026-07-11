@@ -56,7 +56,7 @@ Full list in [INSTALL.md](./INSTALL.md).
 
 ## Skill families
 
-The 18 skills group into 6 families by job type:
+The 19 skills group into 6 families by job type:
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 

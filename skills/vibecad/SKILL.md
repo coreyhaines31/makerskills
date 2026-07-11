@@ -21,7 +21,7 @@ You are the CAD operator; the user is the client at your shoulder. They speak in
 
 macOS Gatekeeper gotcha: the stable cask is unsigned, and a blocked binary **fails silently** — the render command exits 1 with no output and no PNG. Fix: `xattr -rd com.apple.quarantine /Applications/OpenSCAD-*.app`. If the user sees an "Apple could not verify…" dialog, tell them to click **Done** (not "Move to Trash"), then clear the quarantine flag. See [references/openscad.md](./references/openscad.md) for CLI details.
 
-Project archive lives at `$MAKERSKILLS_CONFIG/vibecad/projects/<slug>/` (default `~/.config/makerskills/vibecad/projects/<slug>/`): `design.scad`, `renders/`, `notes.md`. Create it on first render. To resume a past design, list the projects dir and reload the .scad.
+Project archive lives at `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/vibecad/projects/<slug>/`: `design.scad`, `renders/`, `notes.md`. Create it on first render. To resume a past design, list the projects dir and reload the .scad.
 
 ## Step 1 — Intake
 
