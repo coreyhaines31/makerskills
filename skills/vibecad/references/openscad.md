@@ -15,6 +15,10 @@ The snapshot cask is the right default. The `openscad` stable cask (2021.01) is 
 
 Either cask links `openscad` into the PATH (e.g. `/opt/homebrew/bin/openscad`).
 
+## Letting the user view the model interactively
+
+Default to opening the rendered PNGs in Preview (`open renders/*.png`) — zero learning curve. If the user wants to orbit the model, `open -a OpenSCAD design.scad` — but warn them upfront: **nothing draws until they press F5** (the viewport shows only bare axes on load), and the default layout buries the 3D view. Tell them: press F5, then View → Hide Editor and View → Hide Console, then drag to orbit. Enable Design → Automatic Reload and Preview so your subsequent file edits appear live in their window.
+
 ## Standard 4-view render set
 
 ```bash
