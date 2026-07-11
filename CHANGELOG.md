@@ -6,6 +6,13 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Added
+- **`vibecad` v0.1.0** (closes #7) — conversational parametric CAD via OpenSCAD. Describe a physical object in plain English → Claude writes a parametric .scad script → renders a 4-view preview set headless → iterate on feedback; the user never opens a CAD UI. Woodworking-first: nominal-vs-actual lumber tables, kerf-aware cut lists + stock shopping lists, board-foot math, ergonomic defaults. Also exports STL (3D print) and DXF (laser/CNC). Projects archive to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/vibecad/projects/<slug>/`. Documents the macOS Gatekeeper silent-failure gotcha (unsigned cask → renders exit 1 with no output until dequarantined).
+
+---
+
 ## [v1.2.0] — 2026-07-10
 
 ### Fixed

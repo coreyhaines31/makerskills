@@ -76,6 +76,9 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
+
+# Optional: for vibecad (parametric CAD renders + STL/DXF export)
+brew install --cask openscad@snapshot       # snapshot = signed + Apple Silicon native; stable cask is deprecated + unsigned
 ```
 
 ## 5. API keys
@@ -102,7 +105,7 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ## 6. Verify
 
 ```bash
-# Should see 18 skills listed
+# Should see 19 skills listed
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:

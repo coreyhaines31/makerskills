@@ -65,7 +65,7 @@ Each skill is a workflow doc — you can invoke via `/decide` OR read the SKILL.
 
 It'll read your clipboard, strip formatting, warn if over 280 chars, and copy back the cleaned output. First invocation may prompt you to install `pbcopy`-adjacent deps if missing. No config file needed — this is a pure utility.
 
-**5. Now branch out.** Skim [The 18 skills](#the-18-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
+**5. Now branch out.** Skim [The 19 skills](#the-19-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
 
 ---
 
@@ -86,6 +86,7 @@ Routing table for common operator jobs. Match your intent → skill.
 | Fetch any social post by URL as structured data | [`social-fetch`](./skills/social-fetch/SKILL.md) |
 | Plan / draft social content rotation across a portfolio | [`jab-hook`](./skills/jab-hook/SKILL.md) |
 | Draft, update, convert, or export a slide deck | [`slide-deck`](./skills/slide-deck/SKILL.md) |
+| Design a physical object (furniture, parts) by describing it | [`vibecad`](./skills/vibecad/SKILL.md) |
 | Clean terminal output for Slack / LinkedIn / X / Notion etc. | [`paste`](./skills/paste/SKILL.md) |
 | Manage projects across businesses (kanban) | [`pm`](./skills/pm/SKILL.md) |
 | Model personal financial scenarios (house, cash flow, etc.) | [`personal-cfo`](./skills/personal-cfo/SKILL.md) |
@@ -98,7 +99,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 
 ---
 
-## The 18 skills
+## The 19 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -128,6 +129,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 |---|---|
 | [`jab-hook`](./skills/jab-hook/SKILL.md) | Gary Vee's jab-jab-jab-right-hook rhythm applied to your portfolio rotation on X + LinkedIn via Typefully. |
 | [`slide-deck`](./skills/slide-deck/SKILL.md) | Branded React decks (Next.js). "Show, don't tell" narrative pitching, density modes, PPT conversion, Playwright export. |
+| [`vibecad`](./skills/vibecad/SKILL.md) | Conversational parametric CAD via OpenSCAD — describe an object in plain English, get rendered multi-view previews, iterate; no CAD UI. Woodworking-first (cut lists, nominal-vs-actual lumber, board feet, kerf-aware stock layout) plus STL export for 3D printing and DXF for laser/CNC. |
 
 ### Operations & utilities
 | Skill | What |
