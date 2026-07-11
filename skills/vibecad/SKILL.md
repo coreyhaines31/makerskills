@@ -55,6 +55,12 @@ Conventions (these make iteration cheap — the whole point):
 4. Show the iso view (plus whichever other view is informative), state key dimensions and any assumptions made, and ask what to change.
 5. Take feedback in plain English → edit parameters/geometry → re-render → repeat. Never ask the user to look at code; never describe a change without showing the re-render.
 
+**Browser viewer (preferred handoff for "let me see it").** Static PNGs frustrate users who expect to orbit the model like real CAD. Set up the live viewer once per project:
+
+1. Add a `show` parameter to the script (`show = "all"; // all | <part-group>…`) gating each part group with `if (show == "all" || show == "<group>") …`, then export one STL per group: `openscad -D 'show="<group>"' -o viewer/models/<group>.stl design.scad`.
+2. Copy [references/viewer-template.html](./references/viewer-template.html) to `<project>/viewer/index.html` and write `viewer/models/manifest.json` (`{"title": "...", "parts": [{"file": "models/x.stl", "color": "#hex"}]}`) — the template is a Three.js scene with orbit/pan/zoom, iso/front/side/top buttons, autorotate, shadows, and it polls Last-Modified and hot-swaps parts, so re-exporting STLs after an edit updates the user's open browser tab within seconds.
+3. Serve `viewer/` with a static server the user can keep open (a process manager like solo, or `python3 -m http.server`), give them the URL, and keep re-exporting STLs after each design change — that's the whole live loop.
+
 ## Step 4 — Shop-ready outputs
 
 When the user approves the design ("lock it in," "that's it," "build it"):

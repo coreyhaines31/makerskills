@@ -17,7 +17,17 @@ Either cask links `openscad` into the PATH (e.g. `/opt/homebrew/bin/openscad`).
 
 ## Letting the user view the model interactively
 
-Default to opening the rendered PNGs in Preview (`open renders/*.png`) — zero learning curve. If the user wants to orbit the model, `open -a OpenSCAD design.scad` — but warn them upfront: **nothing draws until they press F5** (the viewport shows only bare axes on load), and the default layout buries the 3D view. Tell them: press F5, then View → Hide Editor and View → Hide Console, then drag to orbit. Enable Design → Automatic Reload and Preview so your subsequent file edits appear live in their window.
+Best: the browser viewer (SKILL.md Step 3) — orbitable Three.js scene with live model reload; no app, no learning curve. Quick fallback: open the rendered PNGs in Preview (`open renders/*.png`). Last resort is the OpenSCAD GUI (`open -a OpenSCAD design.scad`) — warn upfront that **nothing draws until they press F5** (the viewport shows only bare axes on load) and the default layout buries the 3D view: press F5, then View → Hide Editor and View → Hide Console, then drag to orbit. Enable Design → Automatic Reload and Preview so your file edits appear live.
+
+Per-part STL export for the viewer (colors live in the viewer manifest since STL carries no color):
+
+```openscad
+show = "all";  // all | posts | slats | ...
+if (show == "all" || show == "posts") { ...posts... }
+```
+```bash
+for p in posts slats cap; do openscad -D "show=\"$p\"" -o viewer/models/$p.stl design.scad; done
+```
 
 ## Standard 4-view render set
 
