@@ -78,8 +78,7 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 brew install --cask calibre                 # for ebook-convert
 
 # Optional: for vibecad (parametric CAD renders + STL/DXF export)
-brew install --cask openscad
-xattr -rd com.apple.quarantine /Applications/OpenSCAD-*.app   # cask is unsigned; skip and headless renders fail silently
+brew install --cask openscad@snapshot       # snapshot = signed + Apple Silicon native; stable cask is deprecated + unsigned
 ```
 
 ## 5. API keys

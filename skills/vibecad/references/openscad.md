@@ -5,13 +5,15 @@ Everything needed to run the render loop without opening the GUI.
 ## Install (macOS)
 
 ```bash
-brew install --cask openscad          # stable (2021.01) — linked to /opt/homebrew/bin/openscad
-xattr -rd com.apple.quarantine /Applications/OpenSCAD-*.app   # required: cask is unsigned
+brew install --cask openscad@snapshot   # preferred: signed + notarized, Apple Silicon native, current language features
 ```
 
-Gatekeeper symptom: `openscad -o out.png file.scad` exits 1 with **no output and no file**. That's quarantine, not a script error. If a "Apple could not verify" dialog appears, click **Done** (not "Move to Trash"), then run the `xattr` line.
+The snapshot cask is the right default. The `openscad` stable cask (2021.01) is unsigned, Intel-only (Rosetta 2 on Apple Silicon), deprecated by Homebrew, and scheduled to be disabled 2026-09-01. If stable is what's installed anyway:
 
-Note: the stable 2021.01 cask is an Intel binary — Apple Silicon Macs run it under Rosetta 2 (fine for typical renders; macOS prompts to install Rosetta if missing). `brew install --cask openscad@snapshot` gets a newer dev build (signed, Apple Silicon native, newer language features) if either limit bites.
+- Gatekeeper symptom: `openscad -o out.png file.scad` exits 1 with **no output and no file**. That's quarantine, not a script error. Fix: `xattr -rd com.apple.quarantine /Applications/OpenSCAD-*.app`
+- If an "Apple could not verify" dialog appears, click **Done** (not "Move to Trash"), then run the `xattr` line.
+
+Either cask links `openscad` into the PATH (e.g. `/opt/homebrew/bin/openscad`).
 
 ## Standard 4-view render set
 
@@ -38,7 +40,7 @@ openscad -D 'explode=1' -o exploded.png --viewall --autocenter design.scad   # -
 
 `-D` is the iteration cheat code: render dimension variants without editing the file, e.g. `-D 'bench_width=60'`.
 
-## 2021.01 language notes (stable cask)
+## 2021.01 language notes (only if targeting the old stable cask)
 
 - `^` exponent operator works (2021.01 is the version that introduced it); `pow()` only needed pre-2021.01.
 - `text()` works but font metrics functions (`textmetrics()`) are not available in stable 2021.01 — development snapshots only.
