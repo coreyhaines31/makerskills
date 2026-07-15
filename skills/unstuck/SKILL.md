@@ -22,7 +22,7 @@ Turns "impossible" into angles. Classifies the wall, runs the right lateral-thin
 | **Assumption** | An inherited belief nobody re-verified | T1 assumption autopsy, T3 first principles |
 | **Framing** | The goal is stated in a way that excludes the answer | T4 altitude shift, T2 inversion, T5 work backwards |
 | **Gatekeeper** | A person/org said no | T10 interrogate the no, T6 analogical transfer |
-| **Tool/tech** | "X doesn't support Y" | T9 SCAMPER (substitute the primitive), T6 analogical transfer, T1 |
+| **Tool/tech** | "X doesn't support Y" | T9 SCAMPER (substitute the primitive), T6 analogical transfer |
 | **Resource** | Not enough time/money/people | T7 constraint toggling, T8 provocation |
 | **Physics/math** | Actually impossible (rare) | Honest exit — reroute the goal, the wall is load-bearing |
 
@@ -127,7 +127,7 @@ For when YOU (the agent) hit the wall mid-task. Trigger condition: an API/tool d
 
 1. **Classify** the wall (taxonomy above) — one line.
 2. **Autopsy** — list the 3–5 assumptions in your framing; mark inherited beliefs. ("The cursor must be a text character." "This must happen client-side." "The API is the only way in.")
-3. **Run 2 techniques** matched to the wall type — generate 5+ angles minimum.
+3. **Run 2 techniques** matched to the wall type — generate 5+ angles minimum for inline recoveries. **If you end up reporting a dead end to the user, the full 10-angle gate applies first** — a dead-end report is exactly the moment the gate exists for.
 4. **Then either:**
    - a viable angle exists → **proceed with it** (tell the user the wall you hit and the angle you took), or
    - nothing viable → report the dead end **with the angle inventory attached**: what you tried, what you considered, why each died. Never a naked "that's not supported."

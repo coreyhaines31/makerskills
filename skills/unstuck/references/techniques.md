@@ -11,6 +11,7 @@ Each technique: when it fires (by wall type), the moves, and a worked example. R
 | Gatekeeper | T1 | T10 | T6 |
 | Tool/tech | T1 | T9, T6 | T3 |
 | Resource | T1 | T7 | T8 |
+| Physics/math | T1 (confirm it's real) | — honest exit: reroute the goal | T4 (the rerouted goal often hides one altitude up) |
 | Unclear / mixed | T1 | T4 | T8 (provocation shakes loose a classification) |
 
 ---
@@ -25,7 +26,7 @@ Each technique: when it fires (by wall type), the moves, and a worked example. R
 3. Mark each: **verified fact** (you checked, recently, yourself) vs **inherited belief** (docs said, someone said, it's always been that way, you assumed).
 4. For each belief: what would it cost to test it right now? Test the cheap ones immediately.
 
-**Example:** "The OG-image renderer can't draw ✓ — it renders boxes." Assumptions: (a) the checkmark must be a *text character* — belief; (b) the default font is the only font — belief, the renderer accepts custom fonts; (c) the design needs a checkmark at all — belief. Angle (a) alone solves it: draw the cursor as a rectangle `<div>`, not a glyph.
+**Example:** "The OG-image renderer can't draw the █ cursor — it renders a box glyph." Assumptions: (a) the cursor must be a *text character* — belief; (b) the default font is the only font — belief, the renderer accepts custom fonts; (c) the design needs a cursor at all — belief. Breaking (a) solves it in minutes: draw the cursor as an orange rectangle `<div>`, not a glyph. (Breaking (b) was the fix for the ✓ checkmark next to it — load a font that has one.)
 
 ## T2 — Inversion
 
@@ -90,7 +91,7 @@ Both directions expose which constraints are real and which are assumed comfort.
 
 **Fires on:** tool/tech walls — run it against the blocked component specifically.
 
-**Moves:** Against the component that "can't": **S**ubstitute (different primitive/library/channel), **C**ombine (merge with an adjacent step), **A**dapt (borrow a mechanism that works elsewhere in the system), **M**agnify/minify (what if this step were 10x bigger or disappeared?), **P**ut to other use (can an existing feature be abused into doing this?), **E**liminate (does this step need to exist?), **R**everse (flip the order/direction/actor).
+**Moves:** (Eberle's mnemonic, built on Osborn's brainstorming checklist.) Against the component that "can't": **S**ubstitute (different primitive/library/channel), **C**ombine (merge with an adjacent step), **A**dapt (borrow a mechanism that works elsewhere in the system), **M**agnify/minify (what if this step were 10x bigger or disappeared?), **P**ut to other use (can an existing feature be abused into doing this?), **E**liminate (does this step need to exist?), **R**everse (flip the order/direction/actor).
 
 **Example:** "The metadata route can't re-export another route's component" (Next.js twitter-image, 2026-07). Substitute: literal config exports + delegated default import — same dedupe, analyzable statically. Eliminate was also on the table: delete twitter-image entirely and let og:image serve both.
 

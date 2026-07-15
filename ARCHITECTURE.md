@@ -29,6 +29,7 @@ Mental model for how the plugin is structured, why the personal-config pattern e
 │   deep-research/archive/           — your past research briefs   │
 │   personal-cfo/archive/            — your scenario index         │
 │   slide-deck/archive/              — your deck log               │
+│   unstuck/archive/                 — your wall-cracking library  │
 │                                                                 │
 │   YOUR real data. Never leaves your machine.                    │
 └─────────────────────────────────────────────────────────────────┘

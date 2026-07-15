@@ -47,7 +47,7 @@ export SLIDE_DECK_DEV_HOST="localhost:3000"
 These contain your real data and are stored under `$MAKERSKILLS_CONFIG/` (default `~/.config/makerskills/`). They're gitignored — your personal data never leaves your machine.
 
 ```bash
-mkdir -p ~/.config/makerskills/{jab-hook,pm,decide,business-brainstorm,deep-research,personal-cfo,slide-deck}
+mkdir -p ~/.config/makerskills/{jab-hook,pm,decide,business-brainstorm,deep-research,personal-cfo,slide-deck,unstuck}
 
 # Copy example configs and edit them with your real values
 cp ~/code/makerskills/skills/jab-hook/references/typefully-config.example.yaml \
