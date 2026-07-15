@@ -65,7 +65,7 @@ Each skill is a workflow doc — you can invoke via `/decide` OR read the SKILL.
 
 It'll read your clipboard, strip formatting, warn if over 280 chars, and copy back the cleaned output. First invocation may prompt you to install `pbcopy`-adjacent deps if missing. No config file needed — this is a pure utility.
 
-**5. Now branch out.** Skim [The 18 skills](#the-18-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
+**5. Now branch out.** Skim [The 19 skills](#the-19-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
 
 ---
 
@@ -76,6 +76,7 @@ Routing table for common operator jobs. Match your intent → skill.
 | I want to... | Skill |
 |---|---|
 | Think through a decision with a real fork | [`decide`](./skills/decide/SKILL.md) |
+| Break through a wall ("this seems impossible") | [`unstuck`](./skills/unstuck/SKILL.md) |
 | Pressure-test a new business or product idea | [`business-brainstorm`](./skills/business-brainstorm/SKILL.md) |
 | Research a topic with citations | [`deep-research`](./skills/deep-research/SKILL.md) |
 | Find an available `.com` for a new project | [`domain`](./skills/domain/SKILL.md) |
@@ -98,7 +99,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 
 ---
 
-## The 18 skills
+## The 19 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -114,6 +115,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 | [`business-brainstorm`](./skills/business-brainstorm/SKILL.md) | Pressure-test a new business or product on 9 dimensions. Composes with `deep-research` + `domain`. |
 | [`domain`](./skills/domain/SKILL.md) | 11-step .com domain hunt on Laura Roeder's "availability-first, never fall in love with a name" methodology. Multi-tool ensemble: Vercel CLI + whois (per-TLD) + Domainr API + Namecheap API + `rdap.org` (modern TLDs) + `agent-browser` for USPTO trademark screening + aftermarket click-throughs (HugeDomains / Afternic / Sedo / Dan). Handles bare-word + prefix/suffix brainstorming, budget filtering, negotiation guidance, and social handle checks. |
 | [`deep-research`](./skills/deep-research/SKILL.md) | Multi-source research with citations + archive. WebSearch, WebFetch, `agent-browser`, `/last30days`, memory. |
+| [`unstuck`](./skills/unstuck/SKILL.md) | The roadblock antidote. Classifies what kind of "no" you hit (assumption / framing / gatekeeper / tool / resource / physics), runs targeted lateral-thinking techniques from a 10-technique inventory, 10-angle minimum before evaluating. Agents run it on themselves before reporting any dead end. Upstream of `decide`. |
 
 ### Knowledge & content consumption
 | Skill | What |

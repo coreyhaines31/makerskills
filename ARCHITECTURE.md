@@ -29,6 +29,7 @@ Mental model for how the plugin is structured, why the personal-config pattern e
 │   deep-research/archive/           — your past research briefs   │
 │   personal-cfo/archive/            — your scenario index         │
 │   slide-deck/archive/              — your deck log               │
+│   unstuck/archive/                 — your wall-cracking library  │
 │                                                                 │
 │   YOUR real data. Never leaves your machine.                    │
 └─────────────────────────────────────────────────────────────────┘
@@ -56,7 +57,7 @@ Full list in [INSTALL.md](./INSTALL.md).
 
 ## Skill families
 
-The 18 skills group into 6 families by job type:
+The 19 skills group into 6 families by job type:
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 
@@ -76,6 +77,7 @@ Skills for thinking through problems before committing to action:
 - **`business-brainstorm`** — 9-dimension idea pressure-test
 - **`deep-research`** — multi-source research with citations
 - **`domain`** — .com domain hunt
+- **`unstuck`** — roadblock antidote: wall taxonomy + 10 lateral-thinking techniques; generates options when there appear to be none (upstream of `decide`)
 
 Common thread: **structured input → structured output → archived**. Every decision, brief, research result, and domain shortlist gets written to disk with a revisit date.
 

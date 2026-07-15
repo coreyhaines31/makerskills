@@ -150,6 +150,39 @@ Archives to `~/.config/makerskills/deep-research/archive/2026-07-01-ai-native-es
 
 ---
 
+## `unstuck`
+
+**You:** *"The conference rejected our sponsorship — that was our whole Q4 visibility plan. We're out of options."*
+
+**Unstuck:** Captures the wall (goal: Q4 visibility with that audience; wall: sponsorship rejected; source of the no: sponsorship coordinator, sold-out tier). Classifies it: **gatekeeper wall** — runs T1 (assumption autopsy) + T10 (interrogate the no) + T6 (analogical transfer). Produces:
+
+```markdown
+# Wall: Conference rejected sponsorship — Q4 visibility plan blocked
+
+**Wall type:** gatekeeper
+**The wall decompiled:** not "impossible" — "the booth tier is sold out"
+
+## Assumptions attacked
+- "Sponsorship = booth" → broke (the no was to a *booth*, not to *us*)
+- "This conference is the only route to this audience" → broke (3 adjacent routes)
+
+## Angles (12 generated, top of triage)
+1. Host the speaker dinner — coordinator needs a host, cheaper than booth — TRY NOW
+2. Sponsor the lanyard/wifi (vendor fell through last year) — TRY NOW
+3. Co-host the unofficial afterparty with a non-competing sponsor — TRY NOW
+4. Podcast tour hitting the 8 speakers before the event — RESEARCH
+5. "Everyone attending X" resource microsite — WILD BUT 30 MIN
+…
+
+## Committed
+**Angle 1 + 4** — next action: email coordinator offering to host the
+speaker dinner (their problem, our money); DM the first 3 speakers today.
+```
+
+Two viable-but-exclusive angles later, it hands the fork to `/decide`. Archives to `~/.config/makerskills/unstuck/archive/2026-07-14-conference-sponsorship-wall.md`.
+
+---
+
 ## `domain`
 
 **You:** *"Find me a great .com for an AI-marketing coaching product."*

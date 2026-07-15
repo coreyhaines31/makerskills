@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "AI agent skills for the personal operator's craft. Decisions, research, second-brain workflows, content rotation, scenario modeling, CFO cadence, domain hunts, and the meta-skills to author more.",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "repository": "https://github.com/coreyhaines31/makerskills",
     "homepage": "https://maker-skills.com"
   },
   "plugins": [
     {
       "name": "makerskills",
-      "description": "18 skills for founders and indie operators. Meta (skillify / toolify / loopify), decision + strategy (decide / business-brainstorm / deep-research / domain), knowledge (second-brain / company-brain / read-book / watch-video), output (jab-hook / slide-deck), operations (pm / personal-cfo / company-cfo / paste / social-fetch). Sibling to marketingskills.",
+      "description": "19 skills for founders and indie operators. Meta (skillify / toolify / loopify), decision + strategy (decide / business-brainstorm / deep-research / domain / unstuck), knowledge (second-brain / company-brain / read-book / watch-video), output (jab-hook / slide-deck), operations (pm / personal-cfo / company-cfo / paste / social-fetch). Sibling to marketingskills.",
       "source": "./"
     }
   ]

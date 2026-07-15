@@ -79,7 +79,7 @@ Not strict rules, but the pattern most skills follow:
 
 ### 6. Add to the catalog
 
-- Append your skill's row to the appropriate section in `README.md`'s [The 18 skills](./README.md#the-18-skills) table (update the count in the section heading)
+- Append your skill's row to the appropriate section in `README.md`'s [The 19 skills](./README.md#the-19-skills) table (update the count in the section heading)
 - If new env vars are introduced, add them to `INSTALL.md`
 - If it's a significant addition, add a `CHANGELOG.md` entry under a new unreleased version heading
 
