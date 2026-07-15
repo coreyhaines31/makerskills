@@ -6,6 +6,13 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.3.0] — 2026-07-14
+
+### Added
+- **New skill: `unstuck`** (v0.1.0, closes #9) — the roadblock antidote. When a solution seems impossible, it refuses to take no for an answer: classifies what kind of "no" you hit (assumption / framing / gatekeeper / tool / resource / physics), triages 3–4 lateral-thinking techniques from a 10-technique inventory (`references/techniques.md` — assumption autopsy, inversion, first principles, altitude shift, work-backwards, analogical transfer, constraint toggling, provocation, SCAMPER, interrogate-the-no), and enforces a 10-angle minimum before evaluating anything. **Agent-proactive by design**: agents run the fast path on themselves before reporting any dead end, so "that's not supported" always arrives with tried-angles receipts. Honest-exit guardrail: "the wall is load-bearing, reroute the goal" is a legitimate output, and a no from consent/law/ethics is a real no. Archives to `$MAKERSKILLS_CONFIG/unstuck/archive/` — a growing pattern library of which techniques crack *your* walls. Sits upstream of `decide` (generates options when there appear to be none; `decide` picks among them). 18 → 19 skills.
+
+---
+
 ## [v1.2.0] — 2026-07-10
 
 ### Fixed
