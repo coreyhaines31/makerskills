@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "AI agent skills for the personal operator's craft. Decisions, research, second-brain workflows, content rotation, scenario modeling, CFO cadence, domain hunts, and the meta-skills to author more.",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "repository": "https://github.com/coreyhaines31/makerskills",
     "homepage": "https://maker-skills.com"
   },

@@ -76,6 +76,14 @@ Categorized for triage. The `decide` skill picks 6–8 per decision based on the
 
 ---
 
+## House additions (not from the 37signals set)
+
+Questions the set was missing in practice. Kept separate so the 38 above stay faithful to the source.
+
+- **Q39** — Opportunity cost: if we say yes to this, what are we saying no to? What does this displace — time, money, focus — and is what it displaces worth less than this? *(Added after a reader pointed out the original 38 never ask it directly — the nearest are Q36's return-on-effort and Q37's easier/harder.)*
+
+---
+
 ## Triage cheat-sheet (default selections)
 
 **Always:** Q1, Q2, Q8, Q9, Q3
@@ -86,5 +94,6 @@ Categorized for triage. The `decide` skill picks 6–8 per decision based on the
 **Add for analytical:** Q19, Q26
 **Add for recurring:** Q11, Q23
 **Add for customer-facing:** Q24, Q25
-**Add for money:** Q36, Q38
+**Add for money:** Q36, Q38, Q39
+**Add for big time/focus commitments:** Q39, Q36, Q20
 **Add for "I'm stuck":** Q4, Q10, Q31

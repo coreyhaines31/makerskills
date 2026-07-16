@@ -111,7 +111,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 ### Decision & strategy
 | Skill | What |
 |---|---|
-| [`decide`](./skills/decide/SKILL.md) | 37signals decision framework (38 questions triaged to 6–8 per decision). Archives with revisit dates. |
+| [`decide`](./skills/decide/SKILL.md) | 37signals decision framework (38 questions + house additions like Q39 opportunity cost, triaged to 6–8 per decision). Archives with revisit dates. |
 | [`business-brainstorm`](./skills/business-brainstorm/SKILL.md) | Pressure-test a new business or product on 9 dimensions. Composes with `deep-research` + `domain`. |
 | [`domain`](./skills/domain/SKILL.md) | 11-step .com domain hunt on Laura Roeder's "availability-first, never fall in love with a name" methodology. Multi-tool ensemble: Vercel CLI + whois (per-TLD) + Domainr API + Namecheap API + `rdap.org` (modern TLDs) + `agent-browser` for USPTO trademark screening + aftermarket click-throughs (HugeDomains / Afternic / Sedo / Dan). Handles bare-word + prefix/suffix brainstorming, budget filtering, negotiation guidance, and social handle checks. |
 | [`deep-research`](./skills/deep-research/SKILL.md) | Multi-source research with citations + archive. WebSearch, WebFetch, `agent-browser`, `/last30days`, memory. |
