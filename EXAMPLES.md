@@ -183,6 +183,48 @@ Two viable-but-exclusive angles later, it hands the fork to `/decide`. Archives 
 
 ---
 
+## `maker-council`
+
+**You:** *"Should I hire my first employee or keep everything solo with contractors?"*
+
+**Maker-council:** Classifies the question (first hires / org design), seats **Jensen Huang** and **Jason Fried** as fits, **Naval Ravikant** as the designated dissenter. Produces:
+
+```markdown
+> Simulated council — each take is built from the member's published
+> frameworks and positions, not their actual advice.
+
+## The question before the council
+First W-2 hire vs. staying solo + contractors, at ~$18k MRR, one product.
+
+### Jason Fried — calm company, small on purpose
+Why isn't this easier? A hire isn't capacity, it's a commitment to
+permanent complexity… **Bottom line:** Hire only for pain you've felt
+for six straight months — and hire one.
+
+### Jensen Huang — the mission is the boss
+What does the mission need right now?… **Bottom line:** If the hire owns
+a whole problem, do it; if they need managing, you're buying overhead.
+
+### Naval Ravikant — leverage before headcount (dissenter)
+Does this earn while you sleep?… **Bottom line:** You're hiring to escape
+work code or media could do — automate first, hire after.
+
+## Where the council disagrees
+1. **Fried vs. Naval on the contractor bench** — recurring relationships
+   vs. transactional leverage. The real trade-off: continuity vs.
+   flexibility. What would settle it: does the same contractor keep
+   getting rebooked?
+
+## Chair's synthesis
+Automate the support queue first (Naval), then hire one owner-shaped
+person for the pain that remains (Fried × Jensen).
+- **Next:** /decide to formalize; revisit in 90 days
+```
+
+Archives to `~/.config/makerskills/maker-council/archive/2026-07-15-first-hire-vs-solo.md`.
+
+---
+
 ## `domain`
 
 **You:** *"Find me a great .com for an AI-marketing coaching product."*
