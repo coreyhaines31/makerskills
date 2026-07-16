@@ -65,7 +65,8 @@ Conventions (these make iteration cheap — the whole point):
 
 When the user approves the design ("lock it in," "that's it," "build it"):
 
-- **Woodworking**: cut list table (part, qty, stock, cut length, notes), board-foot / sheet estimate, hardware list if any, assembly order. Formulas + stock tables in [references/woodworking.md](./references/woodworking.md). Offer a dimensioned orthographic render set.
+- **Woodworking**: cut list table (part, qty, stock, cut length, notes), board-foot / sheet estimate, hardware list if any, assembly order. Formulas + stock tables in [references/woodworking.md](./references/woodworking.md). Offer a dimensioned orthographic render set. If the project has a browser viewer, embed the whole build plan there as a collapsible panel (HUD button toggling an `<aside>` of nested `<details>` sections: shopping list, per-segment cut lists, angles & joints, assembly order, cost — with a warning callout for any still-assumed site measurements). The plan next to the orbitable model is how users actually consume it.
+- **Optimize bays/spans to stock lengths before finalizing**: prefer post spacings that make slats/boards uncut stock (96" bays for 8' boards, 144" for 12') even if bays end up unequal — fewer cuts, less waste, joints always land on structure. Flag any unsupported span over ~48" for a batten/support.
 - **3D print**: `openscad -o part.stl design.scad`, report bounding box + rough volume.
 - **Laser/CNC**: `projection()` each flat part → DXF export.
 
