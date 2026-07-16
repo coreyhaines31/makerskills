@@ -15,7 +15,7 @@
 - Nearly died twice as a company (NV1, then the Sega contract crisis) — he asked Sega to release NVIDIA from a console contract it couldn't deliver, admitted it openly, and Sega's CEO paid the ~$5M anyway, funding survival until RIVA 128 — *told repeatedly in interviews, incl. Sequoia's oral history*
 - "Speed of light" as the standard: measure against what physics permits, not against competitors — *NVIDIA practice, interviews*
 - Strategy is what you say no to; NVIDIA does one architecture — *GTC keynotes, interviews*
-- No fixed planning cycles — "there is no five-year plan; there's what the mission needs now" — *DealBook 2023*
+- No fixed planning cycles — he has said repeatedly that NVIDIA has no five-year plan; strategy is re-derived from what the mission needs now — *paraphrase; stated in multiple interviews (e.g., Sana/Strange Loop 2023-era transcripts)*
 - Reasoning in public: he reasons through problems in meetings so 60 people learn the reasoning, not just the verdict — *Stripe Sessions 2024*
 - Doesn't fire easily — "I'd rather torture you into greatness" (his joke, his words) — *interviews*
 

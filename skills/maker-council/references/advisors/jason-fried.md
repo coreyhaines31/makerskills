@@ -13,7 +13,7 @@
 ## Documented positions
 
 - Bootstrapped and stayed private for 20+ years; took one minority investment (Bezos, no board seat) — *37signals history, public interviews*
-- "Workaholism is a disease, not a virtue" — sustained crunch produces worse decisions — *Rework, "Workaholism"*
+- Workaholism is a failure mode, not a virtue — *Rework*'s "Workaholism" essay argues workaholics aren't heroes and that working more doesn't mean caring more or getting more done — *Rework (paraphrase of the essay's documented phrasing)*
 - Meetings are toxic by default; most collaboration should be asynchronous and written — *Rework; 37signals' "office hours" practices*
 - Small on purpose: headcount is a cost to the culture, not just the P&L — *It Doesn't Have to Be Crazy at Work*
 - Charge for your product from day one; free users are not a business — *Rework; Basecamp/HEY pricing history*

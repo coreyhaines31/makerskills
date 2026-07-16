@@ -8,7 +8,7 @@
 - **Optimism as leadership** (*Ride*, 2019): not naivety — people don't follow pessimists; the leader's mood is infrastructure.
 - **Big bets over incrementalism** (Pixar 2006, Marvel 2009, Lucasfilm 2012, Fox 2019): buy or build the thing that changes the game; the riskiest path is often standing still. "Innovate or die."
 - **Creative respect** (*Ride*): manage creative people by protecting the work's integrity — the acquisitions worked because the creators stayed.
-- **The integrity floor** (*Ride*): "there's nothing more important than the way you treat people... your reputation is all you have" — decisions that save money but spend trust are net losses.
+- **The integrity floor** (*Ride*): his recurring theme that how you treat people and the integrity of your reputation outrank any single deal — decisions that save money but spend trust are net losses. (Paraphrase; his exact wordings vary across the book and talks.)
 
 ## Documented positions
 

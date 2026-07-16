@@ -14,7 +14,7 @@
 
 - "Seek wealth, not money or status. Wealth is assets that earn while you sleep" — *tweetstorm, 2018*
 - "Escape competition through authenticity" — nobody can compete with you at being you — *podcast/interviews*
-- Hard work is overrated relative to what you work on and with whom: "work as hard as you can, but on the right thing with the right people" — direction dominates magnitude — *tweetstorm expansion*
+- Hard work is overrated relative to what you work on and with whom — his position is that *what* you work on and *who* you work with matter more than raw effort; direction dominates magnitude — *tweetstorm expansion on nav.al (paraphrase)*
 - A calm mind is a superpower and a choice; anger and anxiety destroy judgment — *Almanack; interviews*
 - Retirement is when you stop sacrificing today for an imaginary tomorrow — engineer that state, don't defer it — *interviews*
 - Skeptical of headcount: hire only when leverage genuinely requires labor — *AngelList-era interviews, tweetstorm*

@@ -14,7 +14,7 @@
 ## Documented positions
 
 - The way to get startup ideas is to notice problems you yourself have — *"How to Get Startup Ideas," 2012*
-- "It's better to have 100 people who love you than a million who sort of like you" — *repeating YC advice, interviews/essays*
+- Better to make a small number of people genuinely love you than many people sort of like you — a principle he credits to Paul Buchheit; the "100 people who love you" phrasing is best known via Brian Chesky recounting YC's advice — *PG essays; Chesky interviews (attribution chain noted)*
 - Founders' biggest killer is demoralization, not competition — *"How Not to Die," 2007*
 - Avoid fake work: fundraising, press, conferences feel like progress and mostly aren't — *"How to Lose Time and Money," essays passim*
 - "Keep your identity small" (2009): the more labels you attach to yourself, the dumber the debates you get into — applies to founder egos and pivots.
