@@ -6,6 +6,13 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.5.0] — unreleased
+
+### Added
+- **New skill: `maker-council`** (v0.1.0, closes #1) — your personal board of advisors, simulated. Eight founders/operators whose lenses collide on purpose: Jason Fried (calm/profitable), Elon Musk (first principles/urgency), Jeff Bezos (decision doors/long-term), Jensen Huang (flat org/strategic pain), Bob Iger (big bets/creative respect), Paul Graham (default alive/unscalable things), Naval Ravikant (leverage/productize yourself), Sara Blakely (bootstrap/sell first). Seats 3–5 by question type with a **designated dissenter** (an agreeing council is a mirror, not a board), grounds every take in documented frameworks via per-member dossiers, optional live-research pass through `deep-research`/`watch-video`/`last30days`, maps the disagreements, and synthesizes a chair's call that usually hands off to `/decide`. Strict grounding rules: labeled as simulation, no fabricated quotes, no invented endorsements, extra care for living members. Custom bench members + session archive live in `$MAKERSKILLS_CONFIG/maker-council/`. Adapted from the shipped `marketing-skills:marketing-council` (same author) with an operator bench and makerskills conventions. 19 → 20 skills.
+
+---
+
 ## [v1.4.0] — 2026-07-15
 
 ### Added
