@@ -1,6 +1,6 @@
-# The 38 questions
+# The 38 questions (+ house additions)
 
-From [The 37signals Guide to Making Decisions](https://37signals.com/how-we-make-decisions). Premise: *"A company is essentially two things: a group of people and a collection of decisions."*
+Q1–Q38 from [The 37signals Guide to Making Decisions](https://37signals.com/how-we-make-decisions). Premise: *"A company is essentially two things: a group of people and a collection of decisions."* House additions (Q39+) are listed separately at the bottom.
 
 Categorized for triage. The `decide` skill picks 6–8 per decision based on the situation — never all 38.
 
