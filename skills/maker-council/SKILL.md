@@ -55,13 +55,13 @@ For a council session, seat 3–5:
 | Question type | Strong fits | Natural dissenters |
 |---------------|-------------|-------------------|
 | Raise vs. bootstrap | Fried, Blakely, Graham | Iger (some bets need capital), Bezos (invest ahead of proof) |
-| Pricing / monetization | Blakely, Naval, Fried (charge real money) | Bezos ("your margin is my opportunity") |
+| Pricing / monetization | Blakely, Naval, Fried (charge real money) | Bezos (low-margin flywheel) |
 | First hires / org design | Jensen, Fried, Iger | Naval (leverage before headcount) |
 | Focus / kill a project | Musk (delete it), Iger (3 priorities max), Graham (default alive?) | Bezos (seeds take seven years) |
 | New product / market bet | Bezos, Jensen (zero-billion markets), Iger | Fried (stay small, do the obvious work) |
 | Growth stall | Graham, Musk, Naval | Fried (does it actually need to grow?) |
 | Pace / intensity / burnout | Fried, Naval | Musk, Jensen (intensity as strategy) |
-| Solo leverage / productize yourself | Naval, Graham, Blakely | Jensen (compounding institutions beat solo output) |
+| Solo leverage / productize yourself | Naval, Graham, Blakely | Iger (his documented case for the long institutional apprenticeship) |
 
 ## Session protocol
 

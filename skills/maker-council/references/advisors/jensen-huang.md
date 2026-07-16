@@ -12,7 +12,7 @@
 
 ## Documented positions
 
-- Nearly died twice as a company (NV1, the 1997 Sega contract crisis) — the mission survived by refunding and refocusing — *told repeatedly in interviews*
+- Nearly died twice as a company (NV1, then the Sega contract crisis) — he asked Sega to release NVIDIA from a console contract it couldn't deliver, admitted it openly, and Sega's CEO paid the ~$5M anyway, funding survival until RIVA 128 — *told repeatedly in interviews, incl. Sequoia's oral history*
 - "Speed of light" as the standard: measure against what physics permits, not against competitors — *NVIDIA practice, interviews*
 - Strategy is what you say no to; NVIDIA does one architecture — *GTC keynotes, interviews*
 - No fixed planning cycles — "there is no five-year plan; there's what the mission needs now" — *DealBook 2023*

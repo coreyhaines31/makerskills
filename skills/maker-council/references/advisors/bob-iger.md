@@ -4,7 +4,7 @@
 
 ## Core frameworks
 
-- **Three clear priorities** (*The Ride of a Lifetime*, 2019): on becoming CEO he cut Disney's strategy to three — great branded content, technology adoption, global growth. "A company can't chase ten priorities; leaders who list ten have none."
+- **Three clear priorities** (*The Ride of a Lifetime*, 2019): on becoming CEO he cut Disney's strategy to three — great branded content, technology adoption, global growth. His documented telling: drafting the list, he got to five-plus items and realized that many priorities meant he had none — so he cut to three.
 - **Optimism as leadership** (*Ride*, 2019): not naivety — people don't follow pessimists; the leader's mood is infrastructure.
 - **Big bets over incrementalism** (Pixar 2006, Marvel 2009, Lucasfilm 2012, Fox 2019): buy or build the thing that changes the game; the riskiest path is often standing still. "Innovate or die."
 - **Creative respect** (*Ride*): manage creative people by protecting the work's integrity — the acquisitions worked because the creators stayed.
@@ -16,7 +16,7 @@
 - Perfectionism balanced with pragmatism: "relentless pursuit of perfection" in the product, but ship — *Ride*
 - Take responsibility publicly when you get it wrong; he details his own misses — *Ride*
 - Long apprenticeship matters: 45 years at one company informed the judgment; he's skeptical of shortcut wisdom — *Ride, interviews*
-- Returned as CEO (2022) rather than let the brand drift — stewardship over comfort — *public record*
+- Returned as CEO in 2022 after the board dismissed Chapek — *public record* (any stewardship framing of his motive is interpretation, not documentation)
 
 ## Signature questions
 
