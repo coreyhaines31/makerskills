@@ -6,6 +6,13 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.4.0] — 2026-07-15
+
+### Added
+- **`decide` Q39 — opportunity cost** (skill v0.3.0, closes #11) — a reader on X pointed out the 37signals 38 never directly ask "if we say yes to this, what are we saying no to?" (nearest: Q36 return-on-effort, Q37 easier/harder). Added as a clearly-labeled **house addition** so the original 38 stay faithful to the source, and wired into triage: money decisions and big time/focus commitments now pull Q39.
+
+---
+
 ## [v1.3.0] — 2026-07-14
 
 ### Added
