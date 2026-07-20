@@ -59,6 +59,8 @@ Conventions (these make iteration cheap — the whole point):
 
 1. Add a `show` parameter to the script (`show = "all"; // all | <part-group>…`) gating each part group with `if (show == "all" || show == "<group>") …`, then export one STL per group: `openscad -D 'show="<group>"' -o viewer/models/<group>.stl design.scad`.
 2. Copy [references/viewer-template.html](./references/viewer-template.html) to `<project>/viewer/index.html` and write `viewer/models/manifest.json` (`{"title": "...", "parts": [{"file": "models/x.stl", "color": "#hex"}]}`) — the template is a Three.js scene with orbit/pan/zoom, iso/front/side/top buttons, autorotate, shadows, and it polls Last-Modified and hot-swaps parts, so re-exporting STLs after an edit updates the user's open browser tab within seconds.
+**Material/design variants** ("can I see it in X instead?"): NEVER edit the approved design — write a sibling `design-<variant>.scad` reusing the same layout constants, export its part STLs alongside, and restructure the manifest to `{context: [...], variants: {"Name": [parts...]}, default}` with a ⇄ toggle button in the viewer that swaps variant meshes in place (same camera → honest comparison). Export dense geometry (mesh/lattice) with `--export-format binstl` — ASCII STLs of fine grids are 4–6× larger.
+
 3. Serve `viewer/` with a static server the user can keep open (a process manager like solo, or `python3 -m http.server`), give them the URL, and keep re-exporting STLs after each design change — that's the whole live loop.
 
 ## Step 4 — Shop-ready outputs
