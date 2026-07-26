@@ -60,6 +60,10 @@ const matShelf = new THREE.MeshStandardMaterial({ map: woodTexture('#b8854a', '#
 //  - Dimensions come from the vibecad parametric model, NEVER vision-guessed.
 //  - Code-only: primitives + procedural canvas textures. No mesh files.
 //  - One material per stock species/role; grain via woodTexture(base, streak).
+//  - After swapping the factory, refit the FRAME to the new object: camera
+//    position/target, floor radius, and shadow-camera bounds (derive from
+//    new THREE.Box3().setFromObject(model) or hand-tune) — the values below
+//    are sized for a 24-inch nightstand.
 //  - After any change: screenshot -> agent vision review -> self-correct
 //    (first-pass wood usually reads washed out: deepen tones, raise grain
 //    alpha, drop scene.environmentIntensity toward ~0.45).
@@ -112,6 +116,7 @@ const key = new THREE.DirectionalLight(0xfff1de, 2.6);
 key.position.set(26, 42, 22); key.castShadow = true;
 key.shadow.mapSize.set(2048, 2048);
 Object.assign(key.shadow.camera, { left: -30, right: 30, top: 30, bottom: -30 });
+key.shadow.camera.updateProjectionMatrix();
 scene.add(key, new THREE.HemisphereLight(0xdde4ff, 0x2a2622, .5));
 
 const floor = new THREE.Mesh(new THREE.CircleGeometry(60),

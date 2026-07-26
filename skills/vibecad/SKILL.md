@@ -89,14 +89,14 @@ wood grain, studio lighting, turntable) worth texting to the person you're
 building it for. Method borrowed from img2threejs, with one upgrade: the spec
 comes from the parametric model's exact dimensions, never vision guessing.
 
-1. Copy [references/showcase-template.html](./references/showcase-template.html) into the project (or the served viewer dir as `<slug>/index.html` for an instant URL) and replace the example factory with the project's parts — one `box()` per physical part, one material per stock species, exact model dims.
+1. Copy [references/showcase-template.html](./references/showcase-template.html) into the project (or the served viewer dir as `<slug>/index.html` for an instant URL) and replace the example factory with the project's parts — one primitive/group per physical part (`box()` for rectangular stock), one material per stock species, exact model dims. Then refit the scene frame (camera target, floor radius, shadow-camera bounds) to the new object's size — the template ships sized for a nightstand.
 2. Follow the template's embedded rules: procedural canvas textures only, no mesh files.
 3. **Run the self-correct loop before showing**: screenshot → agent vision review → refine. First-pass wood almost always reads washed out under RoomEnvironment — deepen base tones, raise grain alpha, drop `environmentIntensity` toward ~0.45.
 4. For full photo-based reconstruction quality gates (detail inventories, staged passes), defer to the `img2threejs` skill itself if installed.
 
 ## Composes with
 
-- **`img2threejs`** (external — github.com/hoainho/img2threejs, Apache 2.0, install to `~/.claude/skills/`) — photo-in reconstruction (Step 1) and the showcase discipline (Step 5). vibecad = buildable; img2threejs = beautiful; the exact-dims handoff between them beats either alone.
+- **`img2threejs`** (external, Apache 2.0 — install: `git clone https://github.com/hoainho/img2threejs ~/code/img2threejs && rsync -a --exclude .git --exclude assets ~/code/img2threejs/ ~/.claude/skills/img2threejs/`) — photo-in reconstruction (Step 1) and the showcase discipline (Step 5). vibecad = buildable; img2threejs = beautiful; the exact-dims handoff between them beats either alone.
 - **`second-brain`** — capture finished project summaries to the vault if the user asks
 - **`skillify`** — pattern-source for this skill's structure
 
