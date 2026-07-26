@@ -193,7 +193,7 @@ def main():
             "boards": [{"stock": b["stock"]["name"],
                         "cuts": [{"label": c["label"], "length": c["length"],
                                   "angle": c["angle"]} for c in b["cuts"]],
-                        "offcut": round(b["remaining"], 2)} for b in boards],
+                        "offcut": round(max(0.0, b["remaining"] - (plan.get("kerf", 0.125) if b["remaining"] > 0 and b["cuts"] else 0)), 2)} for b in boards],
         }, indent=2))
     else:
         print(report(plan, boards, kerf, end_trim))

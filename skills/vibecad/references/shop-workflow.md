@@ -34,7 +34,7 @@ still negotiable, and adjust the DESIGN to unlock packings:
   flagged: no end-trim budget, so the shopper hand-picks boards with clean
   ends. The optimizer handles this automatically.
 - **Check the pairings it finds** — it routinely discovers combos a human
-  plan misses (e.g., 96" + 42" on one 12' board leaving a ~4.9" offcut,
+  plan misses (e.g., 96" + 42" on one 12' board leaving a ~4.8" offcut,
   where the "obvious" 2×42-per-8' plan wastes 12" per board).
 - Iterate: tweak part lengths → rerun → watch yield %. Above ~85% is good
   for mixed lists; uncut-heavy designs hit 95%+.
