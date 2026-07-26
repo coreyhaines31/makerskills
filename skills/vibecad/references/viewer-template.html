@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>vibecad — living wall fence</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #1a1a1f; font-family: -apple-system, system-ui, sans-serif; }
+  #app { position: fixed; inset: 0; }
+  .hud {
+    position: fixed; top: 14px; left: 14px; display: flex; gap: 8px; align-items: center;
+    background: rgba(26,26,31,.82); backdrop-filter: blur(8px);
+    border: 1px solid #333; border-radius: 10px; padding: 8px 10px; z-index: 10;
+  }
+  .hud b { color: #eee; font-size: 13px; font-weight: 600; margin-right: 4px; }
+  .hud button {
+    background: #2a2a31; color: #ddd; border: 1px solid #3a3a44; border-radius: 7px;
+    padding: 5px 11px; font-size: 12px; cursor: pointer;
+  }
+  .hud button:hover { background: #35353e; }
+  .hud button.on { background: #4a5a3a; border-color: #6a8a4a; color: #fff; }
+  .hint {
+    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+    color: #777; font-size: 12px; z-index: 10; user-select: none;
+  }
+  .badge {
+    position: fixed; top: 14px; right: 14px; color: #666; font-size: 11px; z-index: 10;
+  }
+  .badge.fresh { color: #8ab35a; }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="app"></div>
+<div class="hud">
+  <b>living wall fence</b>
+  <button data-view="iso">Iso</button>
+  <button data-view="front">Front</button>
+  <button data-view="side">Side</button>
+  <button data-view="top">Top</button>
+  <button id="spin">Spin</button>
+</div>
+<div class="badge" id="badge">watching for changes…</div>
+<div class="hint">drag to orbit · right-drag to pan · scroll to zoom · model reloads automatically when the design changes</div>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+
+const manifest = await (await fetch('models/manifest.json?t=' + Date.now(), { cache: 'no-store' })).json();
+const PARTS = manifest.parts;
+document.title = 'vibecad — ' + manifest.title;
+document.querySelector('.hud b').textContent = manifest.title;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1a1f);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(devicePixelRatio);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+document.getElementById('app').appendChild(renderer.domElement);
+
+const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 5000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x445544, 1.1));
+const sun = new THREE.DirectionalLight(0xfff2dd, 2.2);
+sun.position.set(120, 180, 140);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+scene.add(sun);
+
+// model group: OpenSCAD is Z-up, three.js is Y-up
+const model = new THREE.Group();
+model.rotation.x = -Math.PI / 2;
+scene.add(model);
+
+const loader = new STLLoader();
+const meshes = new Map();
+
+async function loadPart(part) {
+  const geo = await loader.loadAsync(part.file + '?t=' + Date.now());
+  geo.computeVertexNormals();
+  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
+    color: part.color, roughness: 0.75, metalness: 0.05
+  }));
+  mesh.castShadow = mesh.receiveShadow = true;
+  const old = meshes.get(part.file);
+  if (old) { model.remove(old); old.geometry.dispose(); old.material.dispose(); }
+  meshes.set(part.file, mesh);
+  model.add(mesh);
+}
+
+let bounds = null, ground = null, grid = null;
+
+function fitScene(resetCamera) {
+  bounds = new THREE.Box3().setFromObject(model);
+  const size = bounds.getSize(new THREE.Vector3());
+  const center = bounds.getCenter(new THREE.Vector3());
+  controls.target.copy(center);
+
+  const span = Math.max(size.x, size.y, size.z);
+  const floorY = bounds.min.y;
+
+  if (ground) { scene.remove(ground); scene.remove(grid); }
+  ground = new THREE.Mesh(
+    new THREE.PlaneGeometry(span * 6, span * 6),
+    new THREE.MeshStandardMaterial({ color: 0x23232a, roughness: 1 })
+  );
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = floorY - 0.05;
+  ground.receiveShadow = true;
+  scene.add(ground);
+  grid = new THREE.GridHelper(span * 6, 48, 0x3a3a44, 0x2c2c34);
+  grid.position.y = floorY;
+  scene.add(grid);
+
+  if (resetCamera) setView('iso');
+}
+
+const DIST = () => {
+  const size = bounds.getSize(new THREE.Vector3());
+  return Math.max(size.x, size.y, size.z) * 1.35;
+};
+
+function setView(name) {
+  const c = bounds.getCenter(new THREE.Vector3());
+  const d = DIST();
+  const pos = {
+    iso:   [c.x + d * .7, c.y + d * .5, c.z + d * .7],
+    front: [c.x, c.y + d * .08, c.z + d],
+    side:  [c.x + d, c.y + d * .08, c.z],
+    top:   [c.x, c.y + d, c.z + 0.001],
+  }[name];
+  camera.position.set(...pos);
+  controls.target.copy(c);
+}
+
+document.querySelectorAll('[data-view]').forEach(b =>
+  b.addEventListener('click', () => setView(b.dataset.view)));
+
+let spinning = false;
+const spinBtn = document.getElementById('spin');
+spinBtn.addEventListener('click', () => {
+  spinning = !spinning;
+  controls.autoRotate = spinning;
+  controls.autoRotateSpeed = 1.6;
+  spinBtn.classList.toggle('on', spinning);
+});
+
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize);
+resize();
+
+await Promise.all(PARTS.map(loadPart));
+fitScene(true);
+
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
+
+// live reload: poll Last-Modified; re-fetch parts that changed
+const badge = document.getElementById('badge');
+const stamps = new Map();
+setInterval(async () => {
+  let changed = false;
+  for (const part of PARTS) {
+    try {
+      const res = await fetch(part.file, { method: 'HEAD', cache: 'no-store' });
+      const lm = res.headers.get('Last-Modified');
+      if (stamps.has(part.file) && stamps.get(part.file) !== lm) {
+        await loadPart(part);
+        changed = true;
+      }
+      stamps.set(part.file, lm);
+    } catch {}
+  }
+  if (changed) {
+    fitScene(false);
+    badge.textContent = 'model updated ' + new Date().toLocaleTimeString();
+    badge.classList.add('fresh');
+    setTimeout(() => badge.classList.remove('fresh'), 2000);
+  }
+}, 2500);
+</script>
+</body>
+</html>

@@ -6,6 +6,14 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Added
+- **`vibecad` v0.2.0** — shop package upgrade: `scripts/yieldopt.py` 1D cutting-stock optimizer (FFD + kerf + end-trim, whole-board handling, grouped cut patterns, saw-setting batches, offcut keeper list, `--json` mode), `references/shop-workflow.md` (design↔yield feedback loop incl. the stock/2 trap, cut-session sequencing, assembly-step design rules with per-step fastener schedules, consolidated hardware schedule). Battle-tested against the first real project's cut list, where it beat the hand plan's packing.
+- **`vibecad` v0.1.0** (closes #7) — conversational parametric CAD via OpenSCAD. Describe a physical object in plain English → Claude writes a parametric .scad script → renders a 4-view preview set headless → iterate on feedback; the user never opens a CAD UI. Woodworking-first: nominal-vs-actual lumber tables, kerf-aware cut lists + stock shopping lists, board-foot math, ergonomic defaults. Also exports STL (3D print) and DXF (laser/CNC). Projects archive to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/vibecad/projects/<slug>/`. Documents the macOS Gatekeeper silent-failure gotcha (unsigned cask → renders exit 1 with no output until dequarantined).
+
+---
+
 ## [v1.4.0] — 2026-07-15
 
 ### Added
