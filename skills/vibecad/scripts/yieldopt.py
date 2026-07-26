@@ -27,9 +27,11 @@ Notes:
 - Run per material/profile (don't mix 1x2 cedar with 2x4 PT in one plan).
 - A part longer than every usable stock length is a hard error — resize bays
   or add a longer stock option instead of silently dropping it.
+- Kerf model: kerf is charged BETWEEN retained parts. Reported offcuts are
+  net of the one extra kerf needed to free them from the last part.
 - Heuristic: FFD into the open board with the least usable remainder; new
-  boards pick the stock whose usable length fits with the lowest price per
-  used inch. Optimal for typical shop plans, not provably minimal.
+  boards pick the stock with the lowest price per usable inch that fits.
+  Good for typical shop plans, not provably minimal.
 """
 
 import json
@@ -72,7 +74,7 @@ def optimize(plan):
             fits = [s for s in stock_types if s["length"] >= piece["length"]]
             s = min(fits, key=lambda s: s["length"])
             boards.append({"stock": s, "remaining": s["length"] - piece["length"],
-                           "cuts": [piece], "whole": True})
+                           "cuts": [piece], "whole": True})  # full-board reservation, no trim budget
         else:
             rest.append(piece)
     for piece in rest:
@@ -92,7 +94,8 @@ def optimize(plan):
             b["cuts"].append(piece)
         else:
             fits = [s for s in stock_types if usable(s, end_trim) >= need]
-            s = min(fits, key=lambda s: (s["price"] / max(need, 1), s["length"]))
+            s = min(fits, key=lambda st: (st["price"] / usable(st, end_trim),
+                                          usable(st, end_trim) - need))
             boards.append({"stock": s, "remaining": usable(s, end_trim) - need,
                            "cuts": [piece], "whole": False})
 
@@ -120,7 +123,7 @@ def report(plan, boards, kerf, end_trim):
     out.append("\nCUT PATTERNS (identical boards grouped — cut in listed order, longest first)")
     whole_n = sum(1 for b in boards if b.get("whole"))
     if whole_n:
-        out.append(f"  NOTE: {whole_n} boards are used WHOLE (no end-trim budget) — "
+        out.append(f"  NOTE: {whole_n} boards are FULL-BOARD reservations (no end-trim budget) — "
                    f"hand-pick those with clean, uncracked ends at the store")
     patterns = {}
     for b in boards:
@@ -131,9 +134,10 @@ def report(plan, boards, kerf, end_trim):
     for (name, whole, _), v in sorted(patterns.items(), key=lambda kv: -kv[1]["n"]):
         b = v["b"]
         cuts = " | ".join(f"{c['label']} {c['length']:g}\"" for c in b["cuts"])
-        tag = " WHOLE" if whole else ""
+        tag = " FULL-BOARD" if whole else ""
+        off = max(0.0, b["remaining"] - (kerf if b["remaining"] > 0 and b["cuts"] else 0))
         out.append(f"  {v['n']:>3} x [{name}]{tag}: {cuts}"
-                   f"  -> offcut {b['remaining']:.1f}\"")
+                   f"  -> offcut {off:.1f}\"")
 
     angles = {}
     for b in boards:
@@ -146,8 +150,9 @@ def report(plan, boards, kerf, end_trim):
 
     keep = {}
     for b in boards:
-        if b["remaining"] >= 12:
-            k = round(b["remaining"])
+        net = b["remaining"] - (kerf if b["remaining"] > 0 and b["cuts"] else 0)
+        if net >= 12:
+            k = round(net)
             keep[k] = keep.get(k, 0) + 1
     if keep:
         out.append("\nOFFCUTS >= 12\" worth keeping: " +
@@ -155,13 +160,33 @@ def report(plan, boards, kerf, end_trim):
     return "\n".join(out)
 
 
+def validate_plan(plan):
+    if not isinstance(plan.get("stock"), list) or not plan["stock"]:
+        raise SystemExit("plan needs a non-empty 'stock' list")
+    if not isinstance(plan.get("parts"), list) or not plan["parts"]:
+        raise SystemExit("plan needs a non-empty 'parts' list")
+    for st in plan["stock"]:
+        if not (float(st.get("length", 0)) > 0 and float(st.get("price", -1)) >= 0):
+            raise SystemExit(f"bad stock entry: {st}")
+    plan["parts"] = [p for p in plan["parts"] if int(p.get("qty", 1)) > 0]
+    for p in plan["parts"]:
+        if not float(p.get("length", 0)) > 0:
+            raise SystemExit(f"bad part entry (need positive length): {p}")
+    if not plan["parts"]:
+        raise SystemExit("no parts with qty >= 1")
+
+
 def main():
     args = sys.argv[1:]
     if not args or args[0] in ("-h", "--help"):
         print(__doc__)
         return
-    with open(args[0]) as f:
-        plan = json.load(f)
+    try:
+        with open(args[0]) as f:
+            plan = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        raise SystemExit(f"could not read plan: {e}")
+    validate_plan(plan)
     boards, kerf, end_trim = optimize(plan)
     if "--json" in args:
         print(json.dumps({

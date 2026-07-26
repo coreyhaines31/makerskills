@@ -25,16 +25,17 @@ still negotiable, and adjust the DESIGN to unlock packings:
 - **Bay/span sizing chases stock lengths**: 96" bays = uncut 8' boards,
   144" spans = uncut 12' boards. Unequal bays that pack beat equal bays
   that don't.
-- **The stock/2 trap**: two "48-inch" parts do NOT fit one 8' board — kerf
-  + end trim eat ~1.25". Spec paired parts at `stock/2 − 0.25"` (47.75" or
-  safer 47.5") when the joint lands on structure with tolerance. Same for
-  thirds: 31.5", not 32".
+- **The stock/2 trap**: two "48-inch" parts do NOT fit one 8' board — end
+  trim (0.5"/end) + one kerf eat 1.125", so the pair limit is
+  `(96 − 1 − 0.125) / 2 = 47.4375"`. Spec paired parts at **47.25"** for
+  practical margin (generally: `(stock − 2·trim − kerf) / 2`, rounded down
+  to a friendly fraction). Same logic for thirds: 31.25", not 32".
 - **Whole-board parts** (length = raw stock length) are legitimate but get
   flagged: no end-trim budget, so the shopper hand-picks boards with clean
   ends. The optimizer handles this automatically.
 - **Check the pairings it finds** — it routinely discovers combos a human
-  plan misses (e.g., 96" + 42" on one 12' board at 3.9" waste, where the
-  "obvious" 2×42-per-8' plan wastes 12").
+  plan misses (e.g., 96" + 42" on one 12' board leaving a ~4.9" offcut,
+  where the "obvious" 2×42-per-8' plan wastes 12" per board).
 - Iterate: tweak part lengths → rerun → watch yield %. Above ~85% is good
   for mixed lists; uncut-heavy designs hit 95%+.
 - **Buy spares**: add ~5% boards (minimum 2) beyond the optimized count for
