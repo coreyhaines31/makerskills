@@ -2,7 +2,7 @@
 name: vibecad
 description: "When you want to design a physical object by describing it in plain English — no CAD UI, ever. Claude writes a parametric OpenSCAD script, renders multi-view previews headless, and iterates on your feedback like vibe coding a web app. Woodworking-first (cut lists, nominal vs actual lumber, board feet, sheet-goods layout) but handles 3D-print parts (STL) and laser/CNC (DXF) too. Triggers on \"/vibecad,\" \"design a [bench/shelf/table/bracket/jig],\" \"vibe cad,\" \"model this in openscad,\" \"make me a cut list,\" \"design something to build,\" \"3d model this part,\" \"woodworking design for X.\" Differs from slide-deck/canvas-design (2D visuals) — this produces buildable 3D geometry and shop-ready outputs."
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /vibecad — Conversational parametric CAD via OpenSCAD
@@ -63,11 +63,16 @@ Conventions (these make iteration cheap — the whole point):
 
 3. Serve `viewer/` with a static server the user can keep open (a process manager like solo, or `python3 -m http.server`), give them the URL, and keep re-exporting STLs after each design change — that's the whole live loop.
 
-## Step 4 — Shop-ready outputs
+## Step 4 — The shop package
 
-When the user approves the design ("lock it in," "that's it," "build it"):
+When the user approves the design ("lock it in," "that's it," "build it"), produce the full package — methodology in [references/shop-workflow.md](./references/shop-workflow.md):
 
-- **Woodworking**: cut list table (part, qty, stock, cut length, notes), board-foot / sheet estimate, hardware list if any, assembly order. Formulas + stock tables in [references/woodworking.md](./references/woodworking.md). Offer a dimensioned orthographic render set. If the project has a browser viewer, embed the whole build plan there as a collapsible panel (HUD button toggling an `<aside>` of nested `<details>` sections: shopping list, per-segment cut lists, angles & joints, assembly order, cost — with a warning callout for any still-assumed site measurements). The plan next to the orbitable model is how users actually consume it.
+1. **Yield-optimized buy list**: write a `plan.json` per material and run [scripts/yieldopt.py](./scripts/yieldopt.py) (FFD bin packing with kerf + end-trim). Run it DURING design too — adjust part lengths (e.g., 47.5" not 48" for board-halving parts) and bay spacing to chase uncut stock; the optimizer finds pairings humans miss. Add ~5% spare boards on top.
+2. **Cut session**: grouped cut patterns per board, saw-setting batches (all square cuts, then each angle once), stop-block callouts for repeated lengths, label-as-you-cut, keep flagged offcuts.
+3. **Assembly steps**: LEGO-ordered (physical dependency), each step with its own exact fastener schedule (type × size × coating × count × drive direction), flat-work before ladder-work, one QC check per step, cure/wait steps numbered.
+4. **Consolidated hardware schedule**: every connection → fastener spec → total → store package size, plus the smalls (clips, staples, tension hardware, gloves, cutters, clamps, finish).
+
+- **Woodworking**: all of the above, plus board-foot / sheet estimate from [references/woodworking.md](./references/woodworking.md) and a dimensioned orthographic render set. If the project has a browser viewer, embed the whole build plan there as a collapsible panel (HUD button toggling an `<aside>` of nested `<details>` sections: shopping list, per-segment cut lists, angles & joints, assembly order, cost — with a warning callout for any still-assumed site measurements). The plan next to the orbitable model is how users actually consume it.
 - **LEGO-style step instructions** (when the user wants them): add `step = 0` to the script plus a gate module — `module sc(s) { if (step == 0 || s < step) children(); else if (s == step) color([1, 0.30, 0.08]) children(); }` — and wrap every geometry block with its build-phase number (posts=1, battens=2, … gates=last). Parts before the current step keep natural colors, the step's parts render highlight orange, later parts are hidden. Prefer the LIVE-3D variant: also add `only_step = 0` (sc() emits only step N when set), export `openscad -D only_step=N -o viewer/models/step-N.stl` per step (suppress site/context groups when only_step > 0), and have the viewer's stepper hide the main part meshes, show step meshes 1..N (current step in highlight orange + slight emissive, earlier steps in natural colors), with a side card per step: number badge, parts callout with quantities, build note, prev/next + arrow keys. Orbit/pan/zoom stays live while stepping — users invariably want to reorient mid-instruction. Sequence steps by PHYSICAL DEPENDENCY, not by part type: every step's parts must have something already built to fasten to (a mid-span stiffener can't precede the boards it stiffens — if a step renders parts floating in air, the order is wrong, and users notice immediately). Static per-step PNGs (`-D step=N` with a FIXED `--camera`, never `--viewall`) remain useful for print/PDF export. NOTE: `sc()` depends on the outer-color-wins behavior of recent OpenSCAD snapshots (an outer `color()` overrides children's internal colors).
 - **Optimize bays/spans to stock lengths before finalizing**: prefer post spacings that make slats/boards uncut stock (96" bays for 8' boards, 144" for 12') even if bays end up unequal — fewer cuts, less waste, joints always land on structure. Flag any unsupported span over ~48" for a batten/support.
 - **3D print**: `openscad -o part.stl design.scad`, report bounding box + rough volume.
