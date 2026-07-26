@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PROJECT_TITLE — vibecad showcase</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #17171c; }
+  .tag { position: fixed; top: 14px; left: 14px; z-index: 10; color: #cfcfd4;
+    font: 600 13px -apple-system, system-ui, sans-serif;
+    background: rgba(26,26,31,.85); border: 1px solid #333; border-radius: 10px; padding: 8px 12px; }
+  .tag small { display: block; color: #8a8a92; font-weight: 400; margin-top: 2px; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div class="tag">PROJECT_TITLE — KEY_DIMS<small>procedural code-only model · vibecad dims × img2threejs style · drag to orbit</small></div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+// ---- procedural wood textures (code-only, no downloads) ----
+function woodTexture(base, streak, ringScale = 42, w = 512, h = 512) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  g.fillStyle = base; g.fillRect(0, 0, w, h);
+  for (let i = 0; i < 130; i++) {
+    const y = Math.random() * h, len = 60 + Math.random() * 420, x = Math.random() * w;
+    g.strokeStyle = streak; g.globalAlpha = 0.12 + Math.random() * 0.18;
+    g.lineWidth = 0.6 + Math.random() * 2.2;
+    g.beginPath(); g.moveTo(x, y);
+    g.bezierCurveTo(x + len * .3, y + (Math.random() - .5) * 7, x + len * .7, y + (Math.random() - .5) * 7, x + len, y + (Math.random() - .5) * 4);
+    g.stroke();
+  }
+  for (let i = 0; i < 7; i++) {           // faint cathedral rings
+    const cx = Math.random() * w, cy = Math.random() * h;
+    for (let r = 6; r < ringScale * 3; r += 7 + Math.random() * 6) {
+      g.strokeStyle = streak; g.globalAlpha = 0.035;
+      g.beginPath(); g.ellipse(cx, cy, r * 2.1, r * 0.55, 0, 0, Math.PI * 2); g.stroke();
+    }
+  }
+  g.globalAlpha = 1;
+  const t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.colorSpace = THREE.SRGBColorSpace;
+  return t;
+}
+const matTop   = new THREE.MeshStandardMaterial({ map: woodTexture('#b97f3e', '#6e4319'), roughness: .5, metalness: 0 });
+const matFrame = new THREE.MeshStandardMaterial({ map: woodTexture('#c8a06b', '#8a6a3e'), roughness: .65,  metalness: 0 });
+const matShelf = new THREE.MeshStandardMaterial({ map: woodTexture('#b8854a', '#7c5628'), roughness: .55,  metalness: 0 });
+
+// ============================================================================
+// MODEL FACTORY — replace createNightstand() below with the project's factory.
+// Rules (img2threejs discipline, vibecad twist):
+//  - Dimensions come from the vibecad parametric model, NEVER vision-guessed.
+//  - Code-only: primitives + procedural canvas textures. No mesh files.
+//  - One material per stock species/role; grain via woodTexture(base, streak).
+//  - After any change: screenshot -> agent vision review -> self-correct
+//    (first-pass wood usually reads washed out: deepen tones, raise grain
+//    alpha, drop scene.environmentIntensity toward ~0.45).
+// ============================================================================
+// ---- example factory: nightstand (exact vibecad dimensions, inches) ----
+function createNightstand() {
+  const G = new THREE.Group();
+  const box = (m, sx, sy, sz, x, y, z) => {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), m);
+    mesh.position.set(x, y, z); mesh.castShadow = mesh.receiveShadow = true;
+    G.add(mesh); return mesh;
+  };
+  const W = 18, D = 16.5, H = 24, T = .75, OV = .75, LEG = 1.5;
+  const legH = H - T, fw = W - 2 * OV, fd = D - 2 * OV;
+
+  for (const i of [0, 1, 2])                                   // top: three visible glued boards
+    box(matTop, W, T, 5.46, 0, legH + T / 2, -D / 2 + 5.5 / 2 + i * 5.5);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1])          // legs
+    box(matFrame, LEG, legH, LEG, sx * (fw - LEG) / 2, legH / 2, sz * (fd - LEG) / 2);
+  for (const sz of [-1, 1])                                    // front/back aprons
+    box(matFrame, fw - 2 * LEG, 2.5, .75, 0, legH - 1.25, sz * (fd - .75) / 2);
+  for (const sx of [-1, 1]) {                                  // side aprons + shelf stretchers
+    box(matFrame, .75, 2.5, fd - 2 * LEG, sx * (fw - .75) / 2, legH - 1.25, 0);
+    box(matFrame, .75, 2.5, fd - 2 * LEG, sx * (fw - .75) / 2, 6 - .75 - 1.25, 0);
+  }
+  for (const i of [0, 1])                                      // shelf slats resting on stretchers
+    box(matShelf, fw, .75, 5.5, 0, 6 - .375, (i === 0 ? -1 : 1) * 3.0);
+  return G;
+}
+
+// ---- studio scene ----
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(devicePixelRatio);
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x17171c);
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), .04).texture;
+scene.environmentIntensity = 0.45;
+
+const cam = new THREE.PerspectiveCamera(38, 1, .1, 500);
+cam.position.set(34, 26, 40);
+const controls = new OrbitControls(cam, renderer.domElement);
+controls.target.set(0, 11, 0); controls.enableDamping = true;
+controls.autoRotate = true; controls.autoRotateSpeed = 1.1;
+
+const key = new THREE.DirectionalLight(0xfff1de, 2.6);
+key.position.set(26, 42, 22); key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+Object.assign(key.shadow.camera, { left: -30, right: 30, top: 30, bottom: -30 });
+scene.add(key, new THREE.HemisphereLight(0xdde4ff, 0x2a2622, .5));
+
+const floor = new THREE.Mesh(new THREE.CircleGeometry(60),
+  new THREE.MeshStandardMaterial({ color: 0x232329, roughness: .9 }));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true;
+scene.add(floor);
+
+scene.add(createNightstand());
+
+function resize() {
+  renderer.setSize(innerWidth, innerHeight);
+  cam.aspect = innerWidth / innerHeight; cam.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, cam); });
+</script>
+</body>
+</html>

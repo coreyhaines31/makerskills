@@ -2,7 +2,7 @@
 name: vibecad
 description: "When you want to design a physical object by describing it in plain English — no CAD UI, ever. Claude writes a parametric OpenSCAD script, renders multi-view previews headless, and iterates on your feedback like vibe coding a web app. Woodworking-first (cut lists, nominal vs actual lumber, board feet, sheet-goods layout) but handles 3D-print parts (STL) and laser/CNC (DXF) too. Triggers on \"/vibecad,\" \"design a [bench/shelf/table/bracket/jig],\" \"vibe cad,\" \"model this in openscad,\" \"make me a cut list,\" \"design something to build,\" \"3d model this part,\" \"woodworking design for X.\" Differs from slide-deck/canvas-design (2D visuals) — this produces buildable 3D geometry and shop-ready outputs."
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # /vibecad — Conversational parametric CAD via OpenSCAD
@@ -28,6 +28,7 @@ Project archive lives at `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/vibec
 Get just enough to draft v1 — don't interrogate. Three things:
 
 1. **What is it and where does it live?** (function drives dimensions: a bench seat is ~17–18" high, a desk ~29–30", a shelf depth follows what it holds)
+   - **Photo-in**: if the user provides a reference photo of a piece to recreate and the `img2threejs` skill is installed (github.com/hoainho/img2threejs, Apache 2.0), run its reconstruction pipeline first to extract component hierarchy and proportions — then vibecad owns the conversion to BUILDABLE: snap reconstructed member sizes to actual stock (a ~1.4" square leg becomes a 2x2 at 1.5"), reproportion to stock-friendly lengths (yield feedback loop), and design real joinery. The photo gives the look; vibecad gives the lumber.
 2. **Rough overall dimensions** — accept vagueness ("about four feet wide") and pick sensible defaults for the rest. State assumptions in the reply rather than asking.
 3. **Material + how it gets made** — mode routing:
    - **Woodworking** (default for furniture/shop projects): units = **inches**, stock = dimensional lumber / sheet goods. Load [references/woodworking.md](./references/woodworking.md). Model ACTUAL sizes (a 2x4 is 1.5 × 3.5), never nominal.
@@ -80,8 +81,22 @@ When the user approves the design ("lock it in," "that's it," "build it"), produ
 
 Write `notes.md` in the project dir: what it is, final key dimensions, decisions made and why, date. That's the resume point for "let's revisit the bench."
 
+## Step 5 — Showcase render (optional, on request or at lock-in)
+
+The shop package is for the builder; the showcase is for everyone else — a
+polished, orbiting, code-only Three.js presentation of the design (procedural
+wood grain, studio lighting, turntable) worth texting to the person you're
+building it for. Method borrowed from img2threejs, with one upgrade: the spec
+comes from the parametric model's exact dimensions, never vision guessing.
+
+1. Copy [references/showcase-template.html](./references/showcase-template.html) into the project (or the served viewer dir as `<slug>/index.html` for an instant URL) and replace the example factory with the project's parts — one `box()` per physical part, one material per stock species, exact model dims.
+2. Follow the template's embedded rules: procedural canvas textures only, no mesh files.
+3. **Run the self-correct loop before showing**: screenshot → agent vision review → refine. First-pass wood almost always reads washed out under RoomEnvironment — deepen base tones, raise grain alpha, drop `environmentIntensity` toward ~0.45.
+4. For full photo-based reconstruction quality gates (detail inventories, staged passes), defer to the `img2threejs` skill itself if installed.
+
 ## Composes with
 
+- **`img2threejs`** (external — github.com/hoainho/img2threejs, Apache 2.0, install to `~/.claude/skills/`) — photo-in reconstruction (Step 1) and the showcase discipline (Step 5). vibecad = buildable; img2threejs = beautiful; the exact-dims handoff between them beats either alone.
 - **`second-brain`** — capture finished project summaries to the vault if the user asks
 - **`skillify`** — pattern-source for this skill's structure
 
