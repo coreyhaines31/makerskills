@@ -2,7 +2,7 @@
 name: social-fetch
 description: "When you or another skill needs to fetch the content of a social media post by URL — tweet, X thread, LinkedIn post, Instagram post, TikTok video, Bluesky post, Reddit thread, Mastodon status, Threads post, Hacker News thread. Returns normalized structured data (author, posted_at, text, engagement counts, media URLs, replies if requested) regardless of platform. Tries strategies in order: direct API (Bluesky, Mastodon, HN, Reddit), agent-browser with modal dismissal (LinkedIn, X preview), Wayback Machine (older posts), paid APIs (ScrapeCreators / Apify — only if env keys present). Triggers on \"/social-fetch <url>,\" \"fetch this tweet,\" \"fetch this post,\" \"what does this LinkedIn say,\" \"read this thread,\" \"pull this post.\" Used by deep-research (citing specific posts), jab-hook (inspiration account analysis), business-brainstorm (competitor / operator commentary)."
 metadata:
-  version: 0.1.1
+  version: 0.2.0
 ---
 
 # /social-fetch — Pull any social post by URL
@@ -87,6 +87,7 @@ Based on flags / asks:
 |---|---|
 | `--with-replies` | Fetch top-level replies (1 hop). Costs extra API quota. |
 | `--thread` | If the post is part of a thread by the same author, fetch the whole thread. |
+| `--audience <relation>` | For X only, fetch a bounded public `followers`, `following`, or `verified_followers` dataset after explicit approval. |
 | `--raw` | Include the raw API/scrape response in the output (for debugging) |
 | `--media` | Download media files (images/videos) to `~/Documents/social-fetches/<platform>-<id>/` |
 
@@ -108,7 +109,7 @@ Skip cache if `--no-cache` flag is set or for `--with-replies` / `--thread` (lik
 
 ## Known limits
 
-- **X**: free strategies return tweet preview only (text, author, basic engagement). Full thread + replies need `$SCRAPECREATORS_API_KEY` or `$APIFY_API_TOKEN`.
+- **X**: free strategies return tweet preview only (text, author, basic engagement). Full thread, replies, or optional public audience context need `$SCRAPECREATORS_API_KEY` or `$APIFY_API_TOKEN`.
 - **LinkedIn**: agent-browser works for profile recent-activity (after dismissing the modal). Specific post URLs (`linkedin.com/posts/...`) often need paid fallback.
 - **Instagram / TikTok / Threads**: heavy anti-bot. Paid fallback strongly recommended.
 - **Bluesky / Mastodon / HN / Reddit**: free + reliable.
