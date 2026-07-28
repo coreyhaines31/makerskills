@@ -89,6 +89,7 @@ export NOTION_API_KEY="..."                 # pm Notion adapter, deep-research
 export TYPEFULLY_API_KEY="..."              # jab-hook drafts
 export GEMINI_API_KEY="..."                 # watch-video multimodal mode
 export SCRAPECREATORS_API_KEY="..."         # social-fetch full data (X, IG, TikTok, LinkedIn posts)
+export APIFY_API_TOKEN="..."                # social-fetch Actor fallbacks, including structured X data
 export BRAVE_API_KEY="..."                  # deep-research / last30days web search
 export PLANE_API_KEY="..."                  # pm Plane adapter (if you use Plane)
 export LINEAR_API_KEY="..."                 # pm Linear adapter (if you use Linear)
