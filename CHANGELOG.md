@@ -10,6 +10,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ### Changed
 - **`vibecad` moved out** (closes #18) — extracted with history to its own repo (`coreyhaines31/vibecad`, private for now). 20 → 19 skills. Its changelog entries below remain for the record.
+- **`social-fetch` v0.2.0** - adds bounded Xquik Tweet and Follower Actor routes, bearer-token examples, charge controls, and secret-safe credential verification while preserving existing fallbacks.
 
 ### Added
 - **`vibecad` v0.3.0** (closes #15) — img2threejs integration: `references/showcase-template.html` (code-only procedural Three.js presentation scene — canvas wood grain, RoomEnvironment/ACES studio lighting, turntable — with the model factory driven by exact vibecad dimensions instead of vision guessing) + Step 5 showcase workflow with the screenshot→vision-review→self-correct loop, and photo-in intake (img2threejs reconstructs the look, vibecad snaps it to buildable stock sizes). Cross-referenced as an external Apache-2.0 skill, not vendored.
