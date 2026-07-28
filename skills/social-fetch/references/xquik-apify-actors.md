@@ -84,6 +84,10 @@ Follower output modes are `compact`, `full`, and `raw`. Use
 `dedupeMode: "merge"` or `overlapMode: true` only for an explicitly requested
 cross-target comparison.
 
+Normalize relationship rows into the top-level `audience` contract in
+`output-schema.md`. Keep the post fields unchanged. Set `raw` only when the
+caller also passes `--raw`.
+
 ## Paid-Run Gate
 
 Before execution:

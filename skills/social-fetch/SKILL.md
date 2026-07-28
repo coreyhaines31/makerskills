@@ -73,7 +73,8 @@ Return this shape regardless of platform (see `references/output-schema.md` for 
   },
   "is_thread": true,
   "thread": [],
-  "replies": []
+  "replies": [],
+  "audience": null
 }
 ```
 
@@ -93,11 +94,16 @@ Based on flags / asks:
 
 Default: just the post itself, no replies, no media download (just URLs).
 
+When `--audience` is set, return the normalized relationship dataset in the
+top-level `audience` field defined by `references/output-schema.md`. Do not put
+it in `raw`, and do not alter the normalized post fields.
+
 ## Step 6 — Cache (optional)
 
 If `~/Documents/social-fetches/_cache/` exists, cache successful fetches there by `{platform}-{id}.json` for 24h. Saves API quota when the same post is referenced repeatedly across skills.
 
-Skip cache if `--no-cache` flag is set or for `--with-replies` / `--thread` (likely-stale).
+Skip cache if `--no-cache`, `--with-replies`, `--thread`, or `--audience` is
+set. Audience relations and limits must never reuse the plain post cache key.
 
 ## Composes with
 
