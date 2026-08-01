@@ -61,14 +61,22 @@ Read `references/destinations.md` and apply the relevant transform.
 
 ## Step 6 — Output
 
+**Clipboard write procedure (mandatory for all clipboard destinations):**
+
+1. **Write the cleaned content to a temp file with the Write tool** (`/tmp/paste-<slug>.txt`). NEVER pipe content to `pbcopy` via a shell heredoc or echo — heredocs passed through the tool harness get hard-wrapped (~70 chars) and pick up leading indentation on every line. The pasted result has broken sentences and stray spaces while looking fine in chat.
+2. Copy from the file: `pbcopy < /tmp/paste-<slug>.txt`
+3. **Verify the round trip** — read `pbpaste` back and check: 0 lines with leading whitespace, no unexpected mid-paragraph line breaks (longest-line sanity: prose paragraphs should be one long line each), char count matches the file. One-liner:
+   `pbpaste | python3 -c "import sys; ls=sys.stdin.read().split('\n'); print(len(ls),'lines |',sum(1 for l in ls if l!=l.lstrip()),'leading-ws |','max',max(len(l) for l in ls))"`
+4. **Generate the chat preview FROM `pbpaste`, not from the intended content.** The preview must show what actually landed on the clipboard — previewing from memory is how a mangled copy ships while looking clean in chat.
+
 | Destination | Output behavior |
 |---|---|
-| plain / slack / notion / twitter / linkedin / email / github | (a) Show preview in a code fence in chat. (b) Copy clean version to clipboard via `pbcopy`. |
+| plain / slack / notion / twitter / linkedin / email / github | (a) Clipboard write procedure above. (b) Show the round-trip preview in a code fence in chat. |
 | email rich | Render to HTML, write to `/tmp/paste-<timestamp>.html`, `open` it in browser. Skip clipboard (the user copies from browser to preserve rich text). |
-| markdown | Render the cleaned markdown directly in chat (Claude Code renders it). Also copy raw markdown to clipboard. Offer: *"Open as HTML too?"* — if yes, write and open. |
+| markdown | Render the cleaned markdown directly in chat (Claude Code renders it). Also copy raw markdown to clipboard via the file procedure. Offer: *"Open as HTML too?"* — if yes, write and open. |
 | html | Render to HTML, write to `/tmp/paste-<timestamp>.html`, `open` it. Skip clipboard. |
 
-After output, report a one-line summary of what was cleaned (e.g., *"Stripped 12 ANSI codes, 4 box-drawing chars, 1 prompt artifact. Character count: 248 / 280 (X)."*).
+After output, report a one-line summary of what was cleaned (e.g., *"Stripped 12 ANSI codes, 4 box-drawing chars, 1 prompt artifact. Character count: 248 / 280 (X)."*), including the verification result (e.g., *"Round-trip verified: 0 leading-ws lines."*).
 
 ## Length warnings
 
@@ -118,6 +126,8 @@ If the content has URLs and destination is **twitter** or **linkedin**:
 - `watch-video` — transcript / summary output often flows through `paste` for platform-specific reformatting
 
 ## Notes on quality
+
+- **The clipboard write procedure in Step 6 is not optional.** File → `pbcopy < file` → round-trip verify → preview from `pbpaste`. Origin: 2026-07-31, a heredoc-piped copy shipped hard-wrapped + indented while the chat preview looked clean; the user caught it, not the verification.
 
 - **Secret detection runs first, always.** Before any formatting or destination logic, `paste` scans for `sk-*`, `AKIA*`, `xoxb-*`, JWT-shaped strings, and long-hex tokens. Prompts before proceeding on any hit. Better to false-positive occasionally than to leak a real key.
 - **Destination-aware transforms, not one-size-fits-all.** Slack wants `*bold*`; LinkedIn wants unicode-styled bold; email wants HTML. Same input, 9 different valid outputs. The destination flag is not optional.
