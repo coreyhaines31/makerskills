@@ -76,6 +76,7 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
+
 ```
 
 ## 5. API keys
