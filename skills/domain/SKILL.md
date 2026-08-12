@@ -1,8 +1,8 @@
 ---
 name: domain
-description: "When you want to brainstorm and check available .com domains for a new project — brand naming, aftermarket pricing (HugeDomains / Afternic / Sedo / Dan), USPTO trademark screening, and social handle availability. Built on Laura Roeder's \"work backwards from availability, not from a name you fell in love with\" methodology. Uses Vercel CLI + whois + Domainr API + Namecheap API + agent-browser for the pieces each tool actually reliably supports (multi-tool ensemble because no single tool covers everything cleanly). 11-step workflow: budget → brainstorm → primary availability check → whois cross-check → Domainr aggregation → Namecheap price → aftermarket sweep → bucket → negotiate → NAME research (trademark + socials) → buy. Triggers on \"/domain,\" \"find a domain,\" \"check domain availability,\" \"brainstorm a domain,\" \"what .com is available for X,\" \"domain hunt,\" \"name my project,\" \"is X.com available,\" \"aftermarket price on X.com,\" \"trademark check for X.\""
+description: "When you want to brainstorm and check available .com domains for a new project — brand naming, aftermarket pricing (HugeDomains / Afternic / Sedo / Dan), USPTO trademark screening, and social handle availability. Built on Laura Roeder's \"work backwards from availability, not from a name you fell in love with\" methodology. Uses Vercel CLI + whois + Domainr API + Namecheap API + agent-browser for the pieces each tool actually reliably supports (multi-tool ensemble because no single tool covers everything cleanly). 11-step workflow: budget → brainstorm → primary availability check → whois cross-check → Domainr aggregation → Namecheap price → aftermarket sweep (+ liveness probe for parked/dead domains, drop-watch for expiring ones) → bucket → negotiate → NAME research (trademark + socials) → buy. Triggers on \"/domain,\" \"find a domain,\" \"check domain availability,\" \"brainstorm a domain,\" \"what .com is available for X,\" \"domain hunt,\" \"name my project,\" \"is X.com available,\" \"aftermarket price on X.com,\" \"trademark check for X.\""
 metadata:
-  version: 0.1.1
+  version: 0.2.0
 ---
 
 # /domain — Brainstorm + check available .com domains
@@ -84,46 +84,77 @@ vercel domains inspect candidate.com
 
 Ground truth for registration status. **Query the right server per TLD** — pinning `-h whois.verisign-grs.com` to a non-.com produces silent false negatives.
 
+**Classification order matters** (stolen from [unclaimed](https://github.com/iannuttall/unclaimed)): check for REGISTERED signals *first*, then available signals. A parked domain's whois/lander can contain "this domain is available for sale" — grepping for "available" first turns a taken name into a false positive. And **reserved ≠ available**: "is reserved", "not available for registration", "blocked for registration" all mean taken, even though RDAP often 404s these names.
+
+- Registered signals: `creation date`, `registrar:`, `registry expiry`, `registrant`, `name server`
+- Reserved signals (treat as taken): `is reserved`, `reserved by`, `not available for registration`, `blocked for registration`
+- Available signals: `no match`, `not found`, `no entries found`, `no object found`, `not registered`, `available for registration`
+
 **`.com` / `.net`** — Verisign:
 
 ```bash
 for domain in candidate1.com candidate2.com; do
-  status=$(whois -h whois.verisign-grs.com "$domain" 2>&1 | grep -iE "no match|registrar:" | head -1)
-  echo "$domain → $status"
-done
-```
-
-**`.ai`** — `whois.nic.ai` directly (default `whois` on macOS doesn't always chase the IANA referral):
-
-```bash
-for domain in candidate.ai; do
-  result=$(whois -h whois.nic.ai "$domain" 2>&1)
-  if echo "$result" | grep -qi "no object found\|no match\|not registered\|no entries found"; then
+  result=$(whois -h whois.verisign-grs.com "$domain" 2>&1)
+  if echo "$result" | grep -qiE "registrar:|creation date"; then
+    expiry=$(echo "$result" | grep -i "registry expiry" | head -1 | sed 's/.*: //')
+    echo "$domain → TAKEN (expires $expiry)"
+  elif echo "$result" | grep -qiE "reserved|not available for registration"; then
+    echo "$domain → RESERVED (not registrable)"
+  elif echo "$result" | grep -qi "no match"; then
     echo "$domain → AVAILABLE"
-  elif echo "$result" | grep -qi "registrar:"; then
-    echo "$domain → TAKEN"
+  else
+    echo "$domain → UNKNOWN (do not treat as available)"
   fi
 done
 ```
 
-**`.dev` / `.app` / `.io` / other** — use `rdap.org` as universal fallback:
+**Any other TLD** — don't hardcode servers; ask IANA for the authoritative whois host, then query it (`whois.nic.<tld>` is the fallback convention):
 
 ```bash
+tld=ai
+server=$(whois -h whois.iana.org "$tld" 2>/dev/null | grep -i "^whois:" | awk '{print $2}')
+server=${server:-whois.nic.$tld}
+whois -h "$server" candidate.$tld
+```
+
+Caveat: some registries have no port-43 whois at all (Google's `.dev`/`.app`/`.page` — IANA lists nothing and `whois.nic.dev` doesn't resolve). For those, RDAP below IS the ground truth.
+
+**RDAP for `.dev` / `.app` / `.io` and other modern TLDs** — JSON-native, cleaner than whois when the TLD supports it:
+
+```bash
+UA="domain-skill/0.1 (availability check)"
 for domain in candidate.dev candidate.app; do
-  code=$(curl -sL -o /dev/null -w "%{http_code}" "https://rdap.org/domain/$domain")
+  code=$(curl -sL -o /dev/null -w "%{http_code}" -A "$UA" "https://rdap.org/domain/$domain")
   case "$code" in
-    404) echo "$domain → AVAILABLE" ;;
+    404) echo "$domain → probably available (confirm via whois — see caveat)" ;;
     200) echo "$domain → TAKEN" ;;
     429) echo "$domain → rate-limited, sleep + retry" ;;
-    *)   echo "$domain → HTTP $code (unclear)" ;;
+    *)   echo "$domain → UNKNOWN (do not treat as available)" ;;
   esac
   sleep 1  # rdap.org rate-limits aggressively
 done
 ```
 
+**RDAP gotchas** (all verified by the unclaimed project):
+- **Always send a User-Agent** — rdap.org (and some registry servers) 403 bare requests, and a 403 read naively looks like "not 404 = taken."
+- **404 ≠ proof of availability.** Registry-reserved, blocked, and premium-unsold names also 404 on RDAP. Before reporting a name available on RDAP evidence alone, confirm with a whois query (Step 4 above) — if whois says reserved, it's taken.
+- **rdap.org only routes TLDs in the IANA bootstrap** (`https://data.iana.org/rdap/dns.json`). For a TLD outside it, an rdap.org 404 is meaningless — fall back to whois. Two useful direct endpoints not in the bootstrap: `.io` → `https://rdap.identitydigital.services/rdap/domain/<domain>`, `.so` → `https://rdap.nic.so/domain/<domain>`.
+- A 200 body includes `events[]` — the `expiration` eventDate feeds the drop-watch in Step 7a.
+
 **Reading the results:**
-- `No match` / `no object found` / RDAP 404 = unregistered, available
+- `No match` / `no object found` / RDAP 404 (whois-confirmed) = unregistered, available
 - `Registrar: <name>` / RDAP 200 = taken, check the aftermarket
+- Timeout / rate-limit / weird output = **UNKNOWN — never bucket as available.** Retry later instead.
+
+**Bulk multi-TLD sweeps** — if the hunt widens beyond a dozen candidates or beyond .com, don't hand-roll the loop; [unclaimed](https://github.com/iannuttall/unclaimed) does RDAP+whois with correct classification, resumable SQLite caching, and pricing (Node 24+):
+
+```bash
+npx unclaimed check orbit --tlds com,io,ai,dev
+npx unclaimed sweep --words-file ./candidates.txt --tlds com
+npx unclaimed available --sort commercial --limit 50
+```
+
+Its three states map to ours: `available` / `registered` / `unknown` (it never reports a timeout as available either).
 
 ## Step 5 — Domainr cross-check (aftermarket signal)
 
@@ -183,19 +214,65 @@ Aftermarket pricing — click to verify:
 
 **Laura's HugeDomains note**: she got Paperbell.com from HugeDomains for $1,795 and recommends them as the best aftermarket starting point — "a ton of great .com's available for less than $1k." Always check HugeDomains first on taken candidates.
 
+### Step 7a — Liveness probe: is anything actually on the taken domain?
+
+You can't scrape the marketplaces, but you CAN fetch the taken domain itself — and its lander usually tells you where it's for sale. A taken name with no real site is also the best negotiation/outreach lead: the owner isn't using it.
+
+```bash
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+for domain in taken1.com taken2.com; do
+  body=$(curl -sL --max-time 6 -A "$UA" "https://$domain/" 2>/dev/null | head -c 16384)
+  [ -z "$body" ] && body=$(curl -sL --max-time 6 -A "$UA" "http://$domain/" 2>/dev/null | head -c 16384)
+  final=$(curl -sIL --max-time 6 -A "$UA" -o /dev/null -w '%{url_effective}' "https://$domain/" 2>/dev/null)
+  hay="$final
+$body"
+  if [ -z "$body" ]; then
+    echo "$domain → NONE (no DNS / dead server — best outreach lead)"
+  elif echo "$hay" | grep -qiE "sedoparking|bodis\.com|parkingcrew|afternic|dan\.com|hugedomains|buy this domain|domain (name )?is for sale|domain for sale|buy now for|parked free|this web page is parked|domain has expired"; then
+    marker=$(echo "$hay" | grep -oiE "sedoparking|afternic|dan\.com|hugedomains|for sale" | head -1)
+    echo "$domain → PARKED ($marker — for-sale lead, note which marketplace)"
+  else
+    echo "$domain → LIVE (real site, owner is using it — long shot)"
+  fi
+done
+```
+
+(The final-URL check matters: many parked domains redirect straight to their marketplace host — e.g. landing on hugedomains.com tells you where to buy even if the lander body is JS.)
+
+Classify each taken candidate:
+- **NONE** (no DNS / connection refused) → strongest lead. Owner is squatting passively — whois-contact outreach or marketplace lowball.
+- **PARKED** → for sale. The marker/redirect host tells you which marketplace to open from the Step 7 links (a HugeDomains lander = buy via HugeDomains, and the first 16KB often shows the asking price — no scraping fight needed).
+- **LIVE** → in use. Drop unless the user really wants it.
+
+Only probe taken candidates the user still cares about — it's one live request per domain.
+
+### Step 7b — Drop-watch: taken but expiring soon
+
+For taken candidates, Step 4 already surfaced the expiry date. gTLD post-expiry lifecycle: auto-renew grace (≤45d) → redemption (30d) → pending delete (5d), so a lapsed name drops back to the pool **~75–80 days after expiry**. Most names just get renewed — but if a candidate is NONE/PARKED *and* expiry already passed, it may genuinely be dropping:
+
+```bash
+whois -h whois.verisign-grs.com candidate.com | grep -iE "expiry|domain status"
+```
+
+- Status `redemptionPeriod` or `pendingDelete` = the owner let it lapse. Estimate drop ≈ expiry + 80 days; put a backorder in at DropCatch/SnapNames (~$59–79, pay only on catch) rather than negotiating.
+- Recently-expired + parked-with-"domain has expired"-lander = same story.
+- This is an "if abandoned" estimate, not a promise — recheck weekly as the date approaches.
+
 ## Step 8 — Bucket the results
 
 Group into:
 - **Available now (~$10–$30/yr)** — primary candidates
-- **Aftermarket-listed under budget** — secondary (capture asking price + marketplace)
-- **Aftermarket over budget OR no listing found** — drop, unless the user loves it enough for direct owner outreach
+- **Aftermarket-listed under budget** — secondary (capture asking price + marketplace, from Step 7/7a)
+- **Dropping soon** — lapsed per Step 7b; backorder instead of buying
+- **Outreach leads** — taken, NONE/PARKED liveness, no reasonable listing; direct whois-contact offer
+- **Aftermarket over budget OR live site on it** — drop
 
 ## Step 9 — Negotiate on aftermarket listings
 
 When a candidate is listed:
 - Sticker price is rarely the floor. Try a lowball 30–50% below ask.
 - HugeDomains + Afternic have "Make an offer" — use it.
-- If the domain shows "parked" (lander only, no real site) and the owner isn't on a marketplace, look up whois contact + offer directly.
+- If Step 7a classified the domain PARKED or NONE and the owner isn't on a marketplace, look up whois contact + offer directly. A domain with no live site for years is a motivated-seller signal — lead with a modest concrete number, not "are you interested in selling."
 
 ## Step 10 — NOW do the name research (not before!)
 
@@ -292,6 +369,7 @@ For aftermarket purchases: buy through the marketplace directly (HugeDomains/Aft
 
 ## Notes on quality
 
+- **Three states, always.** Every check resolves to AVAILABLE / TAKEN / UNKNOWN. A timeout, rate-limit, 403, or unparseable response is UNKNOWN — never silently bucketed as available. Retry UNKNOWNs before presenting final results.
 - **Brainstorming-first, action-last.** Never run `vercel domains buy` until the user explicitly says "buy it." Real money. Availability + price checks (Step 3) use `vercel domains check` + `vercel domains price` which are safe.
 - **Budget filter is non-negotiable.** If the user pushes back ("but I love it"), remind them that's exactly the trap Laura warned about.
 - **Multi-tool ensemble is intentional.** No single tool covers all the bases cleanly — Vercel is fast but limited to gTLDs; whois is definitive but per-TLD-specific; Domainr aggregates; Namecheap prices year-1 promo; RDAP fills the modern-TLD gap; agent-browser drives USPTO. Skipping any leaves a blind spot.
