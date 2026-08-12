@@ -98,7 +98,7 @@ for domain in candidate1.com candidate2.com; do
   if echo "$result" | grep -qiE "registrar:|creation date"; then
     expiry=$(echo "$result" | grep -i "registry expiry" | head -1 | sed 's/.*: //')
     echo "$domain → TAKEN (expires $expiry)"
-  elif echo "$result" | grep -qiE "reserved|not available for registration"; then
+  elif echo "$result" | grep -qiE "is reserved|reserved by|not available for registration|blocked for registration"; then
     echo "$domain → RESERVED (not registrable)"
   elif echo "$result" | grep -qi "no match"; then
     echo "$domain → AVAILABLE"
@@ -139,7 +139,7 @@ done
 - **Always send a User-Agent** — rdap.org (and some registry servers) 403 bare requests, and a 403 read naively looks like "not 404 = taken."
 - **404 ≠ proof of availability.** Registry-reserved, blocked, and premium-unsold names also 404 on RDAP. Before reporting a name available on RDAP evidence alone, confirm with a whois query (Step 4 above) — if whois says reserved, it's taken.
 - **rdap.org only routes TLDs in the IANA bootstrap** (`https://data.iana.org/rdap/dns.json`). For a TLD outside it, an rdap.org 404 is meaningless — fall back to whois. Two useful direct endpoints not in the bootstrap: `.io` → `https://rdap.identitydigital.services/rdap/domain/<domain>`, `.so` → `https://rdap.nic.so/domain/<domain>`.
-- A 200 body includes `events[]` — the `expiration` eventDate feeds the drop-watch in Step 7a.
+- A 200 body includes `events[]` — the `expiration` eventDate feeds the drop-watch in Step 7b.
 
 **Reading the results:**
 - `No match` / `no object found` / RDAP 404 (whois-confirmed) = unregistered, available
