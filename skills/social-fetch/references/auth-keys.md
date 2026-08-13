@@ -20,7 +20,7 @@ The free strategies (Bluesky API, Mastodon API, HN Algolia, Reddit .json, agent-
    export SCRAPECREATORS_API_KEY="<your-key>"
    ```
 4. `source ~/.zshenv` or new terminal
-5. Verify: `echo $SCRAPECREATORS_API_KEY | head -c 8`
+5. Verify without printing the token: `test -n "${SCRAPECREATORS_API_KEY:-}" && echo "SCRAPECREATORS_API_KEY is set"`
 
 ### Apify
 
