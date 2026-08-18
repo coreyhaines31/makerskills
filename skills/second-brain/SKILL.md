@@ -2,7 +2,7 @@
 name: second-brain
 description: When you want to capture into, compile, query, lint, or connect your personal Second Brain. Wraps the Karpathy LLM Wiki schema (Obsidian or any markdown vault) — raw/ (unprocessed sources), wiki/ (AI-compiled interlinked topic pages), outputs/ (generated artifacts). Tool-agnostic in design but defaults to a vault at ${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/. Six modes — capture (drop something into raw/), compile (process unprocessed raw files into wiki pages, update INDEX.md), query (answer a question from the wiki, save to outputs/), lint (orphans / contradictions / stale / unprocessed raw / topic gaps), connect (suggest new wikilinks between pages), search (quick lookup). Triggers on "/second-brain," "/sb," "capture this," "save this to my brain," "compile the wiki," "process raw notes," "query my wiki," "ask my brain," "lint the wiki," "find connections," "search my notes." Complements deep-research (external corpus) — this is the internal corpus.
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /second-brain — Karpathy LLM Wiki workflow
@@ -133,6 +133,18 @@ Find pages that should be linked but aren't.
 
 Quick grep across `wiki/` + `raw/` for a term. Return matching files with a 2-line excerpt around the match. Faster than `query` when the user knows what page they're looking for.
 
+## Multi-writer git sync (remote agents)
+
+When the vault is git-backed to a hosted remote (GitHub/GitLab), the remote becomes a **capture API for agents that don't have filesystem access** — cloud agents, scheduled jobs, other machines. Any agent that can reach the git host's API (directly, or through an MCP integration layer like [Executor](https://executor.sh)) can read the wiki and capture into `raw/` by committing to the default branch.
+
+The discipline that keeps writers from diverging:
+
+1. **Local sessions pull before writing**: `git pull --rebase --autostash` at the start of any vault work, push after committing. Never assume local is current — a remote agent may have committed since the last session.
+2. **Obsidian users**: install the community **Git** plugin with auto-pull on an interval (~10 min) and pull-on-startup, but leave its auto-commit/auto-push **off** — sessions and agents own commits, which keeps history semantic instead of a stream of "vault backup" noise.
+3. **Remote agents commit append-mostly**: new files in `raw/` with descriptive commit messages. Append-mostly writes to distinct files make conflicts rare, and rebase absorbs interleaved writers cleanly.
+
+Verify the loop once end-to-end when setting it up: remote commit via API → local pull → file appears in the vault.
+
 ## Composes with
 
 - `deep-research` — when `query` finds gaps in the wiki, route to deep-research to expand from external sources. Deep-research output can be captured back into `raw/` for future compilation.
@@ -149,8 +161,6 @@ Two other systems following the same raw → wiki → outputs pattern. Both are 
 
 - **[Hermes' `llm-wiki` skill](https://hermes.team)** — off-the-shelf implementation of the 3-folder pattern. Pre-built workflows for compile / query / lint. Useful for comparing schema decisions.
 - **[Gbrain](https://github.com/garrytan/gbrain)** by Garry Tan — much more sophisticated. Treats the brain as a database (Postgres or PGLite) with synthesis, graph traversal, gap analysis, scheduled cron maintenance, and MCP integration. Powers a 146K-page deployment with 24K people entities. If the user's vault outgrows the markdown-only pattern, Gbrain is the upgrade direction. Borrows worth adopting today even without migrating: **people-as-entities** (the `person-` raw type + `People` wiki page) and **scheduled maintenance** (wire `compile` and `lint` to fire on a recurring schedule via the `loop` or `compound-engineering:schedule` skill).
-
-## Notes on quality
 
 ## Notes on quality
 
