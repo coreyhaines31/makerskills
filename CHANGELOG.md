@@ -6,6 +6,13 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.5.1] — 2026-08-17
+
+### Changed
+- **`second-brain` v0.2.0 + `company-brain` v0.3.0** (#25) — new **Multi-writer git sync** sections: the git remote as a capture API for remote agents (via the git host's API or an MCP layer like [Executor](https://executor.sh)), pull-before-write discipline (`git pull --rebase --autostash`), Obsidian Git plugin settings (auto-pull on, auto-commit off), and append-mostly agent commits that keep multi-writer vaults from diverging. Also fixes a duplicated `## Notes on quality` heading in second-brain.
+
+---
+
 ## [v1.5.0] — 2026-08-12
 
 ### Added
