@@ -2,7 +2,7 @@
 name: company-brain
 description: Your team's shared, AI-ready knowledge base — people, companies, meetings, SOPs, and decisions structured so Claude can answer questions on your team's behalf. Team-scope sibling to second-brain (which is personal-scope). Seven modes — capture (drop something into the right structured dir), compile (process into wiki pages, update INDEX.md), query (answer from the corpus with trust weighting, save to outputs/), review (triage queue — verify / deprecate / supersede unreviewed and stale captures so wrong info never becomes context), lint (orphans / stale / contradictions / gaps), connect (suggest new wikilinks), search (quick lookup). Structured raw dirs (people/, companies/, meetings/, sops/, decisions/, customer-language/, recurring-questions/, sales-objections/) instead of second-brain's flat type-prefixed raw/. Multi-author aware — every capture stamps author + timestamp + trust status. Optional auto-sync from Fathom/Gong/Granola call transcripts, Slack/email exports, CRM. Defaults to a vault at ${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/. Triggers on "/company-brain," "/cb," "capture this into the team brain," "log this meeting," "add this person to the team brain," "save this SOP," "compile the company wiki," "query the team brain," "what does the team know about X," "review the company brain," "cull the team brain," "lint the company brain," "who's the internal expert on X."
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # /company-brain — Team-shared AI-ready knowledge base
@@ -219,6 +219,18 @@ Team vaults benefit from automated capture. See `references/auto-sync-sources.md
 | **CRM (HubSpot / Attio / Pipedrive)** | Deal state, contact info | Periodic sync → `companies/` + `people/` |
 
 Auto-sync is optional — most teams start with manual capture and add automation as the vault matures. Pair with `loopify` to schedule periodic sync jobs.
+
+## Multi-writer git sync (team members + remote agents)
+
+A team vault is multi-writer by definition, and git is the coordination layer. Back the vault with a hosted remote (GitHub/GitLab); the remote then doubles as a **capture API for agents without filesystem access** — cloud agents, scheduled sync jobs, teammates' machines. Anything that can reach the git host's API (directly, or through an MCP integration layer like [Executor](https://executor.sh)) can read the wiki and commit captures into the structured raw dirs.
+
+The discipline that keeps writers from diverging:
+
+1. **Every local session pulls before writing**: `git pull --rebase --autostash` before vault work, push after committing. With multiple humans *and* agents committing, local copies go stale fast.
+2. **Obsidian users**: the community **Git** plugin with auto-pull on an interval (~10 min) + pull-on-startup, auto-commit **off** — commits should stay semantic (one per capture/compile), not "vault backup" noise. Every team member's machine needs this, not just one.
+3. **Remote agents and auto-sync jobs commit append-mostly**: new files in the structured dirs, descriptive commit messages, author stamped in the capture frontmatter (the multi-author trust model depends on it). Distinct-file appends make conflicts rare; rebase absorbs the rest.
+
+Verify the loop once per machine when onboarding: remote commit via API → local pull → file appears.
 
 ## Composes with
 
