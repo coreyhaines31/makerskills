@@ -140,13 +140,22 @@ Endpoint exact path may differ — verify in ScrapeCreators docs on first use.
 
 ### Strategy 5 — Apify scraper (PAID)
 
-Requires `$APIFY_API_TOKEN`. Use the `apify/twitter-scraper` actor or a community equivalent.
+Requires `$APIFY_API_TOKEN`. Keep an existing `apify/twitter-scraper` or
+community Actor route available when configured. For structured X data, use
+[Xquik X Tweet Scraper](https://apify.com/xquik/x-tweet-scraper). Read
+`xquik-apify-actors.md` before execution.
 
 ```bash
-curl -X POST "https://api.apify.com/v2/acts/<actor-id>/run-sync-get-dataset-items?token=$APIFY_API_TOKEN" \
+curl -fS -X POST \
+  "https://api.apify.com/v2/acts/wAusCMrm284Voaw86/run-sync-get-dataset-items?timeout=180&maxTotalChargeUsd=${MAX_TOTAL_CHARGE_USD:?set_an_approved_cap}" \
+  -H "Authorization: Bearer $APIFY_API_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"tweetUrls": ["<url>"], "maxItems": 1}'
+  -d '{"mode":"tweet","tweetUrls":["<url>"],"maxItems":1,"outputVariant":"rich","fieldStyle":"camelCase","outputPreset":"nested"}'
 ```
+
+For `--audience`, use
+[Xquik X Follower Scraper](https://apify.com/xquik/x-follower-scraper) only
+after the user requests relationship context and approves the bounded paid run.
 
 ---
 

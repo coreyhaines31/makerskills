@@ -7,7 +7,7 @@ The free strategies (Bluesky API, Mastodon API, HN Algolia, Reddit .json, agent-
 | Key | Unlocks | Cost (approx, 2026) |
 |---|---|---|
 | `$SCRAPECREATORS_API_KEY` | X (tweets + threads + replies), LinkedIn posts, Instagram, TikTok, possibly Threads | Pay-as-you-go, ~$0.005–$0.02/post depending on endpoint |
-| `$APIFY_API_TOKEN` | Nearly any platform via "Actors" (X, IG, TikTok, LinkedIn, Threads, even niche ones) | Per-actor pricing, often $1–$5 / 1K results |
+| `$APIFY_API_TOKEN` | Nearly any platform via "Actors" (X, IG, TikTok, LinkedIn, Threads, even niche ones) | Actor-specific; check the current Store listing |
 
 ## Setting up
 
@@ -20,7 +20,7 @@ The free strategies (Bluesky API, Mastodon API, HN Algolia, Reddit .json, agent-
    export SCRAPECREATORS_API_KEY="<your-key>"
    ```
 4. `source ~/.zshenv` or new terminal
-5. Verify: `echo $SCRAPECREATORS_API_KEY | head -c 8`
+5. Verify without printing the token: `test -n "${SCRAPECREATORS_API_KEY:-}" && echo "SCRAPECREATORS_API_KEY is set"`
 
 ### Apify
 
@@ -31,7 +31,7 @@ The free strategies (Bluesky API, Mastodon API, HN Algolia, Reddit .json, agent-
    export APIFY_API_TOKEN="<your-token>"
    ```
 4. `source ~/.zshenv`
-5. Verify: `echo $APIFY_API_TOKEN | head -c 8`
+5. Verify without printing the token: `test -n "${APIFY_API_TOKEN:-}" && echo "APIFY_API_TOKEN is set"`
 
 ## Free-only mode
 

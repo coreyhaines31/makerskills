@@ -78,6 +78,21 @@ Same shape returned for every platform. Fields with no equivalent on a platform 
     "engagement": { "likes": number, "replies": number }
   }>,
 
+  "audience": {                     // X only, when --audience is requested
+    "relation": "followers" | "following" | "verified_followers",
+    "target_handle": string,
+    "requested_max_items": number,
+    "is_partial": boolean,
+    "records": Array<{
+      "user_id": string,
+      "handle": string,
+      "name": string | null,
+      "verified": boolean | null,
+      "followers": number | null,
+      "following": number | null
+    }>
+  } | null,
+
   "raw": object | null               // raw API/scrape response (only if --raw)
 }
 ```
