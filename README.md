@@ -81,6 +81,7 @@ Routing table for common operator jobs. Match your intent → skill.
 | Pressure-test a new business or product idea | [`business-brainstorm`](./skills/business-brainstorm/SKILL.md) |
 | Research a topic with citations | [`deep-research`](./skills/deep-research/SKILL.md) |
 | Find an available `.com` for a new project | [`domain`](./skills/domain/SKILL.md) |
+| Watch known sources daily and feed the good stuff into my brain | [`radar`](./skills/radar/SKILL.md) |
 | Capture / query / lint my personal knowledge base | [`second-brain`](./skills/second-brain/SKILL.md) |
 | Same but for a team-shared knowledge base | [`company-brain`](./skills/company-brain/SKILL.md) |
 | Extract notes / highlights / summaries from a book | [`read-book`](./skills/read-book/SKILL.md) |
@@ -124,6 +125,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 |---|---|
 | [`second-brain`](./skills/second-brain/SKILL.md) | Karpathy LLM Wiki workflow over any markdown vault. Capture / compile / query / lint / connect / search. Personal-scope. |
 | [`company-brain`](./skills/company-brain/SKILL.md) | Team-scope sibling to second-brain. Structured raw dirs (people / companies / meetings / sops / decisions / customer-language / recurring-questions / sales-objections), multi-author attribution, sensitivity tagging, trust levels + a `/cb review` culling pass so unreviewed or deprecated info never poisons answers, optional auto-sync from Fathom / Gong / Granola / CRM. Backbone for a Company Brain Setup productized service. |
+| [`radar`](./skills/radar/SKILL.md) | Standing surveillance on known sources — YouTube channels, RSS/blogs, subreddits, Hacker News, X, LinkedIn, keyword searches. Polls on a daily launchd schedule, fetches only what's new (per-source state files), scores it against your stated focus, writes one digest to the vault, and auto-captures only what clears the bar. Everything else waits in the digest until you `promote` it. Fills `raw/` for `second-brain` to compile. |
 | [`read-book`](./skills/read-book/SKILL.md) | PDFs, EPUBs, MOBI, markdown — chapter-by-chapter notes, quotes, summaries, or spaced-rep study mode. |
 | [`watch-video`](./skills/watch-video/SKILL.md) | YouTube, Loom, Vimeo, Riverside, Zoom, MP4. Transcript / visual / multimodal (Gemini-native) modes. |
 

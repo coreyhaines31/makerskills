@@ -1,0 +1,97 @@
+# radar — source list
+# Copy to ${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/radar/sources.yaml
+# See references/sources-schema.md for every field.
+
+defaults:
+  cadence: daily
+  lookback_days: 2
+  first_run_lookback_days: 3
+  max_items_per_source: 15
+  auto_capture_at: 5      # score >= this -> fetched + written to raw/ automatically
+  list_at: 3              # score >= this -> listed in the digest as promotable
+
+sources:
+  # ---- YouTube -----------------------------------------------------------
+  - id: yt-example
+    type: youtube
+    target: "@ExampleChannel"
+    channel_id: UCxxxxxxxxxxxxxxxxxxxxxx    # resolved at add-time, cached
+    focus: >
+      What you actually want from this channel, named concretely.
+      And what you don't: guest interviews, fundraising talk, motivation.
+    tags: [business]
+    shorts: false
+    enabled: true
+
+  # ---- RSS / blog / newsletter -------------------------------------------
+  - id: rss-example
+    type: rss
+    target: "https://simonwillison.net"
+    feed_url: "https://simonwillison.net/atom/everything/"
+    focus: >
+      Practical LLM tooling, agent patterns, model releases that change
+      what's buildable. Not: conference notes, link roundups.
+    tags: [ai, tech]
+    enabled: true
+
+  # ---- Subreddit ----------------------------------------------------------
+  # Prefer subreddit feeds over Reddit keyword searches - see fetchers.md.
+  - id: rd-example
+    type: reddit
+    target: "r/SaaS"
+    subreddit: SaaS
+    focus: >
+      Pricing experiments and churn postmortems with real numbers.
+      Not: "just launched my app," hiring, self-promo, AI-wrapper launches.
+    tags: [business]
+    enabled: true
+
+  # ---- Hacker News keyword ------------------------------------------------
+  - id: hn-example
+    type: hn
+    target: "attribution tracking"
+    query: "attribution tracking"
+    min_points: 50
+    focus: >
+      Anything that changes how server-side attribution should work.
+      Not: ad-platform news, privacy think-pieces without implementation.
+    tags: [tracerkit]
+    enabled: true
+
+  # ---- X account (expect intermittent degradation) ------------------------
+  - id: x-example
+    type: x
+    target: "@example"
+    handle: example
+    include_replies: false
+    include_reposts: false
+    focus: >
+      Build-in-public numbers and product decisions. Not: hot takes,
+      engagement bait, threads that are ads for a course.
+    tags: [indie]
+    enabled: true
+
+  # ---- LinkedIn profile (keep these few; fetch sequentially) --------------
+  - id: li-example
+    type: linkedin
+    target: "https://www.linkedin.com/in/example/"
+    profile_url: "https://www.linkedin.com/in/example/"
+    focus: >
+      What this person is shipping and how they're positioning it.
+      Not: reposts, congratulations posts, hiring announcements.
+    tags: [positioning]
+    enabled: false
+
+  # ---- Standing keyword search (noisiest type - start strict) -------------
+  - id: kw-example
+    type: keyword
+    target: "AI marketing agents"
+    query: "AI marketing agents"
+    engines: [web, hn]
+    recency_days: 2
+    list_at: 4
+    focus: >
+      Products shipping real agentic marketing workflows, and what they
+      charge. Not: think-pieces, "AI will replace marketers," listicles.
+    tags: [magister]
+    enabled: false
