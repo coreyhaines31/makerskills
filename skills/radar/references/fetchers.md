@@ -16,9 +16,18 @@ Every command here was verified live. Where a recipe has a gotcha, the gotcha is
 
 ## Credentials
 
-Radar's free tiers cover youtube / rss / hn / bluesky / mastodon outright. Reddit and X get meaningfully better with credentials, and X is barely usable without them.
+Radar's free tiers cover youtube / rss / hn / bluesky / mastodon / reddit outright. X and LinkedIn need a paid key to be dependable.
 
 Resolution order for every key: **env var → macOS Keychain → absent (degrade)**.
+
+**`SCRAPECREATORS_API_KEY` is configured on this machine, exported from `~/.zshenv`** — which means X and LinkedIn are on the paid, reliable path by default.
+
+⚠️ **That export is invisible to `bash`.** `~/.zshenv` is read by zsh only, so `bash -lc` sees nothing — which is exactly how an unattended run ends up silently keyless while the same command works fine in your terminal. The launchd job therefore runs under **`zsh -lc`**, not bash (see `scheduling.md`). Verified:
+
+```
+$ zsh  -c 'echo ${SCRAPECREATORS_API_KEY:+set}'   → set
+$ bash -lc 'echo ${SCRAPECREATORS_API_KEY:+set}'  → (empty)
+```
 
 ```bash
 # Keychain read, matching the convention last30days already uses
@@ -27,14 +36,14 @@ security find-generic-password -s "last30days-AUTH_TOKEN" -w 2>/dev/null
 
 | Key | Unlocks | Cost |
 |---|---|---|
-| `AUTH_TOKEN` + `CT0` | **X, properly** — real search and per-handle timelines | Free (your own x.com session cookies) |
-| `BSKY_HANDLE` + `BSKY_APP_PASSWORD` | Bluesky beyond public reads (rarely needed) | Free app password |
-| `SCRAPECREATORS_API_KEY` | X / LinkedIn / IG / TikTok, reliably | Paid |
-| `APIFY_API_TOKEN` | Same, alternate vendor | Paid |
+| `SCRAPECREATORS_API_KEY` | **X and LinkedIn, reliably** — the default path | Paid — ~$0.002/call ($47 / 25k credits). **Set.** |
+| `AUTH_TOKEN` + `CT0` | X fallback if the paid path is down | Free (your own x.com session cookies). Not set. |
+| `BSKY_HANDLE` + `BSKY_APP_PASSWORD` | Bluesky beyond public reads (rarely needed) | Free app password. Not set. |
+| `APIFY_API_TOKEN` | Alternate paid vendor | Paid. Not set. |
 
 Note the env var is `APIFY_API_TOKEN` — matching `social-fetch` and `last30days`. Don't invent a second name.
 
-**Unattended runs**: a launchd job has no shell profile, so env vars from `~/.zshenv` are absent — see `scheduling.md`. Keychain reads from a launchd agent work but may need a one-time "Always Allow" on the item's ACL. Test with `launchctl start` before assuming the morning run has credentials. `doctor` reports which keys resolved and from where.
+**Unattended runs**: test with `launchctl start` before assuming the morning run has credentials — an interactive test in your terminal proves nothing about the launchd environment. Keychain reads from a launchd agent work but may need a one-time "Always Allow" on the item's ACL. `doctor` reports which keys resolved and from where, plus `credits_remaining`.
 
 ---
 
@@ -181,47 +190,52 @@ So: use `advancedSyntax=true` with the phrase quoted, keep a real `min_points` f
 
 ## x
 
-**No public API, but there is a free authenticated path** — and it changes this source type from "expect degradation" to genuinely usable.
+**Use ScrapeCreators. It's set up, it's reliable, and it's cheap enough that the free paths aren't worth their flakiness.**
 
-### Strategy 1 — bird-search with your own session cookies (FREE, preferred)
-
-`last30days` vendors a Node client for X's GraphQL API (`@steipete/bird` v0.8.0, MIT). It's already on disk:
-
-```
-~/.claude/plugins/cache/last30days-skill/last30days/<ver>/skills/last30days/scripts/lib/vendor/bird-search/bird-search.mjs
-```
+### Strategy 1 — ScrapeCreators `user-tweets` (PAID, preferred)
 
 ```bash
-AUTH_TOKEN=… CT0=… node "$BIRD" "from:levelsio since:2026-08-25" --count 15 --json
+curl -s --max-time 30 "https://api.scrapecreators.com/v1/twitter/user-tweets?handle=<handle>" \
+  -H "x-api-key: $SCRAPECREATORS_API_KEY"
 ```
 
-`from:<handle> since:<YYYY-MM-DD>` is exactly radar's per-account poll — the lookback window maps straight onto `since:`. Returns JSON items with text, timestamps, and engagement.
+Verified live: **HTTP 200, 99 tweets, 1 credit.** The response wraps X's raw GraphQL objects:
 
-**Credentials** are the `auth_token` and `ct0` cookies from your own logged-in x.com session (Chrome DevTools → Application → Cookies → x.com). Resolution order is env → Keychain, per the Credentials section above. Run without them and the tool says so explicitly rather than failing oddly:
-
-```json
-{"error":"Missing auth_token - provide via --auth-token, AUTH_TOKEN env var, or login to x.com in Safari/Chrome/Firefox","items":[]}
+```bash
+jq -r '.tweets[] | select(.__typename=="Tweet")
+       | [(.rest_id // .legacy.id_str), .legacy.created_at, .legacy.favorite_count,
+          .legacy.retweet_count, .legacy.reply_count,
+          (.legacy.full_text | gsub("\n"; " "))] | @tsv'
 ```
 
-**Handle these cookies like a password** — they are full session credentials for the X account. Keychain, not a plaintext dotfile, and never committed. They expire when the session ends, so `doctor` should treat a sudden X auth failure as "re-grab the cookies," not "X is broken." Resolve the version-pinned vendor path at runtime (glob the newest) rather than hardcoding it — the plugin updates.
+Top-level: `success`, `credits_charged`, `credits_remaining`, `tweets`. Per tweet, everything worth having lives under `.legacy` — `full_text`, `created_at`, `favorite_count`, `retweet_count`, `reply_count`, `in_reply_to_status_id_str`, `retweeted_status_result`. The author is at `.core.user_results.result.legacy.screen_name`.
 
-### Strategy 2 — `social-fetch`
+**Gotchas — verified, and each one will bite:**
 
-Owns the fallback ladder (agent-browser with modal dismissal, Wayback for older posts). Prefer calling it over hand-rolling agent-browser, so that knowledge stays in one place.
+- **Results are NOT chronological.** A single call returned a tweet from 2026-08-27 first, then one from 2024-08-19, then 2025-06-15 — pinned and high-engagement tweets are interleaved with recent ones. **Always filter by `created_at` against the lookback window**; never assume the first N items are the newest, or radar will "discover" three-year-old tweets as new.
+- **`created_at` is Twitter's legacy format**, not ISO: `Thu Aug 27 09:29:58 +0000 2026` → `%a %b %d %H:%M:%S %z %Y`.
+- **Filter replies and retweets client-side**: replies have `in_reply_to_status_id_str != null`; retweets have `retweeted_status_result != null`. Both were 0 on the test handle, so don't assume the API pre-filters — it doesn't, that account just doesn't do it.
+- **`favorite_count` is present on every item**, so a `min_likes` floor is a real, free pre-filter here. Use it — X is a high-volume source type.
 
-### Strategy 3 — paid
+**Economics**: 1 credit per source per poll, ~$0.002 at the $47/25k tier. Ten social sources polled daily is ~300 credits/month — about 1% of one pack. Cost is not a reason to skip a source; noise is. `credits_remaining` comes back on every call, so surface it in `doctor` and warn below ~1,000.
 
-`$SCRAPECREATORS_API_KEY`, then `$APIFY_API_TOKEN`. Only if set.
+### Strategy 2 — bird-search with session cookies (FREE fallback)
 
-### Not a strategy
+`last30days` vendors `@steipete/bird` (MIT), a Node client for X's GraphQL API:
 
-**Nitter is effectively dead** — instances are down or rate-limited nearly always. `social-fetch`'s strategy list still mentions it; treat it as a historical note, not a path worth trying.
+```bash
+AUTH_TOKEN=… CT0=… node "$BIRD" "from:<handle> since:2026-08-25" --count 15 --json
+```
 
-If everything fails: mark `degraded` with the reason and continue. Never retry within the run.
+Path: `~/.claude/plugins/cache/last30days-skill/last30days/<ver>/skills/last30days/scripts/lib/vendor/bird-search/bird-search.mjs` — glob the newest version rather than hardcoding. Credentials are your own x.com session cookies (`auth_token`, `ct0`); treat them as passwords, Keychain only, and expect them to expire with the session.
 
-Item ID: `x:<tweet-id>`. Exclude replies and reposts unless the source opts in — that's where the noise lives.
+Worth keeping as a fallback, but with ScrapeCreators working there's no reason to make session cookies part of the daily path.
 
-**Full fetch (capture)** — `social-fetch` on the post URL, which pulls the full thread. Prefix `tweet-`.
+### Strategy 3 — `social-fetch`, then `$APIFY_API_TOKEN`
+
+For anything the above can't reach. **Nitter is dead** — don't spend a round-trip on it.
+
+Item ID: `x:<rest_id>`. **Full fetch (capture)** — `social-fetch` on the post URL for the full thread. Prefix `tweet-`.
 
 ---
 
@@ -263,27 +277,43 @@ Instance comes from the handle (`@user@hachyderm.io` → `hachyderm.io`). Cache 
 
 ## linkedin
 
-Same shape as X, and harder. LinkedIn actively blocks unauthenticated fetching and rate-limits logged-in automation.
+ScrapeCreators makes this reliable to *fetch*. The payload is thinner than the other platforms, so calibrate expectations rather than assuming parity.
 
-1. **`social-fetch`** against the profile/company URL — it owns the modal-dismissal logic.
-2. **`agent-browser`** with a logged-in persistent profile. The recipe `social-fetch` uses, which is the one that actually works:
+### Strategy 1 — ScrapeCreators (PAID, preferred)
 
-   ```bash
-   agent-browser open "https://www.linkedin.com/in/<slug>/recent-activity/all/"
-   sleep 3
-   agent-browser snapshot -i 2>&1 | head -20   # is the first interactive element a Dismiss button?
-   agent-browser click @e1                      # dismiss the signup modal
-   sleep 2
-   agent-browser snapshot 2>&1 | head -100
-   ```
+```bash
+# person
+curl -s --max-time 30 "https://api.scrapecreators.com/v1/linkedin/profile?url=<profile-url>" \
+  -H "x-api-key: $SCRAPECREATORS_API_KEY"
+# company page
+curl -s "https://api.scrapecreators.com/v1/linkedin/company/posts?url=<company-url>" \
+  -H "x-api-key: $SCRAPECREATORS_API_KEY"
+```
 
-   Profile `recent-activity` pages render for logged-out sessions after the modal is dismissed. Individual post URLs (`linkedin.com/posts/…`) usually still demand a login — fall through rather than fighting it.
-3. Paid: `$SCRAPECREATORS_API_KEY` → `$APIFY_API_TOKEN`.
-4. Otherwise `degraded`.
+Verified live: **HTTP 200, 1 credit.** The profile response carries `name`, `about`, `experience`, `followers`, `activity`, and `recentPosts`.
 
-**Be conservative.** Keep LinkedIn sources few, `cadence: daily` at most, and never parallel-fetch several LinkedIn profiles in one run — that's the pattern that triggers a checkpoint on the account. Fetch them sequentially, spaced.
+`recentPosts` items have `id`, `datePublished` (ISO — unlike X), `activityType`, `link`, `title`.
 
-Item ID: `li:<activity-urn>` (or a SHA of permalink + text when the URN isn't exposed). Capture prefix: `bookmark-`.
+**The honest caveat**: on the profile tested, `recentPosts` returned only 4 items, most with an **empty `title`**, and the newest was from 2021. So treat the profile endpoint as a reliable way to get *post URLs and timestamps* — not post bodies, and not a guarantee of recency. Before committing to a LinkedIn source, run the endpoint against that specific profile and confirm it actually returns recent posts; coverage clearly varies per profile. Where the body is needed, spend a second credit at capture time on the post URL, or use `search/posts`.
+
+Because `datePublished` is reliable even when `title` isn't, the lookback filter still works correctly — a stale profile simply yields zero new items rather than garbage.
+
+### Strategy 2 — `social-fetch` / agent-browser
+
+```bash
+agent-browser open "https://www.linkedin.com/in/<slug>/recent-activity/all/"
+sleep 3
+agent-browser snapshot -i 2>&1 | head -20   # first interactive element a Dismiss button?
+agent-browser click @e1
+sleep 2
+agent-browser snapshot 2>&1 | head -100
+```
+
+Still the better path when you need the actual post text and the paid payload came back thin.
+
+**Keep LinkedIn sources few and fetch them sequentially** — that advice predates the paid key and still holds for the agent-browser fallback.
+
+Item ID: `li:<recentPosts[].id>`. Capture prefix: `bookmark-`.
 
 ---
 
@@ -318,10 +348,12 @@ Keyword sources are the noisiest type by a wide margin. Start them at `list_at: 
 | `mastodon` | Public instance API | — | Rock solid |
 | `reddit` | shreddit `/svc` listing (scored) → RSS | — | Good, if paced |
 | `keyword` | WebSearch + HN | — | Noisy by nature |
-| `x` | bird-search | `AUTH_TOKEN` + `CT0` (free) | Good with cookies, poor without |
-| `linkedin` | agent-browser | logged-in profile | Intermittent, always |
+| `x` | bird-search (cookies) | ScrapeCreators (set) | **Reliable** — 99 tweets, 1 credit |
+| `linkedin` | agent-browser | ScrapeCreators (set) | Reliable fetch, **thin payload** — verify per profile |
 
-The practical read: **everything except X and LinkedIn is free and reliable.** X becomes reliable for the price of pasting two cookies. LinkedIn never quite does — keep those sources few.
+The practical read: **every source type now has a dependable path.** youtube / rss / hn / bluesky / mastodon / reddit are free and solid; X and LinkedIn ride the paid key at ~$0.002 a call, which is cheap enough that cost should never drive a source decision — only noise should.
+
+The one caveat that isn't about reliability: LinkedIn's paid payload gives URLs and timestamps but often no post body, so confirm a given profile actually returns recent posts before adding it.
 
 ## Resolving a target (`add` mode)
 

@@ -2,7 +2,7 @@
 name: radar
 description: "When you want to monitor known sources on a schedule and feed the good stuff into your second brain. Configure sources once (YouTube channels, RSS/blogs/newsletters, subreddits, Hacker News, Bluesky, Mastodon, X accounts, LinkedIn profiles, keyword searches), then each run fetches only what's new since last time, scores it for relevance against your stated focus, writes one digest note to the vault, and captures the high-signal items into raw/ automatically. Everything else stays in the digest until you promote it. Incremental by design — state files mean nothing is fetched or captured twice. Modes — run (poll everything due), digest (show/re-render the latest), promote (pull specific items into raw/ in full), add / sources / pause (manage the source list), doctor (health-check every source), schedule (install the daily launchd job). Triggers on \"/radar,\" \"run my radar,\" \"check my sources,\" \"what's new from my sources,\" \"add a source,\" \"monitor this channel,\" \"watch this subreddit,\" \"track this account,\" \"daily digest,\" \"promote item 4,\" \"radar doctor.\" Complements second-brain (radar fills raw/, second-brain compiles it) and deep-research (radar is standing surveillance, deep-research is a one-off dive)."
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # /radar — Standing surveillance on the sources you care about
@@ -72,7 +72,9 @@ Rules that matter more than they look:
 - **A failing source never fails the run.** Catch per-source errors, mark the source `degraded` with the error text, and carry on. A dead RSS feed must not cost you the YouTube results.
 - **Cap per source** at `max_items_per_source` (default 15). If a source blew past the cap, say so in the digest — it usually means the lookback is too wide or the source got noisy.
 - **Filter to new** by ID against the state file's `seen` list, then by `published` against the lookback window. Both, not either: IDs catch re-publishes, dates catch feeds that recycle IDs.
-- **X and LinkedIn are the only unreliable types.** Everything else (youtube / rss / hn / bluesky / mastodon / reddit) has a keyless path that just works. X becomes reliable once `AUTH_TOKEN` + `CT0` are set; LinkedIn never fully does. When a chain is exhausted, mark degraded and move on — don't retry in a loop, don't let it block the digest.
+- **Every type has a dependable path now** — the free ones (youtube / rss / hn / bluesky / mastodon / reddit) plus X and LinkedIn via ScrapeCreators at ~$0.002 a call. A source that still exhausts its chain is marked `degraded` and skipped; don't retry in a loop, don't let it block the digest.
+- **Filter X by `created_at`, never by position.** ScrapeCreators returns pinned and high-engagement tweets interleaved with recent ones — a single verified call put a 2024 tweet second. Trusting the order makes radar "discover" years-old posts as new.
+- **Watch the credit balance.** Every ScrapeCreators response carries `credits_remaining`; record it in the run record and warn in the digest below ~1,000.
 - **Check credentials once, at the start.** Resolve `AUTH_TOKEN`/`CT0` and any paid keys (env → Keychain) before fetching, and skip the source types that need what's missing rather than discovering it per-item. `references/fetchers.md` → "Credentials" has the resolution order.
 
 ### Step 3 — Score
@@ -185,7 +187,7 @@ Health-check without writing anything to the vault:
 1. Config parses; every source has `id`, `type`, `focus`; IDs are unique.
 2. Env: `SECOND_BRAIN_VAULT` set and the vault writable; vault is a git repo with a remote; `MAKERSKILLS_CONFIG` set.
 3. Every enabled source test-fetches (in parallel), reporting per-source OK / degraded / broken with the actual error.
-4. Credentials, and **where each resolved from** (env vs Keychain vs absent): `AUTH_TOKEN` + `CT0` (free, unlocks X), `$SCRAPECREATORS_API_KEY` / `$APIFY_API_TOKEN` (paid, X/LinkedIn/IG), `BSKY_*` (rarely needed — public reads are keyless). No key is required for youtube / rss / hn / bluesky / mastodon / reddit. Flag expired X cookies as "re-grab from x.com," not as a broken source.
+4. Credentials, and **where each resolved from** (env vs Keychain vs absent), plus `credits_remaining` for ScrapeCreators. `$SCRAPECREATORS_API_KEY` is the one that matters — it carries X and LinkedIn. No key is required for youtube / rss / hn / bluesky / mastodon / reddit. **Check it under `zsh`, not `bash`**: it's exported from `~/.zshenv`, so a bash probe reports a false negative.
 5. The launchd job is loaded and its last exit status.
 
 Output a fix list, most-broken first. Run this before blaming the skill for a quiet morning.

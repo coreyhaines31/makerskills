@@ -88,11 +88,12 @@ sources:
     tags: [tracerkit]
     enabled: true
 
-  # ---- X account (expect intermittent degradation) ------------------------
+  # ---- X account (reliable via ScrapeCreators; ~1 credit per poll) --------
   - id: x-example
     type: x
     target: "@example"
     handle: example
+    min_likes: 50          # favorite_count is on every item - cheap pre-filter
     include_replies: false
     include_reposts: false
     focus: >
@@ -101,7 +102,9 @@ sources:
     tags: [indie]
     enabled: true
 
-  # ---- LinkedIn profile (keep these few; fetch sequentially) --------------
+  # ---- LinkedIn profile ---------------------------------------------------
+  # Paid endpoint returns post URLs + dates reliably, but often no body.
+  # Test the endpoint against THIS profile before trusting it.
   - id: li-example
     type: linkedin
     target: "https://www.linkedin.com/in/example/"

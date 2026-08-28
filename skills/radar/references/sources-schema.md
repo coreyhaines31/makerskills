@@ -53,10 +53,10 @@ Every key can be overridden per source. A source that needs a different `auto_ca
 | `rss` | `feed_url` (resolved at add-time), `full_text: true` if the feed carries whole articles (skips the WebFetch on capture) |
 | `reddit` | `subreddit`, `sort: top\|new\|hot` (**default `top`**), `t: day\|week` (with `top`), `min_score` (upvotes floor — the cheapest possible pre-filter, and it only works on `top`/`hot`; see fetchers.md) |
 | `hn` | `query`, `min_points` (default 50), `story_only: true` |
-| `x` | `handle`, `include_replies: false`, `include_reposts: false` |
+| `x` | `handle`, `min_likes` (real pre-filter — `favorite_count` is on every item), `include_replies: false`, `include_reposts: false` |
 | `bluesky` | `handle`, `did` (cached at add-time), `min_likes`, `include_replies: false` |
 | `mastodon` | `handle` (`@user@instance`), `instance`, `account_id` (both cached at add-time) |
-| `linkedin` | `profile_url`, `company: true` for company pages |
+| `linkedin` | `profile_url`, `company: true` for company pages (uses the `company/posts` endpoint) |
 | `keyword` | `query`, `engines: [web, hn, reddit, youtube]`, `recency_days` |
 
 ## Writing a `focus` that works
@@ -69,9 +69,9 @@ This field is the entire filter. Three rules:
 
 ## Picking the type when an account is on several platforms
 
-Several people post the same thing to X, Bluesky, and Mastodon. Radar's reliability differs enormously between them (see fetchers.md → "Reliability at a glance"), so when there's a choice: **bluesky or mastodon over x**, always. Same content, keyless access, real engagement counts, and no source that quietly goes degraded for a week.
+With the ScrapeCreators key in place, `x` is a first-class source type rather than a last resort — reliability is no longer the tiebreaker it was. If someone cross-posts to X and Bluesky, either works; prefer whichever they actually put effort into, and prefer `bluesky` on a pure tie since it's free.
 
-Only reach for an `x` source when the account posts *there and nowhere else* — and even then, set up the `AUTH_TOKEN` + `CT0` cookies first.
+`linkedin` is the one type still worth hesitating over, and for a payload reason rather than an access one: the profile endpoint reliably returns post URLs and dates but often no body. Test the specific profile before adding it (see fetchers.md → linkedin).
 
 Rewrite the `focus` when a source's capture rate goes wrong in either direction — too many 5s means it's too loose, a month of nothing means it's too tight or the source is dead weight.
 
