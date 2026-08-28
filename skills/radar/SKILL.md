@@ -1,8 +1,8 @@
 ---
 name: radar
-description: "When you want to monitor known sources on a schedule and feed the good stuff into your second brain. Configure sources once (YouTube channels, RSS/blogs/newsletters, subreddits, Hacker News, X accounts, LinkedIn profiles, keyword searches), then each run fetches only what's new since last time, scores it for relevance against your stated focus, writes one digest note to the vault, and captures the high-signal items into raw/ automatically. Everything else stays in the digest until you promote it. Incremental by design — state files mean nothing is fetched or captured twice. Modes — run (poll everything due), digest (show/re-render the latest), promote (pull specific items into raw/ in full), add / sources / pause (manage the source list), doctor (health-check every source), schedule (install the daily launchd job). Triggers on \"/radar,\" \"run my radar,\" \"check my sources,\" \"what's new from my sources,\" \"add a source,\" \"monitor this channel,\" \"watch this subreddit,\" \"track this account,\" \"daily digest,\" \"promote item 4,\" \"radar doctor.\" Complements second-brain (radar fills raw/, second-brain compiles it) and deep-research (radar is standing surveillance, deep-research is a one-off dive)."
+description: "When you want to monitor known sources on a schedule and feed the good stuff into your second brain. Configure sources once (YouTube channels, RSS/blogs/newsletters, subreddits, Hacker News, Bluesky, Mastodon, X accounts, LinkedIn profiles, keyword searches), then each run fetches only what's new since last time, scores it for relevance against your stated focus, writes one digest note to the vault, and captures the high-signal items into raw/ automatically. Everything else stays in the digest until you promote it. Incremental by design — state files mean nothing is fetched or captured twice. Modes — run (poll everything due), digest (show/re-render the latest), promote (pull specific items into raw/ in full), add / sources / pause (manage the source list), doctor (health-check every source), schedule (install the daily launchd job). Triggers on \"/radar,\" \"run my radar,\" \"check my sources,\" \"what's new from my sources,\" \"add a source,\" \"monitor this channel,\" \"watch this subreddit,\" \"track this account,\" \"daily digest,\" \"promote item 4,\" \"radar doctor.\" Complements second-brain (radar fills raw/, second-brain compiles it) and deep-research (radar is standing surveillance, deep-research is a one-off dive)."
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /radar — Standing surveillance on the sources you care about
@@ -72,7 +72,8 @@ Rules that matter more than they look:
 - **A failing source never fails the run.** Catch per-source errors, mark the source `degraded` with the error text, and carry on. A dead RSS feed must not cost you the YouTube results.
 - **Cap per source** at `max_items_per_source` (default 15). If a source blew past the cap, say so in the digest — it usually means the lookback is too wide or the source got noisy.
 - **Filter to new** by ID against the state file's `seen` list, then by `published` against the lookback window. Both, not either: IDs catch re-publishes, dates catch feeds that recycle IDs.
-- **X and LinkedIn are expected to be flaky.** They have no free API. When their fetch chain is exhausted, mark degraded and move on — do not retry in a loop, and do not let them block the digest.
+- **X and LinkedIn are the only unreliable types.** Everything else (youtube / rss / hn / bluesky / mastodon / reddit) has a keyless path that just works. X becomes reliable once `AUTH_TOKEN` + `CT0` are set; LinkedIn never fully does. When a chain is exhausted, mark degraded and move on — don't retry in a loop, don't let it block the digest.
+- **Check credentials once, at the start.** Resolve `AUTH_TOKEN`/`CT0` and any paid keys (env → Keychain) before fetching, and skip the source types that need what's missing rather than discovering it per-item. `references/fetchers.md` → "Credentials" has the resolution order.
 
 ### Step 3 — Score
 
@@ -105,6 +106,7 @@ For each item at or above `auto_capture_at`, fetch the full thing and write it t
 | youtube | `watch-video` in transcript mode | `resource-` |
 | rss / keyword | `WebFetch` the article body | `article-` |
 | reddit / hn | Fetch the post + top comments | `article-` (link posts: fetch the target) |
+| bluesky / mastodon | `social-fetch` (public APIs — post + replies in one call) | `tweet-` |
 | x | `social-fetch` | `tweet-` |
 | linkedin | `social-fetch` | `bookmark-` |
 
@@ -183,7 +185,7 @@ Health-check without writing anything to the vault:
 1. Config parses; every source has `id`, `type`, `focus`; IDs are unique.
 2. Env: `SECOND_BRAIN_VAULT` set and the vault writable; vault is a git repo with a remote; `MAKERSKILLS_CONFIG` set.
 3. Every enabled source test-fetches (in parallel), reporting per-source OK / degraded / broken with the actual error.
-4. Optional keys present or absent: `$SCRAPECREATORS_API_KEY`, `$APIFY_TOKEN` (X/LinkedIn quality), `$YOUTUBE_API_KEY` (not required — RSS covers it).
+4. Credentials, and **where each resolved from** (env vs Keychain vs absent): `AUTH_TOKEN` + `CT0` (free, unlocks X), `$SCRAPECREATORS_API_KEY` / `$APIFY_API_TOKEN` (paid, X/LinkedIn/IG), `BSKY_*` (rarely needed — public reads are keyless). No key is required for youtube / rss / hn / bluesky / mastodon / reddit. Flag expired X cookies as "re-grab from x.com," not as a broken source.
 5. The launchd job is loaded and its last exit status.
 
 Output a fix list, most-broken first. Run this before blaming the skill for a quiet morning.
@@ -208,7 +210,8 @@ Defer to `loopify` if the user wants something other than a fixed daily run (int
 
 - `second-brain` — radar fills `raw/`, `/sb compile` turns it into wiki pages. A good rhythm is radar daily, compile weekly. Captured files carry `via: radar/<source-id>` so compilation can trace provenance.
 - `watch-video` — full-fetch path for YouTube captures (transcript mode; escalate to visual mode manually if a video earns it).
-- `social-fetch` — full-fetch path for X and LinkedIn items, and the fallback chain when their APIs are unavailable.
+- `social-fetch` — full-fetch path for every social item, and the owner of the per-platform strategy ladders. Radar deliberately does not reimplement them; when a chain changes, it changes there. Radar also shares its cache at `~/Documents/social-fetches/_cache/`.
+- `last30days` — available as a `keyword` engine, and the source of radar's free X path (it vendors the `bird-search` client) and the keyless Reddit techniques. Worth re-reading when a platform's access breaks; it tracks these endpoints closely.
 - `deep-research` — escalation path. When a digest item is interesting enough to need context radar can't give, hand the URL to deep-research.
 - `loopify` — scheduling judgment beyond the default daily launchd job.
 - `jab-hook` — high-scoring items are content raw material; a `Content Ideas` wiki page is the handoff point.

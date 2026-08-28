@@ -34,12 +34,42 @@ sources:
     tags: [ai, tech]
     enabled: true
 
+  # ---- Bluesky (keyless, reliable - prefer over x when the account is on both)
+  - id: bsky-example
+    type: bluesky
+    handle: "pfrazee.com"
+    target: "@pfrazee.com"
+    did: "did:plc:xxxxxxxxxxxxxxxxxxxxxxxx"   # resolved at add-time, cached
+    min_likes: 20
+    include_replies: false
+    focus: >
+      Protocol + client design decisions, and what's actually shipping.
+      Not: platform drama, reposts.
+    tags: [tech]
+    enabled: false
+
+  # ---- Mastodon (keyless) -------------------------------------------------
+  - id: masto-example
+    type: mastodon
+    target: "@user@hachyderm.io"
+    instance: "hachyderm.io"
+    account_id: "109xxxxxxxxxxxxxxx"          # resolved at add-time, cached
+    focus: >
+      What you want from this account. And what you don't.
+    tags: [tech]
+    enabled: false
+
   # ---- Subreddit ----------------------------------------------------------
-  # Prefer subreddit feeds over Reddit keyword searches - see fetchers.md.
+  # Prefer subreddit listings over Reddit keyword searches - see fetchers.md.
+  # sort: top + t: day gives real upvote scores, so min_score actually filters.
+  # sort: new returns posts minutes old whose scores are all ~1 - don't filter on those.
   - id: rd-example
     type: reddit
     target: "r/SaaS"
     subreddit: SaaS
+    sort: top
+    t: day
+    min_score: 10
     focus: >
       Pricing experiments and churn postmortems with real numbers.
       Not: "just launched my app," hiring, self-promo, AI-wrapper launches.
@@ -87,7 +117,7 @@ sources:
     type: keyword
     target: "AI marketing agents"
     query: "AI marketing agents"
-    engines: [web, hn]
+    engines: [web, hn]   # also available: youtube, last30days (deep but slow)
     recency_days: 2
     list_at: 4
     focus: >

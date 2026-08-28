@@ -37,7 +37,7 @@ Every key can be overridden per source. A source that needs a different `auto_ca
 | Field | Required | Notes |
 |---|---|---|
 | `id` | ✅ | Kebab-case, unique. Convention: `<type-prefix>-<slug>` (`yt-`, `rss-`, `rd-`, `hn-`, `x-`, `li-`, `kw-`). Changing an `id` orphans its state file and re-surfaces old items — rename deliberately. |
-| `type` | ✅ | `youtube` \| `rss` \| `reddit` \| `hn` \| `x` \| `linkedin` \| `keyword` |
+| `type` | ✅ | `youtube` \| `rss` \| `reddit` \| `hn` \| `bluesky` \| `mastodon` \| `x` \| `linkedin` \| `keyword` |
 | `target` | ✅ | The human-readable handle/URL/query. What you'd type. |
 | `focus` | ✅ | Free prose: what you want from this source **and what you don't**. The negative half does most of the filtering work. |
 | `enabled` | | Default `true`. `pause` sets this to `false` rather than deleting — keeps the state file, so resuming doesn't re-surface a backlog. |
@@ -51,9 +51,11 @@ Every key can be overridden per source. A source that needs a different `auto_ca
 |---|---|
 | `youtube` | `channel_id` (cached `UC…`), `shorts: false` to skip Shorts, `min_duration_seconds` |
 | `rss` | `feed_url` (resolved at add-time), `full_text: true` if the feed carries whole articles (skips the WebFetch on capture) |
-| `reddit` | `subreddit`, `sort: new\|top`, `min_score` (upvotes floor — the cheapest possible pre-filter) |
+| `reddit` | `subreddit`, `sort: top\|new\|hot` (**default `top`**), `t: day\|week` (with `top`), `min_score` (upvotes floor — the cheapest possible pre-filter, and it only works on `top`/`hot`; see fetchers.md) |
 | `hn` | `query`, `min_points` (default 50), `story_only: true` |
 | `x` | `handle`, `include_replies: false`, `include_reposts: false` |
+| `bluesky` | `handle`, `did` (cached at add-time), `min_likes`, `include_replies: false` |
+| `mastodon` | `handle` (`@user@instance`), `instance`, `account_id` (both cached at add-time) |
 | `linkedin` | `profile_url`, `company: true` for company pages |
 | `keyword` | `query`, `engines: [web, hn, reddit, youtube]`, `recency_days` |
 
@@ -64,6 +66,12 @@ This field is the entire filter. Three rules:
 1. **Name concrete things, not categories.** "Server-side attribution, CAPI, consent-mode workarounds" filters. "Marketing tech" does not.
 2. **Include the exclusions.** Most sources are 80% something you don't want; say what it is. "Not: hiring posts, conference recaps, anything gated behind a webinar signup."
 3. **Tie it to an open question where you can.** "Anything that changes how TracerKit should handle iOS 17 link tracking" gives scoring a real bar to measure against, and it makes a 5 mean something.
+
+## Picking the type when an account is on several platforms
+
+Several people post the same thing to X, Bluesky, and Mastodon. Radar's reliability differs enormously between them (see fetchers.md → "Reliability at a glance"), so when there's a choice: **bluesky or mastodon over x**, always. Same content, keyless access, real engagement counts, and no source that quietly goes degraded for a week.
+
+Only reach for an `x` source when the account posts *there and nowhere else* — and even then, set up the `AUTH_TOKEN` + `CT0` cookies first.
 
 Rewrite the `focus` when a source's capture rate goes wrong in either direction — too many 5s means it's too loose, a month of nothing means it's too tight or the source is dead weight.
 
@@ -82,7 +90,7 @@ Rewrite the `focus` when a source's capture rate goes wrong in either direction 
 ```
 
 - `seen` is capped at the most recent 300 IDs, newest last.
-- ID format is `<type>:<native-id>` — video ID, GUID or URL, Reddit `t3_…`, HN object ID, tweet ID. Feeds without a stable ID fall back to a SHA of `url + title`.
+- ID format is `<type>:<native-id>` — video ID, GUID or URL, Reddit `t3_…`, HN object ID, tweet ID, Bluesky rkey, Mastodon status ID. Feeds without a stable ID fall back to a SHA of `url + title`.
 - Deleting a state file is the supported way to re-scan a source from scratch. It will re-surface items — that's the point.
 
 ## Run records
