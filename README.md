@@ -65,7 +65,7 @@ Each skill is a workflow doc — you can invoke via `/decide` OR read the SKILL.
 
 It'll read your clipboard, strip formatting, warn if over 280 chars, and copy back the cleaned output. First invocation may prompt you to install `pbcopy`-adjacent deps if missing. No config file needed — this is a pure utility.
 
-**5. Now branch out.** Skim [The 20 skills](#the-20-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
+**5. Now branch out.** Skim [The 21 skills](#the-21-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
 
 ---
 
@@ -85,6 +85,7 @@ Routing table for common operator jobs. Match your intent → skill.
 | Same but for a team-shared knowledge base | [`company-brain`](./skills/company-brain/SKILL.md) |
 | Extract notes / highlights / summaries from a book | [`read-book`](./skills/read-book/SKILL.md) |
 | Extract a transcript or key moments from a video | [`watch-video`](./skills/watch-video/SKILL.md) |
+| Turn a call transcript or client message into issues + reply | [`ingest`](./skills/ingest/SKILL.md) |
 | Fetch any social post by URL as structured data | [`social-fetch`](./skills/social-fetch/SKILL.md) |
 | Plan / draft social content rotation across a portfolio | [`jab-hook`](./skills/jab-hook/SKILL.md) |
 | Draft, update, convert, or export a slide deck | [`slide-deck`](./skills/slide-deck/SKILL.md) |
@@ -100,7 +101,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 
 ---
 
-## The 20 skills
+## The 21 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -126,6 +127,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 | [`company-brain`](./skills/company-brain/SKILL.md) | Team-scope sibling to second-brain. Structured raw dirs (people / companies / meetings / sops / decisions / customer-language / recurring-questions / sales-objections), multi-author attribution, sensitivity tagging, trust levels + a `/cb review` culling pass so unreviewed or deprecated info never poisons answers, optional auto-sync from Fathom / Gong / Granola / CRM. Backbone for a Company Brain Setup productized service. |
 | [`read-book`](./skills/read-book/SKILL.md) | PDFs, EPUBs, MOBI, markdown — chapter-by-chapter notes, quotes, summaries, or spaced-rep study mode. |
 | [`watch-video`](./skills/watch-video/SKILL.md) | YouTube, Loom, Vimeo, Riverside, Zoom, MP4. Transcript / visual / multimodal (Gemini-native) modes. |
+| [`ingest`](./skills/ingest/SKILL.md) | Raw human input — call transcripts (Grain/Zoom/Granola/Fathom), client texts, emails, voice notes — extracted into decisions, action items (yours vs theirs), filed GitHub issues, vault captures, and a drafted-never-sent reply. Person→project routing via private `people.yaml`. |
 
 ### Output & creative
 | Skill | What |
