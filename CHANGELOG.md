@@ -6,6 +6,13 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.6.0] — 2026-09-04
+
+### Added
+- **New skill: `ingest`** (v0.1.0) — raw human input → structured work. Paste a call transcript (Grain, Zoom, Granola, Fathom), a client text, an email, or a voice-memo dump and get: decisions, action items split mine/theirs, one GitHub issue per bug/feature request filed in the right repo, a vault capture in second-brain's `raw/` schema, and a reply drafted (never sent) in the sender's channel and tone. Person→project routing lives in a private `$MAKERSKILLS_CONFIG/ingest/people.yaml` (unknown senders get asked about once, then remembered). Includes a name-verification rule for transcript-mangled proper nouns and duplicate-search before filing. Born from session mining: this relay-hub flow was re-briefed manually 10+ times in two months. 20 → 21 skills.
+
+---
+
 ## [v1.5.1] — 2026-08-17
 
 ### Changed

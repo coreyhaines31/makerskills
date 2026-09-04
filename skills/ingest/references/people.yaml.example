@@ -1,0 +1,24 @@
+# Person → project routing for /ingest
+# Copy to ${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/ingest/people.yaml
+# (private — never commit your real one)
+
+people:
+  - name: Jane Doe
+    aliases: [jane, jane@acme.com, "Jane D"]   # transcript speaker labels, emails, nicknames
+    project: Acme App
+    repo: myorg/acme-app          # where extracted issues get filed
+    vault_page: Projects/Acme.md  # where "mine" action items + decisions land
+    reply_channel: text           # text | email | slack | dm
+    tone: "casual, brief, no corporate-speak"
+
+  - name: Sam Partner
+    aliases: [sam, samuel]
+    project: Big SaaS
+    repo: myorg/big-saas
+    vault_page: Projects/Big SaaS.md
+    reply_channel: email
+    tone: "warm but structured; they like numbered lists"
+
+defaults:
+  issue_labels: [from-ingest]   # applied to every filed issue; [] to disable
+  vault_capture: true           # set false to skip vault writes unless asked
