@@ -40,7 +40,7 @@ Long transcripts arrive truncated in chat sometimes — if the content visibly c
 
 Read `people.yaml`. Match participants/senders against `name` and `aliases`.
 
-- **Matched** → you now have the repo, vault page, reply channel, and tone notes. Say which routing you're using in one line ("Routing: Bryce → safehold").
+- **Matched** → you now have the repo, vault page, reply channel, and tone notes. Say which routing you're using in one line ("Routing: Jane → acme-app").
 - **Unmatched** → ask once: "Who is this and what project does it belong to?" Then offer to append them to `people.yaml` so the question never repeats. If the user declines to add them, process the input with explicit destinations instead of routed defaults.
 - **Multiple projects in one call** (common on partner calls) → split extraction by project; route each piece separately.
 
@@ -63,9 +63,9 @@ One compact table before acting:
 
 | # | Item | Destination |
 |---|---|---|
-| 1 | "Roster of recently checked-in students on home screen" | Issue → `coreyhaines31/safehold` |
-| 2 | Decision: monthly billing default | vault `Projects/Safehold.md` |
-| 3 | Reply to Bryce | draft below |
+| 1 | "Bulk-export button on the reports page" | Issue → `myorg/acme-app` |
+| 2 | Decision: monthly billing default | vault `Projects/Acme.md` |
+| 3 | Reply to Jane | draft below |
 
 Then **proceed without waiting** — everything in the table is internal or a draft. Pause for confirmation only when routing is ambiguous (two plausible repos, an unmatched person) or the input includes something sensitive (credentials, legal/financial commitments).
 
@@ -76,9 +76,9 @@ Then **proceed without waiting** — everything in the table is internal or a dr
 **Vault capture** — one file per ingest, second-brain raw schema:
 
 ```markdown
-# call-bryce-checkin-roster (2026-09-04)
-source: text message from Bryce
-project: Safehold
+# message-jane-bulk-export (2026-09-04)
+source: text message from Jane
+project: Acme App
 
 ## Summary
 …
@@ -88,10 +88,10 @@ project: Safehold
 
 ## Action items
 - [ ] mine: …
-- [ ] theirs: Bryce to …
+- [ ] theirs: Jane to …
 
 ## Filed
-- coreyhaines31/safehold#123 — Roster of recently checked-in students
+- myorg/acme-app#123 — Bulk-export button on the reports page
 ```
 
 Slug: `call-` or `message-` + person + topic. Follow the vault's auto-commit convention (semantic commit per session).
@@ -114,6 +114,6 @@ Close with a compact recap: TLDR of the input (2–3 sentences), decisions, both
 ## Notes on quality
 
 - The most common failure is **flattening**: summarizing the input instead of extracting work from it. The test: could the user act on your output without rereading the source?
-- Second most common: **issue grab-bags**. "Improvements from call with Luke" is not an issue. One item, one issue, one clear title.
+- Second most common: **issue grab-bags**. "Improvements from call with Jane" is not an issue. One item, one issue, one clear title.
 - "Theirs" action items are as valuable as "mine" — they're the follow-up ledger. Don't drop them because no tool call captures them.
 - A voice-note ingest with zero action items is fine: capture it, say so, stop. Not every input contains work.
