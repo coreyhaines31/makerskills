@@ -1,8 +1,8 @@
 ---
 name: domain
-description: "When you want to brainstorm and check available .com domains for a new project — brand naming, aftermarket pricing (HugeDomains / Afternic / Sedo / Dan), USPTO trademark screening, and social handle availability. Built on Laura Roeder's \"work backwards from availability, not from a name you fell in love with\" methodology. Uses Vercel CLI + whois + Domainr API + Namecheap API + agent-browser for the pieces each tool actually reliably supports (multi-tool ensemble because no single tool covers everything cleanly). 11-step workflow: budget → brainstorm → primary availability check → whois cross-check → Domainr aggregation → Namecheap price → aftermarket sweep (+ liveness probe for parked/dead domains, drop-watch for expiring ones) → bucket → negotiate → NAME research (trademark + socials) → buy. Triggers on \"/domain,\" \"find a domain,\" \"check domain availability,\" \"brainstorm a domain,\" \"what .com is available for X,\" \"domain hunt,\" \"name my project,\" \"is X.com available,\" \"aftermarket price on X.com,\" \"trademark check for X.\""
+description: "When you want to brainstorm and check available .com domains for a new project — brand naming, aftermarket pricing (HugeDomains / Afternic / Sedo / Dan), USPTO trademark screening, and social handle availability. Built on Laura Roeder's \"work backwards from availability\" method. Combines Vercel CLI, whois, Domainr, Namecheap, and agent-browser, each for what it reliably does. Workflow: budget → brainstorm → availability check → whois cross-check → price → aftermarket sweep (plus liveness probe and drop-watch) → bucket → negotiate → trademark + socials → buy. Triggers on \"/domain,\" \"find a domain,\" \"check domain availability,\" \"brainstorm a domain,\" \"what .com is available for X,\" \"domain hunt,\" \"name my project,\" \"is X.com available,\" \"aftermarket price on X.com,\" \"trademark check for X.\""
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /domain — Brainstorm + check available .com domains
@@ -196,7 +196,7 @@ curl -s "https://api.namecheap.com/xml.response?ApiUser=$NAMECHEAP_API_USER&ApiK
 
 **Don't try to scrape marketplaces.** All verified failing:
 - `curl` (even with realistic User-Agent) → HugeDomains 403, GoDaddy Akamai access-denied
-- `WebFetch` → Cloudflare 403 across the board
+- Plain fetch (e.g. `WebFetch`) → Cloudflare 403 across the board
 - `dev-browser` skill with real Chromium → Cloudflare fingerprints Playwright automation flags, serves challenge pages. Bypassing needs `playwright-extra` + stealth plugin (flaky) or pre-warmed browser profile with human-solved captcha (not worth it for a domain hunt)
 - `domainr.com` public web → IP-rate-limited
 - `rdap.org` → registration status only, no aftermarket pricing
@@ -286,8 +286,8 @@ For top 3–5 candidates that survived availability + budget:
 
 **What does NOT work** (verified — don't waste cycles):
 - `curl` against tmsearch.uspto.gov → AWS WAF challenge, JS shell only, no data
-- `WebFetch` against tmsearch.uspto.gov → same WAF, empty SPA shell
-- `curl`/`WebFetch` against Justia, Trademarkia, TrademarkElite → all 403
+- Plain fetch (e.g. `WebFetch`) against tmsearch.uspto.gov → same WAF, empty SPA shell
+- `curl` or plain fetch (e.g. `WebFetch`) against Justia, Trademarkia, TrademarkElite → all 403
 - USPTO Open Data Portal API → requires USPTO.gov account linked to ID.me (hard signup)
 - Marker API / RapidAPI USPTO endpoints → require key signup
 

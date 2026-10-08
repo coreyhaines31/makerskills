@@ -1,6 +1,6 @@
 # Company config template
 
-Copy this to `${COMPANY_CFO_ROOT}/CLAUDE.md` when seeding a new company's CFO workflow. Fill in placeholders with your actuals.
+Copy this to `${COMPANY_CFO_ROOT}/AGENTS.md` (and symlink `CLAUDE.md` to it for Claude Code) when seeding a new company's CFO workflow. Fill in placeholders with your actuals.
 
 The file becomes the source of truth for HOW your company computes its financials. The `company-cfo` skill reads this first before every run.
 
@@ -114,7 +114,7 @@ Add as they're discovered — this list is company-specific muscle memory:
 
 ## Memory note
 
-Running context lives at `~/.claude/memory/company_cfo_<slug>.md`. Update if:
+Running context lives in `company_cfo_<slug>.md` in your memory store (your agent's memory, or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`). Update if:
 - Distribution/comp structure changes
 - Active sub count or MRR shifts materially
 - New revenue stream or new payroll tool

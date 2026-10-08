@@ -1,0 +1,23 @@
+name: Portability
+
+on:
+  pull_request:
+    paths:
+      - "skills/**"
+      - "scripts/check_portability.py"
+  push:
+    branches: [main, development]
+    paths:
+      - "skills/**"
+      - "scripts/check_portability.py"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pyyaml
+      - run: python3 scripts/check_portability.py

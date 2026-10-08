@@ -94,6 +94,10 @@ Not strict rules, but the pattern most skills follow:
 
 Open the PR. Include a description of what problem the skill solves, an example invocation + expected output, and any dependencies (env vars, brew installs, MCP servers).
 
+## Portability
+
+Skills must work outside Claude Code and off macOS. Follow the [portability rules](./ARCHITECTURE.md#portability-rules) and run `python3 scripts/check_portability.py` before opening a PR.
+
 ## Testing pattern
 
 There's no automated test harness — SKILL.md files are executable documentation, not code. Testing is:

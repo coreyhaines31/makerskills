@@ -2,7 +2,7 @@
 name: ingest
 description: When you paste raw human input — a call transcript (Grain, Zoom, Granola, Fathom), a text or email from a client/partner/friend, a voice-memo dump, or meeting notes — and want it converted into structured work. Extracts decisions, action items (yours vs theirs), bugs/feature requests, and facts worth keeping; files GitHub issues in the right repo, captures to the second-brain vault, and drafts (never sends) the reply. Triggers on "/ingest", "ingest this", "here's my call with X," "here's the transcript," "this is from [person]," "[person] asked me this," "from [person]:", a pasted transcript with speaker labels, or a forwarded client message that clearly expects processing. Person→project routing lives in a private config; unknown senders get asked about once, then remembered.
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /ingest — Raw human input → structured work
@@ -23,7 +23,7 @@ You are a relay hub: clients text you, partners email you, calls get transcribed
 
 ## Step 0 — Get the input and classify it
 
-In order: content in the prompt → clipboard (`pbpaste`) → ask.
+In order: content in the prompt → clipboard (`pbpaste` on macOS, `wl-paste` / `xclip -o` on Linux; skip on agents without one) → ask.
 
 Classify by shape, not by what the user called it:
 

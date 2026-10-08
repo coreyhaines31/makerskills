@@ -1,6 +1,6 @@
 # Company Brain schema (fallback)
 
-**Authoritative source: `<vault>/CLAUDE.md`.** This file is a fallback used only when the vault's CLAUDE.md is missing.
+**Authoritative source: `<vault>/CLAUDE.md` or `<vault>/AGENTS.md`.** This file is a fallback used only when the vault has neither.
 
 Use this as a starter kit when seeding a new team's vault.
 

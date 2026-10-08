@@ -215,7 +215,7 @@ The shared stylesheet at `~/.local/share/makerskills/render.css` is system-font 
 After rendering, open:
 
 ```bash
-open "<workdir>/notes.pdf"   # or notes.html
+open "<workdir>/notes.pdf"   # or notes.html; xdg-open on Linux
 ```
 
 ### When to render

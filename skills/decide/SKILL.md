@@ -2,7 +2,7 @@
 name: decide
 description: When you have a decision to make and want a structured workflow that picks the load-bearing questions, walks through them, reaches a call (or "wait"), and archives the rationale for future reference. Based on the 37signals Guide to Making Decisions (38 questions) plus house additions like Q39 opportunity cost ("what does saying yes displace?"). Triages to 6–8 relevant questions per decision instead of forcing the full set. Archives every decision to ~/.config/makerskills/decide/archive/ with a revisit date so you can check later whether the call was right. Triggers on "/decide," "help me decide," "should I [X]," "I need to make a decision about," "stuck on a decision," "deciding between," "go/no-go on," "what should I do about." This is both the decision-making workflow AND the decision log — making the decision is the act of logging it.
 metadata:
-  version: 0.3.0
+  version: 0.3.1
 ---
 
 # /decide — Structured decision workflow + archive
@@ -138,7 +138,7 @@ Show the archive entry in chat. Tell the user the archive path. Offer:
 
 ## Future enhancements
 
-- Auto-create a calendar event or cron reminder for the revisit (via `compound-engineering:schedule`)
+- Auto-create a calendar event or cron reminder for the revisit (via your agent's scheduler if it has one, e.g. `compound-engineering:schedule` in Claude Code; otherwise a calendar event)
 - Composable with `business-brainstorm` — brainstorm scores the idea on 9 dimensions; `decide` formalizes the go/no-go after
 - Grep past decisions for patterns ("show me decisions I made that were marked 'easy reverse' but didn't reverse")
 
