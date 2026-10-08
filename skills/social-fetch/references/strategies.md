@@ -63,19 +63,32 @@ Returns the item + full nested comment tree. Comments are recursive — flatten 
 
 ## reddit
 
-**Reliability: medium.** Free .json suffix works but rate-limited per IP (~60 req/min).
+**Reliability: medium.** The `.json` path is dead; the keyless shreddit partials work.
 
-### Strategy 1 — Append `.json` to URL
+### Strategy 1 — shreddit `/svc` comment partial (CURRENT)
 
 URL pattern: `https://www.reddit.com/r/<sub>/comments/<id>/<slug>/`
+
+```bash
+curl -s -A "$BROWSER_UA" "https://www.reddit.com/svc/shreddit/comments/r/<sub>/t3_<id>"
+```
+
+Serves HTTP 200 HTML with no API key. Comments are `<shreddit-comment>` elements whose start-tag attributes carry `score` / `author` / `created` / `permalink`; each body lives in a `<div id="{thingId}-post-rtjson-content">` block. `total-comments` on the page gives the real comment count.
+
+For post-level upvote score (which the comments partial does *not* carry), use the listing partial:
+`https://www.reddit.com/svc/shreddit/community-more-posts/top/?name=<sub>&t=day` — `<shreddit-post>` elements carry `score`, `comment-count`, `post-title`, `permalink`, `created-timestamp`.
+
+### Strategy 2 — Append `.json` to URL (DEPRECATED — usually 403)
 
 ```bash
 curl -s -A "Mozilla/5.0 social-fetch/0.1" "<url>.json" | jq .
 ```
 
-Returns `[post, comments_tree]` as a 2-element array. Set a real User-Agent — Reddit blocks default curl UA.
+**Verified 403 on 2026-08-28** for unauthenticated clients regardless of User-Agent — Reddit's shreddit anti-bot now gates it. A residential IP occasionally still gets a 200, so it's worth one cheap try, but never depend on it. Returns `[post, comments_tree]` when it does work.
 
-### Strategy 2 — Wayback Machine fallback
+**Rate limits**: Reddit 429s an unpaced burst and keeps 429ing *every* endpoint for minutes, then recovers on its own. Space calls ≥2s; treat a 429 as a failed strategy, not something to retry.
+
+### Strategy 3 — Wayback Machine fallback
 
 If rate-limited or post deleted:
 
@@ -89,9 +102,29 @@ Returns Wayback URL — re-fetch from there.
 
 ## x (twitter)
 
-**Reliability: low without paid keys.** X aggressively blocks scraping.
+**Reliability: good with your own session cookies, low without.** X blocks anonymous scraping aggressively, but `AUTH_TOKEN` + `CT0` unlock a real free path — see Strategy 1.
 
-### Strategy 1 — agent-browser preview (LIMITED)
+### Strategy 1 — bird-search with session cookies (FREE, preferred)
+
+`last30days` vendors a Node client for X's GraphQL API (`@steipete/bird` v0.8.0, MIT):
+
+```
+~/.claude/plugins/cache/last30days-skill/last30days/<ver>/skills/last30days/scripts/lib/vendor/bird-search/bird-search.mjs
+```
+
+```bash
+AUTH_TOKEN=… CT0=… node "$BIRD" "from:<handle> since:2026-08-25" --count 15 --json
+```
+
+Real search and per-handle timelines, free. Credentials are the `auth_token` and `ct0` cookies from your own logged-in x.com session (DevTools → Application → Cookies). Resolve env → macOS Keychain; **treat them as passwords** — never a plaintext dotfile, never committed. They expire with the session, so a sudden auth failure means "re-grab the cookies," not "X is broken." Glob the newest vendored version at runtime rather than hardcoding the path.
+
+Without credentials the tool fails explicitly rather than oddly:
+
+```json
+{"error":"Missing auth_token - provide via --auth-token, AUTH_TOKEN env var, ...","items":[]}
+```
+
+### Strategy 2 — agent-browser preview (LIMITED, fallback)
 
 For tweet preview only — body text and basic author info. No engagement counts, no replies, no thread.
 
@@ -104,20 +137,9 @@ agent-browser snapshot 2>&1 | head -50
 
 Often hits "Sign up to see" modal — dismiss with first interactive button if visible.
 
-### Strategy 2 — Nitter mirror (UNRELIABLE)
+### Nitter mirrors — EFFECTIVELY DEAD, don't try
 
-Nitter instances are frequently rate-limited or down. Try if running:
-
-```bash
-# Pick a known-working instance (rotate if down)
-for inst in nitter.net nitter.lacontrevoie.fr nitter.privacydev.net; do
-  CODE=$(curl -s -o /dev/null -w "%{http_code}" "https://${inst}/<user>/status/<id>")
-  if [ "$CODE" = "200" ]; then
-    curl -s "https://${inst}/<user>/status/<id>"
-    break
-  fi
-done
-```
+Instances are down or rate-limited essentially always as of 2026-08. Removed as a strategy; noted so nobody re-adds it.
 
 ### Strategy 3 — Wayback Machine
 
@@ -258,8 +280,8 @@ Use a Threads scraper actor (search Apify marketplace).
 | bluesky | Direct API | — |
 | mastodon | Direct API | — |
 | hn | Algolia API | — |
-| reddit | `.json` suffix → Wayback | — |
-| x | agent-browser → Nitter → Wayback | ScrapeCreators → Apify |
+| reddit | shreddit `/svc` partials → `.json` (usually 403) → Wayback | — |
+| x | bird-search (`AUTH_TOKEN`+`CT0`) → agent-browser → Wayback | ScrapeCreators → Apify |
 | linkedin | agent-browser (modal dismiss) | ScrapeCreators → Apify |
 | instagram | OG tags | ScrapeCreators → Apify |
 | tiktok | OG tags | ScrapeCreators → Apify |
