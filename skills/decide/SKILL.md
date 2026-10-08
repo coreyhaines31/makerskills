@@ -138,7 +138,7 @@ Show the archive entry in chat. Tell the user the archive path. Offer:
 
 ## Future enhancements
 
-- Auto-create a calendar event or cron reminder for the revisit (via `compound-engineering:schedule`)
+- Auto-create a calendar event or cron reminder for the revisit (via your agent's scheduler if it has one, e.g. `compound-engineering:schedule` in Claude Code; otherwise a calendar event)
 - Composable with `business-brainstorm` — brainstorm scores the idea on 9 dimensions; `decide` formalizes the go/no-go after
 - Grep past decisions for patterns ("show me decisions I made that were marked 'easy reverse' but didn't reverse")
 

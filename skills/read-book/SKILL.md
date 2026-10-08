@@ -16,7 +16,7 @@ Accept:
 - **EPUB / MOBI**: file path (needs `pandoc` or `ebook-convert` to extract — see `references/sources.md`)
 - **Markdown / .txt**: file path (read directly)
 - **Pasted text**: just use what was pasted
-- **URL** to public-domain text: `WebFetch` (Project Gutenberg, archive.org, etc.)
+- **URL** to public-domain text: fetch it with your agent's URL-fetch tool or `curl` (Project Gutenberg, archive.org, etc.)
 
 Detect type from file extension. If ambiguous, ask.
 

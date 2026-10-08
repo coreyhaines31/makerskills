@@ -56,15 +56,7 @@ Show the user the answers as a summary before scaffolding — one chance to corr
 
 ## Step 2 — Fetch official setup docs
 
-Use `WebFetch` or `context7:query-docs` to pull the *current* official quickstart:
-
-```bash
-# Prefer context7 if available (fresher docs than training data)
-Skill({skill: "compound-engineering:context7", ...})
-
-# Fallback to WebFetch
-WebFetch <official-quickstart-url>
-```
+Pull the *current* official quickstart. Prefer context7 if your agent has it (fresher docs than training data); otherwise fetch the official quickstart URL with your agent's URL-fetch tool (`WebFetch` in Claude Code) or `curl`.
 
 Read *once*, then work from cached content. Don't re-fetch mid-scaffold. Note the SDK version cited so `package.json` gets the right pin.
 

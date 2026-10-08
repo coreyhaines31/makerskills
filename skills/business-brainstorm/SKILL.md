@@ -37,12 +37,12 @@ Don't BS the unknowns. Mark them ❓ and route to deep-research in Step 4.
 If 2+ dimensions are ❓ unknown, offer the user: *"Want me to run `/deep-research` on [topic] before scoring?"*
 
 Useful research targets:
-- Market size / who pays signal → `/last30days <space>` + `WebSearch`
+- Market size / who pays signal → `last30days` skill (if installed) + web search
 - Competitive landscape → search for "alternatives to X", "X vs Y" pages
 - ICP signal → forums / Reddit / X where the audience hangs out
 - Pricing benchmarks → look at competitor pricing pages
 
-If the user says yes, run `Skill({skill: "deep-research", args: "<topic>"})` and incorporate the brief.
+If the user says yes, run the `deep-research` skill on the topic and incorporate the brief.
 
 ## Step 5 — Check the .com
 

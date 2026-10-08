@@ -38,8 +38,8 @@ If ambiguous, confirm.
 2. Read `references/voice.md` — the user's voice rules per platform
 3. Read `references/content-types.md` — templates for promo / BIP / educational
 4. Pull recent posts from your personal Typefully workspace:
-   - First run: call `mcp__typefully__typefully_list_social_sets` and ask which social set is your personal (X + LinkedIn). Save the ID to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/typefully.yaml` for future runs (schema in `references/typefully-config.example.yaml` — never save it inside the skill folder; upgrades wipe it).
-   - Call `mcp__typefully__typefully_list_drafts` filtered to the last 30 days
+   - First run: call the Typefully MCP server's list-social-sets tool and ask which social set is your personal (X + LinkedIn). Save the ID to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/typefully.yaml` for future runs (schema in `references/typefully-config.example.yaml` — never save it inside the skill folder; upgrades wipe it).
+   - Call its list-drafts tool, filtered to the last 30 days
    - Classify each as promo / BIP / educational by content
 5. Compute **days since last promo** for each of the 6 slots
 
@@ -90,7 +90,7 @@ Ask: *"Push to Typefully now? (X + LinkedIn, your personal workspace)"*
 
 If yes:
 1. Read social set ID from `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/typefully.yaml` (setup notes in `references/typefully-config.md`)
-2. Call `mcp__typefully__typefully_create_draft` once for X, once for LinkedIn (or once with both platforms if the social set spans both)
+2. Call the Typefully create-draft tool once for X, once for LinkedIn (or once with both platforms if the social set spans both)
 3. If the draft has a first-comment link, configure Typefully to add it automatically (LinkedIn auto-comment / X reply). If the MCP doesn't support auto-comment for one of the platforms, surface the comment text so the user can paste it after publishing.
 4. Default to **draft** state (not scheduled) — the user reviews in Typefully UI before sending
 5. Return the Typefully draft URLs

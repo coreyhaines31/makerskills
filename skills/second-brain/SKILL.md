@@ -63,7 +63,7 @@ Inputs: URL, pasted text, file path, or screenshot.
    captured: YYYY-MM-DD
    ```
 4. **Save to `<vault>/raw/`**.
-5. If the source is a URL, fetch the article content (via WebFetch or agent-browser for auth-walled) and save the readable text — not just the URL.
+5. If the source is a URL, fetch the article content (your agent's URL fetch, or agent-browser for auth-walled pages) and save the readable text — not just the URL.
 6. **Report** path + a one-line summary of what was saved.
 
 Don't compile into the wiki here — capture is fast intake. Compilation is a separate, deliberate pass.

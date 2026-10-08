@@ -11,7 +11,7 @@ cp skills/jab-hook/references/typefully-config.example.yaml \
    ~/.config/makerskills/jab-hook/typefully.yaml
 
 # Edit ~/.config/makerskills/jab-hook/typefully.yaml with your real Typefully social set ID.
-# Find it via: mcp__typefully__typefully_list_social_sets
+# Find it via the Typefully MCP server's list-social-sets tool
 ```
 
 ## Schema
@@ -22,7 +22,7 @@ See `typefully-config.example.yaml` in this directory for the full schema + comm
 
 1. Read `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/typefully.yaml`
 2. If the file doesn't exist, fall back to interactive setup:
-   - Call `mcp__typefully__typefully_list_social_sets`
+   - Call the Typefully MCP server's list-social-sets tool
    - Ask which one is the user's personal workspace
    - Save the answer to the config file for next time
 
