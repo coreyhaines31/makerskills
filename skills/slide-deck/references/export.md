@@ -157,7 +157,7 @@ magick ~/Documents/slide-exports/<slug>-<date>/slide-*.png \
 Open after generation:
 
 ```bash
-open ~/Documents/slide-exports/<slug>-<date>/<slug>.pdf
+open ~/Documents/slide-exports/<slug>-<date>/<slug>.pdf   # xdg-open on Linux
 ```
 
 ### vercel (shareable URL)

@@ -11,7 +11,7 @@ personal_workspace:
   username: "@yourhandle"
   name: "Your Name"
   team: "Your Team"
-  platforms:                 # confirm via mcp__typefully__typefully_get_social_set_details
+  platforms:                 # confirm via the Typefully MCP server's get-social-set-details tool
     - x
     - linkedin
 

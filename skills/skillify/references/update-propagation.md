@@ -74,7 +74,7 @@ Present to the user before proposing any diffs:
 - `<skill4>` — keyword present but in unrelated context
 
 ### Memory candidate (cross-cutting principle?)
-- Yes / no. If yes, suggested path: `~/.claude/memory/feedback_<slug>.md`
+- Yes / no. If yes, suggested path: `feedback_<slug>.md` in the memory store (agent memory, or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`)
 
 **Proceed with high-confidence diffs? Approve / edit / skip each.**
 ```

@@ -2,7 +2,7 @@
 name: business-brainstorm
 description: "When you want to pressure-test a potential new business, product, or side project against the serial-founder filter. Not \"marketing ideas for a product\" (that's marketing-skills:marketing-ideas) — this is \"should this business exist + can you win it.\" Runs the idea through a structured framework (problem, audience, wedge, monetization, moat, portfolio fit, distribution, energy fit, opportunity cost), checks domain availability via /domain, optionally triggers /deep-research for market validation, and outputs a viability brief: build / sleep on it / pass. Archives every idea to ~/.config/makerskills/business-brainstorm/archive/ so past work is searchable. Triggers on \"/business-brainstorm,\" \"/brainstorm,\" \"new business idea,\" \"should I build X,\" \"pressure test this idea,\" \"validate this idea,\" \"is X a good business,\" \"what about a [type] for [audience].\""
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /business-brainstorm — Pressure-test a business idea
@@ -37,12 +37,12 @@ Don't BS the unknowns. Mark them ❓ and route to deep-research in Step 4.
 If 2+ dimensions are ❓ unknown, offer the user: *"Want me to run `/deep-research` on [topic] before scoring?"*
 
 Useful research targets:
-- Market size / who pays signal → `/last30days <space>` + `WebSearch`
+- Market size / who pays signal → `last30days` skill (if installed) + web search
 - Competitive landscape → search for "alternatives to X", "X vs Y" pages
 - ICP signal → forums / Reddit / X where the audience hangs out
 - Pricing benchmarks → look at competitor pricing pages
 
-If the user says yes, run `Skill({skill: "deep-research", args: "<topic>"})` and incorporate the brief.
+If the user says yes, run the `deep-research` skill on the topic and incorporate the brief.
 
 ## Step 5 — Check the .com
 

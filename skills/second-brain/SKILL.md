@@ -2,12 +2,12 @@
 name: second-brain
 description: When you want to capture into, compile, query, lint, or connect your personal Second Brain. Wraps the Karpathy LLM Wiki schema (Obsidian or any markdown vault) — raw/ (unprocessed sources), wiki/ (AI-compiled interlinked topic pages), outputs/ (generated artifacts). Tool-agnostic in design but defaults to a vault at ${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/. Six modes — capture (drop something into raw/), compile (process unprocessed raw files into wiki pages, update INDEX.md), query (answer a question from the wiki, save to outputs/), lint (orphans / contradictions / stale / unprocessed raw / topic gaps), connect (suggest new wikilinks between pages), search (quick lookup). Triggers on "/second-brain," "/sb," "capture this," "save this to my brain," "compile the wiki," "process raw notes," "query my wiki," "ask my brain," "lint the wiki," "find connections," "search my notes." Complements deep-research (external corpus) — this is the internal corpus.
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /second-brain — Karpathy LLM Wiki workflow
 
-Wraps an existing Second Brain in Obsidian (or any markdown-based vault). The wiki vault's CLAUDE.md is the authoritative schema — the skill orchestrates the operations the user has been doing manually.
+Wraps an existing Second Brain in Obsidian (or any markdown-based vault). The wiki vault's schema doc (`CLAUDE.md` or `AGENTS.md`) is the authoritative schema — the skill orchestrates the operations the user has been doing manually.
 
 ## Mental model
 
@@ -28,8 +28,8 @@ Folders to leave alone during wiki ops: `Projects/`, `Daily/`, `Templates/`, `In
 ## Step 1 — Load vault config + schema
 
 1. Read `references/vault-config.md` for the vault path (default: `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/`)
-2. Read `<vault>/CLAUDE.md` for the authoritative schema. If present, trust it over `references/schema.md` — the user's vault is the source of truth.
-3. If no `<vault>/CLAUDE.md`, fall back to `references/schema.md`.
+2. Read the vault's schema doc — `<vault>/CLAUDE.md` or `<vault>/AGENTS.md`, whichever exists (if both, read both) — for the authoritative schema. If present, trust it over `references/schema.md` — the user's vault is the source of truth.
+3. If neither exists, fall back to `references/schema.md`.
 
 ## Step 2 — Parse mode
 
@@ -63,7 +63,7 @@ Inputs: URL, pasted text, file path, or screenshot.
    captured: YYYY-MM-DD
    ```
 4. **Save to `<vault>/raw/`**.
-5. If the source is a URL, fetch the article content (via WebFetch or agent-browser for auth-walled) and save the readable text — not just the URL.
+5. If the source is a URL, fetch the article content (your agent's URL fetch, or agent-browser for auth-walled pages) and save the readable text — not just the URL.
 6. **Report** path + a one-line summary of what was saved.
 
 Don't compile into the wiki here — capture is fast intake. Compilation is a separate, deliberate pass.

@@ -1,8 +1,8 @@
 ---
 name: skillify
-description: When you want to create, adapt, or update a Claude Code skill in one of your sibling repos (list your own repos in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Routes to the right mode automatically. Modes — CREATE (from-chat / from-video / from-dump / from-scratch) turns a workflow, brief, recording, or fresh idea into a new skill. ADAPT ports an external skill (GitHub URL, agentskills.io, local disk) into your namespace with three-bucket classification (keep/adapt/add) + license check + attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver discipline. Defers to Anthropic's guidance (compound-engineering:create-agent-skill, compound-engineering:skill-creator, compound-engineering:heal-skill) for schema and best-practice depth. Triggers on "/skillify," "create a skill," "make this a skill," "skill from this chat," "extract a skill from what we've been doing," "adapt this skill," "port this skill," "fork this skill," "borrow this skill," "update X skill," "apply this to the relevant skills," "propagate this learning," "improve [skill]," "fix [skill]," "iterate on [skill]." Part of the -ify trifecta (skillify / toolify / loopify) for extending Claude Code.
+description: When you want to create, adapt, or update an Agent Skill (Claude Code, Codex, Cursor, and other hosts) in one of your repos (listed in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Modes — CREATE (from chat, video, dump, or scratch) turns a workflow into a new skill. ADAPT ports an external skill with keep/adapt/add classification, license check, and attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver. Checks new skills for host portability. Triggers on "/skillify," "create a skill," "make this a skill," "skill from this chat," "adapt this skill," "port this skill," "fork this skill," "update X skill," "apply this to the relevant skills," "propagate this learning," "improve [skill]," "fix [skill]." Part of the -ify trifecta (skillify / toolify / loopify).
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /skillify — Create, adapt, or update a skill
@@ -115,12 +115,12 @@ metadata:
 ---
 ```
 
-Description rules (load-bearing — Claude routes by description match):
+Description rules (load-bearing — agents route by description match):
 - Lead with the use case ("When you want to X…")
 - Include explicit trigger phrases
 - Differentiate from sibling skills
 - Mention key references the skill loads
-- Keep under ~500 characters
+- Keep under ~500 characters (the Agent Skills spec hard limit is 1024; stricter hosts may reject longer ones)
 
 For deeper description-writing guidance, consult `compound-engineering:skill-creator`.
 
@@ -166,7 +166,7 @@ Port an external skill (GitHub URL, agentskills.io, local disk, or pasted SKILL.
 Accept:
 - **GitHub URL** to a SKILL.md or repo (`https://github.com/<owner>/<repo>` or full path to SKILL.md)
 - **agentskills.io URL** or **skills.sh URL**
-- **Local path** to an existing skill on disk (other plugins in `~/.claude/plugins/`)
+- **Local path** to an existing skill on disk (other installed plugins, e.g. `~/.claude/plugins/` in Claude Code, `~/.agents/skills/` or `~/.codex/skills/` elsewhere)
 - **Pasted SKILL.md content**
 
 ```bash
@@ -334,7 +334,7 @@ For each learning: **is this skill-specific or a broader principle?**
 | Type | Where it goes |
 |---|---|
 | Skill-specific rule | Edit the SKILL.md / references file directly |
-| Cross-cutting principle | `~/.claude/memory/feedback_<topic>.md` |
+| Cross-cutting principle | `feedback_<topic>.md` in the memory store (agent memory, or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`) |
 | Both | Write the memory file AND update the skill(s) that immediately apply |
 
 Example: *"links go in first comments, not body"* → applies to `jab-hook` AND is a broader social principle → both update jab-hook AND save `feedback_social_link_placement.md`.
@@ -419,6 +419,12 @@ For one-line updates with no cross-skill implications: just Edit.
 - **Don't over-engineer v0.1.** Ship a minimal SKILL.md + 1–2 references files. Iterate after first use. Most generated skills are over-scoped.
 - **Verb-noun naming** where possible (matches `watch-video`, `read-book`, `paste`). Single-word noun names are fine for distinctive concepts (`decide`, `pm`, `paste`, `skillify`).
 - **Always reference Anthropic's official guidance** for the schema — don't invent format conventions.
+- **Write for any agent host**, not just Claude Code:
+  - Name capabilities, not tool names ("fetch the URL", not a host tool name like Claude Code's fetch tool; "the Typefully create-draft tool", not a raw MCP tool ID).
+  - Memory lives in the agent's memory or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`, never a hardcoded Claude Code memory path.
+  - Read `CLAUDE.md` **or** `AGENTS.md` for user-owned schema/config docs.
+  - Give Linux fallbacks for macOS-only commands (clipboard, `open`, MLX) — e.g. `wl-copy`/`xclip`, `xdg-open`, faster-whisper.
+  - If a skill genuinely needs a Claude Code feature, say so in the body and give the other-hosts path (see loopify).
 - **Attribution is non-negotiable** for ADAPT mode. Every adapted skill ships with `references/attribution.md`.
 - **License is a hard gate.** Don't proceed on GPL/proprietary without explicit approval.
 - **Per-file approval in UPDATE mode.** Small changes are easy to OK; bundling forces all-or-nothing.

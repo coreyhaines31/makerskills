@@ -99,7 +99,7 @@ If the user pastes only a section of a book ("read this chapter for me"), treat 
 ## URL (public-domain text)
 
 ```bash
-# WebFetch the URL
+# Fetch the URL (your agent's URL fetch, or curl)
 # Project Gutenberg pattern: https://www.gutenberg.org/files/<id>/<id>-0.txt
 # Archive.org pattern: https://archive.org/stream/<id>/<id>_djvu.txt
 ```

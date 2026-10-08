@@ -1,8 +1,8 @@
 ---
 name: company-brain
-description: Your team's shared, AI-ready knowledge base — people, companies, meetings, SOPs, and decisions structured so Claude can answer questions on your team's behalf. Team-scope sibling to second-brain (which is personal-scope). Seven modes — capture (drop something into the right structured dir), compile (process into wiki pages, update INDEX.md), query (answer from the corpus with trust weighting, save to outputs/), review (triage queue — verify / deprecate / supersede unreviewed and stale captures so wrong info never becomes context), lint (orphans / stale / contradictions / gaps), connect (suggest new wikilinks), search (quick lookup). Structured raw dirs (people/, companies/, meetings/, sops/, decisions/, customer-language/, recurring-questions/, sales-objections/) instead of second-brain's flat type-prefixed raw/. Multi-author aware — every capture stamps author + timestamp + trust status. Optional auto-sync from Fathom/Gong/Granola call transcripts, Slack/email exports, CRM. Defaults to a vault at ${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/. Triggers on "/company-brain," "/cb," "capture this into the team brain," "log this meeting," "add this person to the team brain," "save this SOP," "compile the company wiki," "query the team brain," "what does the team know about X," "review the company brain," "cull the team brain," "lint the company brain," "who's the internal expert on X."
+description: Your team's shared, AI-ready knowledge base — people, companies, meetings, SOPs, and decisions structured so an agent can answer on your team's behalf. Team-scope sibling to second-brain. Modes — capture, compile (wiki pages + INDEX.md), query (trust-weighted, saved to outputs/), review (verify / deprecate / supersede stale captures), lint, connect, search. Structured raw dirs (people/, companies/, meetings/, sops/, decisions/, customer-language/, sales-objections/). Every capture stamps author, timestamp, and trust status. Optional sync from call transcripts, Slack/email exports, CRM. Vault at ${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/. Triggers on "/company-brain," "/cb," "capture this into the team brain," "log this meeting," "save this SOP," "compile the company wiki," "query the team brain," "what does the team know about X," "review the company brain," "lint the company brain," "who's the internal expert on X."
 metadata:
-  version: 0.3.0
+  version: 0.3.1
 ---
 
 # /company-brain — Team-shared AI-ready knowledge base
@@ -83,13 +83,13 @@ Deliberately an enum, not a numeric weight — teams keep a four-value field cur
 
 Trust is orthogonal to sensitivity — a file can be `verified` + `confidential`, or `unreviewed` + `internal`.
 
-**Existing vaults**: files predating trust levels simply lack the `trust:` field — treat them as `unreviewed`. If the vault's `CLAUDE.md` schema predates trust levels, offer to add the trust spec to it on the first `/cb review` run (the vault's CLAUDE.md stays authoritative — extend it, don't override it).
+**Existing vaults**: files predating trust levels simply lack the `trust:` field — treat them as `unreviewed`. If the vault's schema doc (`CLAUDE.md` / `AGENTS.md`) predates trust levels, offer to add the trust spec to it on the first `/cb review` run (the vault's CLAUDE.md stays authoritative — extend it, don't override it).
 
 ## Step 1 — Load vault config + schema
 
 1. Read `references/vault-config.md` for the vault path (default: `${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/`)
-2. Read `<vault>/CLAUDE.md` for the authoritative team schema. If present, trust it over `references/schema.md` — the team's vault is the source of truth.
-3. If no `<vault>/CLAUDE.md`, fall back to `references/schema.md` — the team schema starter kit.
+2. Read the vault's schema doc — `<vault>/CLAUDE.md` or `<vault>/AGENTS.md`, whichever exists (if both, read both) — for the authoritative team schema. If present, trust it over `references/schema.md` — the team's vault is the source of truth.
+3. If neither exists, fall back to `references/schema.md` — the team schema starter kit.
 
 ## Step 2 — Parse mode
 
