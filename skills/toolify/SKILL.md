@@ -136,7 +136,7 @@ curl -H "Authorization: Bearer $STRIPE_SECRET_KEY" https://api.stripe.com/v1/cus
 # Example for an SDK:
 node -e "const s = require('./src/lib/stripe.ts').default; s.customers.list({limit:1}).then(console.log)"
 
-# For MCP: restart Claude Code, run any command that touches the MCP server
+# For MCP: restart your agent so it reloads MCP config, run any command that touches the MCP server
 ```
 
 Show the expected output shape. If the call fails, the wizard should be first to catch it, not the user in prod.

@@ -115,12 +115,12 @@ metadata:
 ---
 ```
 
-Description rules (load-bearing — Claude routes by description match):
+Description rules (load-bearing — agents route by description match):
 - Lead with the use case ("When you want to X…")
 - Include explicit trigger phrases
 - Differentiate from sibling skills
 - Mention key references the skill loads
-- Keep under ~500 characters
+- Keep under ~500 characters (the Agent Skills spec hard limit is 1024; stricter hosts may reject longer ones)
 
 For deeper description-writing guidance, consult `compound-engineering:skill-creator`.
 
@@ -419,6 +419,12 @@ For one-line updates with no cross-skill implications: just Edit.
 - **Don't over-engineer v0.1.** Ship a minimal SKILL.md + 1–2 references files. Iterate after first use. Most generated skills are over-scoped.
 - **Verb-noun naming** where possible (matches `watch-video`, `read-book`, `paste`). Single-word noun names are fine for distinctive concepts (`decide`, `pm`, `paste`, `skillify`).
 - **Always reference Anthropic's official guidance** for the schema — don't invent format conventions.
+- **Write for any agent host**, not just Claude Code:
+  - Name capabilities, not tool names ("fetch the URL", not `WebFetch`; "the Typefully create-draft tool", not an `mcp__` name).
+  - Memory lives in the agent's memory or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`, never `~/.claude/memory/`.
+  - Read `CLAUDE.md` **or** `AGENTS.md` for user-owned schema/config docs.
+  - Give Linux fallbacks for macOS-only commands (`pbcopy`, `open`, MLX).
+  - If a skill genuinely needs a Claude Code feature, say so in the body and give the other-hosts path (see loopify).
 - **Attribution is non-negotiable** for ADAPT mode. Every adapted skill ships with `references/attribution.md`.
 - **License is a hard gate.** Don't proceed on GPL/proprietary without explicit approval.
 - **Per-file approval in UPDATE mode.** Small changes are easy to OK; bundling forces all-or-nothing.
