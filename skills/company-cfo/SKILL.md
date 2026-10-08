@@ -174,7 +174,7 @@ Then ship the report + projector changes ONLY (never `git add -A` in this repo â
 ```bash
 cd ${COMPANY_CFO_ROOT}
 git checkout -b feature/YYYY-MM-snapshot
-git add reports/monthly/YYYY-MM.md scenarios/index.html AGENTS.md   # targeted; swap in CLAUDE.md if that's your config doc
+git add reports/monthly/YYYY-MM.md scenarios/index.html $(ls AGENTS.md CLAUDE.md 2>/dev/null)   # targeted
 git status --short                                                    # verify no data/ or .env files staged
 git commit -m "YYYY-MM monthly snapshot"
 git push -u origin feature/YYYY-MM-snapshot
