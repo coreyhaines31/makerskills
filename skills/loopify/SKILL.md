@@ -1,13 +1,13 @@
 ---
 name: loopify
-description: When you want to set up an agent loop, cron-scheduled task, or recurring workflow that runs autonomously in Claude Code. Judgment layer on top of ScheduleWakeup, CronCreate, and the /loop skill — decides whether to use dynamic pacing (self-scheduling wake-ups), cron scheduling (fixed intervals), or a one-shot loop; tunes delay to avoid the 5-minute cache-miss cliff; designs idempotent loop bodies; sets bail-out conditions so loops don't run forever. Examples of loops to loopify — weekly review pulse, daily brief generation, hourly monitoring of a metric, periodic vault compilation, upstream-check for an adapted skill, sponsorship-pipeline refresh, YouTube-transcript-batch-download, morning startup routine. Triggers on "/loopify," "set up a loop," "schedule this task," "run this daily," "run this weekly," "cron this," "make this recurring," "automate this on a schedule," "keep this running until X." Part of the -ify trifecta (skillify / toolify / loopify) for extending Claude Code. NOT for authoring a new skill — that's skillify. NOT for adding a tool/integration — that's toolify.
+description: When you want to set up an agent loop, cron-scheduled task, or recurring workflow that runs autonomously. Judgment layer on top of Claude Code's ScheduleWakeup, CronCreate, and /loop — or, on other hosts, cron/GitHub Actions plus a headless agent CLI — decides whether to use dynamic pacing (self-scheduling wake-ups), cron scheduling (fixed intervals), or a one-shot loop; tunes delay to avoid the 5-minute cache-miss cliff; designs idempotent loop bodies; sets bail-out conditions so loops don't run forever. Examples of loops to loopify — weekly review pulse, daily brief generation, hourly monitoring of a metric, periodic vault compilation, upstream-check for an adapted skill, sponsorship-pipeline refresh, YouTube-transcript-batch-download, morning startup routine. Triggers on "/loopify," "set up a loop," "schedule this task," "run this daily," "run this weekly," "cron this," "make this recurring," "automate this on a schedule," "keep this running until X." Part of the -ify trifecta (skillify / toolify / loopify) for extending Claude Code. NOT for authoring a new skill — that's skillify. NOT for adding a tool/integration — that's toolify.
 metadata:
   version: 0.1.0
 ---
 
 # /loopify — Set up an agent loop
 
-Wizard for going from *"this task should run periodically"* to a working loop with the right pacing, idempotency, and bail-out. Reference: `ScheduleWakeup` (dynamic pacing), `CronCreate` (fixed schedule), and the built-in `/loop` (dynamic self-paced re-entry).
+Wizard for going from *"this task should run periodically"* to a working loop with the right pacing, idempotency, and bail-out. Reference (Claude Code): `ScheduleWakeup` (dynamic pacing), `CronCreate` (fixed schedule), and the built-in `/loop` (dynamic self-paced re-entry). Other hosts: see "On hosts other than Claude Code" in Step 4.
 
 ## Step 0 — Confirm what you're looping
 
@@ -151,6 +151,22 @@ Then: ScheduleWakeup({delaySeconds: <tuned per Step 1>, prompt: "<same body>", r
 
 **One-shot (Pattern C):**
 Just run `/loop <prompt with exit condition>`.
+
+### On hosts other than Claude Code
+
+`CronCreate`, `ScheduleWakeup`, and `/loop` are Claude Code features. Everything else in this skill (pattern choice, idempotency, bail-out, verification) applies to any agent. On other hosts, the scheduler lives outside the agent and calls a non-interactive agent run:
+
+| Scheduler | When to use |
+|---|---|
+| **The host's own scheduled tasks**, if it has them | First choice. Check the host's docs |
+| **System cron / launchd / systemd timer** | Machine is always on; loop needs local files |
+| **GitHub Actions `schedule:`** | Loop works on a repo (vault compile, upstream check); survives a closed laptop |
+
+The job runs a headless agent command with the loop body as the prompt, e.g. `claude -p "<body>"`, `codex exec "<body>"`, or `cursor-agent -p "<body>"`. Use whatever non-interactive mode your agent's CLI has.
+
+- Dynamic pacing (Pattern B) has no direct equivalent. Use a fixed schedule whose body exits early when there's nothing to do.
+- One-shot (Pattern C) becomes a shell `while` loop around the headless command, with the bail-out check in the loop condition.
+- Headless runs can't ask for approval, so give the job the narrowest permissions that work, and have it write output to a file or notification rather than waiting on a prompt.
 
 ## Step 5 — Verify the first run
 
