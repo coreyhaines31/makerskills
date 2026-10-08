@@ -1,8 +1,8 @@
 ---
 name: toolify
-description: When you want to integrate an external tool, API, MCP server, or service into a project — the wizard walks you through auth, config, env vars, client wrapper code, example usage, and (optionally) a smoke-test. Scoped to Next.js and Rails projects (the two primary stacks). Interactive Q&A pattern — starts with the tool name, asks structured questions until the integration is fully specified, then scaffolds files. Examples of tools to toolify — Stripe, Kit, Sanity, Notion, Neon, Supabase, Fathom, Rewardful, SavvyCal, Riverside, ScrapeCreators, Anthropic, OpenAI, Gemini, Twilio, Resend, Postmark, Vercel Blob, custom internal APIs. For MCP servers specifically, also handles the .mcp.json wiring. Triggers on "/toolify," "integrate X," "add X to this project," "wire up X," "set up the X integration," "hook up X," "connect X," "add MCP for X." Part of the -ify trifecta (skillify / toolify / loopify) for extending Claude Code. NOT for adding new SKILL.md files — that's skillify. NOT for cron/agent loops — that's loopify.
+description: When you want to integrate an external tool, API, MCP server, or service into a project — the wizard walks you through auth, config, env vars, client wrapper code, example usage, and an optional smoke test. Scoped to Next.js and Rails projects. Interactive Q&A — starts with the tool name, asks structured questions until the integration is specified, then scaffolds files. Examples — Stripe, Kit, Sanity, Notion, Neon, Supabase, Resend, Postmark, Twilio, Anthropic, OpenAI, Vercel Blob, custom internal APIs. For MCP servers, also handles the .mcp.json wiring. Triggers on "/toolify," "integrate X," "add X to this project," "wire up X," "set up the X integration," "hook up X," "connect X," "add MCP for X." Part of the -ify trifecta (skillify / toolify / loopify). NOT for adding new SKILL.md files — that's skillify. NOT for cron/agent loops — that's loopify.
 metadata:
-  version: 0.1.1
+  version: 0.1.2
 ---
 
 # /toolify — Wire up an integration or MCP server
@@ -56,15 +56,7 @@ Show the user the answers as a summary before scaffolding — one chance to corr
 
 ## Step 2 — Fetch official setup docs
 
-Use `WebFetch` or `context7:query-docs` to pull the *current* official quickstart:
-
-```bash
-# Prefer context7 if available (fresher docs than training data)
-Skill({skill: "compound-engineering:context7", ...})
-
-# Fallback to WebFetch
-WebFetch <official-quickstart-url>
-```
+Pull the *current* official quickstart. Prefer context7 if your agent has it (fresher docs than training data); otherwise fetch the official quickstart URL with your agent's URL-fetch tool (`WebFetch` in Claude Code) or `curl`.
 
 Read *once*, then work from cached content. Don't re-fetch mid-scaffold. Note the SDK version cited so `package.json` gets the right pin.
 
@@ -144,7 +136,7 @@ curl -H "Authorization: Bearer $STRIPE_SECRET_KEY" https://api.stripe.com/v1/cus
 # Example for an SDK:
 node -e "const s = require('./src/lib/stripe.ts').default; s.customers.list({limit:1}).then(console.log)"
 
-# For MCP: restart Claude Code, run any command that touches the MCP server
+# For MCP: restart your agent so it reloads MCP config, run any command that touches the MCP server
 ```
 
 Show the expected output shape. If the call fails, the wizard should be first to catch it, not the user in prod.

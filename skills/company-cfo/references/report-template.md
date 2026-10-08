@@ -51,7 +51,7 @@ Save to `${COMPANY_CFO_ROOT}/reports/monthly/YYYY-MM.md`. Commit only this file 
 
 ### By category
 
-Match the categories defined in your `CLAUDE.md`:
+Match the categories defined in your config doc (`CLAUDE.md` / `AGENTS.md`):
 
 | Category | Amount | vs prior month | Notes |
 |---|---|---|---|

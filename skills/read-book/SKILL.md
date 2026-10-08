@@ -2,7 +2,7 @@
 name: read-book
 description: When you want to read and extract structured notes from a book — PDF, EPUB, MOBI, markdown, .txt, pasted text, or URL to a public-domain work. Reads in chunks (by chapter when a TOC exists, by 50-page blocks otherwise), extracts per-chapter TL;DR + key concepts + quotes + action items + frameworks, and offers to capture to second-brain raw/ as a highlights- file. Four modes — notes (default, chapter-by-chapter), summary (whole-book TL;DR + 3–5 takeaways), quotes (pull-quote highlights only), study (notes + Q&A spaced-rep prep). Triggers on "/read-book," "read this book," "extract notes from this PDF," "what's in this book," "summarize this ebook," "pull quotes from this." Sibling to watch-video (same content-consumption pattern, different medium).
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /read-book — Extract structured notes from books and long PDFs
@@ -16,7 +16,7 @@ Accept:
 - **EPUB / MOBI**: file path (needs `pandoc` or `ebook-convert` to extract — see `references/sources.md`)
 - **Markdown / .txt**: file path (read directly)
 - **Pasted text**: just use what was pasted
-- **URL** to public-domain text: `WebFetch` (Project Gutenberg, archive.org, etc.)
+- **URL** to public-domain text: fetch it with your agent's URL-fetch tool or `curl` (Project Gutenberg, archive.org, etc.)
 
 Detect type from file extension. If ambiguous, ask.
 

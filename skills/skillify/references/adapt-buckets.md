@@ -57,7 +57,7 @@ Examples:
 - "Outputs to `second-brain raw/` as `<prefix>-`"
 - "Falls back to `social-fetch` for the URL fetch step"
 - "Uses MLX-Whisper local (see install in `watch-video` references)"
-- Memory references: `feedback_*` files in `~/.claude/memory/`
+- Memory references: `feedback_*` files in the user's memory store (agent memory, or `$MAKERSKILLS_MEMORY`)
 - BACKLOG.md entry if the adapt spawns sub-ideas
 
 Action: **add net-new sections** to the adapted SKILL.md — typically a `## Composes with` section and inline references in the body.

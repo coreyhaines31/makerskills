@@ -1,8 +1,8 @@
 ---
 name: deep-research
-description: "When you want multi-source, multi-step research on a topic — competitor research before a sales call, market research for a new business idea, positioning angles, due diligence on a partnership or podcast guest, tech decision research (which DB, which auth), or any \"I need to actually understand X.\" Combines WebSearch, WebFetch, agent-browser, /last30days (Reddit/X/YouTube/HN/web recency), memory, and Notion. Outputs a structured brief with citations, contradictions, gaps, and recommended next steps. Archives every research run to ~/.config/makerskills/deep-research/archive/ so past work is searchable. Triggers on \"/deep-research,\" \"research X,\" \"investigate X,\" \"do a deep dive on X,\" \"look into X,\" \"what's actually happening with X,\" \"due diligence on X,\" \"validate this market.\" Differs from a one-shot WebSearch: this is multi-pass with verification."
+description: "When you want multi-source, multi-step research on a topic — competitor research before a sales call, market research for a new business idea, positioning angles, due diligence on a partnership or podcast guest, tech decision research (which DB, which auth), or any \"I need to actually understand X.\" Combines web search, URL fetch, agent-browser, last30days (Reddit/X/YouTube/HN/web recency), memory, and Notion. Outputs a structured brief with citations, contradictions, gaps, and recommended next steps. Archives every research run to ~/.config/makerskills/deep-research/archive/ so past work is searchable. Triggers on \"/deep-research,\" \"research X,\" \"investigate X,\" \"do a deep dive on X,\" \"look into X,\" \"what's actually happening with X,\" \"due diligence on X,\" \"validate this market.\" Differs from a one-shot web search: this is multi-pass with verification."
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /deep-research — Multi-source research with archive
@@ -22,17 +22,17 @@ Output: `**Research question:** <one sentence>`
 
 Pick from this menu based on the question type. Note which sources you'll hit and why.
 
-| Source | When to use | Tool |
+| Source | When to use | How (tool names vary by agent) |
 |---|---|---|
-| Web search (Google) | Authoritative articles, docs, official statements | `WebSearch` |
-| `/last30days` | What people are *actually saying* right now — Reddit, X, YouTube, HN, web recency | `Skill({skill: "last30days", args: "<topic>"})` |
-| Specific URLs | When the user hands over starting URLs | `WebFetch` |
-| Browsable pages (auth-walled, JS-heavy) | Pricing pages, product tours, profiles | `agent-browser` via the `compound-engineering:agent-browser` skill |
-| Memory | Prior research / decisions / context the user already captured | grep `~/.claude/memory/` |
+| Web search (Google) | Authoritative articles, docs, official statements | Your agent's web search (e.g. `WebSearch` in Claude Code) |
+| `/last30days` | What people are *actually saying* right now — Reddit, X, YouTube, HN, web recency | The `last30days` skill, if installed. Otherwise skip it and note the gap |
+| Specific URLs | When the user hands over starting URLs | Your agent's URL fetch (e.g. `WebFetch`), or `curl` + `defuddle` |
+| Browsable pages (auth-walled, JS-heavy) | Pricing pages, product tours, profiles | `agent-browser` CLI (any agent with a shell) |
+| Memory | Prior research / decisions / context the user already captured | your agent's memory, or grep `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/` |
 | Notion | If the topic touches a known Notion workspace | Direct Notion API (key in `$NOTION_API_KEY`, see `reference_notion_api.md`) |
 | Research archive | Prior `/deep-research` runs that touched this topic | grep `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/deep-research/archive/` |
 
-Run discovery passes **in parallel** where possible. Sequential only when one source needs another's output (e.g., agent-browser a URL discovered by WebSearch).
+Run discovery passes **in parallel** where possible. Sequential only when one source needs another's output (e.g., agent-browser a URL discovered by web search).
 
 ## Step 3 — Execute discovery
 
