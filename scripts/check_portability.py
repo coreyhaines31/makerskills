@@ -29,10 +29,14 @@ def check_frontmatter(skill_md):
         errors.append(f"{rel(skill_md)}: missing frontmatter")
         return
     try:
-        description = yaml.safe_load(match.group(1)).get("description", "")
+        frontmatter = yaml.safe_load(match.group(1))
     except yaml.YAMLError as exc:
         errors.append(f"{rel(skill_md)}: frontmatter is not valid YAML ({str(exc).splitlines()[0]})")
         return
+    if not isinstance(frontmatter, dict) or not frontmatter.get("description"):
+        errors.append(f"{rel(skill_md)}: frontmatter has no description")
+        return
+    description = frontmatter["description"]
     if len(description) > 1024:
         errors.append(f"{rel(skill_md)}: description is {len(description)} chars (Agent Skills limit is 1024)")
 
