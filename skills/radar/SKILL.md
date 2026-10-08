@@ -1,8 +1,8 @@
 ---
 name: radar
-description: "When you want to monitor known sources on a schedule and feed the good stuff into your second brain. Configure sources once (YouTube channels, RSS/blogs/newsletters, subreddits, Hacker News, Bluesky, Mastodon, X accounts, LinkedIn profiles, keyword searches), then each run fetches only what's new since last time, scores it for relevance against your stated focus, writes one digest note to the vault, and captures the high-signal items into raw/ automatically. Everything else stays in the digest until you promote it. Incremental by design — state files mean nothing is fetched or captured twice. Modes — run (poll everything due), digest (show/re-render the latest), promote (pull specific items into raw/ in full), add / sources / pause (manage the source list), doctor (health-check every source), schedule (install the daily launchd job). Triggers on \"/radar,\" \"run my radar,\" \"check my sources,\" \"what's new from my sources,\" \"add a source,\" \"monitor this channel,\" \"watch this subreddit,\" \"track this account,\" \"daily digest,\" \"promote item 4,\" \"radar doctor.\" Complements second-brain (radar fills raw/, second-brain compiles it) and deep-research (radar is standing surveillance, deep-research is a one-off dive)."
+description: "When you want to monitor known sources on a schedule and feed the good stuff into your second brain. Configure sources once (YouTube, RSS/newsletters, subreddits, Hacker News, Bluesky, Mastodon, X, LinkedIn, keyword searches); each run fetches only what's new, scores it against your stated focus, writes one digest to the vault, and auto-captures high-signal items into raw/. Everything else waits in the digest until you promote it. Modes — run, digest, promote, add / sources / pause, doctor, schedule (daily launchd or systemd job). Triggers on \"/radar,\" \"run my radar,\" \"check my sources,\" \"what's new from my sources,\" \"add a source,\" \"monitor this channel,\" \"watch this subreddit,\" \"track this account,\" \"daily digest,\" \"promote item 4,\" \"radar doctor.\" Complements second-brain (radar fills raw/, second-brain compiles it) and deep-research (standing surveillance vs a one-off dive)."
 metadata:
-  version: 0.3.0
+  version: 0.4.0
 ---
 
 # /radar — Standing surveillance on the sources you care about
@@ -75,7 +75,7 @@ Rules that matter more than they look:
 - **Every type has a dependable path now** — the free ones (youtube / rss / hn / bluesky / mastodon / reddit) plus X and LinkedIn via ScrapeCreators at ~$0.002 a call. A source that still exhausts its chain is marked `degraded` and skipped; don't retry in a loop, don't let it block the digest.
 - **Filter X by `created_at`, never by position.** ScrapeCreators returns pinned and high-engagement tweets interleaved with recent ones — a single verified call put a 2024 tweet second. Trusting the order makes radar "discover" years-old posts as new.
 - **Watch the credit balance.** Every ScrapeCreators response carries `credits_remaining`; record it in the run record and warn in the digest below ~1,000.
-- **Check credentials once, at the start.** Resolve `AUTH_TOKEN`/`CT0` and any paid keys (env → Keychain) before fetching, and skip the source types that need what's missing rather than discovering it per-item. `references/fetchers.md` → "Credentials" has the resolution order.
+- **Check credentials once, at the start.** Resolve `AUTH_TOKEN`/`CT0` and any paid keys (env → OS keychain) before fetching, and skip the source types that need what's missing rather than discovering it per-item. `references/fetchers.md` → "Credentials" has the resolution order.
 
 ### Step 3 — Score
 
@@ -101,12 +101,12 @@ Write the score's *reason* in one clause. "Names the exact attribution problem T
 
 ### Step 4 — Capture the auto-captures
 
-For each item at or above `auto_capture_at`, fetch the full thing and write it to `<vault>/raw/` following second-brain's schema (read that skill's capture conventions; the vault's `CLAUDE.md` is authoritative):
+For each item at or above `auto_capture_at`, fetch the full thing and write it to `<vault>/raw/` following second-brain's schema (read that skill's capture conventions; the vault's `CLAUDE.md` or `AGENTS.md` is authoritative):
 
 | Source type | Full fetch | raw/ prefix |
 |---|---|---|
 | youtube | `watch-video` in transcript mode | `resource-` |
-| rss / keyword | `WebFetch` the article body | `article-` |
+| rss / keyword | URL fetch of the article body (e.g. `WebFetch`) | `article-` |
 | reddit / hn | Fetch the post + top comments | `article-` (link posts: fetch the target) |
 | bluesky / mastodon | `social-fetch` (public APIs — post + replies in one call) | `tweet-` |
 | x | `social-fetch` | `tweet-` |
@@ -142,7 +142,7 @@ Per the standing vault rule: `git -C "<vault>" pull --rebase --autostash`, commi
 
 In an interactive session, print the digest summary inline — run stats, the captured items, the top 5 promotable ones by score, and any degraded sources. Don't print the full skipped list.
 
-In an unattended run (`claude -p`), print the same thing to stdout; launchd captures it to `logs/<date>.log`.
+In an unattended run (headless agent, e.g. `claude -p` or `codex exec`), print the same thing to stdout; the scheduler captures it to `logs/<date>.log`.
 
 ---
 
@@ -187,14 +187,14 @@ Health-check without writing anything to the vault:
 1. Config parses; every source has `id`, `type`, `focus`; IDs are unique.
 2. Env: `SECOND_BRAIN_VAULT` set and the vault writable; vault is a git repo with a remote; `MAKERSKILLS_CONFIG` set.
 3. Every enabled source test-fetches (in parallel), reporting per-source OK / degraded / broken with the actual error.
-4. Credentials, and **where each resolved from** (env vs Keychain vs absent), plus `credits_remaining` for ScrapeCreators. `$SCRAPECREATORS_API_KEY` is the one that matters — it carries X and LinkedIn. No key is required for youtube / rss / hn / bluesky / mastodon / reddit. **Check it under `zsh`, not `bash`**: it's exported from `~/.zshenv`, so a bash probe reports a false negative.
-5. The launchd job is loaded and its last exit status.
+4. Credentials, and **where each resolved from** (env vs OS keychain vs absent), plus `credits_remaining` for ScrapeCreators. `$SCRAPECREATORS_API_KEY` is the one that matters — it carries X and LinkedIn. No key is required for youtube / rss / hn / bluesky / mastodon / reddit. **Check it under the shell that exports it**: a key in `~/.zshenv` is invisible to a bash probe, which reports a false negative.
+5. The scheduled job (launchd on macOS, systemd timer on Linux) is loaded, and its last exit status.
 
 Output a fix list, most-broken first. Run this before blaming the skill for a quiet morning.
 
 ## Mode: schedule
 
-Installs the daily job. Read `references/scheduling.md` — it has the plist template, the `PATH`/env gotchas that make unattended `claude -p` runs fail silently, and the verification steps.
+Installs the daily job. Read `references/scheduling.md` — it has the launchd (macOS) and systemd (Linux) templates, the `PATH`/env gotchas that make unattended headless runs fail silently, and the verification steps.
 
 Defer to `loopify` if the user wants something other than a fixed daily run (interval polling, conditional bail-outs, dynamic pacing).
 
@@ -215,6 +215,6 @@ Defer to `loopify` if the user wants something other than a fixed daily run (int
 - `social-fetch` — full-fetch path for every social item, and the owner of the per-platform strategy ladders. Radar deliberately does not reimplement them; when a chain changes, it changes there. Radar also shares its cache at `~/Documents/social-fetches/_cache/`.
 - `last30days` — available as a `keyword` engine, and the source of radar's free X path (it vendors the `bird-search` client) and the keyless Reddit techniques. Worth re-reading when a platform's access breaks; it tracks these endpoints closely.
 - `deep-research` — escalation path. When a digest item is interesting enough to need context radar can't give, hand the URL to deep-research.
-- `loopify` — scheduling judgment beyond the default daily launchd job.
+- `loopify` — scheduling judgment beyond the default daily job.
 - `jab-hook` — high-scoring items are content raw material; a `Content Ideas` wiki page is the handoff point.
 - `business-brainstorm` — a keyword source watching a market you're considering feeds the idea filter with live signal.
