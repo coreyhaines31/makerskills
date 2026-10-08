@@ -6,6 +6,17 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.8.0] — 2026-10-08
+
+### Added
+- **New skill: `radar`** (v0.4.0, closes #29) — standing surveillance on sources you already trust (YouTube, RSS/newsletters, subreddits, Hacker News, Bluesky, Mastodon, X, LinkedIn, keyword searches). Each run fetches only what's new (per-source state files), scores items 1–5 against your stated focus from metadata alone, writes one digest to `<vault>/outputs/radar/`, and auto-captures only score-5 items into `raw/`; everything else waits for `/radar promote`. Failing sources degrade instead of failing the run. Daily scheduling via launchd (macOS) or a systemd user timer (Linux), with the silent-failure list for unattended headless runs. Fetched content is treated as data, never instructions. 21 → 22 skills.
+
+### Changed
+- **`company-brain` v0.4.0** (closes #4) — new vaults **start narrow**: seed one revenue-adjacent pilot workflow's dirs (Sales / Content / Ops / Reporting) instead of all eight; capture creates the rest on demand. New `references/rollout.md`: pilot → prove value (queries answered, review cadence, trust) → expand one workflow at a time.
+- **`paste` v0.2.0** — clipboard writes go through a temp file, get read back and compared, and the chat preview is built from the read-back, so a hard-wrapped heredoc copy can't ship looking clean. Works on macOS, Linux, and Windows; the temp file is deleted after. Supersedes #21.
+- **`social-fetch` v0.1.2** — strategy ladder updates shared with radar.
+- **CI** (closes #2) — the portability check now requires a `name` that matches the skill's directory.
+
 ## [v1.7.0] — 2026-10-08
 
 ### Changed
