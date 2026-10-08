@@ -33,7 +33,15 @@ def check_frontmatter(skill_md):
     except yaml.YAMLError as exc:
         errors.append(f"{rel(skill_md)}: frontmatter is not valid YAML ({str(exc).splitlines()[0]})")
         return
-    if not isinstance(frontmatter, dict) or not frontmatter.get("description"):
+    if not isinstance(frontmatter, dict):
+        errors.append(f"{rel(skill_md)}: frontmatter is not a mapping")
+        return
+    name = frontmatter.get("name")
+    if not name:
+        errors.append(f"{rel(skill_md)}: frontmatter has no name")
+    elif name != skill_md.parent.name:
+        errors.append(f"{rel(skill_md)}: name '{name}' doesn't match directory '{skill_md.parent.name}'")
+    if not frontmatter.get("description"):
         errors.append(f"{rel(skill_md)}: frontmatter has no description")
         return
     description = frontmatter["description"]
