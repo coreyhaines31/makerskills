@@ -2,7 +2,7 @@
 name: maker-council
 description: "When you want multiple expert perspectives on a founder/operator question — a simulated board of advisors (Jason Fried, Elon Musk, Jeff Bezos, Jensen Huang, Bob Iger, Paul Graham, Naval Ravikant, Sara Blakely). Bring a real decision — \"should I raise prices?\", \"hire my first employee?\", \"raise or bootstrap?\", \"kill this project?\" — and the council weighs in through documented frameworks, surfaces disagreements, and synthesizes a recommendation. Also use for 'maker council,' 'board of advisors,' 'what would Bezos do,' 'what would Jason Fried say,' 'channel Naval,' 'ask the council,' or how a famous founder would approach a problem. Optional live-research pass via deep-research / watch-video / last30days. Marketing questions go to marketing-skills' marketing-council. Archives to ~/.config/makerskills/maker-council/archive/. To commit to a direction, hand off to decide."
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /maker-council — Your personal board of advisors

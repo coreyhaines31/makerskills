@@ -6,6 +6,20 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.7.0] — 2026-10-08
+
+### Changed
+- **Agent-agnostic skills** (closes #32). The skills now run in Codex, Cursor, and other Agent Skills hosts, and on Linux, not just Claude Code on a Mac.
+  - **Memory**: the agent's own memory, else `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`, replacing `~/.claude/memory/` (company-cfo, jab-hook, deep-research, paste, skillify).
+  - **Schema docs**: `CLAUDE.md` **or** `AGENTS.md` (second-brain, company-brain, company-cfo). New vaults and CFO roots seed `AGENTS.md` with a `CLAUDE.md` symlink. company-brain no longer hardcodes the `~/code/makerskills` clone path.
+  - **Tool names → capabilities**: `WebFetch`, `WebSearch`, `Skill({...})`, and `mcp__typefully__*` replaced with plain descriptions. The Typefully names were stale on Claude Code too.
+  - **macOS-only commands**: clipboard fallbacks for Linux, Windows, and headless agents (paste, ingest); faster-whisper off Apple Silicon (watch-video); `xdg-open` notes.
+  - **loopify** (v0.2.0): new other-hosts path: the host's scheduled tasks, cron/launchd/systemd, or GitHub Actions running a headless agent CLI (`claude -p`, `codex exec`, `cursor-agent -p`).
+  - **skillify**: new skills are checked against the portability rules.
+  - **Descriptions**: nine ran over the Agent Skills spec's 1024-char limit; all trimmed.
+- New `scripts/check_portability.py` + GitHub Action, the portability rules in ARCHITECTURE.md, and `MAKERSKILLS_MEMORY` in INSTALL.md.
+- `marketplace.json` was still at 1.5.1; both manifests now read 1.7.0.
+
 ## [v1.6.0] — 2026-09-04
 
 ### Added

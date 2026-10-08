@@ -2,7 +2,7 @@
 name: personal-cfo
 description: "When you want to model personal financial scenarios — house purchase + rental income (ADU, bedroom rentals, house-hacking), renovation budgets, monthly cash flow, big-purchase decisions, savings/investment what-ifs for a household. Ships with a house scenario template; other scenarios (refi, car, education, retirement, side income) slot in as templates. Outputs markdown scenario comparison tables. Saves scenarios to ~/Documents/personal-cfo/ with an index in ~/.config/makerskills/personal-cfo/archive/. Composes with decide, deep-research (rental comps, rates), business-brainstorm, second-brain. Triggers on \"/personal-cfo,\" \"model this scenario,\" \"house math,\" \"rental forecast,\" \"monthly cash flow,\" \"what if I rent out the ADU,\" \"compare these housing scenarios,\" \"should we buy this house,\" \"house-hack math,\" \"renovation budget.\""
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /personal-cfo — Personal financial scenario modeling

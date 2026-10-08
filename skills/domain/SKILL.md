@@ -2,7 +2,7 @@
 name: domain
 description: "When you want to brainstorm and check available .com domains for a new project — brand naming, aftermarket pricing (HugeDomains / Afternic / Sedo / Dan), USPTO trademark screening, and social handle availability. Built on Laura Roeder's \"work backwards from availability\" method. Combines Vercel CLI, whois, Domainr, Namecheap, and agent-browser, each for what it reliably does. Workflow: budget → brainstorm → availability check → whois cross-check → price → aftermarket sweep (plus liveness probe and drop-watch) → bucket → negotiate → trademark + socials → buy. Triggers on \"/domain,\" \"find a domain,\" \"check domain availability,\" \"brainstorm a domain,\" \"what .com is available for X,\" \"domain hunt,\" \"name my project,\" \"is X.com available,\" \"aftermarket price on X.com,\" \"trademark check for X.\""
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /domain — Brainstorm + check available .com domains

@@ -2,7 +2,7 @@
 name: company-brain
 description: Your team's shared, AI-ready knowledge base — people, companies, meetings, SOPs, and decisions structured so an agent can answer on your team's behalf. Team-scope sibling to second-brain. Modes — capture, compile (wiki pages + INDEX.md), query (trust-weighted, saved to outputs/), review (verify / deprecate / supersede stale captures), lint, connect, search. Structured raw dirs (people/, companies/, meetings/, sops/, decisions/, customer-language/, sales-objections/). Every capture stamps author, timestamp, and trust status. Optional sync from call transcripts, Slack/email exports, CRM. Vault at ${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/. Triggers on "/company-brain," "/cb," "capture this into the team brain," "log this meeting," "save this SOP," "compile the company wiki," "query the team brain," "what does the team know about X," "review the company brain," "lint the company brain," "who's the internal expert on X."
 metadata:
-  version: 0.3.0
+  version: 0.3.1
 ---
 
 # /company-brain — Team-shared AI-ready knowledge base

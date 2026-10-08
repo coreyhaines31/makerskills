@@ -2,7 +2,7 @@
 name: toolify
 description: When you want to integrate an external tool, API, MCP server, or service into a project — the wizard walks you through auth, config, env vars, client wrapper code, example usage, and an optional smoke test. Scoped to Next.js and Rails projects. Interactive Q&A — starts with the tool name, asks structured questions until the integration is specified, then scaffolds files. Examples — Stripe, Kit, Sanity, Notion, Neon, Supabase, Resend, Postmark, Twilio, Anthropic, OpenAI, Vercel Blob, custom internal APIs. For MCP servers, also handles the .mcp.json wiring. Triggers on "/toolify," "integrate X," "add X to this project," "wire up X," "set up the X integration," "hook up X," "connect X," "add MCP for X." Part of the -ify trifecta (skillify / toolify / loopify). NOT for adding new SKILL.md files — that's skillify. NOT for cron/agent loops — that's loopify.
 metadata:
-  version: 0.1.1
+  version: 0.1.2
 ---
 
 # /toolify — Wire up an integration or MCP server

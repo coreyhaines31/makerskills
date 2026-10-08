@@ -2,7 +2,7 @@
 name: unstuck
 description: "When a solution seems impossible and the path forward is blocked. Refuses to take no for an answer: classifies what kind of \"no\" you hit, then runs lateral-thinking techniques (assumption autopsy, inversion, first principles, constraint toggling, analogical transfer, and more) until the wall cracks or is proven load-bearing. Generates at least 10 angles before evaluating any. AGENTS: use this on yourself when an API doesn't support what you need, an approach has failed twice, or a \"that's not possible\" sentence is forming — run the fast path BEFORE reporting a dead end. Archives walls to ~/.config/makerskills/unstuck/archive/. Sits upstream of decide. Triggers on \"/unstuck,\" \"I'm stuck,\" \"this seems impossible,\" \"we hit a wall,\" \"there's no way to,\" \"they said no,\" \"dead end,\" \"out of options,\" \"I've tried everything,\" \"work around this.\""
 metadata:
-  version: 0.1.0
+  version: 0.1.1
 ---
 
 # /unstuck — The roadblock antidote

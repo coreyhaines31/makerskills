@@ -2,7 +2,7 @@
 name: loopify
 description: When you want to set up an agent loop, cron-scheduled task, or recurring workflow that runs autonomously. Judgment layer on top of Claude Code's ScheduleWakeup, CronCreate, and /loop — or, on other hosts, cron/GitHub Actions plus a headless agent CLI. Picks dynamic pacing, fixed cron, or a one-shot loop; designs idempotent loop bodies; sets bail-out conditions so loops don't run forever. Examples — weekly review pulse, daily brief, hourly metric monitor, periodic vault compile, upstream-check for an adapted skill. Triggers on "/loopify," "set up a loop," "schedule this task," "run this daily," "run this weekly," "cron this," "make this recurring," "automate this on a schedule," "keep this running until X." Part of the -ify trifecta (skillify / toolify / loopify). NOT for authoring a new skill — that's skillify. NOT for adding a tool/integration — that's toolify.
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /loopify — Set up an agent loop

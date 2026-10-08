@@ -2,7 +2,7 @@
 name: skillify
 description: When you want to create, adapt, or update an Agent Skill (Claude Code, Codex, Cursor, and other hosts) in one of your repos (listed in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Modes — CREATE (from chat, video, dump, or scratch) turns a workflow into a new skill. ADAPT ports an external skill with keep/adapt/add classification, license check, and attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver. Checks new skills for host portability. Triggers on "/skillify," "create a skill," "make this a skill," "skill from this chat," "adapt this skill," "port this skill," "fork this skill," "update X skill," "apply this to the relevant skills," "propagate this learning," "improve [skill]," "fix [skill]." Part of the -ify trifecta (skillify / toolify / loopify).
 metadata:
-  version: 0.2.0
+  version: 0.2.1
 ---
 
 # /skillify — Create, adapt, or update a skill
