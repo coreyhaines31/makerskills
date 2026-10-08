@@ -196,7 +196,7 @@ curl -s "https://api.namecheap.com/xml.response?ApiUser=$NAMECHEAP_API_USER&ApiK
 
 **Don't try to scrape marketplaces.** All verified failing:
 - `curl` (even with realistic User-Agent) → HugeDomains 403, GoDaddy Akamai access-denied
-- `WebFetch` → Cloudflare 403 across the board
+- Plain fetch (e.g. `WebFetch`) → Cloudflare 403 across the board
 - `dev-browser` skill with real Chromium → Cloudflare fingerprints Playwright automation flags, serves challenge pages. Bypassing needs `playwright-extra` + stealth plugin (flaky) or pre-warmed browser profile with human-solved captcha (not worth it for a domain hunt)
 - `domainr.com` public web → IP-rate-limited
 - `rdap.org` → registration status only, no aftermarket pricing
@@ -286,8 +286,8 @@ For top 3–5 candidates that survived availability + budget:
 
 **What does NOT work** (verified — don't waste cycles):
 - `curl` against tmsearch.uspto.gov → AWS WAF challenge, JS shell only, no data
-- `WebFetch` against tmsearch.uspto.gov → same WAF, empty SPA shell
-- `curl`/`WebFetch` against Justia, Trademarkia, TrademarkElite → all 403
+- Plain fetch (e.g. `WebFetch`) against tmsearch.uspto.gov → same WAF, empty SPA shell
+- `curl` or plain fetch (e.g. `WebFetch`) against Justia, Trademarkia, TrademarkElite → all 403
 - USPTO Open Data Portal API → requires USPTO.gov account linked to ID.me (hard signup)
 - Marker API / RapidAPI USPTO endpoints → require key signup
 
