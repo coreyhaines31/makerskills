@@ -27,7 +27,6 @@ In order:
 
 No clipboard (a remote, headless, or chat-bot agent): skip the clipboard, take content from the prompt, and return the cleaned text in a code fence.
 
-
 ## Step 2 — Parse destination
 
 | Invocation | Destination |
