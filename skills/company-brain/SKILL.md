@@ -2,7 +2,7 @@
 name: company-brain
 description: Your team's shared, AI-ready knowledge base — people, companies, meetings, SOPs, and decisions structured so an agent can answer on your team's behalf. Team-scope sibling to second-brain. Modes — capture, compile (wiki pages + INDEX.md), query (trust-weighted, saved to outputs/), review (verify / deprecate / supersede stale captures), lint, connect, search. Structured raw dirs (people/, companies/, meetings/, sops/, decisions/, customer-language/, sales-objections/). Every capture stamps author, timestamp, and trust status. Optional sync from call transcripts, Slack/email exports, CRM. Vault at ${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/. Triggers on "/company-brain," "/cb," "capture this into the team brain," "log this meeting," "save this SOP," "compile the company wiki," "query the team brain," "what does the team know about X," "review the company brain," "lint the company brain," "who's the internal expert on X."
 metadata:
-  version: 0.3.1
+  version: 0.4.0
 ---
 
 # /company-brain — Team-shared AI-ready knowledge base
@@ -119,6 +119,7 @@ Trust is orthogonal to sensitivity — a file can be `verified` + `confidential`
    - Question asked in a call → `recurring-questions/<question-slug>.md` (append counter if repeat)
    - Sales objection heard → `sales-objections/<objection-slug>.md` (append variant if repeat)
    - If ambiguous, ask.
+   - If the target dir doesn't exist yet, create it with this capture. New vaults start with only one pilot workflow's dirs (see `references/vault-config.md` → "Start narrow").
 
 2. **Add multi-author metadata** (top of file):
    ```markdown
@@ -259,6 +260,7 @@ Same lineage as `second-brain`:
 - **Sensitivity is respected end-to-end.** Query mode refuses to include content above the invoker's level. Wiki pages inherit the highest sensitivity of any source.
 - **Never delete raw files.** Same rule as second-brain — the structured dirs are the source of truth. When info is wrong or stale, **deprecate, don't delete** — `trust: deprecated` removes it from context while preserving history.
 - **Capture freely, weight deliberately.** The trust enum means dumping information in is safe — nothing unreviewed poisons answers at full weight, and `/cb review` is the regular cull that promotes or retires it.
+- **Start narrow, earn the right to expand.** Seed one revenue-adjacent workflow's dirs, pilot with one or two people, and widen only once queries are getting answered and review is holding. See `references/rollout.md`.
 - **Never modify** `Projects/`, `Team/`, `Templates/`, `Drafts/` during company-brain operations.
 - **Auto-sync is optional.** Start manual; automate as the vault matures. Don't burn cycles on Fathom webhooks before the team is capturing meetings regularly by hand.
 - **One person shouldn't be the whole vault.** If lint flags author-load imbalance >80%, the team is one bus-factor away from losing the brain. Broaden contribution.
