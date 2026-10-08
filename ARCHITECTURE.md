@@ -51,7 +51,7 @@ Skills locate personal config via `MAKERSKILLS_CONFIG`, defaulting to `$HOME/.co
 export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
 ```
 
-Set additional per-skill vars only for skills that need paths outside the config dir (e.g., `SECOND_BRAIN_VAULT`, `COMPANY_BRAIN_VAULT`, `COMPANY_CFO_ROOT`, `SLIDE_DECK_REPO`).
+Set additional per-skill vars only for skills that need paths outside the config dir (e.g., `SECOND_BRAIN_VAULT`, `COMPANY_BRAIN_VAULT`, `COMPANY_CFO_ROOT`, `SLIDE_DECK_REPO`). `MAKERSKILLS_MEMORY` (default `$MAKERSKILLS_CONFIG/memory`) holds memory notes when the agent has no memory of its own.
 
 Full list in [INSTALL.md](./INSTALL.md).
 
@@ -212,3 +212,16 @@ The principles that shape every skill in the collection:
 6. **Personal data stays private.** Public repo + private config layer. Never mix.
 7. **Cite everything.** Sources, references, memory files — traceability makes future revisions possible.
 8. **Cadence + rituals over one-off invocations.** The daily/weekly/monthly rhythm is what compounds. Skills should reinforce rituals, not fight them.
+9. **Host-agnostic.** Skills run in Claude Code, Codex, Cursor, and other Agent Skills hosts, on macOS or Linux. See below.
+
+### Portability rules
+
+| Don't | Do |
+|---|---|
+| `~/.claude/memory/...` | The agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/` |
+| Read only `CLAUDE.md` | Read `CLAUDE.md` or `AGENTS.md`; seed new ones as `AGENTS.md` + a `CLAUDE.md` symlink |
+| Name a tool (`WebFetch`, `WebSearch`, `mcp__x__y`, `Skill({...})`) as the instruction | Name the capability ("fetch the URL"), with a Claude Code name as an example at most |
+| macOS-only commands (`pbcopy`, `open`, MLX) alone | Give the Linux equivalent (`wl-copy`/`xclip`, `xdg-open`, faster-whisper) and a no-clipboard path |
+| Descriptions over 1024 chars, or unquoted with `: ` inside | ≤1024 chars (spec limit); quote or use `—` |
+
+When a skill genuinely needs a Claude Code feature (loopify's scheduler), say so in the body and document the other-hosts path. `scripts/check_portability.py` enforces the mechanical rules.

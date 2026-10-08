@@ -1,6 +1,6 @@
 # Install
 
-`makerskills` is a Claude Code plugin — a collection of skills you load into Claude Code. Skills work out of the box; some need a one-time config (your Typefully workspace, your social-portfolio properties, your vault path) before they're useful.
+`makerskills` is a collection of [Agent Skills](https://agentskills.io). It installs as a Claude Code plugin, and the skills also work in Codex, Cursor, and other hosts that load `SKILL.md` skills. Skills work out of the box; some need a one-time config (your Typefully workspace, your social-portfolio properties, your vault path) before they're useful.
 
 ## 1. Install the plugin
 
@@ -18,6 +18,8 @@ git clone https://github.com/coreyhaines31/makerskills ~/code/makerskills
 ln -s ~/code/makerskills ~/.claude/plugins/makerskills
 ```
 
+**Other agents** (Codex, Cursor, and other Agent Skills hosts): copy or symlink each folder in `skills/` into your agent's skills directory. Check your agent's docs for the path. One skill is Claude Code–first: `loopify` uses Claude Code's scheduler, and its body covers the cron/GitHub Actions path for other hosts.
+
 ## 2. Configure your environment
 
 Add to `~/.zshenv` (or `~/.bashrc`). Defaults usually work; override only what's different for you:
@@ -25,6 +27,10 @@ Add to `~/.zshenv` (or `~/.bashrc`). Defaults usually work; override only what's
 ```bash
 # Where personal config / archives live (gitignored, on disk only)
 export MAKERSKILLS_CONFIG="$HOME/.config/makerskills"
+
+# Optional: where skills read/write memory notes (feedback_*.md, company_cfo_*.md)
+# when your agent has no memory of its own. Default: $MAKERSKILLS_CONFIG/memory
+export MAKERSKILLS_MEMORY="$HOME/.config/makerskills/memory"
 
 # Where the slide-deck skill writes branded React decks (only if you have one)
 export SLIDE_DECK_REPO="$HOME/code/your-personal-site-repo"
