@@ -18,7 +18,7 @@ Before starting work, read these in order:
 1. **`${COMPANY_CFO_ROOT:-$HOME/code/company-cfo}/CLAUDE.md`** — your company's specific methodology, data source map, categorization rules, distribution mechanics. **This is the source of truth for HOW your company computes things.** Don't invent your own methodology.
 2. **The most recent report** in `${COMPANY_CFO_ROOT}/reports/monthly/` — last month's snapshot. Tells you what leadership decided + what was open.
 3. **The most recent `*-followup.md`** in that folder (if one exists) — supplementary decisions, scenario analysis.
-4. **Any relevant memory notes** in `~/.claude/memory/` — running context: known anomalies, leadership constraints, current churn state.
+4. **Any relevant memory notes** in your agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/` if it has none — running context: known anomalies, leadership constraints, current churn state.
 5. **`git log --oneline -10`** in `${COMPANY_CFO_ROOT}` — what's shipped since the last run.
 
 If the `COMPANY_CFO_ROOT` dir doesn't exist yet: first-run walkthrough asks the user to `mkdir` it, seed a `CLAUDE.md` from `references/company-config-template.md`, and set the env var.
@@ -136,7 +136,7 @@ Write the why-paragraph in plain English: what happened and why. Reference the p
 
 ### Phase 6 — Update memory
 
-Update `~/.claude/memory/company_cfo_<company-slug>.md` (or wherever your memory system lives) if any of:
+Update `company_cfo_<company-slug>.md` in your memory store (your agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`) if any of:
 
 - Distribution/comp structure changed
 - Active sub count or MRR shifted materially

@@ -83,7 +83,7 @@ Twitter and LinkedIn have practical limits. the user said "let me trim" — don'
 If the content has URLs and destination is **twitter** or **linkedin**:
 - Surface the URLs separately (don't include them in the body)
 - Remind the user: links go in a first comment (LinkedIn) or reply (X), not the body
-- See `makerskills:jab-hook` and `~/.claude/memory/feedback_social_link_placement.md`
+- See `makerskills:jab-hook` and `feedback_social_link_placement.md` in your memory store (your agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`)
 
 ## Examples
 
@@ -123,5 +123,5 @@ If the content has URLs and destination is **twitter** or **linkedin**:
 - **Destination-aware transforms, not one-size-fits-all.** Slack wants `*bold*`; LinkedIn wants unicode-styled bold; email wants HTML. Same input, 9 different valid outputs. The destination flag is not optional.
 - **ANSI codes get stripped for every destination.** Terminal escapes (`\033[31m` etc.) render as garbage everywhere except the source terminal.
 - **Character limits are enforced, not warnings.** X at 280, LinkedIn at 3000, Twitter at 25000 — paste refuses to copy over-limit output and offers a trim strategy.
-- **Links go in first comments for social destinations** — not the body. Enforced when destination is `twitter` or `linkedin`. Documented in `~/.claude/memory/feedback_social_link_placement.md`.
+- **Links go in first comments for social destinations** — not the body. Enforced when destination is `twitter` or `linkedin`. Documented in `feedback_social_link_placement.md` in your memory store.
 - **HTML destination opens in a browser tab, not the clipboard.** Formatted tables + code blocks need a rendered surface to select-and-copy from with formatting preserved. Copying raw HTML to the clipboard produces garbage in Notion/email.

@@ -108,7 +108,7 @@ If yes:
 
 - **1 promo per week per property is the floor, not the ceiling.** Rotation compounds when it's predictable — 4 properties × 1 promo/week = 4 promo weeks/month. Educational + BIP + community fill the rest.
 - **Never mimic phrasing from inspiration accounts.** Extract *structure* (hook opener type, line-break rhythm, CTA style) and apply to your own voice. Voice is the moat; copying phrasing destroys it.
-- **Links belong in first comments, not the body** for LinkedIn + X. Documented in `~/.claude/memory/feedback_social_link_placement.md`. Body posts with inline URLs get algorithm-suppressed on both platforms.
+- **Links belong in first comments, not the body** for LinkedIn + X. Documented in `feedback_social_link_placement.md` in your memory store (see below). Body posts with inline URLs get algorithm-suppressed on both platforms.
 - **Draft state, not scheduled state.** Every Typefully push defaults to draft — human review in the Typefully UI before publish is non-negotiable. Automated scheduling of unreviewed drafts has repeatedly produced posts the user regrets.
 - **Reader-perspective framing.** *"You'll know X"* not *"we'll teach you X."* *"What you're guaranteed"* not *"what we'd guarantee."*
 - **Voice.local.md overrides the shipped voice.md.** Personal voice rules never live in the public repo — always in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/jab-hook/voice.local.md`.
@@ -116,5 +116,7 @@ If yes:
 
 ## Memory references
 
-- `~/.claude/memory/feedback_promo_voice.md` (if present) — conviction-coded CTAs + reader-perspective framing
-- `~/.claude/memory/feedback_social_cadence.md` (if present) — cadence cap (e.g., 2 posts/day per platform)
+Your memory store is your agent's persistent memory if it has one (Claude Code's memory directory, for example), otherwise `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`.
+
+- `feedback_promo_voice.md` in your memory store (if present) — conviction-coded CTAs + reader-perspective framing
+- `feedback_social_cadence.md` in your memory store (if present) — cadence cap (e.g., 2 posts/day per platform)

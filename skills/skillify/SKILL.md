@@ -166,7 +166,7 @@ Port an external skill (GitHub URL, agentskills.io, local disk, or pasted SKILL.
 Accept:
 - **GitHub URL** to a SKILL.md or repo (`https://github.com/<owner>/<repo>` or full path to SKILL.md)
 - **agentskills.io URL** or **skills.sh URL**
-- **Local path** to an existing skill on disk (other plugins in `~/.claude/plugins/`)
+- **Local path** to an existing skill on disk (other installed plugins, e.g. `~/.claude/plugins/` in Claude Code, `~/.agents/skills/` or `~/.codex/skills/` elsewhere)
 - **Pasted SKILL.md content**
 
 ```bash
@@ -334,7 +334,7 @@ For each learning: **is this skill-specific or a broader principle?**
 | Type | Where it goes |
 |---|---|
 | Skill-specific rule | Edit the SKILL.md / references file directly |
-| Cross-cutting principle | `~/.claude/memory/feedback_<topic>.md` |
+| Cross-cutting principle | `feedback_<topic>.md` in the memory store (agent memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`) |
 | Both | Write the memory file AND update the skill(s) that immediately apply |
 
 Example: *"links go in first comments, not body"* → applies to `jab-hook` AND is a broader social principle → both update jab-hook AND save `feedback_social_link_placement.md`.
