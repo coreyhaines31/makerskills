@@ -7,7 +7,7 @@ metadata:
 
 # /second-brain — Karpathy LLM Wiki workflow
 
-Wraps an existing Second Brain in Obsidian (or any markdown-based vault). The wiki vault's CLAUDE.md is the authoritative schema — the skill orchestrates the operations the user has been doing manually.
+Wraps an existing Second Brain in Obsidian (or any markdown-based vault). The wiki vault's schema doc (`CLAUDE.md` or `AGENTS.md`) is the authoritative schema — the skill orchestrates the operations the user has been doing manually.
 
 ## Mental model
 
@@ -28,8 +28,8 @@ Folders to leave alone during wiki ops: `Projects/`, `Daily/`, `Templates/`, `In
 ## Step 1 — Load vault config + schema
 
 1. Read `references/vault-config.md` for the vault path (default: `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/`)
-2. Read `<vault>/CLAUDE.md` for the authoritative schema. If present, trust it over `references/schema.md` — the user's vault is the source of truth.
-3. If no `<vault>/CLAUDE.md`, fall back to `references/schema.md`.
+2. Read the vault's schema doc — `<vault>/CLAUDE.md` or `<vault>/AGENTS.md`, whichever exists (if both, read both) — for the authoritative schema. If present, trust it over `references/schema.md` — the user's vault is the source of truth.
+3. If neither exists, fall back to `references/schema.md`.
 
 ## Step 2 — Parse mode
 

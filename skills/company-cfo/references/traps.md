@@ -71,7 +71,7 @@ Payment processors (Stripe, etc.) charge customers on day X but payout to your b
 
 If you bill through multiple platforms (Stripe + Paddle, Stripe + direct invoicing, Stripe + a marketplace's payment intermediary), the primary processor's MRR is an undercount.
 
-**Fix**: Add all revenue sources to your `CLAUDE.md` methodology. Query each independently. Reconcile against bank inflows.
+**Fix**: Add all revenue sources to the methodology in your config doc. Query each independently. Reconcile against bank inflows.
 
 Common example: SaaS with a primary Stripe subscription AND a "Mallow-style" secondary invoicing platform. Stripe MRR shows $80K; total revenue from all sources is $95K. Reporting Stripe MRR only understates cash generation.
 
@@ -101,4 +101,4 @@ EOM cash is the cycle HIGH (Stripe payout just landed). Most of the month you're
 
 ## Add your own
 
-Every CFO workflow discovers company-specific traps over time. Document them in your `${COMPANY_CFO_ROOT}/CLAUDE.md` under a "Traps documented for this company" section. This file is the universal starter; your company's `CLAUDE.md` is where the specific muscle memory lives.
+Every CFO workflow discovers company-specific traps over time. Document them in your config doc in `${COMPANY_CFO_ROOT}` under a "Traps documented for this company" section. This file is the universal starter; your company's config doc is where the specific muscle memory lives.

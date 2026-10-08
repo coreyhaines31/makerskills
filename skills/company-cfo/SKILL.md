@@ -15,13 +15,13 @@ Anonymized team-scope sibling to `personal-cfo` (households). Same discipline (t
 
 Before starting work, read these in order:
 
-1. **`${COMPANY_CFO_ROOT:-$HOME/code/company-cfo}/CLAUDE.md`** — your company's specific methodology, data source map, categorization rules, distribution mechanics. **This is the source of truth for HOW your company computes things.** Don't invent your own methodology.
+1. **The config doc in `${COMPANY_CFO_ROOT:-$HOME/code/company-cfo}/`** (`CLAUDE.md` or `AGENTS.md`, whichever exists) — your company's specific methodology, data source map, categorization rules, distribution mechanics. **This is the source of truth for HOW your company computes things.** Don't invent your own methodology.
 2. **The most recent report** in `${COMPANY_CFO_ROOT}/reports/monthly/` — last month's snapshot. Tells you what leadership decided + what was open.
 3. **The most recent `*-followup.md`** in that folder (if one exists) — supplementary decisions, scenario analysis.
 4. **Any relevant memory notes** in your agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/` if it has none — running context: known anomalies, leadership constraints, current churn state.
 5. **`git log --oneline -10`** in `${COMPANY_CFO_ROOT}` — what's shipped since the last run.
 
-If the `COMPANY_CFO_ROOT` dir doesn't exist yet: first-run walkthrough asks the user to `mkdir` it, seed a `CLAUDE.md` from `references/company-config-template.md`, and set the env var.
+If the `COMPANY_CFO_ROOT` dir doesn't exist yet: first-run walkthrough asks the user to `mkdir` it, seed an `AGENTS.md` from `references/company-config-template.md` (symlink `CLAUDE.md` to it for Claude Code), and set the env var.
 
 ## Step 1 — Parse mode
 
@@ -44,7 +44,7 @@ Then walk through these phases. Pause and confirm before moving to the next.
 
 ### Phase 1 — Pull raw data
 
-For the target month, pull raw data from each source. Standard source categories (each company's actual tools live in their `CLAUDE.md`):
+For the target month, pull raw data from each source. Standard source categories (each company's actual tools live in its config doc):
 
 | Source category | What it gives | Common tools |
 |---|---|---|
@@ -174,7 +174,7 @@ Then ship the report + projector changes ONLY (never `git add -A` in this repo �
 ```bash
 cd ${COMPANY_CFO_ROOT}
 git checkout -b feature/YYYY-MM-snapshot
-git add reports/monthly/YYYY-MM.md scenarios/index.html CLAUDE.md   # targeted
+git add reports/monthly/YYYY-MM.md scenarios/index.html AGENTS.md   # targeted; swap in CLAUDE.md if that's your config doc
 git status --short                                                    # verify no data/ or .env files staged
 git commit -m "YYYY-MM monthly snapshot"
 git push -u origin feature/YYYY-MM-snapshot
@@ -232,7 +232,7 @@ Resume from the prior run. Surface:
 
 ## Notes on quality
 
-- **Never invent methodology.** Every company computes cash differently — trust the company's `CLAUDE.md` in `${COMPANY_CFO_ROOT}`. If it's not documented, ask; don't guess.
+- **Never invent methodology.** Every company computes cash differently — trust the company's config doc in `${COMPANY_CFO_ROOT}`. If it's not documented, ask; don't guess.
 - **Transaction-sum method is non-negotiable.** Walkback from a balance snapshot has burned CFO workflows repeatedly. Use raw transaction sums, verify against current balance.
 - **Categorization discipline matters more than accuracy.** Same categories every month = trend-readable. Changing categories mid-year = trends become noise.
 - **Baseline expenses to actuals, not to "safe" estimates.** A software line modeled at $8K when actuals run $12K creates optimistic projections that break the model.

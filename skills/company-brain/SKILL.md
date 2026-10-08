@@ -83,13 +83,13 @@ Deliberately an enum, not a numeric weight — teams keep a four-value field cur
 
 Trust is orthogonal to sensitivity — a file can be `verified` + `confidential`, or `unreviewed` + `internal`.
 
-**Existing vaults**: files predating trust levels simply lack the `trust:` field — treat them as `unreviewed`. If the vault's `CLAUDE.md` schema predates trust levels, offer to add the trust spec to it on the first `/cb review` run (the vault's CLAUDE.md stays authoritative — extend it, don't override it).
+**Existing vaults**: files predating trust levels simply lack the `trust:` field — treat them as `unreviewed`. If the vault's schema doc (`CLAUDE.md` / `AGENTS.md`) predates trust levels, offer to add the trust spec to it on the first `/cb review` run (the vault's CLAUDE.md stays authoritative — extend it, don't override it).
 
 ## Step 1 — Load vault config + schema
 
 1. Read `references/vault-config.md` for the vault path (default: `${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/`)
-2. Read `<vault>/CLAUDE.md` for the authoritative team schema. If present, trust it over `references/schema.md` — the team's vault is the source of truth.
-3. If no `<vault>/CLAUDE.md`, fall back to `references/schema.md` — the team schema starter kit.
+2. Read the vault's schema doc — `<vault>/CLAUDE.md` or `<vault>/AGENTS.md`, whichever exists (if both, read both) — for the authoritative team schema. If present, trust it over `references/schema.md` — the team's vault is the source of truth.
+3. If neither exists, fall back to `references/schema.md` — the team schema starter kit.
 
 ## Step 2 — Parse mode
 

@@ -6,7 +6,7 @@ The Second Brain vault location and tool.
 |---|---|
 | **Path** | `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/` |
 | **Tool** | Obsidian (markdown-based) |
-| **Schema source** | `<path>/CLAUDE.md` (authoritative — always read first) |
+| **Schema source** | `<path>/CLAUDE.md` or `<path>/AGENTS.md` (authoritative — always read first) |
 | **Backup** | _not configured here — assumes vault is in iCloud/Dropbox/git_ |
 
 ## Folders
@@ -32,8 +32,8 @@ If the user moves the vault or wants to use a different setup (Logseq, plain mar
 
 1. Update **Path** above
 2. If the tool changes, note any structural differences (e.g., Logseq uses `journals/` and `pages/`)
-3. Ensure the new vault has a CLAUDE.md or schema doc the skill can read at Step 1
+3. Ensure the new vault has a `CLAUDE.md`, `AGENTS.md`, or other schema doc the skill can read at Step 1
 
 ## Note
 
-The skill always reads `<vault>/CLAUDE.md` at start. If the user updates their schema there, the skill picks it up automatically — no need to keep this skill's `schema.md` in sync.
+The skill always reads `<vault>/CLAUDE.md` or `<vault>/AGENTS.md` at start. If the user updates their schema there, the skill picks it up automatically — no need to keep this skill's `schema.md` in sync.

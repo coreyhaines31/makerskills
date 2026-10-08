@@ -1,6 +1,6 @@
 # Company config template
 
-Copy this to `${COMPANY_CFO_ROOT}/CLAUDE.md` when seeding a new company's CFO workflow. Fill in placeholders with your actuals.
+Copy this to `${COMPANY_CFO_ROOT}/AGENTS.md` (and symlink `CLAUDE.md` to it for Claude Code) when seeding a new company's CFO workflow. Fill in placeholders with your actuals.
 
 The file becomes the source of truth for HOW your company computes its financials. The `company-cfo` skill reads this first before every run.
 

@@ -51,8 +51,10 @@ git remote add origin git@github.com:mycompany/company-brain.git
 # 4. Create structured raw dirs
 mkdir -p people companies meetings sops decisions customer-language recurring-questions sales-objections raw wiki outputs Projects Team Templates Drafts
 
-# 5. Seed CLAUDE.md (copy from ~/code/makerskills/skills/company-brain/references/schema.md as starting point)
-cp ~/code/makerskills/skills/company-brain/references/schema.md CLAUDE.md
+# 5. Seed the schema doc from this skill's references/schema.md (path depends on where your agent installed the skill)
+#    AGENTS.md is read by Codex, Cursor, and most hosts; the symlink covers Claude Code
+cp <skill-dir>/references/schema.md AGENTS.md
+ln -s AGENTS.md CLAUDE.md
 
 # 6. Seed INDEX.md
 echo "# Wiki Index\n\n## Sales\n\n## Customers\n\n## Ops\n\n## Product\n\n## Team & People\n\n## Decisions\n\n## Playbooks" > wiki/INDEX.md
