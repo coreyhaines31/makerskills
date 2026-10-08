@@ -50,7 +50,7 @@ Every key can be overridden per source. A source that needs a different `auto_ca
 | Type | Extra fields |
 |---|---|
 | `youtube` | `channel_id` (cached `UC…`), `shorts: false` to skip Shorts, `min_duration_seconds` |
-| `rss` | `feed_url` (resolved at add-time), `full_text: true` if the feed carries whole articles (skips the WebFetch on capture) |
+| `rss` | `feed_url` (resolved at add-time), `full_text: true` if the feed carries whole articles (skips the URL fetch on capture) |
 | `reddit` | `subreddit`, `sort: top\|new\|hot` (**default `top`**), `t: day\|week` (with `top`), `min_score` (upvotes floor — the cheapest possible pre-filter, and it only works on `top`/`hot`; see fetchers.md) |
 | `hn` | `query`, `min_points` (default 50), `story_only: true` |
 | `x` | `handle`, `min_likes` (real pre-filter — `favorite_count` is on every item), `include_replies: false`, `include_reposts: false` |

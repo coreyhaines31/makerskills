@@ -6,7 +6,7 @@ Every command here was verified live. Where a recipe has a gotcha, the gotcha is
 
 - **Always send a realistic browser User-Agent.** Several of these endpoints return 200 to Chrome and 403/404 to `curl/8.x`. Use:
   `-A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"`
-- **Parse XML with `/usr/bin/python3`, not `python3`.** On a Mac with Homebrew Python 3.14 installed, `python3` resolves to a build whose `pyexpat` fails to load (`Symbol not found: _XML_SetAllocTrackerActivationThreshold`), which breaks `xml.etree` entirely. System Python parses fine. `xmllint` (ships with macOS) is the other safe option.
+- **Check that `python3` can parse XML** (`python3 -c 'import xml.etree.ElementTree'`). Some Homebrew Python builds ship a broken `pyexpat` (`Symbol not found: _XML_SetAllocTrackerActivationThreshold`), which breaks `xml.etree` entirely. If yours does, use the system Python (`/usr/bin/python3`) or `xmllint`. The recipes below use `/usr/bin/python3`; swap in `python3` if that works for you.
 - **Pace requests.** Reddit in particular will 429 an unpaced burst and keep 429ing for minutes. Sleep ~2s between requests to the same host, and treat a 429 as `degraded` for the run rather than retrying hard.
 - **Timeout everything**: `--max-time 20`. An unattended job that hangs on one dead host is a job that silently never finishes.
 - **Never fetch full content during a poll.** Polls read metadata; full fetch happens at capture time only.
@@ -18,11 +18,11 @@ Every command here was verified live. Where a recipe has a gotcha, the gotcha is
 
 Radar's free tiers cover youtube / rss / hn / bluesky / mastodon / reddit outright. X and LinkedIn need a paid key to be dependable.
 
-Resolution order for every key: **env var → macOS Keychain → absent (degrade)**.
+Resolution order for every key: **env var → OS keychain (macOS Keychain, or `secret-tool` on Linux) → absent (degrade)**.
 
-**`SCRAPECREATORS_API_KEY` is configured on this machine, exported from `~/.zshenv`** — which means X and LinkedIn are on the paid, reliable path by default.
+With `SCRAPECREATORS_API_KEY` set, X and LinkedIn run on the paid, reliable path.
 
-⚠️ **That export is invisible to `bash`.** `~/.zshenv` is read by zsh only, so `bash -lc` sees nothing — which is exactly how an unattended run ends up silently keyless while the same command works fine in your terminal. The launchd job therefore runs under **`zsh -lc`**, not bash (see `scheduling.md`). Verified:
+⚠️ **Check which shell file exports your keys.** `~/.zshenv` is read by zsh only, so `bash -lc` sees nothing — which is exactly how an unattended run ends up silently keyless while the same command works fine in your terminal. Run the scheduled job under the shell that exports them (see `scheduling.md`). For example:
 
 ```
 $ zsh  -c 'echo ${SCRAPECREATORS_API_KEY:+set}'   → set
@@ -31,19 +31,20 @@ $ bash -lc 'echo ${SCRAPECREATORS_API_KEY:+set}'  → (empty)
 
 ```bash
 # Keychain read, matching the convention last30days already uses
-security find-generic-password -s "last30days-AUTH_TOKEN" -w 2>/dev/null
+security find-generic-password -s "last30days-AUTH_TOKEN" -w 2>/dev/null   # macOS
+secret-tool lookup service last30days-AUTH_TOKEN 2>/dev/null               # Linux (libsecret)
 ```
 
 | Key | Unlocks | Cost |
 |---|---|---|
-| `SCRAPECREATORS_API_KEY` | **X and LinkedIn, reliably** — the default path | Paid — ~$0.002/call ($47 / 25k credits). **Set.** |
-| `AUTH_TOKEN` + `CT0` | X fallback if the paid path is down | Free (your own x.com session cookies). Not set. |
-| `BSKY_HANDLE` + `BSKY_APP_PASSWORD` | Bluesky beyond public reads (rarely needed) | Free app password. Not set. |
-| `APIFY_API_TOKEN` | Alternate paid vendor | Paid. Not set. |
+| `SCRAPECREATORS_API_KEY` | **X and LinkedIn, reliably** — the default path | Paid — ~$0.002/call ($47 / 25k credits) |
+| `AUTH_TOKEN` + `CT0` | X fallback if the paid path is down | Free (your own x.com session cookies) |
+| `BSKY_HANDLE` + `BSKY_APP_PASSWORD` | Bluesky beyond public reads (rarely needed) | Free app password |
+| `APIFY_API_TOKEN` | Alternate paid vendor | Paid |
 
 Note the env var is `APIFY_API_TOKEN` — matching `social-fetch` and `last30days`. Don't invent a second name.
 
-**Unattended runs**: test with `launchctl start` before assuming the morning run has credentials — an interactive test in your terminal proves nothing about the launchd environment. Keychain reads from a launchd agent work but may need a one-time "Always Allow" on the item's ACL. `doctor` reports which keys resolved and from where, plus `credits_remaining`.
+**Unattended runs**: test with `launchctl start` (macOS) or `systemctl --user start radar.service` (Linux) before assuming the morning run has credentials — an interactive test in your terminal proves nothing about the launchd environment. Keychain reads from a launchd agent work but may need a one-time "Always Allow" on the item's ACL. `doctor` reports which keys are set on your machine and where they resolved from, plus `credits_remaining`.
 
 ---
 
@@ -115,7 +116,7 @@ Same for RSS 2.0: prefer `content:encoded`, fall back to `description`.
 3. Platform patterns: Substack → `<domain>/feed`; Ghost → `/rss/`; WordPress → `/feed/`; Beehiiv → `/feed`.
 4. JS-rendered sites (Next.js marketing sites especially) expose nothing to `curl` — `every.to` returns HTML with no feed link tag. Use `agent-browser` to load the page and read the head, or ask the user for the feed URL directly. Don't guess and store a URL that 200s with HTML — validate that the body actually parses as a feed before writing it to `sources.yaml`.
 
-**Full fetch (capture)** — `WebFetch` the article URL. If the source sets `full_text: true`, the feed's `content:encoded` / `content` already holds the article; skip the fetch.
+**Full fetch (capture)** — fetch the article URL with your agent's URL fetch (e.g. `WebFetch` in Claude Code). If the source sets `full_text: true`, the feed's `content:encoded` / `content` already holds the article; skip the fetch.
 
 ---
 
@@ -227,7 +228,7 @@ Top-level: `success`, `credits_charged`, `credits_remaining`, `tweets`. Per twee
 AUTH_TOKEN=… CT0=… node "$BIRD" "from:<handle> since:2026-08-25" --count 15 --json
 ```
 
-Path: `~/.claude/plugins/cache/last30days-skill/last30days/<ver>/skills/last30days/scripts/lib/vendor/bird-search/bird-search.mjs` — glob the newest version rather than hardcoding. Credentials are your own x.com session cookies (`auth_token`, `ct0`); treat them as passwords, Keychain only, and expect them to expire with the session.
+Path (Claude Code plugin install; elsewhere, wherever last30days is installed): `~/.claude/plugins/cache/last30days-skill/last30days/<ver>/skills/last30days/scripts/lib/vendor/bird-search/bird-search.mjs` — glob the newest version rather than hardcoding. Credentials are your own x.com session cookies (`auth_token`, `ct0`); treat them as passwords, Keychain only, and expect them to expire with the session.
 
 Worth keeping as a fallback, but with ScrapeCreators working there's no reason to make session cookies part of the daily path.
 
@@ -323,11 +324,11 @@ A standing search rather than a named source. Runs across the engines listed in 
 
 | Engine | How |
 |---|---|
-| `web` | `WebSearch` with the query + a recency qualifier. Also the right way to cover Reddit — `<query> site:reddit.com` avoids Reddit's search rate limits entirely. |
+| `web` | Your agent's web search (e.g. `WebSearch` in Claude Code) with the query + a recency qualifier. Also the right way to cover Reddit — `<query> site:reddit.com` avoids Reddit's search rate limits entirely. |
 | `hn` | Algolia recipe above with `created_at_i>` set to the lookback |
 | `youtube` | vidIQ MCP `vidiq_youtube_search`, or `yt-dlp "ytsearch20:<query>"` with `--print` for metadata only |
 | `reddit` | Only via `web` + `site:reddit.com`. See the Reddit gotchas. |
-| `last30days` | `Skill({skill: "last30days", args: "<query>"})` — the heavyweight option. One call sweeps Reddit, X, YouTube, TikTok, HN, Bluesky, GitHub and the web with engagement data and citations. |
+| `last30days` | Run the `last30days` skill with the query, if installed — the heavyweight option. One call sweeps Reddit, X, YouTube, TikTok, HN, Bluesky, GitHub and the web with engagement data and citations. |
 
 **On `last30days` as an engine**: it is far more thorough than radar's own keyword sweep and it already solves the access problems radar works around. It's also slow and broad — the wrong shape for a daily poll across many sources. Use it for at most one or two standing keyword sources where depth genuinely beats latency, and let the cheap engines carry the rest. `deep-research` remains the right escalation for a specific question.
 
@@ -347,9 +348,9 @@ Keyword sources are the noisiest type by a wide margin. Start them at `list_at: 
 | `bluesky` | Public AppView API | — | Rock solid, with engagement |
 | `mastodon` | Public instance API | — | Rock solid |
 | `reddit` | shreddit `/svc` listing (scored) → RSS | — | Good, if paced |
-| `keyword` | WebSearch + HN | — | Noisy by nature |
-| `x` | bird-search (cookies) | ScrapeCreators (set) | **Reliable** — 99 tweets, 1 credit |
-| `linkedin` | agent-browser | ScrapeCreators (set) | Reliable fetch, **thin payload** — verify per profile |
+| `keyword` | Web search + HN | — | Noisy by nature |
+| `x` | bird-search (cookies) | ScrapeCreators | **Reliable** — 99 tweets, 1 credit |
+| `linkedin` | agent-browser | ScrapeCreators | Reliable fetch, **thin payload** — verify per profile |
 
 The practical read: **every source type now has a dependable path.** youtube / rss / hn / bluesky / mastodon / reddit are free and solid; X and LinkedIn ride the paid key at ~$0.002 a call, which is cheap enough that cost should never drive a source decision — only noise should.
 
