@@ -1,6 +1,6 @@
 ---
 name: paste
-description: When you want to clean and reformat content (usually from your terminal) for pasting into Slack, Notion, Twitter/X, LinkedIn, email, GitHub, or plain text. Strips ANSI codes, box-drawing chars, terminal prompt artifacts, and applies destination-specific formatting. Default input is the clipboard (read via `pbpaste`); default output is both the clipboard (`pbcopy`) and a chat preview. Triggers on "/paste", "/paste [destination]", "clean this for X," "format for slack/notion/twitter/linkedin/email/github," "render as markdown," "paste-ready," "strip formatting," "make this copy-pastable." Default destination is plain. Also scans for secrets (API keys, tokens, .env values) and warns before copying anything sensitive.
+description: When you want to clean and reformat content (usually from your terminal) for pasting into Slack, Notion, Twitter/X, LinkedIn, email, GitHub, or plain text. Strips ANSI codes, box-drawing chars, terminal prompt artifacts, and applies destination-specific formatting. Default input is the system clipboard; default output is both the clipboard and a chat preview. Triggers on "/paste", "/paste [destination]", "clean this for X," "format for slack/notion/twitter/linkedin/email/github," "render as markdown," "paste-ready," "strip formatting," "make this copy-pastable." Default destination is plain. Also scans for secrets (API keys, tokens, .env values) and warns before copying anything sensitive.
 metadata:
   version: 0.1.1
 ---
@@ -13,8 +13,20 @@ Cleans terminal output (ANSI, box-drawing, prompt artifacts, etc.) and reformats
 
 In order:
 1. If the user included content in the prompt (pasted, or referenced from earlier in the conversation), use that.
-2. Else, read clipboard: `pbpaste`
+2. Else, read the clipboard (commands below).
 3. If both empty, ask the user what to paste.
+
+**Clipboard commands by platform** (read / write):
+
+| Platform | Read | Write |
+|---|---|---|
+| macOS | `pbpaste` | `pbcopy` |
+| Linux (Wayland) | `wl-paste` | `wl-copy` |
+| Linux (X11) | `xclip -selection clipboard -o` | `xclip -selection clipboard` |
+| Windows | `powershell Get-Clipboard` | `powershell Set-Clipboard` |
+
+No clipboard (a remote, headless, or chat-bot agent): skip the clipboard, take content from the prompt, and return the cleaned text in a code fence.
+
 
 ## Step 2 — Parse destination
 
@@ -63,10 +75,10 @@ Read `references/destinations.md` and apply the relevant transform.
 
 | Destination | Output behavior |
 |---|---|
-| plain / slack / notion / twitter / linkedin / email / github | (a) Show preview in a code fence in chat. (b) Copy clean version to clipboard via `pbcopy`. |
-| email rich | Render to HTML, write to `/tmp/paste-<timestamp>.html`, `open` it in browser. Skip clipboard (the user copies from browser to preserve rich text). |
-| markdown | Render the cleaned markdown directly in chat (Claude Code renders it). Also copy raw markdown to clipboard. Offer: *"Open as HTML too?"* — if yes, write and open. |
-| html | Render to HTML, write to `/tmp/paste-<timestamp>.html`, `open` it. Skip clipboard. |
+| plain / slack / notion / twitter / linkedin / email / github | (a) Show preview in a code fence in chat. (b) Copy clean version to the clipboard (see Step 1 for the command). |
+| email rich | Render to HTML, write to `/tmp/paste-<timestamp>.html`, open it in the browser (`open` on macOS, `xdg-open` on Linux, `start` on Windows). Skip clipboard (the user copies from browser to preserve rich text). |
+| markdown | Render the cleaned markdown directly in chat (most agent UIs render it). Also copy raw markdown to clipboard. Offer: *"Open as HTML too?"* — if yes, write and open. |
+| html | Render to HTML, write to `/tmp/paste-<timestamp>.html`, open it in the browser. Skip clipboard. |
 
 After output, report a one-line summary of what was cleaned (e.g., *"Stripped 12 ANSI codes, 4 box-drawing chars, 1 prompt artifact. Character count: 248 / 280 (X)."*).
 

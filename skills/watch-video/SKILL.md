@@ -1,6 +1,6 @@
 ---
 name: watch-video
-description: When you want to extract content from a video — YouTube, Loom, Vimeo, Riverside, Zoom recording, local MP4, X/IG video, anything yt-dlp supports. Three depth modes user picks per invocation — transcript (just words, fast/free), visual (transcript + ffmpeg frame extraction + Claude vision pass on key moments), multimodal (Gemini native video ingestion if $GEMINI_API_KEY set, else dense Claude vision). Uses MLX-Whisper local on Mac for transcription, falls back to platform-provided transcripts when available (Loom, Riverside, YouTube auto-subs). Saves to ~/Documents/videos/<source>-<slug>-<date>/ and optionally captures summary to second-brain raw/ as call-/meeting-/note-. Triggers on "/watch-video <url>," "watch this video," "transcribe this loom," "analyze this video," "summarize this recording," "key moments from this," "what happened in this video." This skill replaces and broadens the prior youtube-transcript skill.
+description: When you want to extract content from a video — YouTube, Loom, Vimeo, Riverside, Zoom recording, local MP4, X/IG video, anything yt-dlp supports. Three depth modes user picks per invocation — transcript (just words, fast/free), visual (transcript + ffmpeg frame extraction + Claude vision pass on key moments), multimodal (Gemini native video ingestion if $GEMINI_API_KEY set, else dense Claude vision). Uses local Whisper for transcription (MLX-Whisper on Apple Silicon, faster-whisper elsewhere), falls back to platform-provided transcripts when available (Loom, Riverside, YouTube auto-subs). Saves to ~/Documents/videos/<source>-<slug>-<date>/ and optionally captures summary to second-brain raw/ as call-/meeting-/note-. Triggers on "/watch-video <url>," "watch this video," "transcribe this loom," "analyze this video," "summarize this recording," "key moments from this," "what happened in this video." This skill replaces and broadens the prior youtube-transcript skill.
 metadata:
   version: 0.2.2
 ---
@@ -71,7 +71,7 @@ Where:
    - Riverside: built-in transcripts available on the recording's share page
    - If platform transcript exists and has timestamps, use it. Skip Whisper.
 
-2. **MLX-Whisper local** (default fallback — fast on Mac M-series):
+2. **MLX-Whisper local** (default on Apple Silicon Macs):
    ```bash
    # Install once: pip install mlx-whisper
    python3 -c "import mlx_whisper; mlx_whisper.transcribe('<file>', path_or_hf_repo='mlx-community/whisper-large-v3-turbo')" \
@@ -79,7 +79,7 @@ Where:
    ```
    Or via the CLI: `mlx_whisper <file> --model mlx-community/whisper-large-v3-turbo --output-dir <workdir>`
 
-3. **whisper.cpp** (further fallback if MLX unavailable)
+3. **Not on Apple Silicon** (Linux, Intel Mac, Windows, cloud agents): `faster-whisper` (`pip install faster-whisper`, CPU or CUDA) or `whisper.cpp`. Same model size, same output handling.
 
 Download the video file first if it's a URL (use yt-dlp; Loom/Vimeo/YT all supported):
 
@@ -303,7 +303,7 @@ In chat:
 | Failure | Response |
 |---|---|
 | Video unavailable / private / region-locked | Report and stop |
-| No subtitles + Whisper not installed | Tell the user: `pip install mlx-whisper` (Mac) |
+| No subtitles + Whisper not installed | Tell the user: `pip install mlx-whisper` (Apple Silicon) or `pip install faster-whisper` (anything else) |
 | ffmpeg missing (for visual/multimodal) | Tell the user: `brew install ffmpeg` |
 | Vision pass returns empty / unclear | Lower the frame count, retry, or fall back to transcript-only with a note |
 | Multimodal requested but no `$GEMINI_API_KEY` and >30min video | Warn cost, offer to fall back to visual mode |
@@ -312,8 +312,8 @@ In chat:
 ## Notes on quality
 
 - **User picks depth, not the skill.** Transcript / visual / multimodal are 3 different cost + latency profiles. Long videos (>10 min) always confirm before spending on visual/multimodal.
-- **Platform transcript first, Whisper second.** YouTube auto-subs, Loom transcripts, Riverside built-in transcripts — all free + instant when they exist. Fall back to MLX-Whisper local only when nothing platform-provided works.
-- **MLX-Whisper local is the fast path on Mac.** M-series machines transcribe faster than real-time. Cloud Whisper is a distant second choice — costs money, network dependency, worse latency on typical durations.
+- **Platform transcript first, Whisper second.** YouTube auto-subs, Loom transcripts, Riverside built-in transcripts — all free + instant when they exist. Fall back to local Whisper only when nothing platform-provided works.
+- **Local Whisper is the fast path.** MLX on M-series Macs transcribes faster than real-time; faster-whisper is the equivalent elsewhere. Cloud Whisper is a distant second choice — costs money, network dependency, worse latency on typical durations.
 - **Frame cadence by source type.** Screen-share / demos need 1 frame per 5s (UI changes fast); talking-head podcasts need 1 per 30s (slow change). Default 15s if unsure. Wrong cadence = missed key moments OR wasted vision-pass cost.
 - **720p is plenty.** Downloading 1080p / 4K for transcription + frame analysis wastes bandwidth + storage. `yt-dlp -f "bv*[height<=720]+ba/b[height<=720]"` is the default.
 - **Scene-change detection catches slide transitions.** When the video is a slide presentation, add `ffmpeg -vf "select='gt(scene,0.3)'"` to force a frame on each detected slide change — more reliable than pure time-based sampling.

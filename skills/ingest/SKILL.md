@@ -23,7 +23,7 @@ You are a relay hub: clients text you, partners email you, calls get transcribed
 
 ## Step 0 — Get the input and classify it
 
-In order: content in the prompt → clipboard (`pbpaste`) → ask.
+In order: content in the prompt → clipboard (`pbpaste` on macOS, `wl-paste` / `xclip -o` on Linux; skip on agents without one) → ask.
 
 Classify by shape, not by what the user called it:
 
