@@ -116,7 +116,7 @@ If yes:
 
 ## Memory references
 
-Your memory store is your agent's persistent memory if it has one (Claude Code's memory directory, for example), otherwise `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`.
+Your memory store is your agent's persistent memory if it has one (Claude Code's memory directory, for example), otherwise `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`.
 
 - `feedback_promo_voice.md` in your memory store (if present) — conviction-coded CTAs + reader-perspective framing
 - `feedback_social_cadence.md` in your memory store (if present) — cadence cap (e.g., 2 posts/day per platform)

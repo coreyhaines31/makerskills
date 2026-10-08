@@ -334,7 +334,7 @@ For each learning: **is this skill-specific or a broader principle?**
 | Type | Where it goes |
 |---|---|
 | Skill-specific rule | Edit the SKILL.md / references file directly |
-| Cross-cutting principle | `feedback_<topic>.md` in the memory store (agent memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`) |
+| Cross-cutting principle | `feedback_<topic>.md` in the memory store (agent memory, or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`) |
 | Both | Write the memory file AND update the skill(s) that immediately apply |
 
 Example: *"links go in first comments, not body"* → applies to `jab-hook` AND is a broader social principle → both update jab-hook AND save `feedback_social_link_placement.md`.
@@ -421,7 +421,7 @@ For one-line updates with no cross-skill implications: just Edit.
 - **Always reference Anthropic's official guidance** for the schema — don't invent format conventions.
 - **Write for any agent host**, not just Claude Code:
   - Name capabilities, not tool names ("fetch the URL", not a host tool name like Claude Code's fetch tool; "the Typefully create-draft tool", not a raw MCP tool ID).
-  - Memory lives in the agent's memory or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`, never a hardcoded Claude Code memory path.
+  - Memory lives in the agent's memory or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`, never a hardcoded Claude Code memory path.
   - Read `CLAUDE.md` **or** `AGENTS.md` for user-owned schema/config docs.
   - Give Linux fallbacks for macOS-only commands (clipboard, `open`, MLX) — e.g. `wl-copy`/`xclip`, `xdg-open`, faster-whisper.
   - If a skill genuinely needs a Claude Code feature, say so in the body and give the other-hosts path (see loopify).

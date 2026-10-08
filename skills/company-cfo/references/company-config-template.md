@@ -114,7 +114,7 @@ Add as they're discovered — this list is company-specific muscle memory:
 
 ## Memory note
 
-Running context lives in `company_cfo_<slug>.md` in your memory store (your agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`). Update if:
+Running context lives in `company_cfo_<slug>.md` in your memory store (your agent's memory, or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`). Update if:
 - Distribution/comp structure changes
 - Active sub count or MRR shifts materially
 - New revenue stream or new payroll tool

@@ -218,7 +218,7 @@ The principles that shape every skill in the collection:
 
 | Don't | Do |
 |---|---|
-| `~/.claude/memory/...` | The agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/` |
+| `~/.claude/memory/...` | The agent's memory, or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/` |
 | Read only `CLAUDE.md` | Read `CLAUDE.md` or `AGENTS.md`; seed new ones as `AGENTS.md` + a `CLAUDE.md` symlink |
 | Name a tool (`WebFetch`, `WebSearch`, `mcp__x__y`, `Skill({...})`) as the instruction | Name the capability ("fetch the URL"), with a Claude Code name as an example at most |
 | macOS-only commands (`pbcopy`, `open`, MLX) alone | Give the Linux equivalent (`wl-copy`/`xclip`, `xdg-open`, faster-whisper) and a no-clipboard path |

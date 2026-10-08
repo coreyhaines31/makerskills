@@ -95,7 +95,7 @@ Twitter and LinkedIn have practical limits. the user said "let me trim" — don'
 If the content has URLs and destination is **twitter** or **linkedin**:
 - Surface the URLs separately (don't include them in the body)
 - Remind the user: links go in a first comment (LinkedIn) or reply (X), not the body
-- See `makerskills:jab-hook` and `feedback_social_link_placement.md` in your memory store (your agent's memory, or `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`)
+- See `makerskills:jab-hook` and `feedback_social_link_placement.md` in your memory store (your agent's memory, or `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`)
 
 ## Examples
 

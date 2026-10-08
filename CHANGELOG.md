@@ -10,7 +10,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ### Changed
 - **Agent-agnostic skills** (closes #32). The skills now run in Codex, Cursor, and other Agent Skills hosts, and on Linux, not just Claude Code on a Mac.
-  - **Memory**: the agent's own memory, else `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/`, replacing `~/.claude/memory/` (company-cfo, jab-hook, deep-research, paste, skillify).
+  - **Memory**: the agent's own memory, else `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/`, replacing `~/.claude/memory/` (company-cfo, jab-hook, deep-research, paste, skillify).
   - **Schema docs**: `CLAUDE.md` **or** `AGENTS.md` (second-brain, company-brain, company-cfo). New vaults and CFO roots seed `AGENTS.md` with a `CLAUDE.md` symlink. company-brain no longer hardcodes the `~/code/makerskills` clone path.
   - **Tool names → capabilities**: `WebFetch`, `WebSearch`, `Skill({...})`, and `mcp__typefully__*` replaced with plain descriptions. The Typefully names were stale on Claude Code too.
   - **macOS-only commands**: clipboard fallbacks for Linux, Windows, and headless agents (paste, ingest); faster-whisper off Apple Silicon (watch-video); `xdg-open` notes.

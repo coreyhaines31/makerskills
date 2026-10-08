@@ -28,7 +28,7 @@ Pick from this menu based on the question type. Note which sources you'll hit an
 | `/last30days` | What people are *actually saying* right now — Reddit, X, YouTube, HN, web recency | The `last30days` skill, if installed. Otherwise skip it and note the gap |
 | Specific URLs | When the user hands over starting URLs | Your agent's URL fetch (e.g. `WebFetch`), or `curl` + `defuddle` |
 | Browsable pages (auth-walled, JS-heavy) | Pricing pages, product tours, profiles | `agent-browser` CLI (any agent with a shell) |
-| Memory | Prior research / decisions / context the user already captured | your agent's memory, or grep `${MAKERSKILLS_MEMORY:-$MAKERSKILLS_CONFIG/memory}/` |
+| Memory | Prior research / decisions / context the user already captured | your agent's memory, or grep `${MAKERSKILLS_MEMORY:-${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/memory}/` |
 | Notion | If the topic touches a known Notion workspace | Direct Notion API (key in `$NOTION_API_KEY`, see `reference_notion_api.md`) |
 | Research archive | Prior `/deep-research` runs that touched this topic | grep `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/deep-research/archive/` |
 
