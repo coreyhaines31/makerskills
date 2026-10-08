@@ -109,7 +109,7 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ## 6. Verify
 
 ```bash
-# Should see 20 skills listed
+# Should see 22 skills listed
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:

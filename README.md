@@ -65,7 +65,7 @@ Each skill is a workflow doc — you can invoke via `/decide` OR read the SKILL.
 
 It'll read your clipboard, strip formatting, warn if over 280 chars, and copy back the cleaned output. First invocation may prompt you to install `pbcopy`-adjacent deps if missing. No config file needed — this is a pure utility.
 
-**5. Now branch out.** Skim [The 21 skills](#the-21-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
+**5. Now branch out.** Skim [The 22 skills](#the-22-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
 
 ---
 
@@ -102,7 +102,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 
 ---
 
-## The 21 skills
+## The 22 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -126,7 +126,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 |---|---|
 | [`second-brain`](./skills/second-brain/SKILL.md) | Karpathy LLM Wiki workflow over any markdown vault. Capture / compile / query / lint / connect / search. Personal-scope. |
 | [`company-brain`](./skills/company-brain/SKILL.md) | Team-scope sibling to second-brain. Structured raw dirs (people / companies / meetings / sops / decisions / customer-language / recurring-questions / sales-objections), multi-author attribution, sensitivity tagging, trust levels + a `/cb review` culling pass so unreviewed or deprecated info never poisons answers, optional auto-sync from Fathom / Gong / Granola / CRM. Backbone for a Company Brain Setup productized service. |
-| [`radar`](./skills/radar/SKILL.md) | Standing surveillance on known sources — YouTube channels, RSS/blogs, subreddits, Hacker News, X, LinkedIn, keyword searches. Polls on a daily launchd schedule, fetches only what's new (per-source state files), scores it against your stated focus, writes one digest to the vault, and auto-captures only what clears the bar. Everything else waits in the digest until you `promote` it. Fills `raw/` for `second-brain` to compile. |
+| [`radar`](./skills/radar/SKILL.md) | Standing surveillance on known sources — YouTube channels, RSS/blogs, subreddits, Hacker News, X, LinkedIn, keyword searches. Polls on a daily schedule (launchd or systemd), fetches only what's new (per-source state files), scores it against your stated focus, writes one digest to the vault, and auto-captures only what clears the bar. Everything else waits in the digest until you `promote` it. Fills `raw/` for `second-brain` to compile. |
 | [`read-book`](./skills/read-book/SKILL.md) | PDFs, EPUBs, MOBI, markdown — chapter-by-chapter notes, quotes, summaries, or spaced-rep study mode. |
 | [`watch-video`](./skills/watch-video/SKILL.md) | YouTube, Loom, Vimeo, Riverside, Zoom, MP4. Transcript / visual / multimodal (Gemini-native) modes. |
 | [`ingest`](./skills/ingest/SKILL.md) | Raw human input — call transcripts (Grain/Zoom/Granola/Fathom), client texts, emails, voice notes — extracted into decisions, action items (yours vs theirs), filed GitHub issues, vault captures, and a drafted-never-sent reply. Person→project routing via private `people.yaml`. |
