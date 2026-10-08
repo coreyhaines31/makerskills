@@ -78,8 +78,9 @@ Read `references/destinations.md` and apply the relevant transform.
 
 1. **Write the cleaned content to a temp file with your agent's file-write tool**, e.g. `/tmp/paste-<slug>.txt`. Never pipe it through a shell heredoc or `echo`: agent harnesses can hard-wrap heredocs (~70 chars) and indent every line, so the paste comes out broken while the chat looks fine.
 2. **Copy from the file** with the write command from Step 1.
-3. **Verify the round trip.** Read the clipboard back and compare it to the file, e.g. `pbpaste | cmp -s - "$f" && echo match` (swap in the platform's read command). On a mismatch, report it and fall back to showing the text in a code fence.
+3. **Verify the round trip.** Read the clipboard back and compare it to the file, e.g. `pbpaste | cmp -s - "$f" && echo match` (swap in the platform's read command; on Windows, `powershell "(Get-Clipboard -Raw) -eq (Get-Content -Raw '$f')"`). On a mismatch, report it and fall back to showing the text in a code fence.
 4. **Build the chat preview from what you read back**, not from what you meant to copy. A preview from memory is how a mangled copy ships looking clean.
+5. **Delete the temp file** once verified. It can hold anything the user copied, including text the secret scan let through.
 
 | Destination | Output behavior |
 |---|---|
