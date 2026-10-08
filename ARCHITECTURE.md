@@ -59,7 +59,7 @@ Full list in [INSTALL.md](./INSTALL.md).
 
 ## Skill families
 
-The 20 skills group into 6 families by job type:
+The 22 skills group into 6 families by job type:
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 
@@ -92,6 +92,8 @@ Skills that ingest external content and turn it into structured knowledge:
 - **`company-brain`** — team-scope sibling with structured `people/` `companies/` `meetings/` `sops/` `decisions/` dirs
 - **`read-book`** — chapter-by-chapter notes / quotes / summaries from PDF/EPUB/MOBI
 - **`watch-video`** — transcript / visual / multimodal from any video source
+- **`radar`** — standing surveillance on known sources; daily digest, auto-captures the high-signal items into `raw/`
+- **`ingest`** — raw human input (transcripts, texts, emails) → decisions, action items, GitHub issues, vault capture, drafted reply
 
 Common thread: **compile raw → wiki → outputs**. Every consumed artifact routes toward a compilable, queryable, evergreen knowledge layer.
 
