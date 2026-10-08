@@ -51,6 +51,7 @@ git remote add origin git@github.com:mycompany/company-brain.git
 # 4. Create the base dirs, plus ONLY the pilot workflow's dirs (see "Start narrow" below)
 mkdir -p raw wiki outputs Projects Team Templates Drafts
 mkdir -p meetings sales-objections customer-language   # e.g. a Sales pilot
+touch meetings/.gitkeep sales-objections/.gitkeep customer-language/.gitkeep   # git doesn't track empty dirs; teammates' clones need them
 
 # 5. Seed the schema doc from this skill's references/schema.md (path depends on where your agent installed the skill)
 #    AGENTS.md is read by Codex, Cursor, and most hosts; the symlink covers Claude Code
