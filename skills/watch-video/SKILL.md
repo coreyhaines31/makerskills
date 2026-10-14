@@ -2,7 +2,7 @@
 name: watch-video
 description: When you want to extract content from a video — YouTube, Loom, Vimeo, Riverside, Zoom recording, local MP4, X/IG video, anything yt-dlp supports. Three depth modes user picks per invocation — transcript (just words, fast/free), visual (transcript + ffmpeg frame extraction + Claude vision pass on key moments), multimodal (Gemini native video ingestion if $GEMINI_API_KEY set, else dense Claude vision). Uses local Whisper for transcription (MLX-Whisper on Apple Silicon, faster-whisper elsewhere), falls back to platform-provided transcripts when available (Loom, Riverside, YouTube auto-subs). Saves to ~/Documents/videos/<source>-<slug>-<date>/ and optionally captures summary to second-brain raw/ as call-/meeting-/note-. Triggers on "/watch-video <url>," "watch this video," "transcribe this loom," "analyze this video," "summarize this recording," "key moments from this," "what happened in this video." This skill replaces and broadens the prior youtube-transcript skill.
 metadata:
-  version: 0.2.3
+  version: 0.2.4
 ---
 
 # /watch-video — Transcribe and analyze any video at the depth you choose
@@ -38,11 +38,12 @@ If the depth isn't specified and the video is >10 minutes, ask before defaulting
 For URL sources, use yt-dlp:
 
 ```bash
-yt-dlp --print "%(title)s|%(uploader)s|%(duration_string)s|%(upload_date>%Y-%m-%d)s|%(description)s" \
-  --print "%(chapters)j" --skip-download "<url>"
+yt-dlp --skip-download --print "%(.{title,uploader,duration_string,upload_date,webpage_url,chapters,description})j" "<url>"
 ```
 
-Capture: title, uploader/channel, duration, upload date, description (first paragraph), chapters (JSON or null).
+One JSON object comes back. Descriptions run multi-line, so don't parse the output with `|` or line splits. `chapters` is absent when the video has none. `upload_date` is `YYYYMMDD`.
+
+Capture: title, uploader/channel, duration, upload date, description (first paragraph), chapters (list or absent). Save the object as `<workdir>/metadata.json` once Step 4 creates the workdir.
 
 For local files, use ffprobe:
 
@@ -66,40 +67,74 @@ Where:
 **Backend selection** (in order):
 
 1. **Platform-provided transcript** if it exists and looks complete:
-   - YouTube: `yt-dlp --write-sub --write-auto-sub --skip-download --sub-lang en --sub-format vtt`
+   - YouTube: `yt-dlp --write-sub --write-auto-sub --skip-download --sub-langs "en,en-US,en-GB" --sub-format vtt -o "<workdir>/transcript" "<url>"` — writes `<workdir>/transcript.en.vtt`. For a non-English video, run `yt-dlp --list-subs "<url>"` and swap in its code. Don't use `en.*`: it also matches auto-translated tracks (`en-sq`, …) and trips HTTP 429.
    - Loom: fetch via `https://www.loom.com/share/<id>` page metadata or Loom API if `$LOOM_API_KEY` set
    - Riverside: built-in transcripts available on the recording's share page
    - If platform transcript exists and has timestamps, use it. Skip Whisper.
 
 2. **MLX-Whisper local** (default on Apple Silicon Macs):
-   ```bash
-   # Install once: pip install mlx-whisper
-   python3 -c "import mlx_whisper; mlx_whisper.transcribe('<file>', path_or_hf_repo='mlx-community/whisper-large-v3-turbo')" \
-     > "<workdir>/transcript-raw.json"
-   ```
+```bash
+# Install once: pip install mlx-whisper
+python3 -I - "<file>" "<workdir>/transcript.txt" <<'PY'
+import sys, mlx_whisper
+r = mlx_whisper.transcribe(sys.argv[1], path_or_hf_repo="mlx-community/whisper-large-v3-turbo")
+open(sys.argv[2], "w", encoding="utf-8").write("\n".join(s["text"].strip() for s in r["segments"]) + "\n")
+PY
+```
    Or via the CLI: `mlx_whisper <file> --model mlx-community/whisper-large-v3-turbo --output-dir <workdir>`
 
-3. **Not on Apple Silicon** (Linux, Intel Mac, Windows, cloud agents): `faster-whisper` (`pip install faster-whisper`, CPU or CUDA) or `whisper.cpp`. Same model size, same output handling.
+3. **Not on Apple Silicon** (Linux, Intel Mac, Windows, cloud agents): `faster-whisper` (CPU or CUDA) or `whisper.cpp`. Same model size.
+```bash
+# Install once: pip install faster-whisper "av>=17,<18"
+python3 -I - "<file>" "<workdir>/transcript.txt" <<'PY'
+import sys
+from faster_whisper import WhisperModel
+model = WhisperModel("large-v3-turbo", compute_type="int8")  # add device="cuda" on an NVIDIA GPU
+segments, info = model.transcribe(sys.argv[1], vad_filter=True)
+with open(sys.argv[2], "w", encoding="utf-8") as f:
+    for s in segments:
+        f.write(s.text.strip() + "\n")
+PY
+```
+   Run it with whichever `python3` has the package (a venv's `bin/python` works). The `av` pin matters: faster-whisper 1.2.x passes an argument that PyAV 18+ removed, and transcription then dies with `TypeError: open() got an unexpected keyword argument 'metadata_errors'`.
 
 Download the video file first if it's a URL (use yt-dlp; Loom/Vimeo/YT all supported):
 
 ```bash
-yt-dlp -f "bv*[height<=720]+ba/b[height<=720]" -o "<workdir>/video.%(ext)s" "<url>"
+yt-dlp -f "bv*[height<=720]+ba/b[height<=720]" --merge-output-format mp4 -o "<workdir>/video.%(ext)s" "<url>"
 ```
 
-720p is plenty for transcription and frame analysis (smaller download, faster processing).
+720p is plenty for transcription and frame analysis (smaller download, faster processing). Without `--merge-output-format mp4`, YouTube usually lands as `video.webm` and every `video.mp4` below misses.
 
-**Clean the transcript** (only needed for YouTube auto-subs which have rolling captions; Whisper output is already clean):
+**Clean the transcript** (YouTube VTT — de-dups rolling captions, strips tags, decodes `&gt;`/`&amp;`, starts a new paragraph after a >2s gap between cues; Whisper output is already clean):
 
 ```bash
-# YouTube VTT cleanup — de-dup rolling captions, strip tags, paragraph-break on cue gaps >2s
-awk '
-  /^WEBVTT/ || /^Kind:/ || /^Language:/ || /^NOTE/ { next }
-  /-->/ { in_cue = 1; last = ""; next }
-  /^$/ { if (last) print last; in_cue = 0; last = ""; next }
-  in_cue { gsub(/<[^>]+>/, "", $0); last = $0 }
-  END { if (last) print last }
-' "<workdir>/transcript.en.vtt" | awk '!seen[$0]++' > "<workdir>/transcript.txt"
+python3 -I - "<workdir>/transcript.en.vtt" "<workdir>/transcript.txt" <<'PY'
+import html, re, sys
+
+def secs(t):
+    return sum(float(p) * m for p, m in zip(reversed(t.replace(",", ".").split(":")), (1, 60, 3600)))
+
+out, last, prev_end = [], None, None
+for block in re.split(r"\n{2,}", open(sys.argv[1], encoding="utf-8").read().replace("\r\n", "\n")):
+    lines = block.strip().splitlines()
+    cue = next((i for i, l in enumerate(lines) if "-->" in l), None)
+    if cue is None:
+        continue
+    start, end = (secs(t.split()[0]) for t in lines[cue].split("-->"))
+    first = True
+    for raw in lines[cue + 1:]:
+        text = html.unescape(re.sub(r"<[^>]+>", "", raw)).strip()
+        if not text or text == last:  # rolling captions repeat the previous line
+            continue
+        if first and prev_end is not None and start - prev_end > 2:
+            out.append("")
+        first = False
+        out.append(text)
+        last = text
+    prev_end = end
+open(sys.argv[2], "w", encoding="utf-8").write("\n".join(out) + "\n")
+PY
 ```
 
 Save final to `<workdir>/transcript.txt`.
@@ -134,7 +169,7 @@ ffmpeg -i "<workdir>/video.mp4" -vf "fps=1/15" "<workdir>/frames/frame-%04d.png"
 For scene-change detection (slide decks especially):
 
 ```bash
-ffmpeg -i "<workdir>/video.mp4" -vf "select='gt(scene,0.3)',showinfo" -vsync vfr "<workdir>/frames/scene-%04d.png" 2> "<workdir>/scene-detection.log"
+ffmpeg -i "<workdir>/video.mp4" -vf "select='gt(scene,0.3)',showinfo" -fps_mode vfr "<workdir>/frames/scene-%04d.png" 2> "<workdir>/scene-detection.log"
 ```
 
 ### Vision pass
@@ -199,7 +234,7 @@ After moments are identified, synthesize the whole video into `<workdir>/summary
 
 1. **Gemini native** if `$GEMINI_API_KEY` is set (much cheaper + faster than per-frame for long videos):
 
-   **Default model: `gemini-3.5-flash`** (released May 2026, ~$1.50 input / $9 output per 1M tokens; ~$0.15/sec of video; beats 3.1 Pro on coding/agentic benchmarks at 4× the speed). Override to `gemini-3.1-pro` for brand audits / high-stakes analysis where details matter; `gemini-2.5-flash-lite` for bulk cheap processing.
+   **Default model: `gemini-3.5-flash`** (released May 2026, ~USD 1.50 input / USD 9 output per 1M tokens; ~USD 0.15/sec of video; beats 3.1 Pro on coding/agentic benchmarks at 4× the speed). Override to `gemini-3.1-pro` for brand audits / high-stakes analysis where details matter; `gemini-2.5-flash-lite` for bulk cheap processing.
 
    ```bash
    # Step 1: Upload video via Files API
@@ -311,6 +346,7 @@ In chat:
 
 ## Notes on quality
 
+- **Never put a dollar sign directly before a digit in this file.** Agent hosts replace those tokens with the invocation arguments when they load a skill: an awk field reference turns into the URL and a price like USD 1.50 written with a dollar sign turns into a word from the command line. Use a Python snippet, and spell money as `USD 1.50`.
 - **User picks depth, not the skill.** Transcript / visual / multimodal are 3 different cost + latency profiles. Long videos (>10 min) always confirm before spending on visual/multimodal.
 - **Platform transcript first, Whisper second.** YouTube auto-subs, Loom transcripts, Riverside built-in transcripts — all free + instant when they exist. Fall back to local Whisper only when nothing platform-provided works.
 - **Local Whisper is the fast path.** MLX on M-series Macs transcribes faster than real-time; faster-whisper is the equivalent elsewhere. Cloud Whisper is a distant second choice — costs money, network dependency, worse latency on typical durations.
