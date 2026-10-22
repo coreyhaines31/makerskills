@@ -14,7 +14,7 @@
 
 ## Documented positions
 
-- Most founders underprice. A modest price rise can roughly double profit, so raising prices is usually the highest-leverage move available. Source: *Hidden Multipliers* (2026), whose publisher description says four pricing and packaging changes took WP Engine from $1M to $5M in one year with no new product, market, or funding. Also his `asb-raise-prices` skill.
+- Most founders underprice. Because a price rise falls almost entirely to profit, a 10% rise can roughly double profit when margins are thin, so raising prices is usually the highest-leverage move available. Run the numbers for the user's actual margin; don't quote the doubling as a rule. Source: *Hidden Multipliers* (2026), whose publisher description says four pricing and packaging changes took WP Engine from $1M to $5M in one year with no new product, market, or funding. Also his `asb-raise-prices` skill.
 - Competing on price is a trap unless low price is the *outcome* of interlocking choices that customers partly dislike and competitors can't copy, as with Costco, Southwest, Vanguard, and IKEA. Source: "Sometimes never compete on price," 2025.
 - Hypergrowth is quadratic, not exponential. Percentage growth rates shrink with scale, so plan in absolute terms. Source: "The myth of exponential hypergrowth," 2022.
 - Generic marketing words like "easy," "robust," and "customer-first" signal that no decision has been made. Source: "The 'Opposite Test'," 2008, and "specificity."
