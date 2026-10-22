@@ -6,7 +6,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.9.0] — 2026-10-22
 
 ### Added
 - **`skillify` v0.3.1 — TEST mode** (#41). Role-plays 3–6 quarantined scenarios through a skill (canonical, terse, boundary, refusal, lazy answerer, die-and-resume, missing config), judges each transcript against a fixed rubric (applied vs. recited, specific vs. generic, held the bar, refusal fired, tone vs. substance, pacing, artifacts, self-contained), and returns a verdict table plus patch list for UPDATE mode. New `references/test-rubric.md`. Adapted from Jason Cohen's `exercise-asb-skill` ([asmartbear/asb-skills](https://github.com/asmartbear/asb-skills), CC BY 4.0). v0.3.1 (#49): TEST is always a dry run (no writes, drafts, issues, pushes, or paid calls), and the version under test is pinned with a git worktree.
