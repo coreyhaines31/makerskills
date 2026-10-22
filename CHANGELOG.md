@@ -6,6 +6,19 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.9.0] — 2026-10-22
+
+### Added
+- **`skillify` v0.3.1 — TEST mode** (#41). Role-plays 3–6 quarantined scenarios through a skill (canonical, terse, boundary, refusal, lazy answerer, die-and-resume, missing config), judges each transcript against a fixed rubric (applied vs. recited, specific vs. generic, held the bar, refusal fired, tone vs. substance, pacing, artifacts, self-contained), and returns a verdict table plus patch list for UPDATE mode. New `references/test-rubric.md`. Adapted from Jason Cohen's `exercise-asb-skill` ([asmartbear/asb-skills](https://github.com/asmartbear/asb-skills), CC BY 4.0). v0.3.1 (#49): TEST is always a dry run (no writes, drafts, issues, pushes, or paid calls), and the version under test is pinned with a git worktree.
+- **`maker-council` v0.2.0 — Jason Cohen joins the bench** (#45). The pricing, positioning, and specificity lens, grounded in his A Smart Bear essays and *Hidden Multipliers*. A requested off-bench founder no longer gets a seat improvised from memory. 8 → 9 members.
+
+### Changed
+- **`decide` v0.5.0** (#42, #48). A Step 0 screen for already-decided input (retroactive log), validation-seeking, and no-options input. A hold-the-bar rule: two pushes with candidate answers, then tag `(unanswered)`. Weak inputs route to Wait or Decide smaller, and a test must have a pass/fail bar. A real-decision check (rejected alternative + accepted downside). The archive gains Rejected alternative / Accepted downside / Revised from / Weak spots, and INDEX lines flag `(N weak spots)`. The archive is now a working file created early with an in-progress marker carrying the remaining plan, so a dead session resumes where it stopped.
+- **`business-brainstorm` v0.4.0** (#42, #48). Hopes score ❓/❌, never 🟡, and are quoted. The Opposite Test applies to differentiation claims, threats must be present tense, and it refuses validation-seeking or already-committed ideas. The working file and resume work the same way as in decide. The quality notes now use the Build/Sleep/Pass verdict names.
+- **Descriptions** (#46). Seven skills that share triggers with a sibling now say which sibling takes the other case: second-brain ↔ company-brain, personal-cfo → company-cfo, deep-research → radar/social-fetch/watch-video, social-fetch ↔ watch-video, skillify → toolify/loopify.
+
+All of the above were tested with `/skillify test` before merging (baseline and after-patch runs are in each PR).
+
 ## [v1.8.0] — 2026-10-08
 
 ### Added

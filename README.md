@@ -107,7 +107,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
 |---|---|
-| [`skillify`](./skills/skillify/SKILL.md) | Create, adapt, or update a skill in any sibling repo. Three modes: CREATE (from-chat / from-video / from-dump / from-scratch), ADAPT (port external skill with license check + attribution), UPDATE (improve existing skills with cross-skill propagation + semver discipline). |
+| [`skillify`](./skills/skillify/SKILL.md) | Create, adapt, or update a skill in any sibling repo. Three modes: CREATE (from-chat / from-video / from-dump / from-scratch), ADAPT (port external skill with license check + attribution), UPDATE (improve existing skills with cross-skill propagation + semver discipline), TEST (role-play users through a skill and judge transcripts against a rubric). |
 | [`toolify`](./skills/toolify/SKILL.md) | Wire up an integration, API, MCP server, or third-party service into a Next.js or Rails project. Interactive wizard for auth, env vars, client wrapper, webhook handling, and smoke-test. |
 | [`loopify`](./skills/loopify/SKILL.md) | Set up an agent loop, cron-scheduled task, or recurring workflow. Judgment layer on top of `ScheduleWakeup` / `CronCreate` / `/loop` — picks pattern (dynamic / cron / one-shot), tunes delay for cache windows, enforces idempotency + bail-out conditions. |
 
@@ -119,7 +119,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 | [`domain`](./skills/domain/SKILL.md) | 11-step .com domain hunt on Laura Roeder's "availability-first, never fall in love with a name" methodology. Multi-tool ensemble: Vercel CLI + whois (per-TLD) + Domainr API + Namecheap API + `rdap.org` (modern TLDs) + `agent-browser` for USPTO trademark screening + aftermarket click-throughs (HugeDomains / Afternic / Sedo / Dan). Handles bare-word + prefix/suffix brainstorming, budget filtering, negotiation guidance, and social handle checks. |
 | [`deep-research`](./skills/deep-research/SKILL.md) | Multi-source research with citations + archive. WebSearch, WebFetch, `agent-browser`, `/last30days`, memory. |
 | [`unstuck`](./skills/unstuck/SKILL.md) | The roadblock antidote. Classifies what kind of "no" you hit (assumption / framing / gatekeeper / tool / resource / physics), runs targeted lateral-thinking techniques from a 10-technique inventory, 10-angle minimum before evaluating. Agents run it on themselves before reporting any dead end. Upstream of `decide`. |
-| [`maker-council`](./skills/maker-council/SKILL.md) | Simulated personal board of advisors — Fried, Musk, Bezos, Jensen, Iger, Graham, Naval, Blakely. Seats 3–5 by question type with a designated dissenter, grounds takes in documented frameworks (optional live-research pass), maps the disagreements, synthesizes a call. Custom members via config dir. |
+| [`maker-council`](./skills/maker-council/SKILL.md) | Simulated personal board of advisors — Fried, Musk, Bezos, Jensen, Iger, Graham, Naval, Blakely, Cohen. Seats 3–5 by question type with a designated dissenter, grounds takes in documented frameworks (optional live-research pass), maps the disagreements, synthesizes a call. Custom members via config dir. |
 
 ### Knowledge & content consumption
 | Skill | What |
