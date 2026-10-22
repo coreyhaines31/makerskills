@@ -2,7 +2,7 @@
 name: skillify
 description: When you want to create, adapt, or update an Agent Skill (Claude Code, Codex, Cursor, and other hosts) in one of your repos (listed in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Modes — CREATE (from chat, video, dump, or scratch) turns a workflow into a new skill. ADAPT ports an external skill with keep/adapt/add classification, license check, and attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver. TEST role-plays users through a skill and judges transcripts against a rubric. Checks new skills for host portability. Triggers on "/skillify," "create a skill," "make this a skill," "adapt this skill," "port this skill," "update X skill," "propagate this learning," "improve [skill]," "fix [skill]," "test this skill," "exercise [skill]." Part of the -ify trifecta (skillify / toolify / loopify).
 metadata:
-  version: 0.3.0
+  version: 0.3.1
 ---
 
 # /skillify — Create, adapt, or update a skill
@@ -417,6 +417,8 @@ Full scenario set, rubric, and judging rules: `references/test-rubric.md`. Read 
 - Skill name → `<repo>/skills/<name>/SKILL.md` (repo per CREATE Step 3)
 - Explicit path → that file
 - Neither → ask
+
+**Pin the version under test.** Subagents read from disk while they run. If the working tree can change underneath them (you switch branches, merge, edit), point them at a frozen copy: `git worktree add <scratch>/wt-<skill> <commit>` (remove it afterward), or a snapshot copy of the skill folder. Otherwise they test whatever's checked out when they get to it and report gaps that aren't real.
 
 Read the SKILL.md and every `references/` file it tells the agent to load — once. From here on the simulated wielder knows only those files. Anything it needs that isn't there is a finding, not something to fill in. If your host can spawn subagents, run each scenario in its own subagent whose prompt gives only the skill path, the scenario, and the dry-run rules, and tells it to read nothing else. Otherwise, play both sides yourself and state the quarantine in one line first.
 
