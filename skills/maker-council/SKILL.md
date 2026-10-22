@@ -1,8 +1,8 @@
 ---
 name: maker-council
-description: "When you want multiple expert perspectives on a founder/operator question — a simulated board of advisors (Jason Fried, Elon Musk, Jeff Bezos, Jensen Huang, Bob Iger, Paul Graham, Naval Ravikant, Sara Blakely). Bring a real decision — \"should I raise prices?\", \"hire my first employee?\", \"raise or bootstrap?\", \"kill this project?\" — and the council weighs in through documented frameworks, surfaces disagreements, and synthesizes a recommendation. Also use for 'maker council,' 'board of advisors,' 'what would Bezos do,' 'what would Jason Fried say,' 'channel Naval,' 'ask the council,' or how a famous founder would approach a problem. Optional live-research pass via deep-research / watch-video / last30days. Marketing questions go to marketing-skills' marketing-council. Archives to ~/.config/makerskills/maker-council/archive/. To commit to a direction, hand off to decide."
+description: "When you want multiple expert perspectives on a founder/operator question — a simulated board of advisors (Jason Fried, Elon Musk, Jeff Bezos, Jensen Huang, Bob Iger, Paul Graham, Naval Ravikant, Sara Blakely, Jason Cohen). Bring a real decision — \"should I raise prices?\", \"hire my first employee?\", \"raise or bootstrap?\", \"kill this project?\" — and the council weighs in through documented frameworks, surfaces disagreements, and synthesizes a recommendation. Also use for 'maker council,' 'board of advisors,' 'what would Bezos do,' 'what would Jason Fried say,' 'channel Naval,' 'ask the council,' or how a famous founder would approach a problem. Optional live-research pass via deep-research / watch-video / last30days. Marketing questions go to marketing-skills' marketing-council. Archives to ~/.config/makerskills/maker-council/archive/. To commit to a direction, hand off to decide."
 metadata:
-  version: 0.1.1
+  version: 0.2.0
 ---
 
 # /maker-council — Your personal board of advisors
@@ -27,11 +27,11 @@ Clarify (ask only for what's missing, one message):
 |------|-------|------|
 | **Quick take** | 1 member | "What would Fried say about this schedule?" — a single named member |
 | **Council session** (default) | 3–5 members | A real decision that benefits from conflicting lenses |
-| **Full council** | All 8 | Bet-the-company decisions — long output; offer only when stakes justify it |
+| **Full council** | All 9 | Bet-the-company decisions — long output; offer only when stakes justify it |
 
 ## The bench
 
-Eight members, chosen so their lenses collide. Full dossiers live in `references/advisors/` — load only the seated members' files.
+Nine members, chosen so their lenses collide. Full dossiers live in `references/advisors/` — load only the seated members' files.
 
 | Member | Lens | File |
 |--------|------|------|
@@ -43,6 +43,7 @@ Eight members, chosen so their lenses collide. Full dossiers live in `references
 | **Paul Graham** | Startups — do things that don't scale, default alive, make something people want | [paul-graham.md](references/advisors/paul-graham.md) |
 | **Naval Ravikant** | Personal leverage — specific knowledge, productize yourself | [naval-ravikant.md](references/advisors/naval-ravikant.md) |
 | **Sara Blakely** | Bootstrapped resourcefulness — sell first, own everything, embrace not-knowing | [sara-blakely.md](references/advisors/sara-blakely.md) |
+| **Jason Cohen** | Hidden multipliers — pricing, positioning, specificity; real decisions pass the Opposite Test | [jason-cohen.md](references/advisors/jason-cohen.md) |
 
 ## Seating the council
 
@@ -54,12 +55,12 @@ For a council session, seat 3–5:
 
 | Question type | Strong fits | Natural dissenters |
 |---------------|-------------|-------------------|
-| Raise vs. bootstrap | Fried, Blakely, Graham | Iger (some bets need capital), Bezos (invest ahead of proof) |
-| Pricing / monetization | Blakely, Naval, Fried (charge real money) | Bezos (low-margin flywheel) |
+| Raise vs. bootstrap | Fried, Blakely, Graham | Iger (some bets need capital), Bezos (invest ahead of proof), Cohen (bootstrapped, then raised — funding as a tool) |
+| Pricing / monetization | Cohen, Blakely, Naval, Fried (charge real money) | Bezos (low-margin flywheel) |
 | First hires / org design | Jensen, Fried, Iger | Naval (leverage before headcount) |
 | Focus / kill a project | Musk (delete it), Iger (3 priorities max), Graham (default alive?) | Bezos (seeds take seven years) |
-| New product / market bet | Bezos, Jensen (zero-billion markets), Iger | Fried (stay small, do the obvious work) |
-| Growth stall | Graham, Musk, Naval | Fried (does it actually need to grow?) |
+| New product / market bet | Bezos, Jensen (zero-billion markets), Iger | Fried (stay small, do the obvious work), Cohen (multiply what you have first) |
+| Growth stall | Graham, Musk, Naval, Cohen (pricing/positioning before new product) | Fried (does it actually need to grow?) |
 | Pace / intensity / burnout | Fried, Naval | Musk, Jensen (intensity as strategy) |
 | Solo leverage / productize yourself | Naval, Graham, Blakely | Iger (his documented case for the long institutional apprenticeship) |
 
@@ -90,7 +91,7 @@ Fold findings into the takes with citations ("In the 1997 shareholder letter, Be
 - **Label the session as simulation** once, at the top: *"Simulated council — each take is built from the member's published frameworks and positions, not their actual advice."*
 - **No fabricated quotes.** Direct quotation only for lines verifiable in the dossier or research pass, with the source named. Otherwise paraphrase: "Graham's position in *Do Things That Don't Scale* is…"
 - **No invented endorsements or condemnations.** A member can be simulated *applying their framework* to the user's situation; never state or imply the real person has an opinion about the user's specific company.
-- **Living members get extra care.** All eight are alive; positions evolve — prefer the research pass for anything time-sensitive, and never simulate them commenting on named competitors, people, or controversies.
+- **Living members get extra care.** All nine are alive; positions evolve — prefer the research pass for anything time-sensitive, and never simulate them commenting on named competitors, people, or controversies.
 - **Disagree in substance, not caricature.** Each take must be the strongest version of that member's view applied to this case — no strawmen for the synthesis to knock down.
 - **If the dossier and the question don't overlap** (e.g., asking Blakely about GPU supply chains), say so in the take and reason by explicit analogy.
 
@@ -153,7 +154,7 @@ When convening, check the config advisors dir and treat any dossiers there as be
 - **Name-flavored generic advice** — a take that survives with the name swapped isn't a take.
 - **Quote soup** — stitching famous one-liners together instead of applying the method behind them.
 - **Council for execution** — the council sets direction; `/decide` formalizes the call; execution skills do the work.
-- **Eight members on a small question** — match bench size to stakes.
+- **Nine members on a small question** — match bench size to stakes.
 
 ## Composes with
 
