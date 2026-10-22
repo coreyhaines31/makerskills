@@ -41,10 +41,10 @@ Don't BS the unknowns. Mark them ❓ and route to deep-research in Step 4.
 **Write the working file before the first score.** Run Step 7's migration check, then create the brief file (path in Step 7, template in Step 6) with the idea, why-now, and an empty Score table, and this as its first line:
 
 ```markdown
-<!-- in-progress · scored: 0/9 · next: <dimension> -->
+<!-- in-progress · scored: 0/9 · next: <dimension> · owed: <claims still to push on, and where> -->
 ```
 
-As each dimension settles, fill its row and update the marker. If the session dies, the next one resumes from the file. Don't touch `INDEX.md` until Step 7.
+Leave the later brief sections out until Step 7, so an unfinished file never looks finished. As each dimension settles, fill its row and update the marker. If the session dies, the next one resumes from the file. Don't touch `INDEX.md` until Step 7.
 
 Where a dimension depends on something only the user knows (their audience access, energy, what this displaces), ask — one dimension at a time — rather than guessing. Then **hold the bar** on what they say:
 
