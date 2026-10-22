@@ -38,15 +38,15 @@ Don't BS the unknowns. Mark them ❓ and route to deep-research in Step 4.
 
 Where a dimension depends on something only the user knows (their audience access, energy, what this displaces), ask — one dimension at a time — rather than guessing. Then **hold the bar** on what they say:
 
-- **Hopes don't score.** "People want it," "we'll figure out distribution," "should be easy to build" — stay on it, offer 1–2 sharper candidate answers or ask for one piece of evidence (a waitlist, a request, a competitor's revenue). Still mush after two pushes → ❓, never 🟡. Quote the mush in the Take.
-- **Opposite Test for Wedge and Moat.** Flip the claim. If the opposite is nonsense ("worse UX," "not AI-powered," "bad support"), the claim is fluff — demand the real choice underneath (e.g., "opinionated single workflow vs. flexible everything") before it can score ✅.
+- **Hopes don't score.** "People want it," "we'll figure out distribution," "should be easy to build" — stay on it, offer 1–2 sharper candidate answers or ask for one piece of evidence (a waitlist, a request, a competitor's revenue). Still mush after two pushes → ❓, or ❌ where `framework.md` names that exact cop-out as weak ("we'll do SEO," "we'll figure out monetization later"). Never 🟡. Quote the mush in the Take. A half-sharp answer (real price, hoped-for retention) scores on its weaker half.
+- **Opposite Test for differentiation claims** — wherever they show up (usually the Wedge offer or Moat). Flip the claim. If the opposite is nonsense ("worse UX," "not AI-powered," "bad support"), the claim is fluff — demand the real choice underneath (e.g., "opinionated single workflow vs. flexible everything") before it can score ✅.
 - **Threats are present tense.** "A big player *could* enter" is filler. "X launched this feature in March" is a threat. Only present-tense or clearly-likely threats count against Moat.
 
 Warm framing, unmoved bar — attack the claim, never the person.
 
 ## Step 4 — Trigger research where needed (optional)
 
-If 2+ dimensions are ❓ unknown, offer the user: *"Want me to run `/deep-research` on [topic] before scoring?"*
+If 2+ dimensions are ❓ unknown, offer the user: *"Want me to run `/deep-research` on [topic] before scoring?"* At 3+ ❓ the framework says research first; if the user declines, write the brief with the ❓s visible — the verdict can't be Build.
 
 Useful research targets:
 - Market size / who pays signal → `last30days` skill (if installed) + web search
