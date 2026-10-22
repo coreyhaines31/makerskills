@@ -112,6 +112,8 @@ Before stating it, run three checks:
 - **Instinct match needs independent support.** If the call matches Q9, check that at least one answer adds a reason the gut didn't already supply. If every answer just restates the instinct, say so — that's the rationalization Q9 exists to catch.
 - **Real-decision check.** Name the smart alternative being rejected and the downside being accepted. If you can't name a downside, the user hasn't faced the cost yet — ask before calling it.
 
+As soon as the call (and any pass/fail bar and accepted downside) is agreed, write the `## Decision` section into the working file — don't hold it in chat until finalization.
+
 **Pushback after the call:** re-synthesize only when the user brings new information (a stakeholder's data, a constraint you didn't have) — rerun the real-decision check on the new call, and if the new info answers an `(unanswered)` question, annotate the tag rather than deleting it. If it's just discomfort, hold the call and say why.
 
 ## Step 5 — Set the revisit
