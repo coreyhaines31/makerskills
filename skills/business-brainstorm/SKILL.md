@@ -144,8 +144,8 @@ Show the brief in chat. Tell the user the archive path. Offer:
 
 - **Nine dimensions, not one hero metric.** Ideas fail because one dimension quietly rots even when the rest score high. Force each dimension to be scored — no "we'll figure that out later" cop-outs. A cop-out the user won't sharpen scores ❓, quoted, not 🟡.
 - **A brainstorm that always says Build is lying.** The skill must be willing to land on Pass. If you're about to write Build on a table full of 🟡 and ❓, go back to Step 3.
-- **Verdict discipline: Ship / Sleep on it / Kill.** Not "maybe." Ambiguity in the verdict compounds into ambiguity in the commit; the brief exists to prevent that.
+- **Verdict discipline: Build / Sleep on it / Pass.** Not "maybe." Ambiguity in the verdict compounds into ambiguity in the commit; the brief exists to prevent that.
 - **Portfolio-context check is non-negotiable.** Before writing, grep memory + wiki for existing property overlap. If the new idea is 80% one of your existing properties, propose extending the existing property instead of forking a new one — 4x cheaper to compound.
-- **Archive every brief, even Kills.** Killed ideas resurface — the brief with rationale prevents re-litigating. The archive dir + INDEX.md makes revisit trivial.
-- **"Angle to steal" section forces value from Kills.** Even ideas you won't build often have an angle that improves an existing property. Don't skip this section — it's the highest-leverage output of a Kill verdict.
+- **Archive every brief, even Passes.** Passed ideas resurface — the brief with rationale prevents re-litigating. The archive dir + INDEX.md makes revisit trivial.
+- **"Angle to steal" section forces value from Passes.** Even ideas you won't build often have an angle that improves an existing property. Don't skip this section — it's the highest-leverage output of a Pass verdict.
 - **30-day revisit for "Sleep on it."** Set the calendar reminder. Sleep-on-it ideas that never get revisited become dead weight in the archive; ideas that get revisited resurface with better context.
