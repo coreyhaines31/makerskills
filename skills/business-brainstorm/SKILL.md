@@ -2,7 +2,7 @@
 name: business-brainstorm
 description: "When you want to pressure-test a potential new business, product, or side project against the serial-founder filter. Not \"marketing ideas for a product\" (that's marketing-skills:marketing-ideas) — this is \"should this business exist + can you win it.\" Runs the idea through a structured framework (problem, audience, wedge, monetization, moat, portfolio fit, distribution, energy fit, opportunity cost), checks domain availability via /domain, optionally triggers /deep-research for market validation, and outputs a viability brief: build / sleep on it / pass. Archives every idea to ~/.config/makerskills/business-brainstorm/archive/ so past work is searchable. Triggers on \"/business-brainstorm,\" \"/brainstorm,\" \"new business idea,\" \"should I build X,\" \"pressure test this idea,\" \"validate this idea,\" \"is X a good business,\" \"what about a [type] for [audience].\""
 metadata:
-  version: 0.2.1
+  version: 0.3.0
 ---
 
 # /business-brainstorm — Pressure-test a business idea
@@ -20,6 +20,10 @@ If they point at a past chat / doc, load it first. Memory has `project_*.md` fil
 
 If the idea is too vague to score, ask 1–2 clarifying questions and stop. Don't pad the brief with assumptions.
 
+Two more cases where scoring would be theater:
+- **Validation-seeking** ("just tell me it's good," "hype me up") — name it kindly: *"I'll run it, but a brief that can't say Pass is worthless. Still in?"* Proceed only on those terms.
+- **Already committed** (built, launched, money spent) — this isn't "should it exist" anymore. Offer `decide` for the next call (keep going / pivot / stop) instead.
+
 ## Step 2 — Load the framework + personal overlay
 
 Read `references/framework.md` — the user's filter. Apply each dimension in order.
@@ -32,9 +36,17 @@ For each of the 9 dimensions in `framework.md`, give a 1-line take + a verdict (
 
 Don't BS the unknowns. Mark them ❓ and route to deep-research in Step 4.
 
+Where a dimension depends on something only the user knows (their audience access, energy, what this displaces), ask — one dimension at a time — rather than guessing. Then **hold the bar** on what they say:
+
+- **Hopes don't score.** "People want it," "we'll figure out distribution," "should be easy to build" — stay on it, offer 1–2 sharper candidate answers or ask for one piece of evidence (a waitlist, a request, a competitor's revenue). Still mush after two pushes → ❓, or ❌ where `framework.md` names that exact cop-out as weak ("we'll do SEO," "we'll figure out monetization later"). Never 🟡. Quote the mush in the Take. A half-sharp answer (real price, hoped-for retention) scores on its weaker half.
+- **Opposite Test for differentiation claims** — wherever they show up (usually the Wedge offer or Moat). Flip the claim. If the opposite is nonsense ("worse UX," "not AI-powered," "bad support"), the claim is fluff — demand the real choice underneath (e.g., "opinionated single workflow vs. flexible everything") before it can score ✅.
+- **Threats are present tense.** "A big player *could* enter" is filler. "X launched this feature in March" is a threat. Only present-tense or clearly-likely threats count against Moat.
+
+Warm framing, unmoved bar — attack the claim, never the person.
+
 ## Step 4 — Trigger research where needed (optional)
 
-If 2+ dimensions are ❓ unknown, offer the user: *"Want me to run `/deep-research` on [topic] before scoring?"*
+If 2+ dimensions are ❓ unknown, offer the user: *"Want me to run `/deep-research` on [topic] before scoring?"* At 3+ ❓ the framework says research first; if the user declines, write the brief with the ❓s visible — the verdict can't be Build.
 
 Useful research targets:
 - Market size / who pays signal → `last30days` skill (if installed) + web search
@@ -130,9 +142,10 @@ Show the brief in chat. Tell the user the archive path. Offer:
 
 ## Notes on quality
 
-- **Nine dimensions, not one hero metric.** Ideas fail because one dimension quietly rots even when the rest score high. Force each dimension to be scored — no "we'll figure that out later" cop-outs.
-- **Verdict discipline: Ship / Sleep on it / Kill.** Not "maybe." Ambiguity in the verdict compounds into ambiguity in the commit; the brief exists to prevent that.
+- **Nine dimensions, not one hero metric.** Ideas fail because one dimension quietly rots even when the rest score high. Force each dimension to be scored — no "we'll figure that out later" cop-outs. A cop-out the user won't sharpen scores ❓, quoted, not 🟡.
+- **A brainstorm that always says Build is lying.** The skill must be willing to land on Pass. If you're about to write Build on a table full of 🟡 and ❓, go back to Step 3.
+- **Verdict discipline: Build / Sleep on it / Pass.** Not "maybe." Ambiguity in the verdict compounds into ambiguity in the commit; the brief exists to prevent that.
 - **Portfolio-context check is non-negotiable.** Before writing, grep memory + wiki for existing property overlap. If the new idea is 80% one of your existing properties, propose extending the existing property instead of forking a new one — 4x cheaper to compound.
-- **Archive every brief, even Kills.** Killed ideas resurface — the brief with rationale prevents re-litigating. The archive dir + INDEX.md makes revisit trivial.
-- **"Angle to steal" section forces value from Kills.** Even ideas you won't build often have an angle that improves an existing property. Don't skip this section — it's the highest-leverage output of a Kill verdict.
+- **Archive every brief, even Passes.** Passed ideas resurface — the brief with rationale prevents re-litigating. The archive dir + INDEX.md makes revisit trivial.
+- **"Angle to steal" section forces value from Passes.** Even ideas you won't build often have an angle that improves an existing property. Don't skip this section — it's the highest-leverage output of a Pass verdict.
 - **30-day revisit for "Sleep on it."** Set the calendar reminder. Sleep-on-it ideas that never get revisited become dead weight in the archive; ideas that get revisited resurface with better context.
