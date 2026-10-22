@@ -102,10 +102,11 @@ Skills must work outside Claude Code and off macOS. Follow the [portability rule
 
 There's no automated test harness — SKILL.md files are executable documentation, not code. Testing is:
 
-1. **Live invocation** — run the skill via Claude Code, verify it behaves as documented
-2. **Description match** — try 3-5 natural language phrasings that should trigger the skill. All should route correctly.
-3. **Composition** — if the skill composes with siblings, verify those cross-references still work after any refactor
-4. **Graceful degradation** — if the skill has optional dependencies (Domainr API key, Namecheap API, `~/.config/makerskills/<skill>/*.local.md`), verify the skill still works when they're missing
+1. **Simulated use** — `/skillify test <skill>` role-plays realistic users (canonical, terse, boundary, refusal, lazy answerer, die-and-resume) through the skill and judges the transcripts against a fixed rubric. Run it on new skills and after substantial redesigns.
+2. **Live invocation** — run the skill via Claude Code, verify it behaves as documented
+3. **Description match** — try 3-5 natural language phrasings that should trigger the skill. All should route correctly.
+4. **Composition** — if the skill composes with siblings, verify those cross-references still work after any refactor
+5. **Graceful degradation** — if the skill has optional dependencies (Domainr API key, Namecheap API, `~/.config/makerskills/<skill>/*.local.md`), verify the skill still works when they're missing
 
 ## Style guide (voice)
 
