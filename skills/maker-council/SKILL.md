@@ -51,7 +51,7 @@ For a council session, seat 3–5:
 
 1. **2–3 whose lens directly fits the question type** (table below).
 2. **Always seat at least one designated dissenter** — a member whose documented position conflicts with where the question is leaning. A council that agrees is a mirror, not a board.
-3. Honor explicit requests ("I want Fried and Musk on this").
+3. Honor explicit requests ("I want Fried and Musk on this"). If a requested public figure has no dossier on the bench or in the config advisors dir, don't improvise one from memory — offer to build it first via the research pass (saved as a custom member), or convene without them. An ungrounded seat breaks the grounding rules.
 
 | Question type | Strong fits | Natural dissenters |
 |---------------|-------------|-------------------|
@@ -66,7 +66,7 @@ For a council session, seat 3–5:
 
 ## Session protocol
 
-1. **Load the seated members' dossiers** from `references/advisors/`.
+1. **Fix the seats, then load only those dossiers** — from `references/advisors/` and the config advisors dir (`${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/advisors/`), which holds custom members.
 2. **Optional live research pass** — see below. Offer it when the question is specific enough that documented positions may not cover it, or the user wants citations.
 3. **Each member's take** — 2–4 paragraphs:
    - Open with the member applying their *signature questions* to the user's case
