@@ -42,7 +42,7 @@ Check the answers, not just their presence. "Easy, I can always shut it down" is
 <!-- in-progress · step: 2 · next: <what comes next> · then: <remaining planned questions> · owed: <claims still to push on, and where> -->
 ```
 
-Include only the header fields, Context, and an empty `## Questions` — add the later sections at finalization, so an unfinished file never looks finished. Update the marker whenever the step changes (once triage picks the questions, `then:` lists them all) and after every recorded answer, which goes under `## Questions` with its `(unanswered)` tag, if any. Multi-turn answers are recorded as all replies joined with ` / `. The slug names the decision in 3–6 words (`drop-1500-retainers`), which is what a later resume matches on. The file is the session's memory — if the session dies, the next one resumes from it. Don't touch `INDEX.md` until Step 6.
+Include only the header fields, Context, and an empty `## Questions` — add the later sections at finalization, so an unfinished file never looks finished. Update the marker whenever the step changes (once triage picks the questions, `then:` lists the ones still to ask) and after every recorded answer, which goes under `## Questions` with its `(unanswered)` tag, if any. Multi-turn answers are recorded as all replies joined with ` / `. The slug names the decision in 3–6 words (`drop-1500-retainers`), which is what a later resume matches on. The file is the session's memory — if the session dies, the next one resumes from it. Don't touch `INDEX.md` until Step 6.
 
 ## Step 2 — Triage the question set
 
