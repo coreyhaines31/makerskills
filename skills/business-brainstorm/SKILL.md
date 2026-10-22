@@ -2,7 +2,7 @@
 name: business-brainstorm
 description: "When you want to pressure-test a potential new business, product, or side project against the serial-founder filter. Not \"marketing ideas for a product\" (that's marketing-skills:marketing-ideas) — this is \"should this business exist + can you win it.\" Runs the idea through a structured framework (problem, audience, wedge, monetization, moat, portfolio fit, distribution, energy fit, opportunity cost), checks domain availability via /domain, optionally triggers /deep-research for market validation, and outputs a viability brief: build / sleep on it / pass. Archives every idea to ~/.config/makerskills/business-brainstorm/archive/ so past work is searchable. Triggers on \"/business-brainstorm,\" \"/brainstorm,\" \"new business idea,\" \"should I build X,\" \"pressure test this idea,\" \"validate this idea,\" \"is X a good business,\" \"what about a [type] for [audience].\""
 metadata:
-  version: 0.3.0
+  version: 0.4.0
 ---
 
 # /business-brainstorm — Pressure-test a business idea
@@ -15,6 +15,8 @@ Get from the user:
 - The idea in 1–2 sentences (the *what*)
 - The reason it's on their mind (the *why now*)
 - Any starting context (a chat where this came up, a tweet that inspired it, a problem they've hit)
+
+**Resume first.** Look in the archive dir (Step 7) for files whose first line starts with `<!-- in-progress`. If one matches this idea, offer to pick it up: read it, keep every settled score, and continue from the next unscored dimension.
 
 If they point at a past chat / doc, load it first. Memory has `project_*.md` files for in-flight projects — check there before assuming the idea is brand-new.
 
@@ -35,6 +37,14 @@ Also try to load `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brai
 For each of the 9 dimensions in `framework.md`, give a 1-line take + a verdict (✅ strong / 🟡 OK / ❌ weak / ❓ unknown — needs research).
 
 Don't BS the unknowns. Mark them ❓ and route to deep-research in Step 4.
+
+**Write the working file before the first score.** Run Step 7's migration check, then create the brief file (path in Step 7, template in Step 6) with the idea, why-now, and an empty Score table, and this as its first line:
+
+```markdown
+<!-- in-progress · scored: 0/9 · next: <dimension> · owed: <claims still to push on, and where> -->
+```
+
+Leave the later brief sections out until Step 7, so an unfinished file never looks finished. As each dimension settles, fill its row and update the marker. If the session dies, the next one resumes from the file. Don't touch `INDEX.md` until Step 7.
 
 Where a dimension depends on something only the user knows (their audience access, energy, what this displaces), ask — one dimension at a time — rather than guessing. Then **hold the bar** on what they say:
 
@@ -120,7 +130,7 @@ Use this template:
 
 Archives live in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/archive/` (create the directory if missing). Never write archives inside the skill's own folder — skill installs and upgrades re-sync from source and wipe anything saved there. **Migration:** if this skill's folder contains an old `references/ideas-archive/` with user entries, move those files into the archive directory first.
 
-Write to `<archive dir>/<YYYY-MM-DD>-<slug>.md`. Append to `<archive dir>/INDEX.md` (create if missing):
+Finalize the working file at `<archive dir>/<YYYY-MM-DD>-<slug>.md` (created in Step 3): fill every remaining section and **delete the `<!-- in-progress … -->` line**. Then append to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
 - 2026-06-16 — [<idea>](./<filename>.md) — **<verdict>** — <one-line rationale>
