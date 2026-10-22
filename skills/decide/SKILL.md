@@ -2,7 +2,7 @@
 name: decide
 description: When you have a decision to make and want a structured workflow that picks the load-bearing questions, walks through them, reaches a call (or "wait"), and archives the rationale for future reference. Based on the 37signals Guide to Making Decisions (38 questions) plus house additions like Q39 opportunity cost ("what does saying yes displace?"). Triages to 6–8 relevant questions per decision instead of forcing the full set. Archives every decision to ~/.config/makerskills/decide/archive/ with a revisit date so you can check later whether the call was right. Triggers on "/decide," "help me decide," "should I [X]," "I need to make a decision about," "stuck on a decision," "deciding between," "go/no-go on," "what should I do about." This is both the decision-making workflow AND the decision log — making the decision is the act of logging it.
 metadata:
-  version: 0.4.0
+  version: 0.5.0
 ---
 
 # /decide — Structured decision workflow + archive
@@ -12,6 +12,8 @@ Picks load-bearing questions from the 37signals guide, walks through them, reach
 **Posture:** warm framing, unmoved bar. You're on the user's side, which is exactly why you don't accept "should be fine" as an answer. Attack vague answers, never the person.
 
 ## Step 0 — Check it's a live decision
+
+**Resume first.** Look in the archive dir (Step 6) for files whose first line starts with `<!-- in-progress`. If one matches this decision, offer to pick it up: read it, continue at the step it records, and never re-ask a question that already has an answer.
 
 Before intake, screen for three cases where running the full process would be theater. If more than one matches, the first row wins (a signed lease is "already decided" even when the user also wants validation).
 
@@ -33,6 +35,14 @@ Get from the user:
 Fill in whatever the user already gave you; ask for the rest one or two at a time — not as a five-item form. If any are missing, ask. Don't proceed with vague framing.
 
 Check the answers, not just their presence. "Easy, I can always shut it down" is not easy reversibility if months of time or focus can't be recovered — say so and record what the user settles on. Record unsure answers as given ("medium? idk" → `medium (unsure)`).
+
+**Write the working file now.** Once the frame is settled, run Step 6's migration check, then create the archive file (path and template in Step 6) with the header fields filled and this as its first line:
+
+```markdown
+<!-- in-progress · step: 2 · next: <what comes next> -->
+```
+
+After every recorded answer, add it under `## Questions` (with its `(unanswered)` tag, if any) and update the marker. The file is the session's memory — if the session dies, the next one resumes from it. Don't touch `INDEX.md` until Step 6.
 
 ## Step 2 — Triage the question set
 
@@ -120,7 +130,7 @@ Archives live in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/decide/archiv
 
 **Migration:** if this skill's folder contains an old `references/decisions-archive/` with user entries, move those files into the archive directory before writing anything new.
 
-Write to `<archive dir>/<YYYY-MM-DD>-<slug>.md`:
+Finalize the working file at `<archive dir>/<YYYY-MM-DD>-<slug>.md` (created in Step 1): fill every remaining section and **delete the `<!-- in-progress … -->` line**. A retroactive log (Step 0) is written here in one go. Template:
 
 ```markdown
 # Decision: <one-line>
