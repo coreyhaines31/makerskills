@@ -107,7 +107,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
 |---|---|
-| [`skillify`](./skills/skillify/SKILL.md) | Create, adapt, or update a skill in any sibling repo. Three modes: CREATE (from-chat / from-video / from-dump / from-scratch), ADAPT (port external skill with license check + attribution), UPDATE (improve existing skills with cross-skill propagation + semver discipline). |
+| [`skillify`](./skills/skillify/SKILL.md) | Create, adapt, or update a skill in any sibling repo. Three modes: CREATE (from-chat / from-video / from-dump / from-scratch), ADAPT (port external skill with license check + attribution), UPDATE (improve existing skills with cross-skill propagation + semver discipline), TEST (role-play users through a skill and judge transcripts against a rubric). |
 | [`toolify`](./skills/toolify/SKILL.md) | Wire up an integration, API, MCP server, or third-party service into a Next.js or Rails project. Interactive wizard for auth, env vars, client wrapper, webhook handling, and smoke-test. |
 | [`loopify`](./skills/loopify/SKILL.md) | Set up an agent loop, cron-scheduled task, or recurring workflow. Judgment layer on top of `ScheduleWakeup` / `CronCreate` / `/loop` — picks pattern (dynamic / cron / one-shot), tunes delay for cache windows, enforces idempotency + bail-out conditions. |
 
