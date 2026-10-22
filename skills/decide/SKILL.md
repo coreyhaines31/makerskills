@@ -19,7 +19,7 @@ Before intake, screen for three cases where running the full process would be th
 |---|---|
 | **Already decided** — signed, shipped, announced ("I signed the lease yesterday") | Say so plainly. Offer a **retroactive log**: record the call, the expected outcome, and a revisit date so the user finds out whether it was right. Skip triage. Ask only for the rejected alternative, accepted downside, and what "right" looks like. Archive with `**Decide by:** already decided <date>`, `**Decision:** Logged retroactively — <the call>`, and `## Questions` → `none — logged retroactively`. |
 | **Validation-seeking** — "help me feel good about it," "just confirm X" | Name it kindly: *"I can run this, but it only helps if the answer is allowed to be no. Still want it?"* Proceed only on those terms. |
-| **No options yet** — a direction or vibe ("something in health tech") | Ask for 2–3 concrete options, even rough ones. If the user can't name any, route to `business-brainstorm` ("should this exist?") and stop here. |
+| **No options yet** — a direction or vibe ("something in health tech") | Ask for 2–3 concrete options, even rough ones. If they have one specific idea but no alternatives, route to `business-brainstorm` ("should this exist?") and stop here. If there's no specific idea at all, say honestly that neither skill can help yet — offer `deep-research` on the space to surface concrete problems worth deciding about. |
 
 ## Step 1 — Capture the decision
 
@@ -76,7 +76,9 @@ Ask the questions one at a time. Offer a tight cluster only if the user's answer
 2. Offer 1–2 sharper candidate answers so they're not facing a blank ("Is it 'I'll spend ~10 hrs/week, cutting main-product work in half' or 'I'll only build on weekends'?"), or ask for one specific fact (a number, a name, a date, evidence).
 3. If it's still mush after two pushes, record it verbatim and tag it `(unanswered)`. Move on — the tag carries into Step 4.
 
-Then capture the answer verbatim — don't paraphrase into corporate-speak.
+Candidate answers are prompts, not facts. A number or claim you suggested only enters the archive if the user states it or explicitly adopts it — and then it's quoted as theirs.
+
+Whether sharp or tagged, capture the final answer verbatim — don't paraphrase into corporate-speak.
 
 **Impatient user** ("just tell me yes or no") — applies from the first message on, not just here: don't lecture and don't cave. Use Q28 — *"If you had to decide right this second, what would you do?"* — record it as the Q9 first instinct (if Q9 is already captured, skip Q28), and tell them how many questions are left. Keep the triage announcement to one line.
 
