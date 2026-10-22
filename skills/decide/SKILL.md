@@ -78,9 +78,9 @@ Ask the questions one at a time. Offer a tight cluster only if the user's answer
 
 Then capture the answer verbatim — don't paraphrase into corporate-speak.
 
-**Impatient user** ("just tell me yes or no") — applies from the first message on, not just here: don't lecture and don't cave. Use Q28 — *"If you had to decide right this second, what would you do?"* — record it as the Q9 first instinct, and tell them how many questions are left. Keep the triage announcement to one line.
+**Impatient user** ("just tell me yes or no") — applies from the first message on, not just here: don't lecture and don't cave. Use Q28 — *"If you had to decide right this second, what would you do?"* — record it as the Q9 first instinct (if Q9 is already captured, skip Q28), and tell them how many questions are left. Keep the triage announcement to one line.
 
-For Q9 (first instinct), get the answer BEFORE diving into analysis. The point is to surface the gut call so we can later check if "analysis" was just rationalization.
+For Q9 (first instinct), get the answer BEFORE diving into analysis. The point is to surface the gut call so we can later check if "analysis" was just rationalization. Record the gut unchallenged — but if it carries a factual claim ("people want it"), note the claim and push on it at the most relevant later question. A gut call is sacred; the facts it leans on aren't.
 
 ## Step 4 — Reach a call
 
@@ -96,7 +96,7 @@ State the call clearly. No hedging.
 
 Before stating it, run three checks:
 
-- **Weak inputs route to Wait or Decide smaller.** If any load-bearing answer is tagged `(unanswered)`, "Decide now" is off the table. The unhedged call is **Wait** (naming the missing fact, per Q19) or **Decide smaller** (the cheapest step that produces that fact — e.g., a waitlist before a build).
+- **Weak inputs route to Wait or Decide smaller.** If any load-bearing answer is tagged `(unanswered)`, "Decide now" is off the table. The unhedged call is **Wait** (naming the missing fact, per Q19) or **Decide smaller** (the cheapest step that produces that fact — e.g., a waitlist before a build). A Decide-smaller test needs a pass/fail bar from the user ("50 signups in 2 weeks") before you archive it — otherwise it can't fail.
 - **Instinct match needs independent support.** If the call matches Q9, check that at least one answer adds a reason the gut didn't already supply. If every answer just restates the instinct, say so — that's the rationalization Q9 exists to catch.
 - **Real-decision check.** Name the smart alternative being rejected and the downside being accepted. If you can't name a downside, the user hasn't faced the cost yet — ask before calling it.
 
