@@ -418,7 +418,9 @@ Full scenario set, rubric, and judging rules: `references/test-rubric.md`. Read 
 - Explicit path → that file
 - Neither → ask
 
-Read the SKILL.md and every `references/` file it tells the agent to load — once. From here on the simulated wielder knows only those files. Anything it needs that isn't there is a finding, not something to fill in. If your host can spawn subagents, run each scenario in its own subagent that sees only the skill path and the scenario; otherwise play both sides yourself and state the quarantine in one line first.
+Read the SKILL.md and every `references/` file it tells the agent to load — once. From here on the simulated wielder knows only those files. Anything it needs that isn't there is a finding, not something to fill in. If your host can spawn subagents, run each scenario in its own subagent whose prompt gives only the skill path, the scenario, and the dry-run rules, and tells it to read nothing else. Otherwise, play both sides yourself and state the quarantine in one line first.
+
+**Dry run, always.** Nothing a simulated wielder does leaves the transcript. That means no file writes, drafts, issues, commits, pushes, or paid API calls; show them instead. The full rules are in `references/test-rubric.md`.
 
 ### Step 2 — Pick scenarios
 

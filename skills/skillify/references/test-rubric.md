@@ -10,7 +10,17 @@ The simulated agent running the skill (the **wielder**) may use only what's in t
 
 If the wielder needs a rule, definition, or example the files don't provide, that gap is a finding. Write it down. Don't fill it in.
 
-**Best setup:** if your host can spawn subagents, give each scenario to its own subagent. Its prompt names only the skill's path and the scenario. That enforces quarantine structurally and runs scenarios in parallel. Require the subagent's final message to be exactly two things:
+## Dry run — no side effects
+
+A literal wielder will do what the skill says, and many skills reach outside the conversation. They archive files, create drafts, file issues, commit, push, and call paid APIs. **In TEST, nothing leaves the transcript:**
+
+- **Writes** (archives, INDEX lines, working files): show the path and the full content in the transcript, then judge that.
+- **External actions** (drafts, posts, issues, emails, commits, pushes, paid or rate-limited APIs, other skills that do any of these): state the action and its exact inputs, then use a placeholder result marked `[SIMULATED]`.
+- **Reads** are fine only for the skill's own files. Personal config and memory count as absent unless the scenario supplies their content.
+
+Put these rules in every subagent prompt word for word. A subagent that isn't told will follow the skill.
+
+**Best setup:** if your host can spawn subagents, give each scenario to its own subagent. Its prompt names the skill's path, the scenario, and the dry-run rules, and it says outright *"read only these files."* A fresh subagent has none of this conversation's context, so it can't lean on how the skill was built. It can still read the disk, though, which is why that instruction must be explicit. Subagents also let scenarios run in parallel. Require the subagent's final message to be exactly two things:
 
 1. the transcript
 2. an `AMBIGUITIES/GAPS` list of places the wielder needed something the files didn't give it
@@ -30,7 +40,7 @@ Pick 3–6, tailored to the skill's domain. Give each a one-line persona: who th
 | 3 | **Boundary case** — near the edge of where the skill applies | Honest about the edge, or confidently misapplies? Routes to a sibling skill when it should? | Always |
 | 4 | **Refusal / wrong-skill case** — input the skill should decline or redirect | Refusal fires, for the right reason, kindly, with a way in | If the skill has refusal conditions or a lane check |
 | 5 | **Lazy answerer** — cooperative, but every answer is "should be fine" / "we'll figure it out" | The bar holds across many rounds | If the skill asks the user questions |
-| 6 | **Die-and-resume** — the session ends mid-run, and a fresh wielder with no memory is asked to finish | The files on disk carry the state: right pickup point, no re-asking settled items | If the skill writes a working file or archive |
+| 6 | **Die-and-resume** — the session ends mid-run, and a fresh wielder with no memory is asked to finish. Under dry run, part one ends by printing the files it would have written, and part two gets only that text plus the skill files. | The written state alone carries the session: right pickup point, no re-asking settled items | If the skill writes a working file or archive |
 | 7 | **Missing config** — optional env vars, API keys, or `*.local.md` files are absent | Degrades gracefully instead of failing or inventing config | If the skill reads personal config |
 
 Show the scenario list to the user before running. They may swap one out. If they're in "just run it" mode, go.
