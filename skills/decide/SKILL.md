@@ -13,11 +13,11 @@ Picks load-bearing questions from the 37signals guide, walks through them, reach
 
 ## Step 0 — Check it's a live decision
 
-Before intake, screen for three cases where running the full process would be theater:
+Before intake, screen for three cases where running the full process would be theater. If more than one matches, the first row wins (a signed lease is "already decided" even when the user also wants validation).
 
 | Signal | Do this instead |
 |---|---|
-| **Already decided** — signed, shipped, announced ("I signed the lease yesterday") | Say so plainly. Offer a **retroactive log**: record the call, the expected outcome, and a revisit date so the user finds out whether it was right. Skip triage. Archive with `**Decide by:** already decided <date>` and `**Decision:** Logged retroactively — <the call>`. |
+| **Already decided** — signed, shipped, announced ("I signed the lease yesterday") | Say so plainly. Offer a **retroactive log**: record the call, the expected outcome, and a revisit date so the user finds out whether it was right. Skip triage. Ask only for the rejected alternative, accepted downside, and what "right" looks like. Archive with `**Decide by:** already decided <date>`, `**Decision:** Logged retroactively — <the call>`, and `## Questions` → `none — logged retroactively`. |
 | **Validation-seeking** — "help me feel good about it," "just confirm X" | Name it kindly: *"I can run this, but it only helps if the answer is allowed to be no. Still want it?"* Proceed only on those terms. |
 | **No options yet** — a direction or vibe ("something in health tech") | Ask for 2–3 concrete options, even rough ones. If the user can't name any, route to `business-brainstorm` ("should this exist?") and stop here. |
 
@@ -69,7 +69,7 @@ Tell the user which questions you picked and why, then proceed.
 
 Ask the questions one at a time. Offer a tight cluster only if the user's answers are coming back specific — clustering a vague answerer just speeds up the vagueness.
 
-**Apply, don't recite.** Fold the user's own facts into each question. Not "How does this affect customers?" but "New signups see $194 next to competitors at $59 and $79 — what happens to your 18% trial-to-paid?"
+**Apply, don't recite.** Fold the user's own facts into each question. Not "What does yes displace?" but "You said the contractor leaves Nov 15 and you'd fund the hire from the ads budget — what happens to signups when ads go to zero?"
 
 **Hold the bar.** When an answer is a non-answer — "should be fine," "we'll figure it out," "probably not a big deal," "I think people want it" — don't record it and move on:
 1. Stay on the question and name it: *"I'm going to stay here — that's a hope, not an answer."*
@@ -78,7 +78,7 @@ Ask the questions one at a time. Offer a tight cluster only if the user's answer
 
 Then capture the answer verbatim — don't paraphrase into corporate-speak.
 
-**Impatient user** ("just tell me yes or no"): don't lecture and don't cave. Use Q28 — *"If you had to decide right this second, what would you do?"* — record it, and tell them how many questions are left.
+**Impatient user** ("just tell me yes or no") — applies from the first message on, not just here: don't lecture and don't cave. Use Q28 — *"If you had to decide right this second, what would you do?"* — record it as the Q9 first instinct, and tell them how many questions are left. Keep the triage announcement to one line.
 
 For Q9 (first instinct), get the answer BEFORE diving into analysis. The point is to surface the gut call so we can later check if "analysis" was just rationalization.
 
@@ -100,7 +100,7 @@ Before stating it, run three checks:
 - **Instinct match needs independent support.** If the call matches Q9, check that at least one answer adds a reason the gut didn't already supply. If every answer just restates the instinct, say so — that's the rationalization Q9 exists to catch.
 - **Real-decision check.** Name the smart alternative being rejected and the downside being accepted. If you can't name a downside, the user hasn't faced the cost yet — ask before calling it.
 
-**Pushback after the call:** re-synthesize only when the user brings new information (a stakeholder's data, a constraint you didn't have). If it's just discomfort, hold the call and say why.
+**Pushback after the call:** re-synthesize only when the user brings new information (a stakeholder's data, a constraint you didn't have) — rerun the real-decision check on the new call, and if the new info answers an `(unanswered)` question, annotate the tag rather than deleting it. If it's just discomfort, hold the call and say why.
 
 ## Step 5 — Set the revisit
 
@@ -146,6 +146,7 @@ Write to `<archive dir>/<YYYY-MM-DD>-<slug>.md`:
 
 **Rejected alternative:** <the smart option not chosen>
 **Accepted downside:** <the cost the user signed up for>
+**Revised from:** <earlier call and what changed it — omit if the call never changed>
 
 ## Rationale
 <2–3 sentences synthesizing the answers. Quote — don't paraphrase — any answer tagged (unanswered); never upgrade "should be fine" into "low risk.">
