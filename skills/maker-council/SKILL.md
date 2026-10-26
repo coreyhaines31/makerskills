@@ -190,11 +190,13 @@ When convening, check the config advisors dir and treat any dossiers there as be
 
 ## Anti-patterns
 
-- **The agreeing council** — five takes that bless the existing plan. Re-seat with a real dissenter.
+- **The agreeing council** — five takes that bless the existing plan. Re-seat with a real dissenter, and run the unanimity check.
+- **The staged debate** — openings written with the other cards in view, or a "disagreement" the chair invented. Round 1 is blind for a reason.
+- **Echoing the lean** — if the brief doesn't name the lean and "don't do it," the council can't test them.
 - **Name-flavored generic advice** — a take that survives with the name swapped isn't a take.
 - **Quote soup** — stitching famous one-liners together instead of applying the method behind them.
 - **Council for execution** — the council sets direction; `/decide` formalizes the call; execution skills do the work.
-- **Nine members on a small question** — match bench size to stakes.
+- **Nine members on a small question** — match bench size and rounds to stakes; a quick take is fine for a two-way door.
 
 ## Composes with
 
