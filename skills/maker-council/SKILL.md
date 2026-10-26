@@ -68,7 +68,7 @@ For a council session, seat 3–5:
 | Question type | Strong fits | Natural dissenters |
 |---------------|-------------|-------------------|
 | Raise vs. bootstrap | Fried, Blakely, Graham | Iger (some bets need capital), Bezos (invest ahead of proof), Cohen (bootstrapped, then raised — funding as a tool) |
-| Pricing / monetization | Cohen, Blakely, Naval, Fried (charge real money) | Bezos (low-margin flywheel) |
+| Pricing / monetization | Cohen, Fried (charge real money) | Bezos (low-margin flywheel) |
 | First hires / org design | Jensen, Fried, Iger | Naval (leverage before headcount) |
 | Focus / kill a project | Musk (delete it), Iger (3 priorities max), Graham (default alive?) | Bezos (seeds take seven years) |
 | New product / market bet | Bezos, Jensen (zero-billion markets), Iger | Fried (stay small, do the obvious work), Cohen (multiply what you have first) |
