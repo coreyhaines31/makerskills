@@ -25,7 +25,7 @@ Clarify (ask only for what's missing, one message):
 Then write **the brief** — under 300 words, the only thing every member reads:
 
 - The decision in one line, with options as A, B, C. **Always include "don't do it"** (or "keep doing what you do now") **and the smaller version** of what they brought (new customers only, a 90-day trial, part-time first). A one-idea question gets at least three options this way.
-- The context and numbers, every guess marked `(assumed)`.
+- The context and raw numbers, every guess marked `(assumed)`. Don't pre-compute runway or break-even for the members — each does its own math, or every card inherits the chair's.
 - What success looks like, and by when.
 - The lean and its reason, in the user's words.
 
@@ -76,7 +76,7 @@ For a council session, seat 3–5:
 | New product / market bet | Bezos, Jensen (zero-billion markets), Iger | Fried (stay small, do the obvious work), Cohen (multiply what you have first) |
 | Growth stall | Graham, Musk, Naval, Cohen (pricing/positioning before new product) | Fried (does it actually need to grow?) |
 | Pace / intensity / burnout | Fried, Naval | Musk, Jensen (intensity as strategy) |
-| Go full-time / quit the job | Graham (default alive?), Fried (does it need a leap?), Cohen (pull the cheap multiplier first) | Blakely (kept her day job two years), Musk (urgency) |
+| Go full-time / quit the job | Graham (default alive?), Fried (does it need a leap?), Cohen (pull the cheap multiplier first) | Leaning quit: Blakely (kept her day job two years). Leaning stay: Musk (urgency) |
 | Solo leverage / productize yourself | Naval, Graham, Blakely | Iger (his documented case for the long institutional apprenticeship) |
 
 ## Session protocol
@@ -90,7 +90,7 @@ You are the **chair**: you run the room, keep the score, and write the verdict. 
 3. **Open the session folder** (see Archive) and save `brief.md`.
 4. **Round 1 — openings, independent.** Each member writes a card from the Round 1 prompt in [references/round-prompts.md](references/round-prompts.md). Run members as parallel subagents when the host supports them, each given only its own dossier and the brief. Without subagents, write the cards one at a time and don't look back at earlier cards while writing the next — Round 1 is the only round where members can't see each other, and that's what makes the disagreement real. Save the cards verbatim to `round-1.md`, then add chair notes:
    - **Cruxes** — the 1–3 underlying disagreements (a fact, a number, or a value like speed vs. safety), with the members on each side.
-   - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed (the highest-scoring one besides the consensus pick) and assign the members whose lens is most at risk to argue it at full strength in Round 2.
+   - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed — the user's lean if the consensus isn't it, otherwise the highest-scoring option besides the consensus pick — and assign the members whose lens is most at risk to argue it at full strength in Round 2.
 5. **Round 2 — debate.** Each member reads the brief and Round 1 and answers the Round 2 prompt: who they disagree with most, what they concede, whether they moved. Save to `round-2.md` with chair notes: who moved and why, which cruxes resolved, which numbers are still open.
 6. **Draft** — write `draft.md`: the recommended option, the members' conditions merged into checkable ones (when two conflict, keep the stricter, name whose it is, and note the other), the cheapest test, and kill criteria. Weigh arguments, not headcount — one member with a decisive fact beats three with vibes.
 7. **Round 3 — vote**, on the draft. Skip it only when Round 2's top option has a spread of 3 or less, no card rates it `ruin likely`, the unanimity check didn't fire, and no argument in the chair notes went unanswered — a consensus that was flagged as suspect gets a vote. Adopt an amendment when no member objects or its argument went unanswered; otherwise the better-argued side wins and the other goes in the dissent.
@@ -103,7 +103,7 @@ Use the last round that ran. Every number comes from the cards — the chair com
 - **Option score** = the average of members' scores for that option, one decimal. The top option is the recommendation unless a cap below removes it.
 - **Spread** = highest minus lowest member score on the recommended option. Always report it: a 7.0 with spread 1 and a 7.0 with spread 6 are different answers.
 - **Ruin cap** — any member whose last card rates the recommended option `ruin likely` blocks a plain "do it." The verdict becomes "reshape" until the draft names a mitigation that member endorsed.
-- **One-way door cap** — if a majority of last cards rate the recommended option one-way and its spread is 4 or more, the cheapest reversible test becomes a precondition.
+- **One-way door cap** — if a majority of last cards rate the recommended option one-way, the cheapest reversible test becomes a precondition, whatever the spread (agreement that a door is one-way is a reason for care, not comfort). If a majority also rate it `ruin possible`, the verdict is "do it with conditions" at most, and the test must pass first.
 - **"Don't do it" wins** when it's the top-scoring option. Say so plainly.
 
 ## Live research pass
@@ -173,7 +173,7 @@ Full rounds: [path to the session folder]
 
 Members' sections summarize their cards; never rewrite a member's argument into something they didn't say.
 
-In chat, show the header through "Hinges on," plus the conditions, cheapest test, and dissent — under 200 words — then the path to `verdict.md`. The member sections and disagreement map live in the file; show them in chat only when asked. A user who says "just give me the answer" gets exactly that.
+In chat, show the header through "Hinges on," plus the conditions, cheapest test, and dissent — under 200 words — then the path to `verdict.md`. If conditions must be cut for length, keep the ones the dissent or the kill criteria refer to. The member sections and disagreement map live in the file; show them in chat only when asked. A user who says "just give me the answer" gets exactly that.
 
 ## Archive
 
