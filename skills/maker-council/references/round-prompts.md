@@ -22,10 +22,9 @@ Read the brief: [session folder]/brief.md
 Answer in [Member]'s voice, under 350 words, in exactly this shape:
 
 MEMBER: [Member] ([lens])
-OPTION SCORES: A n/10 · B n/10 · C n/10   (how strongly you back each)
+OPTION SCORES: A n/10 (two-way, ruin none) · B n/10 (one-way, ruin possible) · ...
+   (for every option: how strongly you back it, whether it can be reversed, and whether it risks an irreversible downside that could sink the company or the founder: none | possible | likely)
 CALL: one sentence naming the option or a variant.
-DOOR: one-way | two-way   (for the option you back)
-RUIN RISK: none | possible | likely   (an irreversible downside that could sink the company or the founder, for the option you back)
 WHY:
 1. argument, naming the framework from your dossier, applied to this case's numbers
 2. ...
@@ -34,7 +33,7 @@ THE RISK I SEE: the single biggest thing that goes wrong.
 WHAT WOULD CHANGE MY MIND: a concrete fact or number.
 QUESTION FOR THE FOUNDER: the one you'd ask before signing off.
 
-Rules: argue from your lens at full strength; the chair balances the council, you don't. Use the brief's numbers; name any you assume. Quote directly only lines the dossier gives as quotations, naming the source; otherwise paraphrase.
+Rules: argue from your lens at full strength; the chair balances the council, you don't. Use the brief's numbers; name any you assume. Treat the brief's `(assumed)` items as guesses, not facts — say when your case leans on one. Refer to people in the founder's life as they/them unless the brief says otherwise. Quote directly only lines the dossier gives as quotations, naming the source; otherwise paraphrase.
 ```
 
 ## Round 2 — debate
@@ -55,10 +54,10 @@ MEMBER: [Member]
 I DISAGREE MOST WITH: [member] — their argument in one line, then your rebuttal from your frameworks.
 I CONCEDE: the strongest point made against you, and what it changes. "Nothing" only if you can say why it fails.
 ON THE CRUXES: one or two lines each.
-OPTION SCORES: A n/10 · B n/10 · C n/10
-DOOR / RUIN RISK: (as Round 1)
+OPTION SCORES: (as Round 1 — score, door, and ruin for every option)
 MOVED: no | yes, from X to Y, because ...
 CONDITIONS FOR YES: up to three, checkable (a number, a date, a test result).
+ONE LINE FOR THE FOUNDER: what they must not forget from your lens.
 
 Rules: engage the arguments on the table. Move only for a better argument, never to be agreeable. If everyone agrees with you, name the weakest part of your own case.
 ```
@@ -74,7 +73,7 @@ Under 150 words:
 
 MEMBER: [Member]
 VOTE: Endorse | Endorse with amendment | Dissent
-OPTION SCORES: A n/10 · B n/10 · C n/10   (given the draft's conditions)
+OPTION SCORES: (as Round 1, given the draft's conditions)
 AMENDMENT OR DISSENT: one or two sentences. Blank if you endorse.
 ONE LINE FOR THE FOUNDER: what they must not forget from your lens.
 ```
