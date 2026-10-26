@@ -76,6 +76,7 @@ For a council session, seat 3–5:
 | New product / market bet | Bezos, Jensen (zero-billion markets), Iger | Fried (stay small, do the obvious work), Cohen (multiply what you have first) |
 | Growth stall | Graham, Musk, Naval, Cohen (pricing/positioning before new product) | Fried (does it actually need to grow?) |
 | Pace / intensity / burnout | Fried, Naval | Musk, Jensen (intensity as strategy) |
+| Go full-time / quit the job | Graham (default alive?), Fried (does it need a leap?), Cohen (pull the cheap multiplier first) | Blakely (kept her day job two years), Musk (urgency) |
 | Solo leverage / productize yourself | Naval, Graham, Blakely | Iger (his documented case for the long institutional apprenticeship) |
 
 ## Session protocol
