@@ -2,7 +2,7 @@
 
 What each seated member gets in a council session. Replace the bracketed parts. Members read the brief and earlier rounds from the session folder, so cards stay verbatim instead of being re-pasted.
 
-Each prompt starts with: *"You are simulating [Member] for a founder's decision. Read [path to their dossier] and argue only from it (plus the research pass, if one ran). Read files only; write nothing."*
+Each prompt starts with: *"You are simulating [Member] for a founder's decision. Read [path to their dossier] (and their section of [session folder]/research.md, if it exists) and argue only from those. Read files only; write nothing."*
 
 Every card scores every option in the brief, including "don't do it."
 

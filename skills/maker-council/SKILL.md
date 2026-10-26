@@ -111,7 +111,7 @@ When the topic is specific or the user wants sources, go beyond the dossiers:
 - **`watch-video`** — pull transcripts from specific talks/interviews the research surfaces.
 - **`/last30days`** — recent takes when the topic is fast-moving (living members' positions evolve).
 
-Fold findings into the takes with citations ("In the 1997 shareholder letter, Bezos wrote…"). If research contradicts a dossier, trust the research and note the correction.
+Save findings per member to `research.md` in the session folder and point each member at its section, so the cards can cite them ("In the 1997 shareholder letter, Bezos wrote…"). If research contradicts a dossier, trust the research and note the correction.
 
 ## Grounding rules (non-negotiable)
 
