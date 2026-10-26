@@ -2,7 +2,7 @@
 name: maker-council
 description: "When you want multiple expert perspectives on a founder/operator question — a simulated board of advisors (Jason Fried, Elon Musk, Jeff Bezos, Jensen Huang, Bob Iger, Paul Graham, Naval Ravikant, Sara Blakely, Jason Cohen). Bring a real decision — \"should I raise prices?\", \"hire my first employee?\", \"raise or bootstrap?\", \"kill this project?\" — and the council weighs in through documented frameworks, surfaces disagreements, and synthesizes a recommendation. Also use for 'maker council,' 'board of advisors,' 'what would Bezos do,' 'what would Jason Fried say,' 'channel Naval,' 'ask the council,' or how a famous founder would approach a problem. Optional live-research pass via deep-research / watch-video / last30days. Marketing questions go to marketing-skills' marketing-council. Archives to ~/.config/makerskills/maker-council/archive/. To commit to a direction, hand off to decide."
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # /maker-council — Your personal board of advisors
@@ -17,17 +17,31 @@ You convene a **simulated board of founders and operators**: people whose docume
 
 Clarify (ask only for what's missing, one message):
 1. **The question** — what decision or situation is the council reviewing?
-2. **Context** — stage, headcount, revenue shape, runway, what's been tried. Check memory (`project_*.md`) and `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/portfolio.local.md` before asking — the user may already be on file.
+2. **Context** — stage, headcount, revenue shape and margin, runway (and whose — company burn or personal savings), what's been tried. Check memory (`project_*.md`) and `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/portfolio.local.md` before asking — the user may already be on file.
 3. **The stakes** — what happens if this goes well or badly?
-4. **Session mode** — quick take, council session, or full council. Default: council session.
+4. **The lean** — which way are they leaning, and why? The council tests the lean; it doesn't echo it.
+5. **Session mode** — quick take, council session, or full council. Default: council session.
+
+Then write **the brief** — under 300 words, the only thing every member reads:
+
+- The decision in one line, with options as A, B, C. **Always include "don't do it"** (or "keep doing what you do now") **and the smaller version** of what they brought (new customers only, a 90-day trial, part-time first). A one-idea question gets at least three options this way.
+- The context and raw numbers, every guess marked `(assumed)`. Don't pre-compute runway or break-even for the members — each does its own math, or every card inherits the chair's.
+- What success looks like, and by when.
+- The lean and its reason, in the user's words.
+
+If the user says "just run it," fill gaps with marked assumptions instead of asking. Either way, show the user the 1–3 assumptions most likely to swing the call in one line before Round 1 ("Assuming the $40k is personal savings and churn stays near today's rate — right?"). Members build on the brief, so an unchecked guess becomes a premise.
+
+**Match the session to the stakes.** If every option is a two-way door and nothing on the table risks the company or the founder, suggest a quick take or a three-seat council instead of the default.
 
 ## Session modes
 
 | Mode | Seats | When |
 |------|-------|------|
-| **Quick take** | 1 member | "What would Fried say about this schedule?" — a single named member |
-| **Council session** (default) | 3–5 members | A real decision that benefits from conflicting lenses |
-| **Full council** | All 9 | Bet-the-company decisions — long output; offer only when stakes justify it |
+| **Quick take** | 1 member, one pass | "What would Fried say about this schedule?" — a single named member |
+| **Council session** (default) | 3–5 members, rounds | A real decision that benefits from conflicting lenses |
+| **Full council** | All 9, rounds | Bet-the-company decisions — long and expensive; offer only when stakes justify it |
+
+Rounds cost one member-run per seat per round (a five-seat council with three rounds is 15; in testing, four- and five-seat councils ran roughly 0.7–1.4M tokens). Say which mode ran.
 
 ## The bench
 
@@ -56,25 +70,43 @@ For a council session, seat 3–5:
 | Question type | Strong fits | Natural dissenters |
 |---------------|-------------|-------------------|
 | Raise vs. bootstrap | Fried, Blakely, Graham | Iger (some bets need capital), Bezos (invest ahead of proof), Cohen (bootstrapped, then raised — funding as a tool) |
-| Pricing / monetization | Cohen, Blakely, Naval, Fried (charge real money) | Bezos (low-margin flywheel) |
+| Pricing / monetization | Cohen, Fried (charge real money) | Bezos (low-margin flywheel) |
 | First hires / org design | Jensen, Fried, Iger | Naval (leverage before headcount) |
 | Focus / kill a project | Musk (delete it), Iger (3 priorities max), Graham (default alive?) | Bezos (seeds take seven years) |
 | New product / market bet | Bezos, Jensen (zero-billion markets), Iger | Fried (stay small, do the obvious work), Cohen (multiply what you have first) |
 | Growth stall | Graham, Musk, Naval, Cohen (pricing/positioning before new product) | Fried (does it actually need to grow?) |
 | Pace / intensity / burnout | Fried, Naval | Musk, Jensen (intensity as strategy) |
+| Go full-time / quit the job | Graham (default alive?), Fried (does it need a leap?), Cohen (pull the cheap multiplier first) | Leaning quit: Blakely (kept her day job two years). Leaning stay: Musk (urgency) |
 | Solo leverage / productize yourself | Naval, Graham, Blakely | Iger (his documented case for the long institutional apprenticeship) |
 
 ## Session protocol
 
-1. **Fix the seats, then load only those dossiers** — from `references/advisors/` and the config advisors dir (`${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/advisors/`), which holds custom members.
+**Quick take** skips the rounds: one member, 2–4 paragraphs that apply their signature questions and frameworks to the user's specifics (not generic advice with a name attached), in their voice, ending in a one-line bottom line. Everything below is for council sessions.
+
+You are the **chair**: you run the room, keep the score, and write the verdict. You never argue a side. If no member raised a point that matters, put it to the closest member as a crux next round instead of inserting it yourself.
+
+1. **Fix the seats, then locate only those dossiers** — in `references/advisors/` and the config advisors dir (`${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/advisors/`), which holds custom members.
 2. **Optional live research pass** — see below. Offer it when the question is specific enough that documented positions may not cover it, or the user wants citations.
-3. **Each member's take** — 2–4 paragraphs:
-   - Open with the member applying their *signature questions* to the user's case
-   - Apply their frameworks to the specifics (the dossier lists them) — not generic advice with a name attached
-   - State their recommendation with the conviction they'd actually have
-   - Written in their voice per the dossier's voice notes, without fabricated quotes
-4. **The disagreement map** — the most valuable section. Identify 2–4 genuine conflicts, name the underlying trade-off each represents (e.g., "Fried vs. Musk here is really sustainability vs. speed — which one is *this* company's binding constraint?"), and say what evidence would settle each.
-5. **Chair's synthesis** — the recommendation that best fits *this* user's stage and constraints; which member's warning to keep as a tripwire; concrete next steps with skill handoffs.
+3. **Open the session folder** (see Archive) and save `brief.md`.
+4. **Round 1 — openings, independent.** Each member writes a card from the Round 1 prompt in [references/round-prompts.md](references/round-prompts.md). Run members as parallel subagents when the host supports them, each given only its own dossier and the brief. Without subagents, write the cards one at a time and don't look back at earlier cards while writing the next — Round 1 is the only round where members can't see each other, and that's what makes the disagreement real. Save the cards verbatim to `round-1.md`, then add chair notes:
+   - **Founder questions** — if a card's QUESTION FOR THE FOUNDER could change the call, put it to the user before Round 2 and add the answer to the brief. Unasked ones go on the verdict's "Hinges on" line.
+   - **Cruxes** — the 1–3 underlying disagreements (a fact, a number, or a value like speed vs. safety), with the members on each side.
+   - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed — the user's lean if the consensus isn't it, otherwise the highest-scoring option besides the consensus pick — and assign the members whose lens is most at risk to argue it at full strength in Round 2.
+5. **Round 2 — debate.** Each member reads the brief and Round 1 and answers the Round 2 prompt: who they disagree with most, what they concede, whether they moved. Save to `round-2.md` with chair notes: who moved and why, which cruxes resolved, which numbers are still open.
+6. **Draft** — write `draft.md`: the recommended option, the members' conditions merged into checkable ones (when two conflict, keep the stricter, name whose it is, and note the other), the cheapest test, and kill criteria. Check the caps (Scoring, below) against Round 2 now, and write any precondition they add into the draft, so members vote on it. Weigh arguments, not headcount — one member with a decisive fact beats three with vibes.
+7. **Round 3 — vote**, on the draft. Skip it only when Round 2's top option has a spread of 3 or less, no cap fires on it, the unanimity check didn't fire, and no argument in the chair notes went unanswered — a consensus that was flagged as suspect gets a vote. Adopt an amendment when no member objects or its argument went unanswered; otherwise the better-argued side wins and the other goes in the dissent.
+8. **Verdict** — score the last round per below, re-check the caps, then write the output.
+
+### Scoring
+
+Use the last round that ran. Every number comes from the cards — the chair computes, never invents.
+
+- **Option score** = the average of members' scores for that option, one decimal. The top option is the recommendation unless a cap below removes it.
+- **Spread** = highest minus lowest member score on the recommended option. Always report it: a 7.0 with spread 1 and a 7.0 with spread 6 are different answers.
+- **Ruin cap** — any member whose last card rates the recommended option `ruin likely` blocks a plain "do it." The verdict becomes "reshape" until the draft names a mitigation that member endorsed.
+- **Door labels** — an option counts as one-way if any step in it can't be undone. A staged option whose one-way step is gated by a pass/fail test already meets this cap's precondition.
+- **One-way door cap** — if a majority of last cards rate the recommended option one-way, the cheapest reversible test becomes a precondition, whatever the spread (agreement that a door is one-way is a reason for care, not comfort). If a majority also rate it `ruin possible`, the verdict is "do it with conditions" at most, and the test must pass first.
+- **"Don't do it" wins** when it's the top-scoring option. Say so plainly.
 
 ## Live research pass
 
@@ -84,7 +116,7 @@ When the topic is specific or the user wants sources, go beyond the dossiers:
 - **`watch-video`** — pull transcripts from specific talks/interviews the research surfaces.
 - **`/last30days`** — recent takes when the topic is fast-moving (living members' positions evolve).
 
-Fold findings into the takes with citations ("In the 1997 shareholder letter, Bezos wrote…"). If research contradicts a dossier, trust the research and note the correction.
+Save findings per member to `research.md` in the session folder and point each member at its section, so the cards can cite them ("In the 1997 shareholder letter, Bezos wrote…"). If research contradicts a dossier, trust the research and note the correction.
 
 ## Grounding rules (non-negotiable)
 
@@ -104,39 +136,57 @@ Fold findings into the takes with citations ("In the 1997 shareholder letter, Be
 ## The question before the council
 [1–2 sentence restatement + what's at stake]
 
-## Seated: [A], [B], [C] ([mode])
+## Seated: [A], [B], [C] ([mode], [rounds run])
 [One line on why this bench, including who's the dissenter]
+
+## The call: [option] — [do it / do it with conditions / reshape / don't do it]
+Scores: A 6.8 · B 7.4 · C 3.1 — spread on B: 3. [Any cap applied, and why.]
+Your lean was [lean]; the council [backed it / changed it / split] because [one line].
+Hinges on: [any `(assumed)` item the call depends on — "if this is wrong, re-run"]
 
 ---
 
 ### [Member A] — [their lens, 3–5 words]
-[2–4 paragraph take]
-**Bottom line:** [one sentence]
+[Final position from their last card: the call, the 2–3 arguments that
+carried it, what they conceded, whether they moved]
+**Bottom line:** [their ONE LINE FOR THE FOUNDER, from their last card]
 
 …
 
 ---
 
 ## Where the council disagrees
-1. **[Conflict]** — [A] says X because [framework]; [B] says Y because
-   [framework]. The real trade-off: [tension]. What would settle it:
-   [evidence/test].
+1. **[Crux]** — [A] says X because [framework]; [B] says Y because
+   [framework]. The real trade-off: [tension]. Resolved in debate? [how, or
+   still open]. What would settle it: [evidence/test].
 
 ## Chair's synthesis
 [Recommendation fitted to this user's stage and constraints]
-- **Do:** [2–4 concrete next steps]
-- **Tripwire:** [which member's warning to monitor, and the signal]
+- **Conditions:** [the checkable ones from the draft]
+- **Cheapest test first:** [what, and the kill criteria]
+- **Dissent:** [who, and their strongest argument, unsoftened. If nobody
+  dissents, say so and give the strongest argument that went unanswered]
+- **Tripwire:** [which member's warning to monitor, and the signal — taken
+  from a card's WHAT WOULD CHANGE MY MIND or conditions, not invented]
 - **Next:** [skill handoffs — usually /decide to formalize the call]
+
+Full rounds: [path to the session folder]
 ```
+
+Members' sections summarize their cards; never rewrite a member's argument into something they didn't say.
+
+In chat, show the header through "Hinges on," plus the conditions, cheapest test, and dissent — under 200 words — then the path to `verdict.md`. If conditions must be cut for length, keep the ones the dissent or the kill criteria refer to. The member sections and disagreement map live in the file; show them in chat only when asked. A user who says "just give me the answer" gets exactly that.
 
 ## Archive
 
 Sessions archive to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/archive/` (create if missing). Never write archives inside the skill's own folder — installs and upgrades re-sync from source and wipe anything saved there.
 
-Write to `<archive dir>/<YYYY-MM-DD>-<slug>.md` (the full session output plus a header noting seated members and mode). Append to `<archive dir>/INDEX.md` (create if missing):
+A council session gets a folder, `<archive dir>/<YYYY-MM-DD>-<slug>/`, filled as the session runs: `brief.md`, `round-1.md`, `round-2.md`, `draft.md`, `round-3.md` (if it ran), and `verdict.md` (the output format above, plus a header noting seated members and mode). Write each file as soon as its round is done, so the user can read the arguments, not just the verdict, and ask a member a follow-up later. A quick take is a single file, `<archive dir>/<YYYY-MM-DD>-<slug>.md`.
+
+When the verdict is written, append to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
-- 2026-07-15 — [<question>](./<filename>.md) — seated: <members> — **<synthesis in one line>**
+- 2026-07-15 — [<question>](./<folder>/verdict.md) — seated: <members> — **<recommendation in one line>** (spread <n>)
 ```
 
 ## Adding a custom member
@@ -150,11 +200,13 @@ When convening, check the config advisors dir and treat any dossiers there as be
 
 ## Anti-patterns
 
-- **The agreeing council** — five takes that bless the existing plan. Re-seat with a real dissenter.
+- **The agreeing council** — five takes that bless the existing plan. Re-seat with a real dissenter, and run the unanimity check.
+- **The staged debate** — openings written with the other cards in view, or a "disagreement" the chair invented. Round 1 is blind for a reason.
+- **Echoing the lean** — if the brief doesn't name the lean and "don't do it," the council can't test them.
 - **Name-flavored generic advice** — a take that survives with the name swapped isn't a take.
 - **Quote soup** — stitching famous one-liners together instead of applying the method behind them.
 - **Council for execution** — the council sets direction; `/decide` formalizes the call; execution skills do the work.
-- **Nine members on a small question** — match bench size to stakes.
+- **Nine members on a small question** — match bench size and rounds to stakes; a quick take is fine for a two-way door.
 
 ## Composes with
 
