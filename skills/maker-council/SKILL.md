@@ -41,7 +41,7 @@ If the user says "just run it," fill gaps with marked assumptions instead of ask
 | **Council session** (default) | 3–5 members, rounds | A real decision that benefits from conflicting lenses |
 | **Full council** | All 9, rounds | Bet-the-company decisions — long and expensive; offer only when stakes justify it |
 
-Rounds cost one member-run per seat per round (a five-seat council with three rounds is 15). Say which mode ran.
+Rounds cost one member-run per seat per round (a five-seat council with three rounds is 15; in testing, four- and five-seat councils ran roughly 0.7–1.4M tokens). Say which mode ran.
 
 ## The bench
 
@@ -180,7 +180,7 @@ In chat, show the header through "Hinges on," plus the conditions, cheapest test
 
 Sessions archive to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/archive/` (create if missing). Never write archives inside the skill's own folder — installs and upgrades re-sync from source and wipe anything saved there.
 
-A council session gets a folder, `<archive dir>/<YYYY-MM-DD>-<slug>/`, filled as the session runs: `brief.md`, `round-1.md`, `round-2.md`, `draft.md`, `round-3.md` (if it ran), and `verdict.md` (the output below, plus a header noting seated members and mode). Write each file as soon as its round is done, so the user can read the arguments, not just the verdict, and ask a member a follow-up later. A quick take is a single file, `<archive dir>/<YYYY-MM-DD>-<slug>.md`.
+A council session gets a folder, `<archive dir>/<YYYY-MM-DD>-<slug>/`, filled as the session runs: `brief.md`, `round-1.md`, `round-2.md`, `draft.md`, `round-3.md` (if it ran), and `verdict.md` (the output format above, plus a header noting seated members and mode). Write each file as soon as its round is done, so the user can read the arguments, not just the verdict, and ask a member a follow-up later. A quick take is a single file, `<archive dir>/<YYYY-MM-DD>-<slug>.md`.
 
 When the verdict is written, append to `<archive dir>/INDEX.md` (create if missing):
 
