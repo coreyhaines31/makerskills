@@ -35,9 +35,11 @@ If the user says "just run it," fill gaps with marked assumptions instead of ask
 
 | Mode | Seats | When |
 |------|-------|------|
-| **Quick take** | 1 member | "What would Fried say about this schedule?" — a single named member |
-| **Council session** (default) | 3–5 members | A real decision that benefits from conflicting lenses |
-| **Full council** | All 9 | Bet-the-company decisions — long output; offer only when stakes justify it |
+| **Quick take** | 1 member, one pass | "What would Fried say about this schedule?" — a single named member |
+| **Council session** (default) | 3–5 members, rounds | A real decision that benefits from conflicting lenses |
+| **Full council** | All 9, rounds | Bet-the-company decisions — long and expensive; offer only when stakes justify it |
+
+Rounds cost one member-run per seat per round (a five-seat council with three rounds is 15). Say which mode ran.
 
 ## The bench
 
@@ -76,15 +78,30 @@ For a council session, seat 3–5:
 
 ## Session protocol
 
-1. **Fix the seats, then load only those dossiers** — from `references/advisors/` and the config advisors dir (`${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/advisors/`), which holds custom members.
+**Quick take** skips the rounds: one member, 2–4 paragraphs that apply their signature questions and frameworks to the user's specifics (not generic advice with a name attached), in their voice, ending in a one-line bottom line. Everything below is for council sessions.
+
+You are the **chair**: you run the room, keep the score, and write the verdict. You never argue a side. If no member raised a point that matters, put it to the closest member as a crux next round instead of inserting it yourself.
+
+1. **Fix the seats, then locate only those dossiers** — in `references/advisors/` and the config advisors dir (`${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/advisors/`), which holds custom members.
 2. **Optional live research pass** — see below. Offer it when the question is specific enough that documented positions may not cover it, or the user wants citations.
-3. **Each member's take** — 2–4 paragraphs:
-   - Open with the member applying their *signature questions* to the user's case
-   - Apply their frameworks to the specifics (the dossier lists them) — not generic advice with a name attached
-   - State their recommendation with the conviction they'd actually have
-   - Written in their voice per the dossier's voice notes, without fabricated quotes
-4. **The disagreement map** — the most valuable section. Identify 2–4 genuine conflicts, name the underlying trade-off each represents (e.g., "Fried vs. Musk here is really sustainability vs. speed — which one is *this* company's binding constraint?"), and say what evidence would settle each.
-5. **Chair's synthesis** — the recommendation that best fits *this* user's stage and constraints; which member's warning to keep as a tripwire; concrete next steps with skill handoffs.
+3. **Open the session folder** (see Archive) and save `brief.md`.
+4. **Round 1 — openings, independent.** Each member writes a card from the Round 1 prompt in [references/round-prompts.md](references/round-prompts.md). Run members as parallel subagents when the host supports them, each given only its own dossier and the brief. Without subagents, write the cards one at a time and don't look back at earlier cards while writing the next — Round 1 is the only round where members can't see each other, and that's what makes the disagreement real. Save the cards verbatim to `round-1.md`, then add chair notes:
+   - **Cruxes** — the 1–3 underlying disagreements (a fact, a number, or a value like speed vs. safety), with the members on each side.
+   - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed and assign the members whose lens is most at risk to argue it at full strength in Round 2.
+5. **Round 2 — debate.** Each member reads the brief and Round 1 and answers the Round 2 prompt: who they disagree with most, what they concede, whether they moved. Save to `round-2.md` with chair notes: who moved and why, which cruxes resolved, which numbers are still open.
+6. **Draft** — write `draft.md`: the recommended option, the members' conditions merged into checkable ones, the cheapest test, and kill criteria. Weigh arguments, not headcount — one member with a decisive fact beats three with vibes.
+7. **Round 3 — vote**, on the draft. Skip it when Round 2's top option has a spread of 3 or less and no member is at `RUIN RISK: likely`. Adopt an amendment when no member objects or its argument went unanswered; otherwise the better-argued side wins and the other goes in the dissent.
+8. **Verdict** — score per below, then write the output.
+
+### Scoring
+
+Use the last round that ran. Every number comes from the cards — the chair computes, never invents.
+
+- **Option score** = the average of members' scores for that option, one decimal. The top option is the recommendation unless a cap below removes it.
+- **Spread** = highest minus lowest member score on the recommended option. Always report it: a 7.0 with spread 1 and a 7.0 with spread 6 are different answers.
+- **Ruin cap** — any member ending at `RUIN RISK: likely` on the recommended option blocks a plain "do it." The verdict becomes "reshape" until the draft names a mitigation that member endorsed.
+- **One-way door cap** — if the recommended option is a one-way door (per a majority of cards) and its spread is 4 or more, the cheapest reversible test becomes a precondition.
+- **"Don't do it" wins** when it's the top-scoring option. Say so plainly.
 
 ## Live research pass
 
@@ -143,10 +160,12 @@ Fold findings into the takes with citations ("In the 1997 shareholder letter, Be
 
 Sessions archive to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/maker-council/archive/` (create if missing). Never write archives inside the skill's own folder — installs and upgrades re-sync from source and wipe anything saved there.
 
-Write to `<archive dir>/<YYYY-MM-DD>-<slug>.md` (the full session output plus a header noting seated members and mode). Append to `<archive dir>/INDEX.md` (create if missing):
+A council session gets a folder, `<archive dir>/<YYYY-MM-DD>-<slug>/`, filled as the session runs: `brief.md`, `round-1.md`, `round-2.md`, `draft.md`, `round-3.md` (if it ran), and `verdict.md` (the output below, plus a header noting seated members and mode). Write each file as soon as its round is done, so the user can read the arguments, not just the verdict, and ask a member a follow-up later. A quick take is a single file, `<archive dir>/<YYYY-MM-DD>-<slug>.md`.
+
+When the verdict is written, append to `<archive dir>/INDEX.md` (create if missing):
 
 ```markdown
-- 2026-07-15 — [<question>](./<filename>.md) — seated: <members> — **<synthesis in one line>**
+- 2026-07-15 — [<question>](./<folder>/verdict.md) — seated: <members> — **<recommendation in one line>** (spread <n>)
 ```
 
 ## Adding a custom member
