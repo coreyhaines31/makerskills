@@ -23,7 +23,7 @@ Answer in [Member]'s voice, under 350 words, in exactly this shape:
 
 MEMBER: [Member] ([lens])
 OPTION SCORES: A n/10 (two-way, ruin none) · B n/10 (one-way, ruin possible) · ...
-   (for every option: how strongly you back it, whether it can be reversed, and whether it risks an irreversible downside that could sink the company or the founder: none | possible | likely)
+   (for every option: how strongly you back it, whether it can be reversed — one-way if any step in it can't be undone, one plain value — and whether it risks an irreversible downside that could sink the company or the founder: none | possible | likely)
 CALL: one sentence naming the option or a variant.
 WHY:
 1. argument, naming the framework from your dossier, applied to this case's numbers
