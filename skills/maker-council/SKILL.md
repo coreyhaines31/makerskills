@@ -90,7 +90,7 @@ You are the **chair**: you run the room, keep the score, and write the verdict. 
    - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed and assign the members whose lens is most at risk to argue it at full strength in Round 2.
 5. **Round 2 — debate.** Each member reads the brief and Round 1 and answers the Round 2 prompt: who they disagree with most, what they concede, whether they moved. Save to `round-2.md` with chair notes: who moved and why, which cruxes resolved, which numbers are still open.
 6. **Draft** — write `draft.md`: the recommended option, the members' conditions merged into checkable ones, the cheapest test, and kill criteria. Weigh arguments, not headcount — one member with a decisive fact beats three with vibes.
-7. **Round 3 — vote**, on the draft. Skip it when Round 2's top option has a spread of 3 or less and no member is at `RUIN RISK: likely`. Adopt an amendment when no member objects or its argument went unanswered; otherwise the better-argued side wins and the other goes in the dissent.
+7. **Round 3 — vote**, on the draft. Skip it only when Round 2's top option has a spread of 3 or less, no card rates it `ruin likely`, the unanimity check didn't fire, and no argument in the chair notes went unanswered — a consensus that was flagged as suspect gets a vote. Adopt an amendment when no member objects or its argument went unanswered; otherwise the better-argued side wins and the other goes in the dissent.
 8. **Verdict** — score per below, then write the output.
 
 ### Scoring
@@ -99,8 +99,8 @@ Use the last round that ran. Every number comes from the cards — the chair com
 
 - **Option score** = the average of members' scores for that option, one decimal. The top option is the recommendation unless a cap below removes it.
 - **Spread** = highest minus lowest member score on the recommended option. Always report it: a 7.0 with spread 1 and a 7.0 with spread 6 are different answers.
-- **Ruin cap** — any member ending at `RUIN RISK: likely` on the recommended option blocks a plain "do it." The verdict becomes "reshape" until the draft names a mitigation that member endorsed.
-- **One-way door cap** — if the recommended option is a one-way door (per a majority of cards) and its spread is 4 or more, the cheapest reversible test becomes a precondition.
+- **Ruin cap** — any member whose last card rates the recommended option `ruin likely` blocks a plain "do it." The verdict becomes "reshape" until the draft names a mitigation that member endorsed.
+- **One-way door cap** — if a majority of last cards rate the recommended option one-way and its spread is 4 or more, the cheapest reversible test becomes a precondition.
 - **"Don't do it" wins** when it's the top-scoring option. Say so plainly.
 
 ## Live research pass
