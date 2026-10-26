@@ -29,7 +29,9 @@ Then write **the brief** — under 300 words, the only thing every member reads:
 - What success looks like, and by when.
 - The lean and its reason, in the user's words.
 
-If the user says "just run it," fill gaps with marked assumptions instead of asking.
+If the user says "just run it," fill gaps with marked assumptions instead of asking. Either way, show the user the 1–3 assumptions most likely to swing the call in one line before Round 1 ("Assuming you're not yet profitable and success means before the baby — right?"). Members build on the brief, so an unchecked guess becomes a premise.
+
+**Match the session to the stakes.** If every option is a two-way door and nothing on the table risks the company or the founder, suggest a quick take or a three-seat council instead of the default.
 
 ## Session modes
 
@@ -87,9 +89,9 @@ You are the **chair**: you run the room, keep the score, and write the verdict. 
 3. **Open the session folder** (see Archive) and save `brief.md`.
 4. **Round 1 — openings, independent.** Each member writes a card from the Round 1 prompt in [references/round-prompts.md](references/round-prompts.md). Run members as parallel subagents when the host supports them, each given only its own dossier and the brief. Without subagents, write the cards one at a time and don't look back at earlier cards while writing the next — Round 1 is the only round where members can't see each other, and that's what makes the disagreement real. Save the cards verbatim to `round-1.md`, then add chair notes:
    - **Cruxes** — the 1–3 underlying disagreements (a fact, a number, or a value like speed vs. safety), with the members on each side.
-   - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed and assign the members whose lens is most at risk to argue it at full strength in Round 2.
+   - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed (the highest-scoring one besides the consensus pick) and assign the members whose lens is most at risk to argue it at full strength in Round 2.
 5. **Round 2 — debate.** Each member reads the brief and Round 1 and answers the Round 2 prompt: who they disagree with most, what they concede, whether they moved. Save to `round-2.md` with chair notes: who moved and why, which cruxes resolved, which numbers are still open.
-6. **Draft** — write `draft.md`: the recommended option, the members' conditions merged into checkable ones, the cheapest test, and kill criteria. Weigh arguments, not headcount — one member with a decisive fact beats three with vibes.
+6. **Draft** — write `draft.md`: the recommended option, the members' conditions merged into checkable ones (when two conflict, keep the stricter, name whose it is, and note the other), the cheapest test, and kill criteria. Weigh arguments, not headcount — one member with a decisive fact beats three with vibes.
 7. **Round 3 — vote**, on the draft. Skip it only when Round 2's top option has a spread of 3 or less, no card rates it `ruin likely`, the unanimity check didn't fire, and no argument in the chair notes went unanswered — a consensus that was flagged as suspect gets a vote. Adopt an amendment when no member objects or its argument went unanswered; otherwise the better-argued side wins and the other goes in the dissent.
 8. **Verdict** — score per below, then write the output.
 
