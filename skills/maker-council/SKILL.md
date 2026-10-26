@@ -139,13 +139,14 @@ Save findings per member to `research.md` in the session folder and point each m
 ## The call: [option] — [do it / do it with conditions / reshape / don't do it]
 Scores: A 6.8 · B 7.4 · C 3.1 — spread on B: 3. [Any cap applied, and why.]
 Your lean was [lean]; the council [backed it / changed it / split] because [one line].
+Hinges on: [any `(assumed)` item the call depends on — "if this is wrong, re-run"]
 
 ---
 
 ### [Member A] — [their lens, 3–5 words]
 [Final position from their last card: the call, the 2–3 arguments that
 carried it, what they conceded, whether they moved]
-**Bottom line:** [their ONE LINE FOR THE FOUNDER]
+**Bottom line:** [their ONE LINE FOR THE FOUNDER, from their last card]
 
 …
 
@@ -160,14 +161,18 @@ carried it, what they conceded, whether they moved]
 [Recommendation fitted to this user's stage and constraints]
 - **Conditions:** [the checkable ones from the draft]
 - **Cheapest test first:** [what, and the kill criteria]
-- **Dissent:** [who, and their strongest argument, unsoftened]
-- **Tripwire:** [which member's warning to monitor, and the signal]
+- **Dissent:** [who, and their strongest argument, unsoftened. If nobody
+  dissents, say so and give the strongest argument that went unanswered]
+- **Tripwire:** [which member's warning to monitor, and the signal — taken
+  from a card's WHAT WOULD CHANGE MY MIND or conditions, not invented]
 - **Next:** [skill handoffs — usually /decide to formalize the call]
 
 Full rounds: [path to the session folder]
 ```
 
 Members' sections summarize their cards; never rewrite a member's argument into something they didn't say.
+
+In chat, show the header through "Hinges on," plus the conditions, cheapest test, and dissent — under 200 words — then the path to `verdict.md`. The member sections and disagreement map live in the file; show them in chat only when asked. A user who says "just give me the answer" gets exactly that.
 
 ## Archive
 
