@@ -29,7 +29,7 @@ Then write **the brief** — under 300 words, the only thing every member reads:
 - What success looks like, and by when.
 - The lean and its reason, in the user's words.
 
-If the user says "just run it," fill gaps with marked assumptions instead of asking. Either way, show the user the 1–3 assumptions most likely to swing the call in one line before Round 1 ("Assuming you're not yet profitable and success means before the baby — right?"). Members build on the brief, so an unchecked guess becomes a premise.
+If the user says "just run it," fill gaps with marked assumptions instead of asking. Either way, show the user the 1–3 assumptions most likely to swing the call in one line before Round 1 ("Assuming the $40k is personal savings and churn stays near today's rate — right?"). Members build on the brief, so an unchecked guess becomes a premise.
 
 **Match the session to the stakes.** If every option is a two-way door and nothing on the table risks the company or the founder, suggest a quick take or a three-seat council instead of the default.
 
@@ -89,6 +89,7 @@ You are the **chair**: you run the room, keep the score, and write the verdict. 
 2. **Optional live research pass** — see below. Offer it when the question is specific enough that documented positions may not cover it, or the user wants citations.
 3. **Open the session folder** (see Archive) and save `brief.md`.
 4. **Round 1 — openings, independent.** Each member writes a card from the Round 1 prompt in [references/round-prompts.md](references/round-prompts.md). Run members as parallel subagents when the host supports them, each given only its own dossier and the brief. Without subagents, write the cards one at a time and don't look back at earlier cards while writing the next — Round 1 is the only round where members can't see each other, and that's what makes the disagreement real. Save the cards verbatim to `round-1.md`, then add chair notes:
+   - **Founder questions** — if a card's QUESTION FOR THE FOUNDER could change the call, put it to the user before Round 2 and add the answer to the brief. Unasked ones go on the verdict's "Hinges on" line.
    - **Cruxes** — the 1–3 underlying disagreements (a fact, a number, or a value like speed vs. safety), with the members on each side.
    - **Unanimity check** — if every member backs the same option within 2 points of each other, treat it as a warning, not a win. Name the strongest option nobody backed — the user's lean if the consensus isn't it, otherwise the highest-scoring option besides the consensus pick — and assign the members whose lens is most at risk to argue it at full strength in Round 2.
 5. **Round 2 — debate.** Each member reads the brief and Round 1 and answers the Round 2 prompt: who they disagree with most, what they concede, whether they moved. Save to `round-2.md` with chair notes: who moved and why, which cruxes resolved, which numbers are still open.
