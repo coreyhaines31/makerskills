@@ -19,7 +19,17 @@ Clarify (ask only for what's missing, one message):
 1. **The question** — what decision or situation is the council reviewing?
 2. **Context** — stage, headcount, revenue shape, runway, what's been tried. Check memory (`project_*.md`) and `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/portfolio.local.md` before asking — the user may already be on file.
 3. **The stakes** — what happens if this goes well or badly?
-4. **Session mode** — quick take, council session, or full council. Default: council session.
+4. **The lean** — which way are they leaning, and why? The council tests the lean; it doesn't echo it.
+5. **Session mode** — quick take, council session, or full council. Default: council session.
+
+Then write **the brief** — under 300 words, the only thing every member reads:
+
+- The decision in one line, with options as A, B, C. **Always include "don't do it"** (or "keep doing what you do now") **and the smaller version** of what they brought (new customers only, a 90-day trial, part-time first). A one-idea question gets at least three options this way.
+- The context and numbers, every guess marked `(assumed)`.
+- What success looks like, and by when.
+- The lean and its reason, in the user's words.
+
+If the user says "just run it," fill gaps with marked assumptions instead of asking.
 
 ## Session modes
 
