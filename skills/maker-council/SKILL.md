@@ -17,7 +17,7 @@ You convene a **simulated board of founders and operators**: people whose docume
 
 Clarify (ask only for what's missing, one message):
 1. **The question** — what decision or situation is the council reviewing?
-2. **Context** — stage, headcount, revenue shape, runway, what's been tried. Check memory (`project_*.md`) and `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/portfolio.local.md` before asking — the user may already be on file.
+2. **Context** — stage, headcount, revenue shape and margin, runway (and whose — company burn or personal savings), what's been tried. Check memory (`project_*.md`) and `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/business-brainstorm/portfolio.local.md` before asking — the user may already be on file.
 3. **The stakes** — what happens if this goes well or badly?
 4. **The lean** — which way are they leaning, and why? The council tests the lean; it doesn't echo it.
 5. **Session mode** — quick take, council session, or full council. Default: council session.
