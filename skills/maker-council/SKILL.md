@@ -131,30 +131,41 @@ Fold findings into the takes with citations ("In the 1997 shareholder letter, Be
 ## The question before the council
 [1–2 sentence restatement + what's at stake]
 
-## Seated: [A], [B], [C] ([mode])
+## Seated: [A], [B], [C] ([mode], [rounds run])
 [One line on why this bench, including who's the dissenter]
+
+## The call: [option] — [do it / do it with conditions / reshape / don't do it]
+Scores: A 6.8 · B 7.4 · C 3.1 — spread on B: 3. [Any cap applied, and why.]
+Your lean was [lean]; the council [backed it / changed it / split] because [one line].
 
 ---
 
 ### [Member A] — [their lens, 3–5 words]
-[2–4 paragraph take]
-**Bottom line:** [one sentence]
+[Final position from their last card: the call, the 2–3 arguments that
+carried it, what they conceded, whether they moved]
+**Bottom line:** [their ONE LINE FOR THE FOUNDER]
 
 …
 
 ---
 
 ## Where the council disagrees
-1. **[Conflict]** — [A] says X because [framework]; [B] says Y because
-   [framework]. The real trade-off: [tension]. What would settle it:
-   [evidence/test].
+1. **[Crux]** — [A] says X because [framework]; [B] says Y because
+   [framework]. The real trade-off: [tension]. Resolved in debate? [how, or
+   still open]. What would settle it: [evidence/test].
 
 ## Chair's synthesis
 [Recommendation fitted to this user's stage and constraints]
-- **Do:** [2–4 concrete next steps]
+- **Conditions:** [the checkable ones from the draft]
+- **Cheapest test first:** [what, and the kill criteria]
+- **Dissent:** [who, and their strongest argument, unsoftened]
 - **Tripwire:** [which member's warning to monitor, and the signal]
 - **Next:** [skill handoffs — usually /decide to formalize the call]
+
+Full rounds: [path to the session folder]
 ```
+
+Members' sections summarize their cards; never rewrite a member's argument into something they didn't say.
 
 ## Archive
 
