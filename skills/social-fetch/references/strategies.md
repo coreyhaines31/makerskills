@@ -201,7 +201,15 @@ curl -s "https://api.scrapecreators.com/v1/linkedin/post?url=<encoded-url>" \
 
 ### Strategy 3 — Apify (PAID)
 
-Use `apify/linkedin-profile-scraper` or `apify/linkedin-post-scraper` actor.
+Requires `$APIFY_API_TOKEN`. Use the `johnvc/linkedin-posts-api` actor: `postUrls` for a post, or `profileUrls` (plus `maxPostsPerProfile`) for a profile's recent posts.
+
+```bash
+curl -X POST "https://api.apify.com/v2/acts/johnvc~linkedin-posts-api/run-sync-get-dataset-items?token=$APIFY_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"postUrls": ["<url>"]}'
+```
+
+One row per post: `text`, `authorName`, `authorUrl`, `authorFollowers`, `datePosted`, `numLikes`, `numComments`, `images`, `videos`, `topComments`. For the profile itself (`name`, `headline`, `about`, `followers`, `avatar`), send `{"profileUrls": ["<url>"]}` to `johnvc/linkedin-profile-api`.
 
 ---
 
