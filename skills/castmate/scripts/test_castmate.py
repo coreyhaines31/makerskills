@@ -12,6 +12,7 @@ import unittest
 from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parent / "castmate.py"
+sys.dont_write_bytecode = True
 
 FAKE_CLI = r'''#!/usr/bin/env python3
 import os, subprocess, sys, time
