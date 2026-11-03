@@ -13,7 +13,7 @@
   "plugins": [
     {
       "name": "makerskills",
-      "description": "20 skills for founders and indie operators. Meta (skillify / toolify / loopify), decision + strategy (decide / business-brainstorm / deep-research / domain / unstuck / maker-council), knowledge (second-brain / company-brain / read-book / watch-video), output (jab-hook / slide-deck), operations (pm / personal-cfo / company-cfo / paste / social-fetch). Sibling to marketingskills.",
+      "description": "23 skills for founders and indie operators. Meta (skillify / toolify / loopify), decision + strategy (decide / business-brainstorm / deep-research / domain / unstuck / maker-council), knowledge (second-brain / company-brain / read-book / watch-video / radar / ingest), output (jab-hook / slide-deck), operations (pm / personal-cfo / company-cfo / paste / social-fetch / castmate). Sibling to marketingskills.",
       "source": "./"
     }
   ]
