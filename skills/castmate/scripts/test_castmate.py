@@ -202,6 +202,19 @@ class CastmateTest(unittest.TestCase):
         self.assertEqual(proc.returncode, 1)
         self.assertIn("FAIL e", proc.stdout)
 
+    def test_run_paths_are_validated_before_dispatch(self):
+        cases = [
+            (["-f", str(self.tmp / "missing.md")], "can't read prompt file"),
+            (["-f", str(self.prompt), "--cwd", str(self.tmp / "nope")], "is not a directory"),
+            (["-f", str(self.prompt), "--out", str(self.tmp)], "new or empty directory"),
+            (["-f", str(self.prompt), "--cwd", str(self.tmp), "--out", str(self.tmp / "inside")], "inside --cwd"),
+        ]
+        for extra, message in cases:
+            proc = self.run_cli("run", "-c", "e", *extra)
+            self.assertEqual(proc.returncode, 2, extra)
+            self.assertIn(message, proc.stderr)
+            self.assertNotIn("Traceback", proc.stderr)
+
     def test_write_mode_uses_write_args(self):
         _, manifest = self.run_json("-c", "e", "--write")
         text = Path(manifest["castmates"][0]["outputFile"]).read_text()

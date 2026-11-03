@@ -17,6 +17,7 @@ import argparse
 import json
 import os
 import re
+import secrets
 import shlex
 import shutil
 import signal
@@ -411,7 +412,10 @@ def cmd_test(reg, specs):
 
 def cmd_run(reg, args):
     castmates = label_castmates(expand(args.castmates, reg))
-    prompt = Path(args.file).read_text() if args.file != "-" else sys.stdin.read()
+    try:
+        prompt = Path(args.file).read_text() if args.file != "-" else sys.stdin.read()
+    except (OSError, UnicodeDecodeError) as exc:
+        raise CastmateError(f"can't read prompt file {args.file}: {exc}")
     if not prompt.strip():
         raise CastmateError("prompt is empty")
     if args.write and len(castmates) > 1:
@@ -424,12 +428,19 @@ def cmd_run(reg, args):
             print(f"castmate: warning: {tool['name']} read-only is {read_only_level(tool)}, not enforced", file=sys.stderr)
 
     timeout = args.timeout or int(reg["defaults"].get("timeout", 540))
+    cwd = Path(args.cwd).expanduser().resolve() if args.cwd else Path.cwd()
+    if not cwd.is_dir():
+        raise CastmateError(f"--cwd {cwd} is not a directory")
     if args.out:
         out_dir = Path(args.out).expanduser().resolve()
+        if out_dir.exists() and (not out_dir.is_dir() or any(out_dir.iterdir())):
+            raise CastmateError(f"--out {out_dir} must be a new or empty directory")
+        if not args.write and (out_dir == cwd or cwd in out_dir.parents):
+            raise CastmateError("--out is inside --cwd; a read-only run must not write into the tree it reviews")
     else:
         stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-        out_dir = CONFIG_DIR / "runs" / f"{stamp}-{slugify(prompt.strip().splitlines()[0])}"
-    cwd = str(Path(args.cwd).expanduser().resolve()) if args.cwd else os.getcwd()
+        out_dir = CONFIG_DIR / "runs" / f"{stamp}-{slugify(prompt.strip().splitlines()[0])}-{secrets.token_hex(3)}"
+    cwd = str(cwd)
 
     manifest = dispatch(reg, castmates, prompt, out_dir, args.write, cwd, timeout)
     if args.json:
