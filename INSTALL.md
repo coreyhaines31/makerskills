@@ -53,7 +53,7 @@ export SLIDE_DECK_DEV_HOST="localhost:3000"
 These contain your real data and are stored under `$MAKERSKILLS_CONFIG/` (default `~/.config/makerskills/`). They're gitignored — your personal data never leaves your machine.
 
 ```bash
-mkdir -p ~/.config/makerskills/{jab-hook,pm,decide,business-brainstorm,deep-research,personal-cfo,slide-deck,unstuck,maker-council}
+mkdir -p ~/.config/makerskills/{jab-hook,pm,decide,business-brainstorm,deep-research,personal-cfo,slide-deck,unstuck,maker-council,castmate}
 
 # Copy example configs and edit them with your real values
 cp ~/code/makerskills/skills/jab-hook/references/typefully-config.example.yaml \
@@ -83,6 +83,9 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
 
+# castmate: python3 (3.9+) plus at least one agent CLI, installed and logged in
+npm install -g @openai/codex                # or claude, gemini, amp, opencode, cursor-agent, kiro-cli, agy
+
 ```
 
 ## 5. API keys
@@ -109,7 +112,7 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ## 6. Verify
 
 ```bash
-# Should see 22 skills listed
+# Should see 23 skills listed
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:

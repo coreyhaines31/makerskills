@@ -1,0 +1,27 @@
+# castmate read-only policy for Gemini CLI, loaded with --admin-policy so it
+# outranks user and workspace rules. --approval-mode plan alone did not stop
+# write_file in headless testing (gemini 0.66.0).
+
+[[rule]]
+toolName = "write_file"
+decision = "deny"
+priority = 999
+denyMessage = "castmate: read-only run"
+
+[[rule]]
+toolName = "replace"
+decision = "deny"
+priority = 999
+denyMessage = "castmate: read-only run"
+
+[[rule]]
+toolName = "run_shell_command"
+decision = "deny"
+priority = 999
+denyMessage = "castmate: read-only run"
+
+[[rule]]
+toolName = "save_memory"
+decision = "deny"
+priority = 999
+denyMessage = "castmate: read-only run"

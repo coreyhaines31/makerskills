@@ -1,0 +1,380 @@
+{
+  "tools": {
+    "claude": {
+      "name": "Claude Code",
+      "binary": "claude",
+      "install": "https://docs.anthropic.com/en/docs/claude-code",
+      "verified": true,
+      "args": [
+        "-p",
+        "--output-format",
+        "text"
+      ],
+      "prompt": "stdin",
+      "model": [
+        "--model",
+        "{model}"
+      ],
+      "effort": [
+        "--effort",
+        "{effort}"
+      ],
+      "readOnly": {
+        "level": "enforced",
+        "args": [
+          "--tools",
+          "Read,Glob,Grep,WebFetch,WebSearch",
+          "--allowedTools",
+          "Read,Glob,Grep,WebFetch,WebSearch",
+          "--strict-mcp-config"
+        ]
+      },
+      "write": {
+        "args": [
+          "--permission-mode",
+          "acceptEdits"
+        ]
+      }
+    },
+    "codex": {
+      "name": "OpenAI Codex",
+      "binary": "codex",
+      "install": "https://github.com/openai/codex",
+      "verified": true,
+      "args": [
+        "exec",
+        "--skip-git-repo-check",
+        "-c",
+        "web_search=live",
+        "-o",
+        "{last_message}"
+      ],
+      "argsAfter": [
+        "-"
+      ],
+      "prompt": "stdin",
+      "output": "last_message",
+      "model": [
+        "-m",
+        "{model}"
+      ],
+      "effort": [
+        "-c",
+        "model_reasoning_effort={effort}"
+      ],
+      "readOnly": {
+        "level": "enforced",
+        "args": [
+          "--sandbox",
+          "read-only"
+        ]
+      },
+      "write": {
+        "args": [
+          "--sandbox",
+          "workspace-write"
+        ]
+      }
+    },
+    "gemini": {
+      "name": "Gemini CLI",
+      "binary": "gemini",
+      "install": "https://github.com/google-gemini/gemini-cli",
+      "verified": true,
+      "args": [
+        "-p",
+        "",
+        "--output-format",
+        "text",
+        "--skip-trust"
+      ],
+      "prompt": "stdin",
+      "promptSuffix": "\n\nIMPORTANT: Do not narrate your tool usage, internal planning, or chain of thought. Start your response directly with your analysis.",
+      "model": [
+        "-m",
+        "{model}"
+      ],
+      "readOnly": {
+        "level": "enforced",
+        "args": [
+          "--approval-mode",
+          "plan",
+          "--admin-policy",
+          "{refs}/gemini-readonly-policy.toml"
+        ]
+      },
+      "write": {
+        "args": [
+          "--approval-mode",
+          "auto_edit"
+        ]
+      }
+    },
+    "amp": {
+      "name": "Amp CLI",
+      "binary": "amp",
+      "install": "https://ampcode.com",
+      "verified": false,
+      "args": [
+        "-x"
+      ],
+      "prompt": "stdin",
+      "model": [
+        "-m",
+        "{model}"
+      ],
+      "readOnly": {
+        "level": "enforced",
+        "args": [
+          "--settings-file",
+          "{refs}/amp-readonly-settings.json"
+        ]
+      },
+      "write": {
+        "args": [
+          "--dangerously-allow-all"
+        ]
+      }
+    },
+    "opencode": {
+      "name": "OpenCode",
+      "binary": "opencode",
+      "install": "https://opencode.ai/docs/",
+      "verified": false,
+      "args": [
+        "run",
+        "--pure"
+      ],
+      "argsAfter": [
+        "{prompt}"
+      ],
+      "prompt": "arg",
+      "model": [
+        "--model",
+        "{model}"
+      ],
+      "readOnly": {
+        "level": "enforced",
+        "env": {
+          "OPENCODE_PERMISSION": "{\"*\":\"deny\",\"bash\":\"deny\",\"edit\":\"deny\",\"read\":{\"*\":\"allow\",\"*.env\":\"deny\",\"*.env.*\":\"deny\",\"*.env.example\":\"allow\"},\"glob\":\"allow\",\"grep\":\"allow\",\"list\":\"allow\",\"webfetch\":\"allow\",\"websearch\":\"allow\",\"codesearch\":\"allow\",\"lsp\":\"allow\"}"
+        }
+      },
+      "write": {
+        "args": []
+      }
+    },
+    "cursor": {
+      "name": "Cursor Agent",
+      "binary": "cursor-agent",
+      "install": "https://cursor.com/cli",
+      "verified": false,
+      "args": [
+        "-p",
+        "--output-format",
+        "text"
+      ],
+      "argsAfter": [
+        "{prompt}"
+      ],
+      "prompt": "arg",
+      "model": [
+        "--model",
+        "{model}"
+      ],
+      "readOnly": {
+        "level": "best-effort",
+        "args": [
+          "--mode",
+          "ask"
+        ]
+      },
+      "write": {
+        "args": [
+          "--force"
+        ]
+      }
+    },
+    "kiro": {
+      "name": "Kiro CLI",
+      "binary": "kiro-cli",
+      "install": "https://kiro.dev/docs/cli/",
+      "verified": false,
+      "args": [
+        "chat",
+        "--no-interactive",
+        "--wrap",
+        "never"
+      ],
+      "prompt": "stdin",
+      "model": [
+        "--model",
+        "{model}"
+      ],
+      "readOnly": {
+        "level": "enforced",
+        "args": [
+          "--trust-tools",
+          "fs_read,fs_list,fs_search,web_search,web_fetch"
+        ]
+      },
+      "write": {
+        "args": [
+          "--trust-all-tools"
+        ]
+      }
+    },
+    "antigravity": {
+      "name": "Antigravity CLI",
+      "binary": "agy",
+      "install": "https://antigravity.google/docs/cli/install",
+      "verified": true,
+      "args": [
+        "--add-dir",
+        "{cwd}",
+        "--print-timeout",
+        "{timeout_plus}s"
+      ],
+      "argsAfter": [
+        "-p",
+        "{prompt}"
+      ],
+      "prompt": "arg",
+      "model": [
+        "--model",
+        "{model}"
+      ],
+      "readOnly": {
+        "level": "enforced",
+        "args": [
+          "--mode",
+          "plan",
+          "--sandbox"
+        ]
+      },
+      "write": {
+        "args": [
+          "--mode",
+          "accept-edits"
+        ]
+      },
+      "effort": [
+        "--effort",
+        "{effort}"
+      ],
+      "promptSuffix": "\n\nIMPORTANT: Shell commands are unavailable in this session and any attempt ends the run with no answer. Use only file read and search tools. If the task needs a command, say so in your answer instead of running it."
+    }
+  },
+  "castmates": {
+    "fable": {
+      "tool": "claude",
+      "model": "fable",
+      "note": "Claude Fable 5"
+    },
+    "fable-high": {
+      "tool": "claude",
+      "model": "fable",
+      "effort": "high",
+      "note": "Claude Fable 5, high effort"
+    },
+    "opus": {
+      "tool": "claude",
+      "model": "opus",
+      "note": "Claude Opus, latest"
+    },
+    "sonnet": {
+      "tool": "claude",
+      "model": "sonnet",
+      "note": "Claude Sonnet, latest"
+    },
+    "haiku": {
+      "tool": "claude",
+      "model": "haiku",
+      "note": "Claude Haiku, latest (fast, cheap)"
+    },
+    "codex": {
+      "tool": "codex",
+      "note": "Codex CLI default model"
+    },
+    "codex-sol-high": {
+      "tool": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "high",
+      "note": "GPT-5.6 Sol, high reasoning"
+    },
+    "codex-sol-xhigh": {
+      "tool": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "xhigh",
+      "note": "GPT-5.6 Sol, xhigh reasoning"
+    },
+    "codex-sol-medium": {
+      "tool": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "note": "GPT-5.6 Sol, medium reasoning"
+    },
+    "codex-terra": {
+      "tool": "codex",
+      "model": "gpt-5.6-terra",
+      "note": "GPT-5.6 Terra"
+    },
+    "codex-luna": {
+      "tool": "codex",
+      "model": "gpt-5.6-luna",
+      "note": "GPT-5.6 Luna (fast)"
+    },
+    "gemini-pro": {
+      "tool": "gemini",
+      "model": "gemini-3.1-pro-preview",
+      "note": "Gemini 3.1 Pro"
+    },
+    "gemini-flash": {
+      "tool": "gemini",
+      "model": "gemini-3-flash-preview",
+      "note": "Gemini 3 Flash"
+    },
+    "amp-smart": {
+      "tool": "amp",
+      "model": "smart",
+      "note": "Amp smart mode"
+    },
+    "opencode": {
+      "tool": "opencode",
+      "note": "OpenCode default model"
+    },
+    "cursor": {
+      "tool": "cursor",
+      "note": "Cursor Agent default model"
+    },
+    "kiro": {
+      "tool": "kiro",
+      "model": "auto",
+      "note": "Kiro auto model"
+    },
+    "antigravity": {
+      "tool": "antigravity",
+      "model": "gemini-3.8-flash-high",
+      "note": "Gemini 3.8 Flash (high) via Antigravity"
+    },
+    "gemini-argon": {
+      "tool": "gemini",
+      "model": "gemini-4-argon",
+      "note": "Gemini 4 Argon"
+    }
+  },
+  "groups": {
+    "review": [
+      "fable-high",
+      "codex-sol-high"
+    ],
+    "wide": [
+      "fable-high",
+      "codex-sol-high",
+      "gemini-argon"
+    ]
+  },
+  "defaults": {
+    "timeout": 540,
+    "maxParallel": 4
+  }
+}
