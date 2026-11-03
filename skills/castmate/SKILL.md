@@ -26,7 +26,7 @@ python3 <skill-dir>/scripts/castmate.py run -c codex-sol-high,fable-high -f prom
 1. Ask which agent CLIs they already use. One logged-in CLI is enough to start. Suggest Codex if they have none: it's the only one that confines `--write` to `--cwd`.
 2. Give the install and login commands for their pick. Login is interactive, so the user runs it in their own terminal (in Claude Code they can type `! codex login` in the prompt). Then restart the agent if PATH or the shell profile changed.
 3. Run `castmate.py test <castmate>`. Use `gemini-flash` for a first Gemini check, since not every key has `gemini-argon`. On failure, relay the `hint:` line it prints and the matching guide section.
-4. **Never ask the user to paste an API key into chat.** For Gemini CLI, have them put `GEMINI_API_KEY` in their shell profile and restart the agent, or enter it in `gemini` directly. If a key does get pasted, say so, tell them to rotate it, and point to the guide's rotation steps.
+4. **Never ask the user to paste an API key into chat.** For Gemini CLI, have them put `GEMINI_API_KEY` in their shell profile and restart the agent, or enter it in `gemini` directly. If they already tried Google sign-in, the key alone won't work until the saved `oauth-personal` auth type is switched. Use the one-liner in the guide's Gemini step 2. If a key does get pasted, say so, tell them to rotate it, and point to the guide's rotation steps.
 
 Mention the gotchas that apply before they hit them. Gemini CLI no longer accepts Google sign-in on personal accounts. Antigravity's installer edits shell profiles, and its read-only mode is best-effort.
 

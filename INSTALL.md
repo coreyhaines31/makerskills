@@ -127,7 +127,7 @@ ls ~/code/makerskills/skills/
 
 ## What's next
 
-Read the `README.md` for the skill catalog + composition map. Each skill's `SKILL.md` has its own usage docs. Most skills work the first time you invoke them; a few (`jab-hook`, `pm`, `personal-cfo`, `second-brain`) need the personal config from Step 3 before they're fully useful.
+Read the `README.md` for the skill catalog + composition map. Each skill's `SKILL.md` has its own usage docs. Most skills work the first time you invoke them; a few (`jab-hook`, `pm`, `personal-cfo`, `second-brain`) need the personal config from Step 3 before they're fully useful, and `castmate` needs one agent CLI logged in (see its setup guide).
 
 ## Architecture: where personal data lives
 

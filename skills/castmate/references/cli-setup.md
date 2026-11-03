@@ -7,13 +7,13 @@ castmate drives the official agent CLIs you already use. Each one needs to be in
 Commands below use `$CASTMATE` for the path to `castmate.py`. Set it once per terminal:
 
 ```bash
-CASTMATE=$(find ~/.claude ~/.codex ~/.agents ~/.config ~/code -path '*skills/castmate/scripts/castmate.py' 2>/dev/null | head -1)
+CASTMATE=$(find ~/.claude ~/.codex ~/.agents -path '*skills/castmate/scripts/castmate.py' 2>/dev/null | head -1)
 echo "$CASTMATE"      # should print a path ending in skills/castmate/scripts/castmate.py
 ```
 
-If it prints nothing, look in the folder where you cloned makerskills: the script is `skills/castmate/scripts/castmate.py`. Agents don't need this step, because they know the skill's folder.
+If it prints nothing, you probably cloned makerskills somewhere else. Use `CASTMATE=<your clone>/skills/castmate/scripts/castmate.py`, or ask your agent where castmate's script is. Agents don't need this step, because they know the skill's folder.
 
-## 2. Install and log in to one CLI
+## 2. Pick one CLI and follow its section below
 
 | CLI | Castmates | Read-only | Writes kept in `--cwd` | Sign-in |
 |---|---|---|---|---|
@@ -29,7 +29,9 @@ If it prints nothing, look in the folder where you cloned makerskills: the scrip
 
 **Log in from a normal terminal.** Logins are interactive, so run them in your own terminal, not through an agent. In Claude Code you can also type `! <command>` in the prompt.
 
-## 3. Confirm it works
+## 3. Check a CLI after setting it up
+
+Each section below ends with this check. It works the same for any castmate:
 
 ```bash
 python3 "$CASTMATE" list                # your CLI should say "installed"
@@ -77,9 +79,9 @@ npm install -g @google/gemini-cli
 ```
 
 1. **Create a key** at [aistudio.google.com/apikey](https://aistudio.google.com/apikey). A free tier is available. Never paste the key into an agent chat, because it ends up in the transcript.
-2. **If you already tried Google sign-in,** that attempt saved `oauth-personal` and Gemini keeps retrying it. Open `~/.gemini/settings.json` and change **only** that value, keeping the rest of the file:
-   ```json
-   "security": { "auth": { "selectedType": "gemini-api-key" } }
+2. **If you already tried Google sign-in,** that attempt saved `oauth-personal` and Gemini keeps retrying it. Switch it to API-key auth. This one-liner changes only that setting and keeps the rest of `~/.gemini/settings.json`:
+   ```bash
+   python3 -c 'import json,pathlib;p=pathlib.Path.home()/".gemini/settings.json";d=json.loads(p.read_text()) if p.exists() else {};d.setdefault("security",{}).setdefault("auth",{})["selectedType"]="gemini-api-key";p.parent.mkdir(exist_ok=True);p.write_text(json.dumps(d,indent=2)+"\n")'
    ```
 3. **Give Gemini CLI the key,** either way:
    - **Shell profile:** add `export GEMINI_API_KEY="..."` to `~/.zshenv` (zsh) or `~/.bashrc` (bash). Open a new terminal and restart your agent.
@@ -111,7 +113,7 @@ python3 "$CASTMATE" test antigravity
 
 - **PATH:** the installer puts `agy` in `~/.local/bin` and appends a PATH line to `~/.zshrc` and `~/.profile`. That doesn't affect the terminal you're in. On **Linux with bash**, new terminals read `~/.bashrc` instead, so add `export PATH="$HOME/.local/bin:$PATH"` there too. If `~/.local/bin` was already on your PATH, delete the duplicate lines it added. Restart your agent afterward.
 - **Sign-in without a browser** (SSH or a headless box): `agy` prints a sign-in URL. Open it on any machine and paste the code back into the terminal.
-- **Picking a model:** the `antigravity` castmate uses `gemini-3.8-flash-high`. If `agy models` lists a model you prefer, add an alias in `~/.config/makerskills/castmate/config.json` (or `$MAKERSKILLS_CONFIG/castmate/config.json`):
+- **Picking a model:** the `antigravity` castmate uses `gemini-3.8-flash-high`. If `agy models` lists a model you prefer, add an alias in `~/.config/makerskills/castmate/config.json` (or `$MAKERSKILLS_CONFIG/castmate/config.json`). Create the folder first with `mkdir -p ~/.config/makerskills/castmate`:
   ```json
   {"castmates": {"agy-pro": {"tool": "antigravity", "model": "<id from agy models>", "note": "my Antigravity model"}}}
   ```
