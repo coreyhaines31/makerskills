@@ -49,6 +49,8 @@ If the request is vague, default to fan-out with two castmates. A named castmate
 1. Run `castmate.py list`. Show the user the castmates that matter for this job, not the whole table.
 2. Read `$CONFIG/casting.local.md` (if present), then `references/casting.md`. Recommend a cast with a one-line reason for each.
 3. Flag `unverified` adapters and `best-effort` read-only levels before dispatching. If an adapter has never been tested here, run `castmate.py test <name>` first.
+   - **`enforced`** means the CLI's own sandbox or permission settings stop file writes, shell commands, MCP tools, and repo-level config such as hooks. Claude, Codex, and Gemini have been tested against a repo that plants hooks and MCP servers.
+   - **`best-effort`** means the castmate is asked to stay read-only, but repo or user config can still give it more access. **Don't cast `best-effort` castmates on code the user didn't write** (a cloned repo, a contributor's PR) without saying so first.
 4. **Confirm the exact list before dispatch:** "Casting: **codex-sol-high**, **fable-high**, read-only. OK?" Always confirm `--write` runs, and name the working directory.
 
 Groups expand to their members, so show the expanded list. If the user names a group that doesn't exist, say so and don't guess.
@@ -70,8 +72,14 @@ python3 <skill-dir>/scripts/castmate.py run -c <castmates> -f <prompt-file> [--w
 
 - Castmates can take 2–15 minutes each. Tell the user the ETA, then run the command in the background if the host supports it, so you can keep talking while it runs. The script prints a `still running: … (pid, elapsed)` line every 30 seconds on stderr; pass those along when the user asks or a run goes long.
 - If a castmate goes well past its ETA, check the PID (`ps -p <pid>`) and tell the user. Don't wait silently.
-- `--write` takes exactly one castmate and lets it edit files in `--cwd`. Before running it, check that the working tree is committed or stashed, so the castmate's changes form a clean diff.
-- Exit codes: 0 means at least one castmate succeeded, 1 means all failed, 2 means a setup error (unknown castmate, missing binary, refused `--write`).
+- `--write` takes exactly one castmate. Before running it, check that the working tree is committed or stashed, so the castmate's changes form a clean diff.
+  - **Only Codex limits writes to `--cwd`**, using its workspace sandbox. Claude, Gemini, Antigravity, and the others run with the user's full file access and are only *asked* to stay in `--cwd`. Say this when you confirm a non-Codex write run.
+- Exit codes:
+  - **0:** at least one castmate succeeded.
+  - **1:** all castmates failed.
+  - **2:** setup error, such as an unknown castmate, a missing binary, a refused `--write`, or a bad path.
+  - **130 / 143:** interrupted by Ctrl+C or SIGTERM. Running castmates are stopped, queued ones never start, and `run.json` marks them `aborted` with their partial output.
+- `--out` must be a new or empty folder. A read-only run refuses an `--out` inside `--cwd`, so it can't write into the tree it reviews. Without `--out`, each run gets a unique folder under `$CONFIG/runs/`.
 
 ## Step 5 — Read results
 
@@ -102,7 +110,7 @@ Then offer the top 2–3 actions. If the user wants to act, plan before editing.
 
 ## Rounds mode
 
-The host runs the rounds itself. Each round is one `castmate.py run` call into its own folder (`--out <run>/round-N`).
+The host runs the rounds itself. Each round is one `castmate.py run` call into its own new folder (`--out <run>/round-N`, outside the reviewed repo).
 
 1. Round 1: the base prompt.
 2. Round N: the base prompt plus the **Round 2+ addendum** from `references/prompt-template.md`, with the prior outputs inlined (the most recent 8, about 1,500 words each).
@@ -122,7 +130,7 @@ A CLI that isn't listed can be added in `$CONFIG/config.json` with no code chang
 - `binary`, `args` (before the mode args), and `argsAfter` (last).
 - `prompt`: `stdin`, or `arg` together with `{prompt}` in `argsAfter`.
 - `model` and `effort` flag templates.
-- `readOnly`, with a `level` of `enforced` or `best-effort`, plus `args` and/or `env`.
+- `readOnly`, with a `level` of `enforced` or `best-effort`, plus `args` and/or `env`. Claim `enforced` only after a planted repo hook and MCP server fail to run. Overrides in `config.json` merge key by key, so `{"readOnly": {"env": {...}}}` keeps the shipped args.
 - `write` args.
 - `output: last_message` with `{last_message}`, for CLIs that write their final answer to a file.
 
