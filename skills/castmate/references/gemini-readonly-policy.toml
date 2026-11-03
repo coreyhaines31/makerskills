@@ -25,3 +25,15 @@ toolName = "save_memory"
 decision = "deny"
 priority = 999
 denyMessage = "castmate: read-only run"
+
+[[rule]]
+toolName = "exit_plan_mode"
+decision = "deny"
+priority = 999
+denyMessage = "castmate: read-only run"
+
+[[rule]]
+toolName = "invoke_agent"
+decision = "deny"
+priority = 999
+denyMessage = "castmate: read-only run"

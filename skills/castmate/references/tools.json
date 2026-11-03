@@ -106,7 +106,9 @@
           "--approval-mode",
           "plan",
           "--admin-policy",
-          "{refs}/gemini-readonly-policy.toml"
+          "{refs}/gemini-readonly-policy.toml",
+          "--allowed-mcp-server-names",
+          "castmate-none"
         ]
       },
       "write": {
