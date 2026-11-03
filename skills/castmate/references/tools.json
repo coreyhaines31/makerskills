@@ -40,7 +40,8 @@
           "--permission-mode",
           "acceptEdits"
         ]
-      }
+      },
+      "setup": "claude-code"
     },
     "codex": {
       "name": "OpenAI Codex",
@@ -81,7 +82,8 @@
           "--sandbox",
           "workspace-write"
         ]
-      }
+      },
+      "setup": "codex"
     },
     "gemini": {
       "name": "Gemini CLI",
@@ -117,7 +119,8 @@
           "--approval-mode",
           "auto_edit"
         ]
-      }
+      },
+      "setup": "gemini-cli"
     },
     "amp": {
       "name": "Amp CLI",
@@ -143,7 +146,8 @@
         "args": [
           "--dangerously-allow-all"
         ]
-      }
+      },
+      "setup": "other-clis"
     },
     "opencode": {
       "name": "OpenCode",
@@ -170,7 +174,8 @@
       },
       "write": {
         "args": []
-      }
+      },
+      "setup": "other-clis"
     },
     "cursor": {
       "name": "Cursor Agent",
@@ -201,7 +206,8 @@
         "args": [
           "--force"
         ]
-      }
+      },
+      "setup": "other-clis"
     },
     "kiro": {
       "name": "Kiro CLI",
@@ -230,7 +236,8 @@
         "args": [
           "--trust-all-tools"
         ]
-      }
+      },
+      "setup": "other-clis"
     },
     "antigravity": {
       "name": "Antigravity CLI",
@@ -270,7 +277,8 @@
         "--effort",
         "{effort}"
       ],
-      "promptSuffix": "\n\nIMPORTANT: Shell commands are unavailable in this session and any attempt ends the run with no answer. Use only file read and search tools. If the task needs a command, say so in your answer instead of running it."
+      "promptSuffix": "\n\nIMPORTANT: Shell commands are unavailable in this session and any attempt ends the run with no answer. Use only file read and search tools. If the task needs a command, say so in your answer instead of running it.",
+      "setup": "antigravity"
     }
   },
   "castmates": {
