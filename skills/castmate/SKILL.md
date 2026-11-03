@@ -79,7 +79,7 @@ python3 <skill-dir>/scripts/castmate.py run -c <castmates> -f <prompt-file> [--w
 
 - `success`: read `outputFile`.
 - `timeout`: `outputFile` holds partial output. Use it, labeled as partial.
-- `error` or `empty`: read `stderrFile`. Common causes are an expired login, a model the account can't use, or a flag a newer CLI version renamed. Report it and carry on with the rest.
+- `error` or `empty`: read `stderrFile`. Common causes are an expired login, a model the account can't use, or a flag a newer CLI version renamed. Report it and carry on with the rest. Antigravity returns `empty` whenever headless mode denies one of its tool calls, even after a long run, and drops the whole answer. If that happens, rerun with a narrower prompt or cast someone else.
 
 ## Step 6 — Present
 

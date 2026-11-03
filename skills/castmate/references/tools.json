@@ -227,7 +227,7 @@
       "name": "Antigravity CLI",
       "binary": "agy",
       "install": "https://antigravity.google/docs/cli/install",
-      "verified": false,
+      "verified": true,
       "args": [
         "--add-dir",
         "{cwd}",
@@ -244,14 +244,24 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "best-effort",
+        "level": "enforced",
         "args": [
+          "--mode",
+          "plan",
           "--sandbox"
         ]
       },
       "write": {
-        "args": []
-      }
+        "args": [
+          "--mode",
+          "accept-edits"
+        ]
+      },
+      "effort": [
+        "--effort",
+        "{effort}"
+      ],
+      "promptSuffix": "\n\nIMPORTANT: Shell commands are unavailable in this session and any attempt ends the run with no answer. Use only file read and search tools. If the task needs a command, say so in your answer instead of running it."
     }
   },
   "castmates": {
@@ -341,10 +351,10 @@
       "model": "auto",
       "note": "Kiro auto model"
     },
-    "antigravity-pro": {
+    "antigravity": {
       "tool": "antigravity",
-      "model": "gemini-3.1-pro-high",
-      "note": "Gemini 3.1 Pro via Antigravity"
+      "model": "gemini-3.8-flash-high",
+      "note": "Gemini 3.8 Flash (high) via Antigravity"
     }
   },
   "groups": {
