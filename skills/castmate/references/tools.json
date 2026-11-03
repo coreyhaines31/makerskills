@@ -355,6 +355,11 @@
       "tool": "antigravity",
       "model": "gemini-3.8-flash-high",
       "note": "Gemini 3.8 Flash (high) via Antigravity"
+    },
+    "gemini-argon": {
+      "tool": "gemini",
+      "model": "gemini-4-argon",
+      "note": "Gemini 4 Argon"
     }
   },
   "groups": {
@@ -365,7 +370,7 @@
     "wide": [
       "fable-high",
       "codex-sol-high",
-      "gemini-pro"
+      "gemini-argon"
     ]
   },
   "defaults": {
