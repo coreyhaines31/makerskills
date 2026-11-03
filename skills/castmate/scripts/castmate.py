@@ -42,6 +42,8 @@ RESERVED_LABELS = {"prompt", "run"}
 
 _active = {}
 _active_lock = threading.Lock()
+_abort = threading.Event()
+_stop_signal = [signal.SIGINT]
 
 
 class CastmateError(Exception):
@@ -197,16 +199,22 @@ def execute(inv, out_dir, label, timeout):
     start = time.monotonic()
     timed_out = False
     with open(raw_path, "wb") as out, open(err_path, "wb") as err:
-        proc = subprocess.Popen(
-            inv["argv"],
-            cwd=inv["cwd"],
-            env=inv["env"],
-            stdin=subprocess.PIPE if inv["stdin"] is not None else subprocess.DEVNULL,
-            stdout=out,
-            stderr=err,
-            start_new_session=True,
-        )
+        # Check-and-spawn under the lock so an interrupt can't miss a castmate
+        # that starts between the abort and the kill sweep.
         with _active_lock:
+            if _abort.is_set():
+                raw_path.unlink()
+                err_path.unlink()
+                return {"status": "aborted"}
+            proc = subprocess.Popen(
+                inv["argv"],
+                cwd=inv["cwd"],
+                env=inv["env"],
+                stdin=subprocess.PIPE if inv["stdin"] is not None else subprocess.DEVNULL,
+                stdout=out,
+                stderr=err,
+                start_new_session=True,
+            )
             _active[label] = (proc, start)
         print(f"castmate: started {label} (pid {proc.pid})", file=sys.stderr, flush=True)
         if inv["stdin"] is not None:
@@ -237,8 +245,13 @@ def execute(inv, out_dir, label, timeout):
     stderr_text = ANSI_RE.sub("", err_path.read_text(errors="replace"))
     err_path.write_text(stderr_text)
 
+    output_file = out_dir / f"{label}.md"
+    output_file.write_text(output)
+
     if timed_out:
         status = "timeout"
+    elif _abort.is_set() and proc.returncode != 0:
+        status = "aborted"
     elif proc.returncode != 0:
         status = "error"
     elif not output.strip():
@@ -251,7 +264,7 @@ def execute(inv, out_dir, label, timeout):
         "pid": proc.pid,
         "durationS": round(time.monotonic() - start, 1),
         "words": len(output.split()),
-        "output": output,
+        "outputFile": str(output_file),
         "stderrFile": str(err_path),
     }
 
@@ -288,16 +301,20 @@ def dispatch(reg, castmates, prompt, out_dir, write, cwd, timeout):
         aborted = True
         print("castmate: interrupted, stopping castmates", file=sys.stderr, flush=True)
         with _active_lock:
+            _abort.set()
             procs = [p for p, _ in _active.values()]
         for proc in procs:
             kill_group(proc, signal.SIGTERM)
-        wait(futures, timeout=KILL_GRACE_S)
+        try:
+            wait(futures, timeout=KILL_GRACE_S)
+        except KeyboardInterrupt:
+            pass
         with _active_lock:
             for proc, _ in _active.values():
                 kill_group(proc, signal.SIGKILL)
     finally:
         stop.set()
-        pool.shutdown(wait=not aborted, cancel_futures=True)
+        pool.shutdown(wait=True, cancel_futures=True)
 
     for future, cm in futures.items():
         tool = reg["tools"][cm["tool"]]
@@ -312,10 +329,7 @@ def dispatch(reg, castmates, prompt, out_dir, write, cwd, timeout):
             "command": invocations[cm["label"]]["command"],
         }
         if future.done() and not future.cancelled() and future.exception() is None:
-            result = future.result()
-            output_file = out_dir / f"{cm['label']}.md"
-            output_file.write_text(result.pop("output"))
-            report.update(result, outputFile=str(output_file))
+            report.update(future.result())
         else:
             exc = future.exception() if future.done() and not future.cancelled() else None
             report.update(status="aborted" if exc is None else "error", error=str(exc) if exc else None)
@@ -410,6 +424,8 @@ def cmd_run(reg, args):
         for r in manifest["castmates"]:
             print(f"{r['status']:<8} {r['label']:<20} {r.get('durationS', '-')}s  {r.get('outputFile', r.get('error', ''))}")
         print(f"\nmanifest: {out_dir / 'run.json'}")
+    if manifest["aborted"]:
+        return 128 + int(_stop_signal[0])
     return 0 if any(r["status"] == "success" for r in manifest["castmates"]) else 1
 
 
@@ -429,6 +445,12 @@ def main(argv=None):
     p_run.add_argument("--cwd", help="directory the castmates work in (default: current)")
     p_run.add_argument("--json", action="store_true", help="print the manifest as JSON")
     args = parser.parse_args(argv)
+
+    def on_signal(signum, _frame):
+        _stop_signal[0] = signum
+        raise KeyboardInterrupt
+    for sig in (signal.SIGTERM, signal.SIGHUP):
+        signal.signal(sig, on_signal)
 
     try:
         reg = load_registry()

@@ -3,6 +3,7 @@
 import json
 import os
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -48,6 +49,7 @@ class CastmateTest(unittest.TestCase):
             },
             "castmates": {"e": {"tool": "echo"}, "prompt": {"tool": "echo"}},
             "groups": {},
+            "defaults": {"maxParallel": 1},
         }
         (self.tmp / "castmate").mkdir()
         (self.tmp / "castmate" / "config.json").write_text(json.dumps(config))
@@ -125,6 +127,48 @@ class CastmateTest(unittest.TestCase):
         self.assertFalse((self.tmp / "o3").exists())
         _, manifest = self.run_json("-c", "writeonly", "--write")
         self.assertEqual(manifest["castmates"][0]["status"], "success")
+
+    def start_background(self, *args):
+        env = {**os.environ, "MAKERSKILLS_CONFIG": str(self.tmp), "FAKE_PIDFILE": str(self.pidfile)}
+        proc = subprocess.Popen([sys.executable, str(SCRIPT), "run", "-f", str(self.prompt), "--out", str(self.tmp / "out"), *args],
+                                env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        deadline = time.time() + 20
+        while not self.pidfile.exists() and time.time() < deadline:
+            time.sleep(0.1)
+        self.assertTrue(self.pidfile.exists(), "castmate never started")
+        time.sleep(0.3)
+        return proc
+
+    def assert_dead(self, pid):
+        for _ in range(50):
+            try:
+                os.kill(pid, 0)
+            except ProcessLookupError:
+                return
+            time.sleep(0.1)
+        self.fail(f"pid {pid} still alive")
+
+    def test_sigterm_reaps_castmates_and_exits_143(self):
+        proc = self.start_background("-c", "hang", "--timeout", "60")
+        grandchild = int(self.pidfile.read_text())
+        proc.send_signal(signal.SIGTERM)
+        proc.communicate(timeout=30)
+        self.assertEqual(proc.returncode, 143)
+        self.assert_dead(grandchild)
+        manifest = json.loads((self.tmp / "out" / "run.json").read_text())
+        self.assertTrue(manifest["aborted"])
+        self.assertEqual(manifest["castmates"][0]["status"], "aborted")
+        self.assertIn("partial line", Path(manifest["castmates"][0]["outputFile"]).read_text())
+
+    def test_interrupt_does_not_start_queued_castmates(self):
+        proc = self.start_background("-c", "hang,e", "--timeout", "60")
+        proc.send_signal(signal.SIGINT)
+        proc.communicate(timeout=30)
+        self.assertEqual(proc.returncode, 130)
+        reports = json.loads((self.tmp / "out" / "run.json").read_text())["castmates"]
+        self.assertEqual([r["status"] for r in reports], ["aborted", "aborted"])
+        self.assertNotIn("pid", reports[1])
+        self.assertFalse((self.tmp / "out" / "e.raw").exists())
 
     def test_write_mode_uses_write_args(self):
         _, manifest = self.run_json("-c", "e", "--write")
