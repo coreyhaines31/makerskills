@@ -3,6 +3,7 @@
 import json
 import os
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -11,6 +12,7 @@ import unittest
 from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parent / "castmate.py"
+sys.dont_write_bytecode = True
 
 FAKE_CLI = r'''#!/usr/bin/env python3
 import os, subprocess, sys, time
@@ -48,6 +50,7 @@ class CastmateTest(unittest.TestCase):
             },
             "castmates": {"e": {"tool": "echo"}, "prompt": {"tool": "echo"}},
             "groups": {},
+            "defaults": {"maxParallel": 1},
         }
         (self.tmp / "castmate").mkdir()
         (self.tmp / "castmate" / "config.json").write_text(json.dumps(config))
@@ -79,6 +82,12 @@ class CastmateTest(unittest.TestCase):
         labels = [r["label"] for r in manifest["castmates"]]
         self.assertEqual(labels, ["e", "e-2"])
         self.assertNotEqual(manifest["castmates"][0]["outputFile"], manifest["castmates"][1]["outputFile"])
+
+    def test_labels_stay_unique_when_a_name_looks_like_a_suffix(self):
+        sys.path.insert(0, str(SCRIPT.parent))
+        import castmate
+        labels = [c["label"] for c in castmate.label_castmates([{"castmate": "x"}, {"castmate": "x-2"}, {"castmate": "x"}])]
+        self.assertEqual(len(set(labels)), 3, labels)
 
     def test_raw_tool_model_passthrough(self):
         _, manifest = self.run_json("-c", "echo:brand-new-model")
@@ -125,6 +134,97 @@ class CastmateTest(unittest.TestCase):
         self.assertFalse((self.tmp / "o3").exists())
         _, manifest = self.run_json("-c", "writeonly", "--write")
         self.assertEqual(manifest["castmates"][0]["status"], "success")
+
+    def start_background(self, *args):
+        env = {**os.environ, "MAKERSKILLS_CONFIG": str(self.tmp), "FAKE_PIDFILE": str(self.pidfile)}
+        proc = subprocess.Popen([sys.executable, str(SCRIPT), "run", "-f", str(self.prompt), "--out", str(self.tmp / "out"), *args],
+                                env=env, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        deadline = time.time() + 20
+        while not self.pidfile.exists() and time.time() < deadline:
+            time.sleep(0.1)
+        self.assertTrue(self.pidfile.exists(), "castmate never started")
+        time.sleep(0.3)
+        return proc
+
+    def assert_dead(self, pid):
+        for _ in range(50):
+            try:
+                os.kill(pid, 0)
+            except ProcessLookupError:
+                return
+            time.sleep(0.1)
+        self.fail(f"pid {pid} still alive")
+
+    def test_sigterm_reaps_castmates_and_exits_143(self):
+        proc = self.start_background("-c", "hang", "--timeout", "60")
+        grandchild = int(self.pidfile.read_text())
+        proc.send_signal(signal.SIGTERM)
+        proc.communicate(timeout=30)
+        self.assertEqual(proc.returncode, 143)
+        self.assert_dead(grandchild)
+        manifest = json.loads((self.tmp / "out" / "run.json").read_text())
+        self.assertTrue(manifest["aborted"])
+        self.assertEqual(manifest["castmates"][0]["status"], "aborted")
+        self.assertIn("partial line", Path(manifest["castmates"][0]["outputFile"]).read_text())
+
+    def test_signal_before_dispatch_exits_cleanly(self):
+        env = {**os.environ, "MAKERSKILLS_CONFIG": str(self.tmp)}
+        proc = subprocess.Popen([sys.executable, str(SCRIPT), "run", "-c", "e", "-f", "-"], env=env,
+                                stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        time.sleep(1)
+        proc.send_signal(signal.SIGTERM)
+        _, err = proc.communicate(timeout=10)
+        self.assertEqual(proc.returncode, 143)
+        self.assertNotIn("Traceback", err)
+
+    def test_interrupt_does_not_start_queued_castmates(self):
+        proc = self.start_background("-c", "hang,e", "--timeout", "60")
+        proc.send_signal(signal.SIGINT)
+        proc.communicate(timeout=30)
+        self.assertEqual(proc.returncode, 130)
+        reports = json.loads((self.tmp / "out" / "run.json").read_text())["castmates"]
+        self.assertEqual([r["status"] for r in reports], ["aborted", "aborted"])
+        self.assertNotIn("pid", reports[1])
+        self.assertFalse((self.tmp / "out" / "e.raw").exists())
+
+    def test_partial_read_only_override_keeps_shipped_args(self):
+        config = json.loads((self.tmp / "castmate" / "config.json").read_text())
+        config["tools"]["echo"]["readOnly"] = {"env": {"EXTRA": "1"}}
+        (self.tmp / "castmate" / "config.json").write_text(json.dumps(config))
+        sys.path.insert(0, str(SCRIPT.parent))
+        import importlib, castmate
+        os.environ["MAKERSKILLS_CONFIG"] = str(self.tmp)
+        try:
+            castmate = importlib.reload(castmate)
+            castmate.REFS = self.tmp / "refs"
+            (self.tmp / "refs").mkdir()
+            shipped = {"tools": {"echo": {"binary": "x", "readOnly": {"level": "enforced", "args": ["--ro"]}}},
+                       "castmates": {}, "groups": {}, "defaults": {}}
+            (self.tmp / "refs" / "tools.json").write_text(json.dumps(shipped))
+            ro = castmate.load_registry()["tools"]["echo"]["readOnly"]
+        finally:
+            del os.environ["MAKERSKILLS_CONFIG"]
+        self.assertEqual(ro["args"], ["--ro"])
+        self.assertEqual(ro["level"], "enforced")
+        self.assertEqual(ro["env"], {"EXTRA": "1"})
+
+    def test_test_command_rejects_answers_that_only_contain_ok(self):
+        proc = self.run_cli("test", "e")
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("FAIL e", proc.stdout)
+
+    def test_run_paths_are_validated_before_dispatch(self):
+        cases = [
+            (["-f", str(self.tmp / "missing.md")], "can't read prompt file"),
+            (["-f", str(self.prompt), "--cwd", str(self.tmp / "nope")], "is not a directory"),
+            (["-f", str(self.prompt), "--out", str(self.tmp)], "new or empty directory"),
+            (["-f", str(self.prompt), "--cwd", str(self.tmp), "--out", str(self.tmp / "inside")], "inside --cwd"),
+        ]
+        for extra, message in cases:
+            proc = self.run_cli("run", "-c", "e", *extra)
+            self.assertEqual(proc.returncode, 2, extra)
+            self.assertIn(message, proc.stderr)
+            self.assertNotIn("Traceback", proc.stderr)
 
     def test_write_mode_uses_write_args(self):
         _, manifest = self.run_json("-c", "e", "--write")

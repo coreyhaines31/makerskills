@@ -17,6 +17,7 @@ import argparse
 import json
 import os
 import re
+import secrets
 import shlex
 import shutil
 import signal
@@ -35,13 +36,19 @@ CONFIG_DIR = Path(os.environ.get("MAKERSKILLS_CONFIG") or Path.home() / ".config
 
 KILL_GRACE_S = 15
 HEARTBEAT_S = 30
-ENV_DENYLIST = {"NODE_OPTIONS", "NODE_EXTRA_CA_CERTS", "LD_PRELOAD", "LD_LIBRARY_PATH", "LD_AUDIT", "ELECTRON_RUN_AS_NODE"}
+ENV_DENYLIST = {
+    "NODE_OPTIONS", "NODE_EXTRA_CA_CERTS", "LD_PRELOAD", "LD_LIBRARY_PATH", "LD_AUDIT", "ELECTRON_RUN_AS_NODE",
+    "PYTHONPATH", "PYTHONSTARTUP", "RUBYOPT", "PERL5OPT", "BASH_ENV", "ENV", "GIT_SSH_COMMAND", "GIT_EXTERNAL_DIFF",
+}
 ANSI_RE = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)")
 PLACEHOLDER_RE = re.compile(r"\{(\w+)\}")
 RESERVED_LABELS = {"prompt", "run"}
+OK_RE = re.compile(r"[`*\"']*OK[.!]?[`*\"']*")
 
 _active = {}
 _active_lock = threading.Lock()
+_abort = threading.Event()
+_stop_signal = [signal.SIGINT]
 
 
 class CastmateError(Exception):
@@ -57,7 +64,12 @@ def load_registry():
         except json.JSONDecodeError as exc:
             raise CastmateError(f"{user_file} is not valid JSON: {exc}")
         for key, tool in user.get("tools", {}).items():
-            data["tools"][key] = {**data["tools"].get(key, {}), **tool}
+            base = data["tools"].get(key, {})
+            merged = {**base, **tool}
+            for mode in ("readOnly", "write"):
+                if isinstance(base.get(mode), dict) and isinstance(tool.get(mode), dict):
+                    merged[mode] = {**base[mode], **tool[mode]}
+            data["tools"][key] = merged
         for section in ("castmates", "groups"):
             data[section].update(user.get(section, {}))
         data["defaults"].update(user.get("defaults", {}))
@@ -103,13 +115,17 @@ def read_only_level(tool):
 
 
 def label_castmates(castmates):
-    seen = {}
+    used = set()
     for cm in castmates:
         base = re.sub(r"[^A-Za-z0-9._-]", "_", cm["castmate"])
         if base in RESERVED_LABELS:
             base += "_castmate"
-        seen[base] = seen.get(base, 0) + 1
-        cm["label"] = base if seen[base] == 1 else f"{base}-{seen[base]}"
+        label, n = base, 1
+        while label in used:
+            n += 1
+            label = f"{base}-{n}"
+        used.add(label)
+        cm["label"] = label
     return castmates
 
 
@@ -135,6 +151,8 @@ def build_invocation(reg, cm, prompt, out_dir, write, cwd, timeout):
     if not binary:
         raise CastmateError(f"{cm['castmate']}: `{tool['binary']}` not found on PATH (install: {tool.get('install', '?')})")
     mode = tool.get("write") if write else tool.get("readOnly")
+    if mode is not None and not write and mode.get("level") not in ("enforced", "best-effort"):
+        raise CastmateError(f"{cm['castmate']}: {tool['name']} read-only level is '{mode.get('level')}'; set it to enforced or best-effort")
     if mode is None:
         raise CastmateError(f"{cm['castmate']}: {tool['name']} has no {'write' if write else 'read-only'} mode configured")
 
@@ -197,16 +215,22 @@ def execute(inv, out_dir, label, timeout):
     start = time.monotonic()
     timed_out = False
     with open(raw_path, "wb") as out, open(err_path, "wb") as err:
-        proc = subprocess.Popen(
-            inv["argv"],
-            cwd=inv["cwd"],
-            env=inv["env"],
-            stdin=subprocess.PIPE if inv["stdin"] is not None else subprocess.DEVNULL,
-            stdout=out,
-            stderr=err,
-            start_new_session=True,
-        )
+        # Check-and-spawn under the lock so an interrupt can't miss a castmate
+        # that starts between the abort and the kill sweep.
         with _active_lock:
+            if _abort.is_set():
+                raw_path.unlink()
+                err_path.unlink()
+                return {"status": "aborted"}
+            proc = subprocess.Popen(
+                inv["argv"],
+                cwd=inv["cwd"],
+                env=inv["env"],
+                stdin=subprocess.PIPE if inv["stdin"] is not None else subprocess.DEVNULL,
+                stdout=out,
+                stderr=err,
+                start_new_session=True,
+            )
             _active[label] = (proc, start)
         print(f"castmate: started {label} (pid {proc.pid})", file=sys.stderr, flush=True)
         if inv["stdin"] is not None:
@@ -227,18 +251,25 @@ def execute(inv, out_dir, label, timeout):
             _active.pop(label, None)
 
     output = ANSI_RE.sub("", raw_path.read_text(errors="replace"))
-    last = inv["last_message"]
-    if last and Path(last).exists() and Path(last).read_text().strip():
-        output = Path(last).read_text()
-        Path(last).unlink()
+    last = Path(inv["last_message"]) if inv["last_message"] else None
+    if last and last.exists():
+        last_text = ANSI_RE.sub("", last.read_text(errors="replace"))
+        last.unlink()
+        if last_text.strip():
+            output = last_text
     if timed_out:
         output += f"\n\n[castmate: timed out after {timeout}s; output above is partial]\n"
     raw_path.unlink()
     stderr_text = ANSI_RE.sub("", err_path.read_text(errors="replace"))
     err_path.write_text(stderr_text)
 
+    output_file = out_dir / f"{label}.md"
+    output_file.write_text(output)
+
     if timed_out:
         status = "timeout"
+    elif _abort.is_set() and proc.returncode != 0:
+        status = "aborted"
     elif proc.returncode != 0:
         status = "error"
     elif not output.strip():
@@ -251,7 +282,7 @@ def execute(inv, out_dir, label, timeout):
         "pid": proc.pid,
         "durationS": round(time.monotonic() - start, 1),
         "words": len(output.split()),
-        "output": output,
+        "outputFile": str(output_file),
         "stderrFile": str(err_path),
     }
 
@@ -288,16 +319,20 @@ def dispatch(reg, castmates, prompt, out_dir, write, cwd, timeout):
         aborted = True
         print("castmate: interrupted, stopping castmates", file=sys.stderr, flush=True)
         with _active_lock:
+            _abort.set()
             procs = [p for p, _ in _active.values()]
         for proc in procs:
             kill_group(proc, signal.SIGTERM)
-        wait(futures, timeout=KILL_GRACE_S)
+        try:
+            wait(futures, timeout=KILL_GRACE_S)
+        except KeyboardInterrupt:
+            pass
         with _active_lock:
             for proc, _ in _active.values():
                 kill_group(proc, signal.SIGKILL)
     finally:
         stop.set()
-        pool.shutdown(wait=not aborted, cancel_futures=True)
+        pool.shutdown(wait=True, cancel_futures=True)
 
     for future, cm in futures.items():
         tool = reg["tools"][cm["tool"]]
@@ -312,10 +347,7 @@ def dispatch(reg, castmates, prompt, out_dir, write, cwd, timeout):
             "command": invocations[cm["label"]]["command"],
         }
         if future.done() and not future.cancelled() and future.exception() is None:
-            result = future.result()
-            output_file = out_dir / f"{cm['label']}.md"
-            output_file.write_text(result.pop("output"))
-            report.update(result, outputFile=str(output_file))
+            report.update(future.result())
         else:
             exc = future.exception() if future.done() and not future.cancelled() else None
             report.update(status="aborted" if exc is None else "error", error=str(exc) if exc else None)
@@ -367,11 +399,13 @@ def cmd_list(reg, as_json):
 def cmd_test(reg, specs):
     castmates = label_castmates(expand(specs, reg))
     with tempfile.TemporaryDirectory(prefix="castmate-test-") as tmp:
-        manifest = dispatch(reg, castmates, "Reply with exactly: OK", Path(tmp), False, os.getcwd(), 120)
+        work = Path(tmp) / "work"
+        work.mkdir()
+        manifest = dispatch(reg, castmates, "Reply with exactly: OK", Path(tmp) / "out", False, str(work), 120)
         failed = 0
         for r in manifest["castmates"]:
             text = Path(r["outputFile"]).read_text() if r.get("outputFile") else ""
-            ok = r["status"] == "success" and "OK" in text and "User instructions" not in text
+            ok = r["status"] == "success" and OK_RE.fullmatch(text.strip()) is not None
             if not ok:
                 failed += 1
                 err = Path(r["stderrFile"]).read_text().strip()[:300] if r.get("stderrFile") else r.get("error", "")
@@ -383,7 +417,10 @@ def cmd_test(reg, specs):
 
 def cmd_run(reg, args):
     castmates = label_castmates(expand(args.castmates, reg))
-    prompt = Path(args.file).read_text() if args.file != "-" else sys.stdin.read()
+    try:
+        prompt = Path(args.file).read_text() if args.file != "-" else sys.stdin.read()
+    except (OSError, UnicodeDecodeError) as exc:
+        raise CastmateError(f"can't read prompt file {args.file}: {exc}")
     if not prompt.strip():
         raise CastmateError("prompt is empty")
     if args.write and len(castmates) > 1:
@@ -396,12 +433,19 @@ def cmd_run(reg, args):
             print(f"castmate: warning: {tool['name']} read-only is {read_only_level(tool)}, not enforced", file=sys.stderr)
 
     timeout = args.timeout or int(reg["defaults"].get("timeout", 540))
+    cwd = Path(args.cwd).expanduser().resolve() if args.cwd else Path.cwd()
+    if not cwd.is_dir():
+        raise CastmateError(f"--cwd {cwd} is not a directory")
     if args.out:
         out_dir = Path(args.out).expanduser().resolve()
+        if out_dir.exists() and (not out_dir.is_dir() or any(out_dir.iterdir())):
+            raise CastmateError(f"--out {out_dir} must be a new or empty directory")
+        if not args.write and (out_dir == cwd or cwd in out_dir.parents):
+            raise CastmateError("--out is inside --cwd; a read-only run must not write into the tree it reviews")
     else:
         stamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-        out_dir = CONFIG_DIR / "runs" / f"{stamp}-{slugify(prompt.strip().splitlines()[0])}"
-    cwd = str(Path(args.cwd).expanduser().resolve()) if args.cwd else os.getcwd()
+        out_dir = CONFIG_DIR / "runs" / f"{stamp}-{slugify(prompt.strip().splitlines()[0])}-{secrets.token_hex(3)}"
+    cwd = str(cwd)
 
     manifest = dispatch(reg, castmates, prompt, out_dir, args.write, cwd, timeout)
     if args.json:
@@ -410,6 +454,8 @@ def cmd_run(reg, args):
         for r in manifest["castmates"]:
             print(f"{r['status']:<8} {r['label']:<20} {r.get('durationS', '-')}s  {r.get('outputFile', r.get('error', ''))}")
         print(f"\nmanifest: {out_dir / 'run.json'}")
+    if manifest["aborted"]:
+        return 128 + int(_stop_signal[0])
     return 0 if any(r["status"] == "success" for r in manifest["castmates"]) else 1
 
 
@@ -430,6 +476,12 @@ def main(argv=None):
     p_run.add_argument("--json", action="store_true", help="print the manifest as JSON")
     args = parser.parse_args(argv)
 
+    def on_signal(signum, _frame):
+        _stop_signal[0] = signum
+        raise KeyboardInterrupt
+    for sig in (signal.SIGTERM, signal.SIGHUP):
+        signal.signal(sig, on_signal)
+
     try:
         reg = load_registry()
         if args.command == "list":
@@ -440,6 +492,9 @@ def main(argv=None):
     except CastmateError as exc:
         print(f"castmate: {exc}", file=sys.stderr)
         return 2
+    except KeyboardInterrupt:
+        print("castmate: interrupted", file=sys.stderr)
+        return 128 + int(_stop_signal[0])
 
 
 if __name__ == "__main__":

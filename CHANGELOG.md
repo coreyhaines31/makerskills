@@ -17,6 +17,19 @@ All notable changes to `makerskills` are documented here. Format loosely follows
   - each run writes a `run.json` manifest.
 
   Adapters are data, not code. Claude, Codex, Gemini CLI (API key; read-only enforced by an admin-tier policy, because plan mode alone let writes through), and Antigravity are verified; Amp, OpenCode, Cursor, and Kiro are ported but unverified. Personal aliases, groups, and adapters go in `$MAKERSKILLS_CONFIG/castmate/config.json`, and any model ID passes straight through (`-c codex:gpt-5.7@high`), so a new model release needs no update. The casting guide defers to the user's own dated `casting.local.md`. Six review presets are included: bughunt, security, regression, contracts, invariants, hotspots. Adapted from [counselors](https://github.com/aarondfrancis/counselors) by Aaron Francis (MIT). That repo is unmaintained, and this port fixes its open bugs: orphaned child processes, timeouts that wrote no output, base-URL env vars being dropped, and duplicate tool output colliding. 22 → 23 skills.
+- **`castmate` hardening** (#63), from a castmate self-review (codex-sol-high + gemini-argon), with each finding reproduced before fixing:
+  - **Claude:** read-only no longer runs repo hooks. A planted `SessionStart` hook ran under the old flags; it's blocked by `--safe-mode --setting-sources user`.
+  - **Codex:** read-only no longer loads user MCP servers or ChatGPT app connectors (`--ignore-user-config`). Live web search moves to a `codex-research` alias.
+  - **Gemini:** read-only blocks MCP tools and the plan-mode escape.
+  - **Downgraded to `best-effort`:** Antigravity, Amp, OpenCode, Cursor, and Kiro, until each one blocks repo and MCP config.
+  - **SIGTERM** now stops castmates like Ctrl+C does. Queued castmates never start after an abort, and interrupted runs exit 128+signal.
+  - **Smaller script fixes:**
+    - output labels stay unique;
+    - `config.json` overrides of `readOnly`/`write` merge key by key;
+    - `test` runs in an empty folder and needs a bare `OK`;
+    - `--out` must be new or empty, and outside the tree a read-only run reviews;
+    - more code-injection env vars are stripped.
+  - **SKILL.md** now says what `enforced` covers, and that only Codex limits writes to `--cwd`.
 - **ARCHITECTURE: skills that ship scripts.** Standard library only, no state stored next to the script, shipped defaults kept read-only in `references/`.
 
 ### Changed

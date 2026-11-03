@@ -4,6 +4,8 @@ Castmates run in the same working directory as the host and can read files thems
 
 **Inline diffs; don't ask castmates to run git.** Claude castmates have no shell in read-only mode (only file read, search, and web), so they can't run `git diff`. Paste the diff into the prompt instead.
 
+**Name the project's conventions files.** Read-only Claude castmates run in safe mode and don't load `CLAUDE.md`, and Codex read-only skips the user's `config.toml`. List `CLAUDE.md` / `AGENTS.md` (and any style guide) under Files when conventions matter.
+
 ## Delegate (one castmate does a job)
 
 ```markdown

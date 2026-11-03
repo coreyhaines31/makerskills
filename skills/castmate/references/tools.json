@@ -26,7 +26,13 @@
           "Read,Glob,Grep,WebFetch,WebSearch",
           "--allowedTools",
           "Read,Glob,Grep,WebFetch,WebSearch",
-          "--strict-mcp-config"
+          "--strict-mcp-config",
+          "--safe-mode",
+          "--setting-sources",
+          "user",
+          "--permission-prompts",
+          "none",
+          "--no-session-persistence"
         ]
       },
       "write": {
@@ -44,8 +50,6 @@
       "args": [
         "exec",
         "--skip-git-repo-check",
-        "-c",
-        "web_search=live",
         "-o",
         "{last_message}"
       ],
@@ -66,7 +70,10 @@
         "level": "enforced",
         "args": [
           "--sandbox",
-          "read-only"
+          "read-only",
+          "--ignore-user-config",
+          "-c",
+          "features.apps=false"
         ]
       },
       "write": {
@@ -100,7 +107,9 @@
           "--approval-mode",
           "plan",
           "--admin-policy",
-          "{refs}/gemini-readonly-policy.toml"
+          "{refs}/gemini-readonly-policy.toml",
+          "--allowed-mcp-server-names",
+          "castmate-none"
         ]
       },
       "write": {
@@ -124,7 +133,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "args": [
           "--settings-file",
           "{refs}/amp-readonly-settings.json"
@@ -154,7 +163,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "env": {
           "OPENCODE_PERMISSION": "{\"*\":\"deny\",\"bash\":\"deny\",\"edit\":\"deny\",\"read\":{\"*\":\"allow\",\"*.env\":\"deny\",\"*.env.*\":\"deny\",\"*.env.example\":\"allow\"},\"glob\":\"allow\",\"grep\":\"allow\",\"list\":\"allow\",\"webfetch\":\"allow\",\"websearch\":\"allow\",\"codesearch\":\"allow\",\"lsp\":\"allow\"}"
         }
@@ -211,7 +220,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "args": [
           "--trust-tools",
           "fs_read,fs_list,fs_search,web_search,web_fetch"
@@ -244,7 +253,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "args": [
           "--mode",
           "plan",
@@ -360,6 +369,16 @@
       "tool": "gemini",
       "model": "gemini-4-argon",
       "note": "Gemini 4 Argon"
+    },
+    "codex-research": {
+      "tool": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "high",
+      "extraArgs": [
+        "-c",
+        "web_search=live"
+      ],
+      "note": "GPT-5.6 Sol with live web search"
     }
   },
   "groups": {
