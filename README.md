@@ -65,7 +65,7 @@ Each skill is a workflow doc — you can invoke via `/decide` OR read the SKILL.
 
 It'll read your clipboard, strip formatting, warn if over 280 chars, and copy back the cleaned output. First invocation may prompt you to install `pbcopy`-adjacent deps if missing. No config file needed — this is a pure utility.
 
-**5. Now branch out.** Skim [The 22 skills](#the-22-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
+**5. Now branch out.** Skim [The 23 skills](#the-23-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
 
 ---
 
@@ -87,6 +87,7 @@ Routing table for common operator jobs. Match your intent → skill.
 | Extract notes / highlights / summaries from a book | [`read-book`](./skills/read-book/SKILL.md) |
 | Extract a transcript or key moments from a video | [`watch-video`](./skills/watch-video/SKILL.md) |
 | Turn a call transcript or client message into issues + reply | [`ingest`](./skills/ingest/SKILL.md) |
+| Hand a task to Codex / Gemini / another model, or get second opinions from several | [`castmate`](./skills/castmate/SKILL.md) |
 | Fetch any social post by URL as structured data | [`social-fetch`](./skills/social-fetch/SKILL.md) |
 | Plan / draft social content rotation across a portfolio | [`jab-hook`](./skills/jab-hook/SKILL.md) |
 | Draft, update, convert, or export a slide deck | [`slide-deck`](./skills/slide-deck/SKILL.md) |
@@ -102,7 +103,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 
 ---
 
-## The 22 skills
+## The 23 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -119,7 +120,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 | [`domain`](./skills/domain/SKILL.md) | 11-step .com domain hunt on Laura Roeder's "availability-first, never fall in love with a name" methodology. Multi-tool ensemble: Vercel CLI + whois (per-TLD) + Domainr API + Namecheap API + `rdap.org` (modern TLDs) + `agent-browser` for USPTO trademark screening + aftermarket click-throughs (HugeDomains / Afternic / Sedo / Dan). Handles bare-word + prefix/suffix brainstorming, budget filtering, negotiation guidance, and social handle checks. |
 | [`deep-research`](./skills/deep-research/SKILL.md) | Multi-source research with citations + archive. WebSearch, WebFetch, `agent-browser`, `/last30days`, memory. |
 | [`unstuck`](./skills/unstuck/SKILL.md) | The roadblock antidote. Classifies what kind of "no" you hit (assumption / framing / gatekeeper / tool / resource / physics), runs targeted lateral-thinking techniques from a 10-technique inventory, 10-angle minimum before evaluating. Agents run it on themselves before reporting any dead end. Upstream of `decide`. |
-| [`maker-council`](./skills/maker-council/SKILL.md) | Simulated personal board of advisors — Fried, Musk, Bezos, Jensen, Iger, Graham, Naval, Blakely, Cohen. Seats 3–5 by question type with a designated dissenter, grounds takes in documented frameworks (optional live-research pass), maps the disagreements, synthesizes a call. Custom members via config dir. |
+| [`maker-council`](./skills/maker-council/SKILL.md) | Simulated personal board of advisors — Fried, Musk, Bezos, Jensen, Iger, Graham, Naval, Blakely, Cohen. Seats 3–5 by question type with a designated dissenter; members open blind, debate, and vote on a draft, grounded in documented frameworks (optional live-research pass). Returns scored options, the spread, the dissent, and a call; every round is kept. Custom members via config dir. |
 
 ### Knowledge & content consumption
 | Skill | What |
@@ -145,6 +146,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 | [`company-cfo`](./skills/company-cfo/SKILL.md) | Company / agency CFO workflow — monthly snapshots, weekly cash pulse, scenario projector. Transaction-sum EOM methodology, categorization discipline, forward forecasting. Pulls from bank + payment processor + payroll + expense-mgmt via `toolify`-wired integrations. Team scope. |
 | [`paste`](./skills/paste/SKILL.md) | Clean terminal output for 9 destinations (Slack, Notion, Twitter, LinkedIn, email, GitHub, plain, HTML). Secret-detection first. |
 | [`social-fetch`](./skills/social-fetch/SKILL.md) | Pull any social post by URL across 10 platforms (X, LinkedIn, IG, TikTok, Bluesky, Reddit, Mastodon, Threads, HN). Strategy chain with free + paid fallbacks. |
+| [`castmate`](./skills/castmate/SKILL.md) | Pull in the right model for the right job. Delegate a task to one agent CLI (optionally with write access), fan a prompt out to several for independent read-only reviews, or run rounds where castmates challenge each other's findings. Calls the official CLIs you already have (Claude, Codex, Gemini, Amp, OpenCode, Cursor, Kiro, Antigravity); models and groups live in your config dir, and any new model ID passes straight through. Adapted from [counselors](https://github.com/aarondfrancis/counselors) (MIT). |
 
 ---
 
