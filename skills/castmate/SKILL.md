@@ -57,7 +57,8 @@ Groups expand to their members, so show the expanded list. If the user names a g
 
 Use `references/prompt-template.md`: the **Delegate** template for delegate mode, and the **Review** template for fan-out and rounds. For a focused hunt, paste a preset from `references/presets/` into the Instructions section.
 
-- Gather context first: files named in the request, `git status` and `git diff`, and up to 5 related files found by search. **Reference them by path. Don't paste their contents.** Castmates read files and run git themselves.
+- Gather context first: files named in the request, `git status` and `git diff`, and up to 5 related files found by search. **Reference files by path. Don't paste their contents.** Castmates read files themselves.
+- **Paste the diff into the prompt** when the review is about changes. Claude castmates have no shell in read-only mode, so they can't run git.
 - In a blind review, leave out your own conclusion. A castmate given your hypothesis tends to confirm it.
 - Save the prompt to a temporary file, or pipe it with `-f -`.
 

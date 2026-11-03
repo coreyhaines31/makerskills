@@ -1,6 +1,8 @@
 # Prompt templates
 
-Castmates run in the same working directory as the host. They can read files and run git themselves. Point them to files by path instead of pasting the contents; inline only a short snippet that frames the question, like an error message or a function signature.
+Castmates run in the same working directory as the host and can read files themselves. Point them to files by path instead of pasting the contents; inline only a short snippet that frames the question, like an error message or a function signature.
+
+**Inline diffs; don't ask castmates to run git.** Claude castmates have no shell in read-only mode (only file read, search, and web), so they can't run `git diff`. Paste the diff into the prompt instead.
 
 ## Delegate (one castmate does a job)
 
@@ -34,7 +36,7 @@ Castmates run in the same working directory as the host. They can read files and
 
 ## Context
 - Files: [paths]
-- Recent changes: [one line; tell them to run `git diff <base>` themselves]
+- Recent changes: [one-line summary, then the output of `git diff <base>` in a ```diff block. Keep it under about 50 KB; if it's bigger, include `git diff --stat` plus the hunks that matter.]
 - What we already believe: [omit for a blind review]
 
 ## Instructions
