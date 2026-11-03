@@ -38,6 +38,7 @@ HEARTBEAT_S = 30
 ENV_DENYLIST = {"NODE_OPTIONS", "NODE_EXTRA_CA_CERTS", "LD_PRELOAD", "LD_LIBRARY_PATH", "LD_AUDIT", "ELECTRON_RUN_AS_NODE"}
 ANSI_RE = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)")
 PLACEHOLDER_RE = re.compile(r"\{(\w+)\}")
+RESERVED_LABELS = {"prompt", "run"}
 
 _active = {}
 _active_lock = threading.Lock()
@@ -60,6 +61,10 @@ def load_registry():
         for section in ("castmates", "groups"):
             data[section].update(user.get(section, {}))
         data["defaults"].update(user.get("defaults", {}))
+    for key, tool in data["tools"].items():
+        if "binary" not in tool:
+            raise CastmateError(f"tool '{key}' in {user_file} needs a \"binary\"")
+        tool.setdefault("name", key)
     return data
 
 
@@ -93,10 +98,16 @@ def expand(specs, reg):
     return out
 
 
+def read_only_level(tool):
+    return tool.get("readOnly", {}).get("level", "none")
+
+
 def label_castmates(castmates):
     seen = {}
     for cm in castmates:
         base = re.sub(r"[^A-Za-z0-9._-]", "_", cm["castmate"])
+        if base in RESERVED_LABELS:
+            base += "_castmate"
         seen[base] = seen.get(base, 0) + 1
         cm["label"] = base if seen[base] == 1 else f"{base}-{seen[base]}"
     return castmates
@@ -257,9 +268,9 @@ def slugify(text):
 
 
 def dispatch(reg, castmates, prompt, out_dir, write, cwd, timeout):
+    invocations = {cm["label"]: build_invocation(reg, cm, prompt, out_dir, write, cwd, timeout) for cm in castmates}
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "prompt.md").write_text(prompt)
-    invocations = {cm["label"]: build_invocation(reg, cm, prompt, out_dir, write, cwd, timeout) for cm in castmates}
 
     reports = []
     stop = threading.Event()
@@ -294,7 +305,7 @@ def dispatch(reg, castmates, prompt, out_dir, write, cwd, timeout):
             "tool": cm["tool"],
             "model": cm.get("model"),
             "effort": cm.get("effort"),
-            "access": "write" if write else tool["readOnly"]["level"],
+            "access": "write" if write else read_only_level(tool),
             "verified": tool.get("verified", False),
             "command": invocations[cm["label"]]["command"],
         }
@@ -331,7 +342,7 @@ def cmd_list(reg, as_json):
             "model": cm.get("model"),
             "effort": cm.get("effort"),
             "installed": bool(tool and shutil.which(tool["binary"])),
-            "readOnly": tool.get("readOnly", {}).get("level", "none"),
+            "readOnly": read_only_level(tool),
             "write": "write" in tool,
             "verified": tool.get("verified", False),
             "note": cm.get("note", ""),
@@ -379,8 +390,8 @@ def cmd_run(reg, args):
         tool = reg["tools"][cm["tool"]]
         if not tool.get("verified", False):
             print(f"castmate: warning: {tool['name']} adapter is unverified", file=sys.stderr)
-        if not args.write and tool["readOnly"]["level"] != "enforced":
-            print(f"castmate: warning: {tool['name']} read-only is {tool['readOnly']['level']}, not enforced", file=sys.stderr)
+        if not args.write and read_only_level(tool) != "enforced":
+            print(f"castmate: warning: {tool['name']} read-only is {read_only_level(tool)}, not enforced", file=sys.stderr)
 
     timeout = args.timeout or int(reg["defaults"].get("timeout", 540))
     if args.out:

@@ -44,8 +44,9 @@ class CastmateTest(unittest.TestCase):
                 "hang": {**tool, "args": ["hang"]},
                 "fail": {**tool, "args": ["fail"]},
                 "nowrite": {**{k: v for k, v in tool.items() if k != "write"}, "args": ["echo"]},
+                "writeonly": {"binary": str(fake), "args": ["echo"], "write": {"args": ["--rw"]}},
             },
-            "castmates": {"e": {"tool": "echo"}},
+            "castmates": {"e": {"tool": "echo"}, "prompt": {"tool": "echo"}},
             "groups": {},
         }
         (self.tmp / "castmate").mkdir()
@@ -110,6 +111,20 @@ class CastmateTest(unittest.TestCase):
         proc = self.run_cli("run", "-c", "nowrite", "-f", str(self.prompt), "--write", "--out", str(self.tmp / "o2"))
         self.assertEqual(proc.returncode, 2)
         self.assertIn("no write mode", proc.stderr)
+
+    def test_reserved_label_does_not_overwrite_prompt(self):
+        _, manifest = self.run_json("-c", "prompt")
+        self.assertEqual(manifest["castmates"][0]["label"], "prompt_castmate")
+        self.assertEqual((self.tmp / "out" / "prompt.md").read_text(), "hello castmate\n")
+
+    def test_minimal_user_adapter_without_read_only(self):
+        proc = self.run_cli("run", "-c", "writeonly", "-f", str(self.prompt), "--out", str(self.tmp / "o3"))
+        self.assertEqual(proc.returncode, 2)
+        self.assertIn("no read-only mode", proc.stderr)
+        self.assertNotIn("Traceback", proc.stderr)
+        self.assertFalse((self.tmp / "o3").exists())
+        _, manifest = self.run_json("-c", "writeonly", "--write")
+        self.assertEqual(manifest["castmates"][0]["status"], "success")
 
     def test_write_mode_uses_write_args(self):
         _, manifest = self.run_json("-c", "e", "--write")
