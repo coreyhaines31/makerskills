@@ -17,7 +17,7 @@ Castmates run in the same working directory as the host and can read files thems
 - Out of scope: [what to leave alone]
 
 ## Done means
-- [Concrete acceptance check, e.g. "rspec spec/models/user_spec.rb passes"]
+- [Concrete acceptance check, e.g. "rspec spec/models/user_spec.rb passes". Claude castmates can edit files but can't run commands in write mode, so the host runs the check afterward. Codex can run it inside its sandbox.]
 - [Output shape, e.g. "reply with a summary of changes and anything you were unsure about"]
 
 ## Constraints
