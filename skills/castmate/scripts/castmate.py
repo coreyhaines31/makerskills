@@ -105,13 +105,17 @@ def read_only_level(tool):
 
 
 def label_castmates(castmates):
-    seen = {}
+    used = set()
     for cm in castmates:
         base = re.sub(r"[^A-Za-z0-9._-]", "_", cm["castmate"])
         if base in RESERVED_LABELS:
             base += "_castmate"
-        seen[base] = seen.get(base, 0) + 1
-        cm["label"] = base if seen[base] == 1 else f"{base}-{seen[base]}"
+        label, n = base, 1
+        while label in used:
+            n += 1
+            label = f"{base}-{n}"
+        used.add(label)
+        cm["label"] = label
     return castmates
 
 

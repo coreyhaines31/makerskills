@@ -82,6 +82,12 @@ class CastmateTest(unittest.TestCase):
         self.assertEqual(labels, ["e", "e-2"])
         self.assertNotEqual(manifest["castmates"][0]["outputFile"], manifest["castmates"][1]["outputFile"])
 
+    def test_labels_stay_unique_when_a_name_looks_like_a_suffix(self):
+        sys.path.insert(0, str(SCRIPT.parent))
+        import castmate
+        labels = [c["label"] for c in castmate.label_castmates([{"castmate": "x"}, {"castmate": "x-2"}, {"castmate": "x"}])]
+        self.assertEqual(len(set(labels)), 3, labels)
+
     def test_raw_tool_model_passthrough(self):
         _, manifest = self.run_json("-c", "echo:brand-new-model")
         text = Path(manifest["castmates"][0]["outputFile"]).read_text()
