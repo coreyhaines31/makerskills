@@ -83,8 +83,9 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
 
-# castmate: python3 (3.9+) plus at least one agent CLI, installed and logged in
-npm install -g @openai/codex                # or claude, gemini, amp, opencode, cursor-agent, kiro-cli, agy
+# castmate: python3 (3.9+) plus at least one agent CLI, installed and logged in.
+# Per-CLI install, login, and gotchas: skills/castmate/references/cli-setup.md
+npm install -g @openai/codex && codex login
 
 ```
 
@@ -96,7 +97,7 @@ All skills work without these (free fallbacks); these unlock premium capability:
 # In ~/.zshenv
 export NOTION_API_KEY="..."                 # pm Notion adapter, deep-research
 export TYPEFULLY_API_KEY="..."              # jab-hook drafts
-export GEMINI_API_KEY="..."                 # watch-video multimodal mode
+export GEMINI_API_KEY="..."                 # watch-video multimodal mode; castmate via Gemini CLI (personal Google sign-in ended)
 export SCRAPECREATORS_API_KEY="..."         # social-fetch full data (X, IG, TikTok, LinkedIn posts)
 export BRAVE_API_KEY="..."                  # deep-research / last30days web search
 export PLANE_API_KEY="..."                  # pm Plane adapter (if you use Plane)
