@@ -134,5 +134,6 @@ Leave `"verified": false` until `castmate.py test` passes.
 |---|---|
 | `not found on PATH` | Give the `install` URL from `list`, or suggest another castmate |
 | Test fails with an auth message | Ask the user to log in to that CLI themselves (for example `codex login`), then retry |
+| Gemini says "no longer supported for Gemini Code Assist for individuals" | Since 2026-06, Gemini CLI doesn't accept Google sign-in for unpaid or Google One accounts. Either set `GEMINI_API_KEY` and set `security.auth.selectedType` to `gemini-api-key` in `~/.gemini/settings.json`, or cast the `antigravity` adapter |
 | Model rejected | Run `list` to find a valid alias, or ask which model their account has |
 | Every castmate fails | Show the first lines of each `stderrFile`, then run `castmate.py test` on each |

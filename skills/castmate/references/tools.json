@@ -80,12 +80,13 @@
       "name": "Gemini CLI",
       "binary": "gemini",
       "install": "https://github.com/google-gemini/gemini-cli",
-      "verified": false,
+      "verified": true,
       "args": [
         "-p",
         "",
         "--output-format",
-        "text"
+        "text",
+        "--skip-trust"
       ],
       "prompt": "stdin",
       "promptSuffix": "\n\nIMPORTANT: Do not narrate your tool usage, internal planning, or chain of thought. Start your response directly with your analysis.",
@@ -96,20 +97,16 @@
       "readOnly": {
         "level": "enforced",
         "args": [
-          "--extensions",
-          "",
-          "--allowed-tools",
-          "read_file",
-          "list_directory",
-          "search_file_content",
-          "glob",
-          "google_web_search",
-          "codebase_investigator"
+          "--approval-mode",
+          "plan",
+          "--admin-policy",
+          "{refs}/gemini-readonly-policy.toml"
         ]
       },
       "write": {
         "args": [
-          "--yolo"
+          "--approval-mode",
+          "auto_edit"
         ]
       }
     },
