@@ -43,6 +43,17 @@ ENV_DENYLIST = {
 ANSI_RE = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)")
 PLACEHOLDER_RE = re.compile(r"\{(\w+)\}")
 RESERVED_LABELS = {"prompt", "run"}
+SETUP_GUIDE = REFS / "cli-setup.md"
+HINTS = [
+    (re.compile(r"no longer supported for Gemini Code Assist for individuals|Please set an Auth method", re.I),
+     "Gemini CLI needs an API key for personal accounts (Google sign-in ended in 2026-06)."),
+    (re.compile(r"no output produced .*auto-denied|headless mode cannot prompt", re.I),
+     "Antigravity dropped its answer because a tool call was denied. Narrow the prompt or cast another model."),
+    (re.compile(r"\b401\b|unauthori[sz]ed|not logged in|invalid api key|please (log|sign) ?in|authentication (failed|required)", re.I),
+     "Not logged in, or the login expired. Log in to this CLI again."),
+    (re.compile(r"unknown model|model[^\n]{0,60}(not found|not supported|not available|does not exist|invalid)|invalid model", re.I),
+     "This account can't use that model. Pick another castmate (castmate.py list) or pass -c <tool>:<model>."),
+]
 OK_RE = re.compile(r"[`*\"']*OK[.!]?[`*\"']*")
 
 _active = {}
@@ -149,7 +160,7 @@ def build_invocation(reg, cm, prompt, out_dir, write, cwd, timeout):
     tool = reg["tools"][cm["tool"]]
     binary = shutil.which(tool["binary"])
     if not binary:
-        raise CastmateError(f"{cm['castmate']}: `{tool['binary']}` not found on PATH (install: {tool.get('install', '?')})")
+        raise CastmateError(f"{cm['castmate']}: `{tool['binary']}` not found on PATH. Setup: {SETUP_GUIDE}#{tool.get('setup', 'other-clis')}")
     mode = tool.get("write") if write else tool.get("readOnly")
     if mode is not None and not write and mode.get("level") not in ("enforced", "best-effort"):
         raise CastmateError(f"{cm['castmate']}: {tool['name']} read-only level is '{mode.get('level')}'; set it to enforced or best-effort")
@@ -287,6 +298,25 @@ def execute(inv, out_dir, label, timeout):
     }
 
 
+GEMINI_LOGIN_HINT = "Gemini CLI uses an API key on personal accounts; Google sign-in won't fix this."
+
+
+def setup_hint(tool, *texts):
+    blob = "\n".join(texts)
+    anchor = tool.get("setup", "other-clis")
+    for pattern, hint in HINTS:
+        if pattern.search(blob):
+            if anchor == "gemini-cli" and hint.startswith("Not logged in"):
+                hint = GEMINI_LOGIN_HINT
+            return f"{hint} Setup: {SETUP_GUIDE}#{anchor}"
+    return None
+
+
+def last_lines(text, n=3, width=300):
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    return " | ".join(lines[-n:])[-width:]
+
+
 def heartbeat_loop(stop):
     while not stop.wait(HEARTBEAT_S):
         with _active_lock:
@@ -348,6 +378,11 @@ def dispatch(reg, castmates, prompt, out_dir, write, cwd, timeout):
         }
         if future.done() and not future.cancelled() and future.exception() is None:
             report.update(future.result())
+            if report["status"] in ("error", "empty"):
+                texts = [Path(report[k]).read_text(errors="replace") for k in ("stderrFile", "outputFile") if report.get(k)]
+                hint = setup_hint(tool, *texts)
+                if hint:
+                    report["hint"] = hint
         else:
             exc = future.exception() if future.done() and not future.cancelled() else None
             report.update(status="aborted" if exc is None else "error", error=str(exc) if exc else None)
@@ -393,6 +428,8 @@ def cmd_list(reg, as_json):
     for name, members in reg["groups"].items():
         print(f"  {name:<10} {', '.join(members)}")
     print("\nAny tool also works bare or as tool:model[@effort]: " + ", ".join(sorted(reg["tools"])))
+    if any(not r["installed"] for r in rows):
+        print(f"Install and log in to a missing CLI: {SETUP_GUIDE}")
     return 0
 
 
@@ -408,8 +445,10 @@ def cmd_test(reg, specs):
             ok = r["status"] == "success" and OK_RE.fullmatch(text.strip()) is not None
             if not ok:
                 failed += 1
-                err = Path(r["stderrFile"]).read_text().strip()[:300] if r.get("stderrFile") else r.get("error", "")
+                err = last_lines(Path(r["stderrFile"]).read_text(errors="replace")) if r.get("stderrFile") else (r.get("error") or "")
                 print(f"FAIL {r['label']}: {r['status']} {err}")
+                if r.get("hint"):
+                    print(f"     hint: {r['hint']}")
             else:
                 print(f"ok   {r['label']} ({r['durationS']}s)")
     return 1 if failed else 0
@@ -453,6 +492,8 @@ def cmd_run(reg, args):
     else:
         for r in manifest["castmates"]:
             print(f"{r['status']:<8} {r['label']:<20} {r.get('durationS', '-')}s  {r.get('outputFile', r.get('error', ''))}")
+            if r.get("hint"):
+                print(f"         hint: {r['hint']}")
         print(f"\nmanifest: {out_dir / 'run.json'}")
     if manifest["aborted"]:
         return 128 + int(_stop_signal[0])

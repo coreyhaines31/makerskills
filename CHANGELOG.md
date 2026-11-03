@@ -6,6 +6,22 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.10.1] — 2026-11-03
+
+### Added
+- **`castmate` setup guide** (#67). New `references/cli-setup.md` covers install, login, a test command, the read-only level, and gotchas for each CLI:
+  - **Gemini CLI:** personal Google sign-in ended in 2026-06, so it needs an API key. The guide covers recovering after a failed Google sign-in, and rotating a key that's also saved in the keychain.
+  - **Antigravity:** its installer edits shell profiles (with a PATH fix for Linux bash), sign-in can work without a browser, and `agy models` lists what your account can use.
+
+  It also explains how to find the script outside an agent. Two simulated new users (codex-sol-high and gemini-argon) walked through it before release, and their stumbling points are fixed.
+
+### Changed
+- **`castmate` first-run UX** (#67):
+  - Failed runs and `test` now print a `hint:` with the fix and the matching guide section, covering Gemini's ended sign-in, expired logins, unavailable models, and Antigravity's denied-tool empties.
+  - `test` shows the last stderr lines instead of Codex's startup banner.
+  - SKILL.md tests castmates before the first cast, never asks for API keys in chat, and no longer claims "no API keys."
+  - INSTALL no longer implies Codex is required.
+
 ## [v1.10.0] — 2026-11-03
 
 ### Added
