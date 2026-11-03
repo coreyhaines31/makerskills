@@ -83,18 +83,18 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
 
-# castmate: python3 (3.9+) plus at least one agent CLI, installed and logged in.
-# Per-CLI install, login, and gotchas: skills/castmate/references/cli-setup.md
-npm install -g @openai/codex && codex login
+# castmate: python3 (3.9+) plus ONE agent CLI you already use (Claude Code, Codex, Gemini CLI,
+# Antigravity, ...), installed and logged in. Install, login, and gotchas for each:
+# skills/castmate/references/cli-setup.md
 
 ```
 
 ## 5. API keys
 
-All skills work without these (free fallbacks); these unlock premium capability:
+All skills work without these (free fallbacks); these unlock premium capability. castmate needs no key unless you cast Gemini CLI, which requires one on personal accounts.
 
 ```bash
-# In ~/.zshenv
+# In ~/.zshenv (zsh) or ~/.bashrc (bash)
 export NOTION_API_KEY="..."                 # pm Notion adapter, deep-research
 export TYPEFULLY_API_KEY="..."              # jab-hook drafts
 export GEMINI_API_KEY="..."                 # watch-video multimodal mode; castmate via Gemini CLI (personal Google sign-in ended)
