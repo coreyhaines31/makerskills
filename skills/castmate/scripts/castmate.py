@@ -248,10 +248,12 @@ def execute(inv, out_dir, label, timeout):
             _active.pop(label, None)
 
     output = ANSI_RE.sub("", raw_path.read_text(errors="replace"))
-    last = inv["last_message"]
-    if last and Path(last).exists() and Path(last).read_text().strip():
-        output = Path(last).read_text()
-        Path(last).unlink()
+    last = Path(inv["last_message"]) if inv["last_message"] else None
+    if last and last.exists():
+        last_text = ANSI_RE.sub("", last.read_text(errors="replace"))
+        last.unlink()
+        if last_text.strip():
+            output = last_text
     if timed_out:
         output += f"\n\n[castmate: timed out after {timeout}s; output above is partial]\n"
     raw_path.unlink()
