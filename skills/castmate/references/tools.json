@@ -26,7 +26,13 @@
           "Read,Glob,Grep,WebFetch,WebSearch",
           "--allowedTools",
           "Read,Glob,Grep,WebFetch,WebSearch",
-          "--strict-mcp-config"
+          "--strict-mcp-config",
+          "--safe-mode",
+          "--setting-sources",
+          "user",
+          "--permission-prompts",
+          "none",
+          "--no-session-persistence"
         ]
       },
       "write": {
