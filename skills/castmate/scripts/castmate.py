@@ -59,7 +59,12 @@ def load_registry():
         except json.JSONDecodeError as exc:
             raise CastmateError(f"{user_file} is not valid JSON: {exc}")
         for key, tool in user.get("tools", {}).items():
-            data["tools"][key] = {**data["tools"].get(key, {}), **tool}
+            base = data["tools"].get(key, {})
+            merged = {**base, **tool}
+            for mode in ("readOnly", "write"):
+                if isinstance(base.get(mode), dict) and isinstance(tool.get(mode), dict):
+                    merged[mode] = {**base[mode], **tool[mode]}
+            data["tools"][key] = merged
         for section in ("castmates", "groups"):
             data[section].update(user.get(section, {}))
         data["defaults"].update(user.get("defaults", {}))
@@ -141,6 +146,8 @@ def build_invocation(reg, cm, prompt, out_dir, write, cwd, timeout):
     if not binary:
         raise CastmateError(f"{cm['castmate']}: `{tool['binary']}` not found on PATH (install: {tool.get('install', '?')})")
     mode = tool.get("write") if write else tool.get("readOnly")
+    if mode is not None and not write and mode.get("level") not in ("enforced", "best-effort"):
+        raise CastmateError(f"{cm['castmate']}: {tool['name']} read-only level is '{mode.get('level')}'; set it to enforced or best-effort")
     if mode is None:
         raise CastmateError(f"{cm['castmate']}: {tool['name']} has no {'write' if write else 'read-only'} mode configured")
 

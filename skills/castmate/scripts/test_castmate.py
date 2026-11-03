@@ -176,6 +176,27 @@ class CastmateTest(unittest.TestCase):
         self.assertNotIn("pid", reports[1])
         self.assertFalse((self.tmp / "out" / "e.raw").exists())
 
+    def test_partial_read_only_override_keeps_shipped_args(self):
+        config = json.loads((self.tmp / "castmate" / "config.json").read_text())
+        config["tools"]["echo"]["readOnly"] = {"env": {"EXTRA": "1"}}
+        (self.tmp / "castmate" / "config.json").write_text(json.dumps(config))
+        sys.path.insert(0, str(SCRIPT.parent))
+        import importlib, castmate
+        os.environ["MAKERSKILLS_CONFIG"] = str(self.tmp)
+        try:
+            castmate = importlib.reload(castmate)
+            castmate.REFS = self.tmp / "refs"
+            (self.tmp / "refs").mkdir()
+            shipped = {"tools": {"echo": {"binary": "x", "readOnly": {"level": "enforced", "args": ["--ro"]}}},
+                       "castmates": {}, "groups": {}, "defaults": {}}
+            (self.tmp / "refs" / "tools.json").write_text(json.dumps(shipped))
+            ro = castmate.load_registry()["tools"]["echo"]["readOnly"]
+        finally:
+            del os.environ["MAKERSKILLS_CONFIG"]
+        self.assertEqual(ro["args"], ["--ro"])
+        self.assertEqual(ro["level"], "enforced")
+        self.assertEqual(ro["env"], {"EXTRA": "1"})
+
     def test_write_mode_uses_write_args(self):
         _, manifest = self.run_json("-c", "e", "--write")
         text = Path(manifest["castmates"][0]["outputFile"]).read_text()
