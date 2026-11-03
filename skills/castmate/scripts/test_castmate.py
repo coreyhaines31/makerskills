@@ -236,6 +236,9 @@ class CastmateTest(unittest.TestCase):
         proc = self.run_cli("test", "authfail")
         self.assertIn("HTTP 401 Unauthorized", proc.stdout)
         self.assertIn("hint: Not logged in", proc.stdout)
+        sys.path.insert(0, str(SCRIPT.parent))
+        import castmate
+        self.assertIn("API key", castmate.setup_hint({"setup": "gemini-cli"}, "HTTP 401 Unauthorized"))
         proc = self.run_cli("run", "-c", "fail", "-f", str(self.prompt), "--out", str(self.tmp / "out-fail"), "--json")
         self.assertNotIn("hint", json.loads(proc.stdout)["castmates"][0])
 

@@ -298,11 +298,17 @@ def execute(inv, out_dir, label, timeout):
     }
 
 
+GEMINI_LOGIN_HINT = "Gemini CLI uses an API key on personal accounts; Google sign-in won't fix this."
+
+
 def setup_hint(tool, *texts):
     blob = "\n".join(texts)
+    anchor = tool.get("setup", "other-clis")
     for pattern, hint in HINTS:
         if pattern.search(blob):
-            return f"{hint} Setup: {SETUP_GUIDE}#{tool.get('setup', 'other-clis')}"
+            if anchor == "gemini-cli" and hint.startswith("Not logged in"):
+                hint = GEMINI_LOGIN_HINT
+            return f"{hint} Setup: {SETUP_GUIDE}#{anchor}"
     return None
 
 
