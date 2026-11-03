@@ -116,6 +116,8 @@ def label_castmates(castmates):
 def safe_env(extra):
     env = {k: v for k, v in os.environ.items() if k not in ENV_DENYLIST and not k.startswith("DYLD_")}
     env.update(extra)
+    env.pop("FORCE_COLOR", None)
+    env.pop("CLICOLOR_FORCE", None)
     env["NO_COLOR"] = "1"
     return env
 
