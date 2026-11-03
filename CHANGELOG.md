@@ -8,6 +8,17 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ## [Unreleased]
 
+### Added
+- **New skill: `castmate`** (v0.1.0, #61). Pull in the right model for the right job. Delegate mode hands one agent CLI a task, read-only or with `--write` ("have codex write the migration"). Fan-out mode sends one prompt to several CLIs for independent read-only reviews, and the host synthesizes agreements, disagreements, risks, and blind spots. Rounds mode repeats the fan-out, and castmates confirm, refine, or invalidate earlier findings. A stdlib Python script (`scripts/castmate.py`) handles the mechanics:
+  - prompts go over stdin;
+  - each castmate runs in its own process group, so timeouts and Ctrl+C also stop the processes it started;
+  - a timeout keeps the partial output;
+  - a heartbeat prints every 30 seconds;
+  - each run writes a `run.json` manifest.
+
+  Adapters are data, not code. Claude and Codex are verified; Gemini, Amp, OpenCode, Cursor, Kiro, and Antigravity are ported but unverified. Personal aliases, groups, and adapters go in `$MAKERSKILLS_CONFIG/castmate/config.json`, and any model ID passes straight through (`-c codex:gpt-5.7@high`), so a new model release needs no update. The casting guide defers to the user's own dated `casting.local.md`. Six review presets are included: bughunt, security, regression, contracts, invariants, hotspots. Adapted from [counselors](https://github.com/aarondfrancis/counselors) by Aaron Francis (MIT). That repo is unmaintained, and this port fixes its open bugs: orphaned child processes, timeouts that wrote no output, base-URL env vars being dropped, and duplicate tool output colliding. 22 → 23 skills.
+- **ARCHITECTURE: skills that ship scripts.** Standard library only, no state stored next to the script, shipped defaults kept read-only in `references/`.
+
 ### Changed
 - **`maker-council` v0.3.0** (#57). Council sessions run in rounds instead of one pass. Members write opening cards blind (parallel subagents where the host has them), then rebut, concede, and say whether they moved, then vote on the chair's draft. The brief always includes the user's lean, "don't do it," and a smaller option, with guesses marked `(assumed)`. If the openings all agree, the chair assigns members to argue the strongest unbacked option. Cards score every option and rate each one's reversibility and ruin risk; the verdict reports option scores and spread, and caps a recommendation that a member flags as ruinous or that most members call irreversible (the cheapest reversible test becomes a precondition, and members vote on it). The chair confirms swing assumptions before Round 1 and keeps the chat verdict under 200 words; every round is saved in a session folder. Round costs are stated (roughly 0.7–1.4M tokens for a four- or five-seat council in testing). Adapted from Nate Herk's Roast Room ([nateherkai/roast-room](https://github.com/nateherkai/roast-room), MIT).
 
