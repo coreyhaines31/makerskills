@@ -6,7 +6,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.10.1] — 2026-11-03
 
 ### Added
 - **`castmate` setup guide** (#67). New `references/cli-setup.md` covers install, login, a test command, the read-only level, and gotchas for each CLI:
