@@ -6,7 +6,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.10.0] — 2026-11-03
 
 ### Added
 - **New skill: `castmate`** (v0.1.0, #61). Pull in the right model for the right job. Delegate mode hands one agent CLI a task, read-only or with `--write` ("have codex write the migration"). Fan-out mode sends one prompt to several CLIs for independent read-only reviews, and the host synthesizes agreements, disagreements, risks, and blind spots. Rounds mode repeats the fan-out, and castmates confirm, refine, or invalidate earlier findings. A stdlib Python script (`scripts/castmate.py`) handles the mechanics:
