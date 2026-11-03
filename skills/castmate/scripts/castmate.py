@@ -39,6 +39,7 @@ ENV_DENYLIST = {"NODE_OPTIONS", "NODE_EXTRA_CA_CERTS", "LD_PRELOAD", "LD_LIBRARY
 ANSI_RE = re.compile(r"\x1b\[[0-9;?]*[ -/]*[@-~]|\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)")
 PLACEHOLDER_RE = re.compile(r"\{(\w+)\}")
 RESERVED_LABELS = {"prompt", "run"}
+OK_RE = re.compile(r"[`*\"']*OK[.!]?[`*\"']*")
 
 _active = {}
 _active_lock = threading.Lock()
@@ -392,11 +393,13 @@ def cmd_list(reg, as_json):
 def cmd_test(reg, specs):
     castmates = label_castmates(expand(specs, reg))
     with tempfile.TemporaryDirectory(prefix="castmate-test-") as tmp:
-        manifest = dispatch(reg, castmates, "Reply with exactly: OK", Path(tmp), False, os.getcwd(), 120)
+        work = Path(tmp) / "work"
+        work.mkdir()
+        manifest = dispatch(reg, castmates, "Reply with exactly: OK", Path(tmp) / "out", False, str(work), 120)
         failed = 0
         for r in manifest["castmates"]:
             text = Path(r["outputFile"]).read_text() if r.get("outputFile") else ""
-            ok = r["status"] == "success" and "OK" in text and "User instructions" not in text
+            ok = r["status"] == "success" and OK_RE.fullmatch(text.strip()) is not None
             if not ok:
                 failed += 1
                 err = Path(r["stderrFile"]).read_text().strip()[:300] if r.get("stderrFile") else r.get("error", "")

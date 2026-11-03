@@ -197,6 +197,11 @@ class CastmateTest(unittest.TestCase):
         self.assertEqual(ro["level"], "enforced")
         self.assertEqual(ro["env"], {"EXTRA": "1"})
 
+    def test_test_command_rejects_answers_that_only_contain_ok(self):
+        proc = self.run_cli("test", "e")
+        self.assertEqual(proc.returncode, 1)
+        self.assertIn("FAIL e", proc.stdout)
+
     def test_write_mode_uses_write_args(self):
         _, manifest = self.run_json("-c", "e", "--write")
         text = Path(manifest["castmates"][0]["outputFile"]).read_text()
