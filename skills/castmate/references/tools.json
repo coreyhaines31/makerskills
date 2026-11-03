@@ -50,8 +50,6 @@
       "args": [
         "exec",
         "--skip-git-repo-check",
-        "-c",
-        "web_search=live",
         "-o",
         "{last_message}"
       ],
@@ -72,7 +70,10 @@
         "level": "enforced",
         "args": [
           "--sandbox",
-          "read-only"
+          "read-only",
+          "--ignore-user-config",
+          "-c",
+          "features.apps=false"
         ]
       },
       "write": {
@@ -368,6 +369,16 @@
       "tool": "gemini",
       "model": "gemini-4-argon",
       "note": "Gemini 4 Argon"
+    },
+    "codex-research": {
+      "tool": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "high",
+      "extraArgs": [
+        "-c",
+        "web_search=live"
+      ],
+      "note": "GPT-5.6 Sol with live web search"
     }
   },
   "groups": {

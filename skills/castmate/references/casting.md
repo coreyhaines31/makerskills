@@ -19,7 +19,7 @@ These are default heuristics. The user's own rules in `${MAKERSKILLS_CONFIG:-$HO
 | Delegate a scoped coding task | One castmate with `--write`, top tier | One writer; the host reviews the diff. Prefer codex when the castmate must run tests itself; Claude's write mode edits files but has no shell |
 | Mechanical, bulk, or cheap task | One fast-tier castmate | Saves the host's context and budget |
 | Tie-breaker when the host and user disagree | One castmate that hasn't seen the argument, given only the facts | Unanchored read |
-| Research a library or API | A castmate with web search (claude, codex, gemini) | Reads current docs |
+| Research a library or API | `codex-research`, or claude / gemini (web search on by default) | Reads current docs. Codex only searches live when cast as `codex-research` |
 
 ## Recording what works
 
