@@ -492,6 +492,9 @@ def main(argv=None):
     except CastmateError as exc:
         print(f"castmate: {exc}", file=sys.stderr)
         return 2
+    except KeyboardInterrupt:
+        print("castmate: interrupted", file=sys.stderr)
+        return 128 + int(_stop_signal[0])
 
 
 if __name__ == "__main__":

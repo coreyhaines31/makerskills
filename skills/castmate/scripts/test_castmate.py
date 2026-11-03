@@ -167,6 +167,16 @@ class CastmateTest(unittest.TestCase):
         self.assertEqual(manifest["castmates"][0]["status"], "aborted")
         self.assertIn("partial line", Path(manifest["castmates"][0]["outputFile"]).read_text())
 
+    def test_signal_before_dispatch_exits_cleanly(self):
+        env = {**os.environ, "MAKERSKILLS_CONFIG": str(self.tmp)}
+        proc = subprocess.Popen([sys.executable, str(SCRIPT), "run", "-c", "e", "-f", "-"], env=env,
+                                stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        time.sleep(1)
+        proc.send_signal(signal.SIGTERM)
+        _, err = proc.communicate(timeout=10)
+        self.assertEqual(proc.returncode, 143)
+        self.assertNotIn("Traceback", err)
+
     def test_interrupt_does_not_start_queued_castmates(self):
         proc = self.start_background("-c", "hang,e", "--timeout", "60")
         proc.send_signal(signal.SIGINT)
