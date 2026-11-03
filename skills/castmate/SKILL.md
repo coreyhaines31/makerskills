@@ -1,6 +1,6 @@
 ---
 name: castmate
-description: "When you want to pull in the right AI model for the right job: hand a task to another agent CLI (Codex, Claude, Gemini, Amp, OpenCode, Cursor, Kiro, Antigravity), or send one prompt to several at once for independent opinions, then synthesize. Delegate mode gives one castmate the job, optionally with write access ('have codex write the migration'). Fan-out mode runs read-only reviews in parallel. Rounds mode lets castmates build on and challenge each other's findings. Calls the official CLIs you already have installed; no API keys, no MCP. Triggers on '/castmate,' 'ask codex,' 'have gemini do this,' 'get a second opinion,' 'what would other models say,' 'fan this out,' 'cross-check this with another model,' 'delegate this to codex.' Advisor personas for founder questions go to maker-council. Personal models, casting rules, and run outputs live in ~/.config/makerskills/castmate/."
+description: "When you want to pull in the right AI model for the right job: hand a task to another agent CLI (Codex, Claude, Gemini, Amp, OpenCode, Cursor, Kiro, Antigravity), or send one prompt to several at once for independent opinions, then synthesize. Delegate mode gives one castmate the job, optionally with write access ('have codex write the migration'). Fan-out mode runs read-only reviews in parallel. Rounds mode lets castmates build on and challenge each other's findings. Calls the official CLIs you already have installed and logged in (Gemini CLI needs an API key on personal accounts); no MCP. Triggers on '/castmate,' 'ask codex,' 'have gemini do this,' 'get a second opinion,' 'what would other models say,' 'fan this out,' 'cross-check this with another model,' 'delegate this to codex.' Advisor personas for founder questions go to maker-council. Personal models, casting rules, and run outputs live in ~/.config/makerskills/castmate/."
 metadata:
   version: 0.1.0
 ---
@@ -18,6 +18,17 @@ python3 <skill-dir>/scripts/castmate.py run -c codex-sol-high,fable-high -f prom
 ```
 
 `<skill-dir>` is this skill's install folder. In Claude Code it is the skill's base directory.
+
+## First run
+
+**Before the first cast in a session, run `castmate.py test` on the castmates you plan to use.** It takes 5–15 seconds. `list` only shows that a CLI is installed, not that it's logged in or that the account has the model. If nothing is installed, or a test fails, set the user up first. **`references/cli-setup.md` is the setup guide.** Walk through it rather than reciting it:
+
+1. Ask which agent CLIs they already use. One logged-in CLI is enough to start. Suggest Codex if they have none: it's the only one that confines `--write` to `--cwd`.
+2. Give the install and login commands for their pick. Login is interactive, so the user runs it in their own terminal (in Claude Code they can type `! codex login` in the prompt). Then restart the agent if PATH or the shell profile changed.
+3. Run `castmate.py test <castmate>`. Use `gemini-flash` for a first Gemini check, since not every key has `gemini-argon`. On failure, relay the `hint:` line it prints and the matching guide section.
+4. **Never ask the user to paste an API key into chat.** For Gemini CLI, have them put `GEMINI_API_KEY` in their shell profile and restart the agent, or enter it in `gemini` directly. If they already tried Google sign-in, the key alone won't work until the saved `oauth-personal` auth type is switched. Use the one-liner in the guide's Gemini step 2. If a key does get pasted, say so, tell them to rotate it, and point to the guide's rotation steps.
+
+Mention the gotchas that apply before they hit them. Gemini CLI no longer accepts Google sign-in on personal accounts. Antigravity's installer edits shell profiles, and its read-only mode is best-effort.
 
 ## Config (user state, outside the install folder)
 
@@ -87,7 +98,7 @@ python3 <skill-dir>/scripts/castmate.py run -c <castmates> -f <prompt-file> [--w
 
 - `success`: read `outputFile`.
 - `timeout`: `outputFile` holds partial output. Use it, labeled as partial.
-- `error` or `empty`: read `stderrFile`. Common causes are an expired login, a model the account can't use, or a flag a newer CLI version renamed. Report it and carry on with the rest. Antigravity returns `empty` whenever headless mode denies one of its tool calls, even after a long run, and drops the whole answer. If that happens, rerun with a narrower prompt or cast someone else.
+- `error` or `empty`: if the report has a `hint`, relay it first; it names the fix and the `cli-setup.md` section. Otherwise read `stderrFile`. Common causes are an expired login, a model the account can't use, or a flag a newer CLI version renamed. Report it and carry on with the rest. Antigravity returns `empty` whenever headless mode denies one of its tool calls, even after a long run, and drops the whole answer. If that happens, rerun with a narrower prompt or cast someone else.
 
 ## Step 6 — Present
 
@@ -140,8 +151,8 @@ Leave `"verified": false` until `castmate.py test` passes.
 
 | Symptom | Do |
 |---|---|
-| `not found on PATH` | Give the `install` URL from `list`, or suggest another castmate |
-| Test fails with an auth message | Ask the user to log in to that CLI themselves (for example `codex login`), then retry |
-| Gemini says "no longer supported for Gemini Code Assist for individuals" | Since 2026-06, Gemini CLI doesn't accept Google sign-in for unpaid or Google One accounts. Either set `GEMINI_API_KEY` and set `security.auth.selectedType` to `gemini-api-key` in `~/.gemini/settings.json`, or cast the `antigravity` adapter |
+| `not found on PATH` | Walk through that CLI's section of `references/cli-setup.md`, or suggest another castmate |
+| Test fails with an auth message | Relay the `hint:`. For Claude, Codex, or Antigravity, the user logs in again in their own terminal. For Gemini CLI, check the API key: Google sign-in won't work on personal accounts |
+| Gemini says "no longer supported for Gemini Code Assist for individuals" | Gemini CLI needs an API key on personal accounts since 2026-06. Follow `references/cli-setup.md#gemini-cli`, or cast `antigravity` |
 | Model rejected | Run `list` to find a valid alias, or ask which model their account has |
 | Every castmate fails | Show the first lines of each `stderrFile`, then run `castmate.py test` on each |

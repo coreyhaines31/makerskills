@@ -24,6 +24,9 @@ elif mode == "hang":
     child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(120)"])
     open(os.environ["FAKE_PIDFILE"], "w").write(str(child.pid))
     time.sleep(120)
+elif mode == "authfail":
+    sys.stderr.write("banner line\nHTTP 401 Unauthorized\n")
+    sys.exit(1)
 elif mode == "fail":
     sys.stderr.write("boom\n")
     sys.exit(3)
@@ -45,6 +48,7 @@ class CastmateTest(unittest.TestCase):
                 "echo": {**tool, "args": ["echo"]},
                 "hang": {**tool, "args": ["hang"]},
                 "fail": {**tool, "args": ["fail"]},
+                "authfail": {**tool, "args": ["authfail"], "setup": "codex"},
                 "nowrite": {**{k: v for k, v in tool.items() if k != "write"}, "args": ["echo"]},
                 "writeonly": {"binary": str(fake), "args": ["echo"], "write": {"args": ["--rw"]}},
             },
@@ -225,6 +229,18 @@ class CastmateTest(unittest.TestCase):
             self.assertEqual(proc.returncode, 2, extra)
             self.assertIn(message, proc.stderr)
             self.assertNotIn("Traceback", proc.stderr)
+
+    def test_known_failures_carry_a_setup_hint(self):
+        _, manifest = self.run_json("-c", "authfail")
+        self.assertIn("cli-setup.md#codex", manifest["castmates"][0]["hint"])
+        proc = self.run_cli("test", "authfail")
+        self.assertIn("HTTP 401 Unauthorized", proc.stdout)
+        self.assertIn("hint: Not logged in", proc.stdout)
+        sys.path.insert(0, str(SCRIPT.parent))
+        import castmate
+        self.assertIn("API key", castmate.setup_hint({"setup": "gemini-cli"}, "HTTP 401 Unauthorized"))
+        proc = self.run_cli("run", "-c", "fail", "-f", str(self.prompt), "--out", str(self.tmp / "out-fail"), "--json")
+        self.assertNotIn("hint", json.loads(proc.stdout)["castmates"][0])
 
     def test_write_mode_uses_write_args(self):
         _, manifest = self.run_json("-c", "e", "--write")

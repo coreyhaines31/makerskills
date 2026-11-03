@@ -83,20 +83,21 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
 
-# castmate: python3 (3.9+) plus at least one agent CLI, installed and logged in
-npm install -g @openai/codex                # or claude, gemini, amp, opencode, cursor-agent, kiro-cli, agy
+# castmate: python3 (3.9+) plus ONE agent CLI you already use (Claude Code, Codex, Gemini CLI,
+# Antigravity, ...), installed and logged in. Install, login, and gotchas for each:
+# skills/castmate/references/cli-setup.md
 
 ```
 
 ## 5. API keys
 
-All skills work without these (free fallbacks); these unlock premium capability:
+All skills work without these (free fallbacks); these unlock premium capability. castmate needs no key unless you cast Gemini CLI, which requires one on personal accounts.
 
 ```bash
-# In ~/.zshenv
+# In ~/.zshenv (zsh) or ~/.bashrc (bash)
 export NOTION_API_KEY="..."                 # pm Notion adapter, deep-research
 export TYPEFULLY_API_KEY="..."              # jab-hook drafts
-export GEMINI_API_KEY="..."                 # watch-video multimodal mode
+export GEMINI_API_KEY="..."                 # watch-video multimodal mode; castmate via Gemini CLI (personal Google sign-in ended)
 export SCRAPECREATORS_API_KEY="..."         # social-fetch full data (X, IG, TikTok, LinkedIn posts)
 export BRAVE_API_KEY="..."                  # deep-research / last30days web search
 export PLANE_API_KEY="..."                  # pm Plane adapter (if you use Plane)
@@ -126,7 +127,7 @@ ls ~/code/makerskills/skills/
 
 ## What's next
 
-Read the `README.md` for the skill catalog + composition map. Each skill's `SKILL.md` has its own usage docs. Most skills work the first time you invoke them; a few (`jab-hook`, `pm`, `personal-cfo`, `second-brain`) need the personal config from Step 3 before they're fully useful.
+Read the `README.md` for the skill catalog + composition map. Each skill's `SKILL.md` has its own usage docs. Most skills work the first time you invoke them; a few (`jab-hook`, `pm`, `personal-cfo`, `second-brain`) need the personal config from Step 3 before they're fully useful, and `castmate` needs one agent CLI logged in (see its setup guide).
 
 ## Architecture: where personal data lives
 
