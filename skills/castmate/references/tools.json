@@ -133,7 +133,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "args": [
           "--settings-file",
           "{refs}/amp-readonly-settings.json"
@@ -163,7 +163,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "env": {
           "OPENCODE_PERMISSION": "{\"*\":\"deny\",\"bash\":\"deny\",\"edit\":\"deny\",\"read\":{\"*\":\"allow\",\"*.env\":\"deny\",\"*.env.*\":\"deny\",\"*.env.example\":\"allow\"},\"glob\":\"allow\",\"grep\":\"allow\",\"list\":\"allow\",\"webfetch\":\"allow\",\"websearch\":\"allow\",\"codesearch\":\"allow\",\"lsp\":\"allow\"}"
         }
@@ -220,7 +220,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "args": [
           "--trust-tools",
           "fs_read,fs_list,fs_search,web_search,web_fetch"
@@ -253,7 +253,7 @@
         "{model}"
       ],
       "readOnly": {
-        "level": "enforced",
+        "level": "best-effort",
         "args": [
           "--mode",
           "plan",
