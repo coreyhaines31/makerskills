@@ -6,6 +6,20 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.11.0] — 2026-11-04
+
+### Added
+- **New skill: `ci-audit`** (v0.1.0). Find and fix wasted GitHub Actions time across one repo or a whole portfolio. A stdlib Python script (`scripts/ci_audit.py`) does the measuring:
+  - `inventory`: which repos run Actions, private vs public.
+  - `month`: billable minutes by workflow, with per-job minute rounding and the macOS 10× multiplier.
+  - `jobs`: queue, setup and run time per job, failures, and runner labels.
+  - `steps`: per-step seconds for one run.
+  - `schedules`: every cron on the default branch as runs per month.
+
+  The SKILL.md checks for silently broken scheduled pipelines before timing anything, ranks fixes by minutes saved, and ships them as small PRs with warm-cache before/after numbers. `references/fixes.md` is the playbook, including what measured slower and why. `references/gotchas.md` covers billing, measurement and tooling traps. Built from a two-day audit of about 20 repos.
+
+---
+
 ## [v1.10.1] — 2026-11-03
 
 ### Added

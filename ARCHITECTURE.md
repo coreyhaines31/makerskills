@@ -61,7 +61,7 @@ Full list in [INSTALL.md](./INSTALL.md).
 
 ## Skill families
 
-The 23 skills group into 6 families by job type:
+The 24 skills group into 6 families by job type:
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 
@@ -115,6 +115,7 @@ Skills for running the business (or the life):
 - **`pm`** — Kanban + Eisenhower across the portfolio
 - **`personal-cfo`** — household financial scenarios
 - **`company-cfo`** — company monthly CFO cadence
+- **`ci-audit`** — measure and cut GitHub Actions minutes and wait time
 - **`paste`** — clean terminal output for 9 destinations
 - **`social-fetch`** — normalized fetcher across 10 platforms
 - **`castmate`** — hand a job to another agent CLI (Codex, Claude, Gemini, …) or fan one prompt out to several for independent opinions
