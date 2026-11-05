@@ -59,6 +59,8 @@ def finished_jobs(repo, run_id):
 
 def multiplier(labels):
     joined = ",".join(labels or []).lower()
+    if "self-hosted" in joined:
+        return 0  # self-hosted runners don't use GitHub's minutes
     return next((m for word, m in MULTIPLIER if word in joined), 1)
 
 
