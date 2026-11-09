@@ -50,13 +50,13 @@ Skipping a step under time pressure is fine. Its rows become *not assessed*, nev
 | Reading code, config, existing logs and stats | Nothing beyond access |
 | Read-only queries against production (stats, plain EXPLAIN on a SELECT) | A yes naming the exact statements, with a read-only role |
 | Anything that executes writes, sends mail, charges, migrates, flushes a cache (incl. EXPLAIN ANALYZE on writes, test suites with live keys) | A sandbox (restored copy, branch DB, fake mailer, test-mode keys) **and** a yes naming the exact command |
-| Submitting or publishing anything (notarization, store, deploy, posts) | The user runs it, or gives an explicit yes. Check mode never submits on its own |
+| Submitting or publishing anything (notarization, store, deploy, posts) | The user runs it, or gives a yes naming the exact command. Check mode never submits on its own. Hold off if the credential it relies on was just leaked |
 
 Check for live keys in the test env and real addresses in fixtures before calling anything sandboxed. If a composed skill isn't installed, say so and use this skill's references.
 
 ## Step 1 — Write the brief
 
-Ask the two questions that decide the most first: **which platform** (web, iPhone, Mac, extension) and **who uses it** (just me / one team / many orgs). Then get these down in a few lines each. Ask for anything you can't infer from the repo. If the user says "you pick", draft it, mark each guess *(assumed)*, and move on:
+Ask the two questions that decide the most first: **which platform** (web, iPhone, Mac, extension) and **who uses it** (just me / one team / many orgs). Then get these down in a few lines each. Ask for anything you can't infer from the repo. If the user says "you pick", draft it, mark each guess *(assumed)*, and move on. The exception is choices that are hard to reverse (where data lives, whether there's auth, single- vs multi-tenant): state your pick and get a one-word OK. Batch follow-up questions into one message:
 
 - **Audience** and the **job** they're hiring this for. What's their current workaround?
 - **Useful outcome:** what "done" looks like for the user.
