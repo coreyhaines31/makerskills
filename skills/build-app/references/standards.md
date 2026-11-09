@@ -12,10 +12,12 @@ Pick the stack as a system. The tools should work well together and be easy for 
 
 | Medium | Default | Boundary |
 |---|---|---|
-| New web app | Next.js (App Router), TypeScript, Tailwind, shadcn/ui, Prisma ORM, Prisma Postgres, Better Auth, Stripe | Check versions and runtime compatibility before scaffolding |
+| New web app | Next.js (App Router), TypeScript, Tailwind, shadcn/ui, Prisma ORM, Prisma Postgres. Add Better Auth when there are accounts and Stripe when there's billing | Check versions and runtime compatibility before scaffolding |
 | macOS / iOS | Swift | Follow platform conventions |
 | Hot path that needs raw speed | Rust | Only after profiling shows it's needed. No blanket rewrites |
 | Extension / host plugin | Whatever the host requires | Read the host's API, permissions and lifecycle first |
+
+The defaults don't cover object storage, transactional email, background jobs or an LLM provider. When the product needs any of those, list it as an open choice in the brief. Route close calls to **decide**.
 
 Existing apps keep their stack. A Rails app isn't a migration target. Record any departure from the defaults and why.
 
@@ -30,10 +32,10 @@ Every app gets checked against these. **Check whether each one applies to the pr
 | ID | Outcome | When it applies / what proves it |
 |---|---|---|
 | O1 | Flexible users, orgs, teams, roles | Collaborative products. Membership matrix, server-side policy, cross-tenant negative tests. A single-user local app can justify no orgs. |
-| O2 | Easy feedback: free text, screenshots, video | Every product with users. Native entry point is fine. Verify consent, preview, private upload scope, failure cases. Text-only is a gap, not an equivalent. |
-| O3 | Security that fits the risk | Always. Threat model, least privilege, session/input/webhook/secret controls, named residual risks. |
+| O2 | Easy feedback **to the builder**: free text, screenshots, video | Every product with users other than the builder. This is product feedback, not in-app comments on the user's own content. A native entry point is fine. Verify consent, preview, private upload scope, failure cases. Text-only is a gap, not an equivalent. Justified N/A when the only user is the builder. |
+| O3 | Security that fits the risk | Always. Threat model, least privilege, session/input/webhook/secret controls, named residual risks. Start with what the app **ingests** (passwords on the clipboard, screen contents, tokens in prompts), not only what you store on purpose. |
 | O4 | Privacy-aware analytics tied to decisions | When there's something to learn. Event purpose, minimal payload, consent, retention. Local-only / no telemetry can be the right answer. |
-| O5 | Useful agent access | When the audience would actually automate it. One real workflow through API/CLI/MCP with the same policy as the UI. Not every wrapper. |
+| O5 | Useful agent access | When the audience would actually automate it: someone has asked, or the job is repetitive across many records. One real workflow through API/CLI/MCP with the same policy as the UI. Not every wrapper. Otherwise justified N/A, with "revisit if asked". |
 
 Supporting checks: complete UX journeys (see `ux.md`), data lifecycle and conditional billing (`trust.md`), measured performance (`performance.md`), reproducible tests and release readiness (`readiness.md`).
 
@@ -45,9 +47,11 @@ Supporting checks: complete UX journeys (see `ux.md`), data lifecycle and condit
 
 Pick a profile so the checks fit the product. Don't force one SaaS checklist onto every app. These examples are made up.
 
-**Collaborative web SaaS** (e.g. agency staff and clients reviewing shared work). All five outcomes apply. Owner/admin/member/client roles, where clients see less than members do. Billing per org. Caches keyed by tenant *and* audience. Restore drills. The first agent interface is "read a summary, draft an update". Publishing needs separate approval.
+**Personal single-user app** (e.g. a workout log for yourself, on web or iPhone). No accounts, orgs, billing, analytics or agent access, all justified N/A. O2 is N/A if you're the only user. Local data safety, export, and the recovery journey (app killed mid-task) still apply. Keep v1 small. If it ever gets shared, re-profile.
 
-**Local macOS utility** (e.g. reopen recent work from the menu bar). Swift, no account, no backend. Orgs, cloud billing and backend checks are justified N/A. Local file safety, export/delete, native feedback capture, permission denial, keyboard/menu behavior, startup and hitch time all still apply. Don't install analytics just to turn an N/A into a pass.
+**Collaborative web SaaS** (e.g. agency staff and clients reviewing shared work). O1–O4 apply. O5 applies when the audience automates. Owner/admin/member/client roles, where clients see less than members do. Billing per org. Caches keyed by tenant *and* audience. Restore drills. The first agent interface is "read a summary, draft an update". Publishing needs separate approval.
+
+**Local macOS utility** (e.g. reopen recent work from the menu bar). Swift, no account, no backend. Orgs, cloud billing and backend checks are justified N/A. Local file safety, export/delete (a real purge: SQLite DELETE leaves data in free pages and the WAL), native feedback capture, permission denial (Accessibility, pasteboard privacy prompts), keyboard/menu behavior, startup and hitch time all still apply. Restore means: the backup loads in a fresh user account, and a corrupt data file doesn't crash or silently wipe. Release means: notarization accepted, ticket stapled, and Gatekeeper passes on a second Mac. Don't install analytics just to turn an N/A into a pass.
 
 **Offline-capable mobile app** (e.g. field notes that sync later). Model draft → queued → uploading → synced / conflicted / failed as distinct states. Preserve input across suspension. Test duplicate sync, account switch, and sign-out clearing local data. VoiceOver, Dynamic Type, power and storage matter. Core Web Vitals don't grade this UI.
 
