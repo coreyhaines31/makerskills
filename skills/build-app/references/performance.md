@@ -24,7 +24,7 @@ Trace p50/p95/p99 with real sample sizes. Look at errors, successful throughput,
 
 Count actual queries, rows, bytes, pool and lock waits. One ORM call can issue many statements. Replacing an N+1 with one enormous join can be worse. Compare projections, bounded eager loads, cursor pagination, composite or partial indexes, and transaction scope against real predicates and plans. Sequential scans aren't automatically bad, and indexes cost writes.
 
-**EXPLAIN ANALYZE executes the query.** Rolling back doesn't undo every side effect. Don't run it against production writes without explicit approval. Plain EXPLAIN gives estimates, not elapsed time. Check the installed Prisma, driver and database versions before giving API or settings advice.
+**EXPLAIN ANALYZE executes the query.** Rolling back doesn't undo every side effect. For writes, run it only on a restored copy or a branch database, with a yes. A user's authority alone doesn't make production a sandbox. Plain EXPLAIN gives estimates, not elapsed time. On an UPDATE it still needs write privilege, so a read-only role gets "permission denied". Start with `pg_stat_statements`. In dashboards, the slow part is usually a read, not the write the user suspects. Check the installed Prisma, driver and database versions before giving API or settings advice.
 
 ## Cache contract: fill this in before recommending a cache
 
