@@ -6,7 +6,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.12.0] — 2026-11-09
 
 ### Changed — breaking
 - **`pm` is now `project-manager`** (v0.2.0). This separates it from `product-manager`. Use `/project-manager`. Saying "pm" or "/pm setup" etc. still routes to it through its trigger phrases. Board configs move from `~/.config/makerskills/pm/` to `~/.config/makerskills/project-manager/`. If only the old directory exists, the skill reads it and offers to move it. Sibling skills and docs now point at `project-manager`.
