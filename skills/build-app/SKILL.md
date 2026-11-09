@@ -26,28 +26,52 @@ It ends at **launch-ready**, not launched. Promotion, SEO, launch posts and grow
 | **check** | Existing app, "are we ready?" | Readiness report (read-only by default) |
 | **fleet** | A named list of apps | One short report per app + a cross-app summary |
 
-Ask which mode if it isn't obvious. In **check** and **fleet**, stay read-only unless the user asks for fixes. Record the exact revision and environment you looked at. When you lack access to something (deploy logs, production data), mark it *not assessed* instead of working around it. In **fleet**, use the list the user gives you. Don't go discovering every repo.
+Ask which mode if it isn't obvious.
 
-Before any test that could send mail, charge a card, run a migration, flush a cache or hit production, confirm it's sandboxed and get a yes.
+**What each step does per mode:**
+
+| Step | spec | check / fleet |
+|---|---|---|
+| 1 Brief | Write it; pick profile + stack | Infer it from the repo, confirm the gaps; keep the existing stack |
+| 2 UX | Design the states | Audit the states that exist → report rows |
+| 3 Trust | Define the model | Audit it → report rows |
+| 4 Build + proof | Plan units and tests | Map existing tests to journeys; note gaps |
+| 5 Performance | Plan baselines only (nothing to measure yet) | Measure with existing evidence |
+| 6 Report | Baseline report, mostly *not assessed*, verdict *unproven* | Full readiness report |
+
+Skipping a step under time pressure is fine. Its rows become *not assessed*, never pass.
+
+**Where output goes.** Spec: `docs/build-app/spec.md` in the app's repo. Show it before writing, and if there's no repo, show it in chat and ask where it should live. Check: show the report in chat and offer to save `docs/build-app/readiness-<YYYY-MM-DD>.md`. Fleet: one report per app plus a summary table in chat.
+
+**Read-only and approvals.** In **check** and **fleet**, stay read-only unless the user asks for fixes. If they ask for a fix, draft it on a branch and keep the report's statuses unchanged until it's verified. Record the exact revision and environment: for web, branch/commit plus staging/prod; for native, OS version, hardware, and debug/release/signed build. When you lack access to something (deploy logs, production data), mark it *not assessed* instead of working around it. In **fleet**, use the list the user gives you. Don't go discovering every repo.
+
+| Action | Needs |
+|---|---|
+| Reading code, config, existing logs and stats | Nothing beyond access |
+| Read-only queries against production (stats, plain EXPLAIN on a SELECT) | A yes naming the exact statements, with a read-only role |
+| Anything that executes writes, sends mail, charges, migrates, flushes a cache (incl. EXPLAIN ANALYZE on writes, test suites with live keys) | A sandbox (restored copy, branch DB, fake mailer, test-mode keys) **and** a yes naming the exact command |
+| Submitting or publishing anything (notarization, store, deploy, posts) | The user runs it, or gives an explicit yes. Check mode never submits on its own |
+
+Check for live keys in the test env and real addresses in fixtures before calling anything sandboxed. If a composed skill isn't installed, say so and use this skill's references.
 
 ## Step 1 — Write the brief
 
-Get these down in a few lines each (ask for anything you can't infer from the repo):
+Ask the two questions that decide the most first: **which platform** (web, iPhone, Mac, extension) and **who uses it** (just me / one team / many orgs). Then get these down in a few lines each. Ask for anything you can't infer from the repo. If the user says "you pick", draft it, mark each guess *(assumed)*, and move on:
 
 - **Audience** and the **job** they're hiring this for. What's their current workaround?
 - **Useful outcome:** what "done" looks like for the user.
 - **Critical journeys:** first use, return visit, recovery.
 - **v1 in / out**, and acceptance criteria.
-- **The better-model test:** if the next model is much better at the intelligence part, does this get more useful or less? Write down what the product contributes.
+- **The better-model test:** if the next model is much better at the intelligence part, does this get more useful or less? Write down what the product contributes. For a non-AI app, one line is enough.
 
-Then pick a **platform profile** and **stack**. Read `references/standards.md`. Defaults: Next.js + TypeScript + Tailwind + shadcn/ui + Prisma ORM + Prisma Postgres + Better Auth + Stripe for new web apps, and Swift for Apple platforms. Existing apps keep their stack. Note any departure and why.
+Then pick a **platform profile** and **stack**. Read `references/standards.md`. Defaults for new web apps: Next.js + TypeScript + Tailwind + shadcn/ui + Prisma ORM + Prisma Postgres, plus Better Auth when there are accounts and Stripe when there's billing. Swift for Apple platforms. Existing apps keep their stack. Note any departure and why.
 
 ## Step 2 — Design the experience
 
 Read `references/ux.md`. For each critical journey, name:
 
 - the happy path, and the one primary action at each step
-- every state: empty, invalid, denied, sending, timeout, offline, success, recovery
+- every state: empty, invalid, denied, sending, partial, timeout/failure, offline, success, recovery (mark the ones that can't happen as N/A, e.g. offline for a local-only app). Two-sided products get journeys per audience
 - where contextual help goes: tooltips and helper text for unfamiliar metrics, settings, permissions and unavailable actions. **Errors and essential instructions stay inline, never only in a tooltip.**
 - the consequential actions that need preview, confirm or undo
 
@@ -86,6 +110,10 @@ Read `references/readiness.md` and fill in its report template. One row per appl
 - **not assessed**: no access, no evidence, or not tested
 - **justified N/A**: doesn't apply to this profile, with the reason
 
+The evidence rules are in `references/readiness.md`. Reading code can prove a mechanism is missing, but not that one works. A named manual run counts only for the paths that were actually exercised.
+
+**Verdict:** any verified blocking gap → **not ready**. No blocking gaps, but a critical control (tenant isolation, secrets, restore, the release path) is *not assessed* → **unproven**. Otherwise → **ready for review**.
+
 End with the verdict for the stated scope, blockers, unknowns, and **one** next step. Keep drafted, checked, merged, deployed and live-verified as separate states. "Ready for review" isn't permission to deploy.
 
 ## Composes with
@@ -99,6 +127,10 @@ End with the verdict for the stated scope, blockers, unknowns, and **one** next 
 - **frontend-design**, **web-design-guidelines**, **swiftui-pro**, **analytics**, and the **\*-performance-audit** skills: external specialists, used if installed.
 
 ## Notes on quality
+
+- **Hold the bar warmly.** On "should be fine", "pretty sure it's secure" or "fine on my machine", don't accept it and don't scold. Say what evidence would settle it and offer a sharper candidate answer the user can adopt. If they say "I'm authorizing it", an approved exception is available: it stays a gap with an owner, a control and a review date. It never becomes a pass.
+- **Ask what the app ingests, not just what it stores.** Clipboard managers capture passwords, screenshot tools capture screens, and AI features capture prompts. Data the app collects from users is the first thing a threat model covers.
+- **Credentials pasted into chat are leaked.** Recommend rotating them now. Don't use admin credentials; ask for a read-only role instead.
 
 - **Tooltips supplement, they don't hide.** "Put every error in a tooltip to save space" is wrong. Essentials stay inline, and a tooltip on a native disabled button is unreachable by keyboard.
 - **"Make it fast, add Redis everywhere" gets a baseline first.** No TTL or cache layer without measured repeated work and a complete key including the tenant and audience.
