@@ -6,6 +6,14 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Added
+- **`castmate`: `grok` castmate.** Grok 4.7 through OpenCode's xAI provider (needs `XAI_API_KEY`). Setup steps are in `references/cli-setup.md`.
+
+### Fixed
+- **`castmate`: OpenCode 2.x.** Every OpenCode call failed on the removed `--pure` flag. Read-only runs also ignored the old permission setting and could write files; they now use OpenCode's `plan` agent, which blocked writes and shell commands in testing.
+
 ## [v1.14.0] — 2026-11-09
 
 ### Added
