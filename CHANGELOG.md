@@ -6,6 +6,11 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Added
+- **`product-manager` v0.3.0:** routes to [shadcn/improve](https://github.com/shadcn/improve) when it's installed. Accepted build units and blocking readiness gaps become self-contained plans that cheaper models can execute. `/improve branch` runs before each PR.
+
 ## [v1.12.0] — 2026-11-09
 
 ### Changed — breaking
