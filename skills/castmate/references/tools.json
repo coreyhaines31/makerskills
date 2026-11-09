@@ -156,7 +156,7 @@
       "verified": false,
       "args": [
         "run",
-        "--pure"
+        "--archived"
       ],
       "argsAfter": [
         "{prompt}"
@@ -168,12 +168,15 @@
       ],
       "readOnly": {
         "level": "best-effort",
-        "env": {
-          "OPENCODE_PERMISSION": "{\"*\":\"deny\",\"bash\":\"deny\",\"edit\":\"deny\",\"read\":{\"*\":\"allow\",\"*.env\":\"deny\",\"*.env.*\":\"deny\",\"*.env.example\":\"allow\"},\"glob\":\"allow\",\"grep\":\"allow\",\"list\":\"allow\",\"webfetch\":\"allow\",\"websearch\":\"allow\",\"codesearch\":\"allow\",\"lsp\":\"allow\"}"
-        }
+        "args": [
+          "--agent",
+          "plan"
+        ]
       },
       "write": {
-        "args": []
+        "args": [
+          "--auto"
+        ]
       },
       "setup": "other-clis"
     },
