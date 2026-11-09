@@ -105,7 +105,7 @@ Pages whose existence makes other skills sharper:
 | **Customer Language** | positioning + sales | Verbatim phrases from prospects/customers — used for copy, headlines, objections |
 | **Offer Notes** | positioning | What's been tried, what landed, what didn't |
 | **Recurring Questions** | sales, client onboarding | Questions asked >3 times across calls; pre-answered for SOP / FAQ / scripts |
-| **Workflow Docs** | `pm` | Documented operational patterns — what gets done, by whom, on what cadence |
+| **Workflow Docs** | `project-manager` | Documented operational patterns — what gets done, by whom, on what cadence |
 | **People** | agency, fundraising, partnerships | Contacts with context — a CRM-lite. Inspired by Gbrain's people entity. |
 | **Companies** | clients, prospects | Org profiles with last touchpoint, opportunity, status |
 | **Sales Objections** | sales scripts | Library of objections + best responses |

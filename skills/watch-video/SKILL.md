@@ -293,7 +293,7 @@ In chat:
 - `social-fetch` — for X/IG/TikTok URL metadata (engagement, author, replies) before video processing
 - `second-brain` — capture summary as `raw/call-<slug>.md`, `meeting-`, `note-`, or `resource-` per source type
 - `decide` — when a video contains a flagged decision, route to `/decide` for structured capture
-- `pm` — action items flagged in summary can be triaged to project boards
+- `project-manager` — action items flagged in summary can be triaged to project boards
 - `slide-deck` — talk recordings → outline extraction → deck draft (loop)
 - `jab-hook` — quotes + clip-worthy moments from podcast/talk videos feed BIP/promo posts
 - **`skillify from-video`** — primary use case for `visual` mode on process recordings. the user records themselves doing a workflow (Loom/screen-share), this skill extracts transcript + key visual moments, then `skillify` synthesizes the workflow into a SKILL.md. "Record once, AI converts to skill."
@@ -318,4 +318,4 @@ In chat:
 - **720p is plenty.** Downloading 1080p / 4K for transcription + frame analysis wastes bandwidth + storage. `yt-dlp -f "bv*[height<=720]+ba/b[height<=720]"` is the default.
 - **Scene-change detection catches slide transitions.** When the video is a slide presentation, add `ffmpeg -vf "select='gt(scene,0.3)'"` to force a frame on each detected slide change — more reliable than pure time-based sampling.
 - **Multimodal cost warning is non-optional.** Gemini multimodal on a 60-min video is meaningfully expensive. Warn before running; offer transcript-only as fallback if the user isn't sure.
-- **Summary format includes routing hints.** `## Decisions flagged` + `## Action items flagged` sections signal `/decide` and `/pm` follow-ups. Downstream composability lives in the summary structure.
+- **Summary format includes routing hints.** `## Decisions flagged` + `## Action items flagged` sections signal `/decide` and `/project-manager` follow-ups. Downstream composability lives in the summary structure.

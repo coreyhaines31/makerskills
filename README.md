@@ -92,7 +92,7 @@ Routing table for common operator jobs. Match your intent → skill.
 | Plan / draft social content rotation across a portfolio | [`jab-hook`](./skills/jab-hook/SKILL.md) |
 | Draft, update, convert, or export a slide deck | [`slide-deck`](./skills/slide-deck/SKILL.md) |
 | Clean terminal output for Slack / LinkedIn / X / Notion etc. | [`paste`](./skills/paste/SKILL.md) |
-| Manage projects across businesses (kanban) | [`pm`](./skills/pm/SKILL.md) |
+| Manage projects across businesses (kanban) | [`project-manager`](./skills/project-manager/SKILL.md) |
 | Model personal financial scenarios (house, cash flow, etc.) | [`personal-cfo`](./skills/personal-cfo/SKILL.md) |
 | Run monthly / weekly CFO for a company or agency | [`company-cfo`](./skills/company-cfo/SKILL.md) |
 | Plan, build, or check an app through launch readiness | [`product-manager`](./skills/product-manager/SKILL.md) |
@@ -143,7 +143,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 ### Operations & utilities
 | Skill | What |
 |---|---|
-| [`pm`](./skills/pm/SKILL.md) | Kanban (5-column) + Eisenhower across your portfolio. Tool-agnostic adapters (Notion, GitHub, Plane, Linear, Obsidian, manual). |
+| [`project-manager`](./skills/project-manager/SKILL.md) | Kanban (5-column) + Eisenhower across your portfolio. Tool-agnostic adapters (Notion, GitHub, Plane, Linear, Obsidian, manual). |
 | [`personal-cfo`](./skills/personal-cfo/SKILL.md) | Personal financial scenarios — house purchase + rental forecasting, monthly cash flow, big-purchase decisions. Household scope. |
 | [`company-cfo`](./skills/company-cfo/SKILL.md) | Company / agency CFO workflow — monthly snapshots, weekly cash pulse, scenario projector. Transaction-sum EOM methodology, categorization discipline, forward forecasting. Pulls from bank + payment processor + payroll + expense-mgmt via `toolify`-wired integrations. Team scope. |
 | [`product-manager`](./skills/product-manager/SKILL.md) | Take an app from brief to launch-ready across web, Apple, mobile and extensions. Spec / check / fleet modes. Better-model test, default stack (Next.js + TypeScript + Prisma + Better Auth, Swift on Apple), full UX state tables with contextual help, roles and agent access with negative tests, measure-before-cache performance, and a readiness report where missing evidence is never a pass. Stops at launch-ready; growth goes to marketing. |
@@ -160,7 +160,7 @@ Skills call each other by name. When a skill's job hits an adjacent job, it rout
 
 | Most referenced by siblings | Composes with... |
 |---|---|
-| **`watch-video`** (54 refs) | `second-brain` (capture summary), `skillify from-video`, `social-fetch` (X/IG/TikTok metadata), `pm` (action items), `decide` (flagged decisions) |
+| **`watch-video`** (54 refs) | `second-brain` (capture summary), `skillify from-video`, `social-fetch` (X/IG/TikTok metadata), `project-manager` (action items), `decide` (flagged decisions) |
 | **`skillify`** (51 refs) | `watch-video` (record → skill), `second-brain` (capture source), `compound-engineering:*` (Anthropic-official skill authoring) |
 | **`second-brain`** (48 refs) | `deep-research` (external gaps), `read-book` (highlights → wiki), `watch-video` (summaries → raw), `paste` (clean captures) |
 | **`slide-deck`** (38 refs) | `business-brainstorm` (pitch decks), `watch-video` (talk-recording → outline), `second-brain` (wiki as content) |

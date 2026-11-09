@@ -20,7 +20,7 @@ Rule of thumb: set an env var when the corresponding skill first prompts you.
 
 No. Install only what the skills you use need. The plugin doesn't error on missing deps — each skill checks and prompts with the install command when needed.
 
-Minimal usable install: just the plugin. No brew/pip/etc. required for `decide`, `paste`, `pm`, `personal-cfo`, etc.
+Minimal usable install: just the plugin. No brew/pip/etc. required for `decide`, `paste`, `project-manager`, `personal-cfo`, etc.
 
 ## Personal config pattern
 
