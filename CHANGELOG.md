@@ -6,7 +6,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.14.0] — 2026-11-09
 
 ### Added
 - **`product-manager` v0.4.0: audit mode.** Point an agent at a repo and ask "do a comprehensive audit and tell me how we could improve the app", for example on the day a new model ships. It runs seven lenses: product fit, UX, trust, performance, proof, an agent-ready codebase, and a **model lens**.
