@@ -140,7 +140,7 @@ The success metric: the user stops seeing dead-end reports without tried-angles 
 - `decide` — downstream: 2+ mutually exclusive viable angles become a `/decide` fork. Upstream: decide's Q19 ("what missing info would change it?") can route here when the missing thing is an *option*, not information.
 - `deep-research` — "needs research" angles route there; the brief comes back and re-enters Step 5.
 - `business-brainstorm` — its "angle to steal" move on Kill verdicts is this skill applied to business ideas.
-- `pm` — a committed angle becomes a board task.
+- `project-manager` — a committed angle becomes a board task.
 - `second-brain` — archive entries can compile into a "walls I've broken" wiki page.
 
 ## Guardrails

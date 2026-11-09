@@ -153,7 +153,7 @@ Verify the loop once end-to-end when setting it up: remote commit via API → lo
 - `decide` — pull from `Personal Philosophy` / `Productivity & Systems` wiki for principles when scoring Q34 ("what principles are we bending"). New: a `Decision Log` wiki page accumulates the narrative form of decisions over time (the `decide` archive is the structured form; the wiki page is the story).
 - `jab-hook` — a `Content Ideas` wiki page hoppers hooks, frameworks, and stories. `/jab-hook` drafts pull candidates from there.
 - `slide-deck` — content drafted in `outputs/` becomes deck source; speaker notes can reference relevant wiki pages.
-- `pm` — Projects/ folder in the vault is off-limits to second-brain; pm owns it. But a `Workflow Docs` wiki page captures operational patterns that show up across multiple projects.
+- `project-manager` — Projects/ folder in the vault is off-limits to second-brain; project-manager owns it. But a `Workflow Docs` wiki page captures operational patterns that show up across multiple projects.
 
 ## Sibling implementations (reference)
 

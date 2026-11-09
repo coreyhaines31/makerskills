@@ -134,7 +134,7 @@ For deeper description-writing guidance, consult `compound-engineering:skill-cre
     └── ...
 ```
 
-Body follows existing skills' pattern (`pm`, `decide`, `second-brain`):
+Body follows existing skills' pattern (`project-manager`, `decide`, `second-brain`):
 - `# /<name> — <one-line purpose>`
 - Numbered `## Step N — <phase>` sections
 - Composes-with cross-references
@@ -187,7 +187,7 @@ Read source SKILL.md + any `references/` it ships. Classify into three buckets p
 | Bucket | What | Example |
 |---|---|---|
 | **Keep verbatim** | Format, schema, mechanic, scripts, frameworks | Question banks, ffmpeg flags, regex patterns, JSON schemas |
-| **Adapt** | Tool defaults, paths, voice, naming, opinions | Their video tool → your `watch-video`, their kanban → your `pm`, their voice → your voice |
+| **Adapt** | Tool defaults, paths, voice, naming, opinions | Their video tool → your `watch-video`, their kanban → your `project-manager`, their voice → your voice |
 | **Add** | Cross-references to your existing skills, composition notes, your conventions | "Composes with `decide`," "Saves to `second-brain raw/`," "Uses MLX-Whisper local" |
 
 Output classification as a table for approval before writing anything. Don't silently rewrite — surface the changes.
@@ -216,7 +216,7 @@ Same table as CREATE Step 3.
 
 **Adapt:**
 - Naming: rename to verb-noun if not (matches `watch-video`, `read-book`, `paste`)
-- Tool swaps: their generic kanban → `pm`, their video tool → `watch-video`, their note system → `second-brain`, their decision framework → `decide`
+- Tool swaps: their generic kanban → `project-manager`, their video tool → `watch-video`, their note system → `second-brain`, their decision framework → `decide`
 - Voice: apply your voice rules — direct, conviction-coded. For social-adjacent skills, apply link-placement rule.
 - Paths: their `~/outputs/` → your `~/Documents/<skill>-<...>/` convention; their config → your `references/` pattern
 - Names + context: generic examples → your portfolio context where the skill needs it
@@ -460,7 +460,7 @@ A clean pass is a real result. Say so and stop.
 
 - **Cite the source.** Whether chat, video, dump, external URL, or user-named learning — the SKILL.md body should reference where each decision came from. Makes revising easier.
 - **Don't over-engineer v0.1.** Ship a minimal SKILL.md + 1–2 references files. Iterate after first use. Most generated skills are over-scoped.
-- **Verb-noun naming** where possible (matches `watch-video`, `read-book`, `paste`). Single-word noun names are fine for distinctive concepts (`decide`, `pm`, `paste`, `skillify`).
+- **Verb-noun naming** where possible (matches `watch-video`, `read-book`, `paste`). Single-word noun names are fine for distinctive concepts (`decide`, `paste`, `skillify`).
 - **Always reference Anthropic's official guidance** for the schema — don't invent format conventions.
 - **Write for any agent host**, not just Claude Code:
   - Name capabilities, not tool names ("fetch the URL", not a host tool name like Claude Code's fetch tool; "the Typefully create-draft tool", not a raw MCP tool ID).

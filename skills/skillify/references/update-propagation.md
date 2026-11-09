@@ -49,7 +49,7 @@ For each grep hit, read the matching section and ask: *is this rule actually app
 
 Some learnings won't have keyword matches but logically apply. Manually scan the list of all skills and ask: *does this rule apply here even if the keyword isn't present?*
 
-Example: a "voice should be spoken aloud" rule won't grep-match in `pm` (project management skill — no voice content), but it applies in any skill that produces user-facing text (`slide-deck`, `jab-hook`, `read-book` summaries, `create-skill` output).
+Example: a "voice should be spoken aloud" rule won't grep-match in `project-manager` (project management skill — no voice content), but it applies in any skill that produces user-facing text (`slide-deck`, `jab-hook`, `read-book` summaries, `create-skill` output).
 
 Use the skill's *output type* as the heuristic:
 - **Writes user-facing text** (drafts posts, slides, summaries): voice rules apply

@@ -31,7 +31,7 @@ Why: these are the source author's preferences. Yours differ.
 |---|---|---|
 | **Naming** | Their convention | Verb-noun (matches `watch-video`, `read-book`, `create-skill`) when possible |
 | **Tool defaults** | Their video tool | Your `watch-video` |
-| | Their kanban | Your `pm` |
+| | Their kanban | Your `project-manager` |
 | | Their transcript tool | Your `watch-video transcript` mode |
 | | Their notes / KB | Your `second-brain` (or `${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/`) |
 | | Their decision framework | Your `decide` |
@@ -42,7 +42,7 @@ Why: these are the source author's preferences. Yours differ.
 | **Voice** | Generic / corporate / theirs | Yours — direct, conviction-coded, listener-perspective, no AI-slop |
 | **Context** | "The user," generic examples | Your specific context (your name, your products / portfolio / partnerships) where the skill needs it |
 | **Defaults** | Their assumed environment | Your Mac, MLX-Whisper, brew, uv, Notion API key, Typefully MCP, etc. |
-| **Cadence** | Their suggested frequency / WIP limits | Yours (e.g., 2 promo/week for social, 3 In-Progress WIP for pm) |
+| **Cadence** | Their suggested frequency / WIP limits | Yours (e.g., 2 promo/week for social, 3 In-Progress WIP for project-manager) |
 
 Action: **rewrite** the affected lines, surface the change in the bucket report.
 
