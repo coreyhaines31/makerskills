@@ -6,6 +6,19 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.14.0] — 2026-11-09
+
+### Added
+- **`product-manager` v0.4.0: audit mode.** Point an agent at a repo and ask "do a comprehensive audit and tell me how we could improve the app", for example on the day a new model ships. It runs seven lenses: product fit, UX, trust, performance, proof, an agent-ready codebase, and a **model lens**.
+  - **Model lens:** inventories every model call, gets current model facts from `claude-api` or the provider's docs, and asks what the new model makes obsolete, newly possible, removable or stale (including thresholds tuned to one model).
+  - **Findings:** ranked by impact, confidence and effort, each with evidence.
+  - **Memory between runs:** audits save to `docs/product/audits/<date>-<model>.md`, so the next run leads with what's fixed, still open, new, changed because of the model, and missed last time.
+  - **Guardrails:** never swaps a production model mid-audit. Evals need a yes naming the models, sample size, inputs and cost, with rules for customer data and judging.
+  - Read-only, with no launch verdict. Picked findings can go to `/improve plan`. Tested with 3 simulated scenarios.
+
+### Fixed
+- `product-manager` writes its output to `docs/product/` as documented. A rename had produced `docs/product-manager/`.
+
 ## [v1.13.0] — 2026-11-09
 
 ### Added
