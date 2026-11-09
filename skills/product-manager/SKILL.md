@@ -2,7 +2,7 @@
 name: product-manager
 description: "When you want to plan, build, or check an app from idea through launch readiness — web SaaS, macOS/iOS, mobile, or browser extension. Writes the brief, picks the stack (Next.js + TypeScript + Prisma + Better Auth by default, Swift for Apple platforms), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Three modes: spec (plan v1), check (audit an existing app), fleet (audit a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # /product-manager — Take an app from idea to launch-ready
@@ -95,6 +95,8 @@ Break accepted requirements into small units, each with an acceptance check and 
 
 If the user wants it built, build it in small commits following the repo's workflow. Route integration plumbing to **toolify** and GitHub Actions cost and timing to **ci-audit**.
 
+**Handing units to another agent.** If **improve** (shadcn) is installed, use `/improve plan <unit>` to turn each accepted unit into a self-contained plan in `plans/`, with its acceptance check as the verification gate. A cheaper model can then execute it. Run `/improve branch` before each PR. Merging stays with the user, and `--issues` publishes plans as GitHub issues, so only use it with a yes.
+
 ## Step 5 — Measure performance, then improve
 
 Read `references/performance.md`. If **front-end-performance-audit**, **back-end-performance-audit** or **database-performance-audit** are installed, use them. Otherwise follow the reference.
@@ -116,10 +118,13 @@ The evidence rules are in `references/readiness.md`. Reading code can prove a me
 
 End with the verdict for the stated scope, blockers, unknowns, and **one** next step. Keep drafted, checked, merged, deployed and live-verified as separate states. "Ready for review" isn't permission to deploy.
 
+In **check** mode, the gaps can become work. If **improve** is installed, offer `/improve plan <gap>` for each blocking gap, using the row's evidence and fix-proof as the spec. A general code-health audit (`/improve`) is separate from readiness. Its findings don't change a row's status until they're verified.
+
 ## Composes with
 
 - **toolify**: wire up integrations, APIs and MCP servers during the build.
 - **ci-audit**: GitHub Actions timing and cost once CI exists.
+- **improve** ([shadcn/improve](https://github.com/shadcn/improve), external, used if installed): turns build units and readiness gaps into executable plans for cheaper models, and audits a branch before a PR.
 - **decide**: when a stack or architecture choice is genuinely close.
 - **castmate**: an independent second-model review of the spec or readiness report.
 - **skillify**: turn a repeated build lesson into a skill.
