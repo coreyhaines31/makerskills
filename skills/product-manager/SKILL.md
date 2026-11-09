@@ -2,7 +2,7 @@
 name: product-manager
 description: "When you want to plan, build, or check an app from idea through launch readiness — web, Apple, mobile, or extensions. Writes the brief, picks the stack (Next.js + TypeScript + Prisma by default, Swift on Apple), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Four modes: spec (plan v1), check (launch readiness), audit (ranked improvements, including what a new model changes), fleet (a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship,\" \"do a comprehensive audit,\" \"how could we improve my app,\" \"a new model just came out.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
 metadata:
-  version: 0.4.0
+  version: 0.5.0
 ---
 
 # /product-manager — Take an app from idea to launch-ready
@@ -88,7 +88,7 @@ Read `references/trust.md`. Check the five outcomes against the profile:
 
 1. **Users, orgs, teams, roles** (if collaborative): access matrix and negative tests.
 2. **Feedback:** free text, screenshots, video, with consent and private uploads.
-3. **Security that fits the risk:** threat model, least privilege, secrets, sessions, webhooks.
+3. **Security that fits the risk:** threat model, least privilege, secrets, sessions, webhooks. For depth, route to Brie Russell's **cybersecurity-skills** (threat-modeling, owasp-audit, api-audit, secrets-audit and more; table in `references/trust.md`).
 4. **Privacy-aware analytics:** decisions first, minimal payloads, or none at all.
 5. **Agent access:** one useful workflow through API/CLI/MCP, using the same policy as the UI.
 
@@ -137,6 +137,7 @@ In **check** mode, the gaps can become work. If **improve** is installed, offer 
 - **skillify**: turn a repeated build lesson into a skill.
 - **launch** (marketing skills): everything after launch-ready.
 - **Design** (external, used if installed): Zach Stevens' design skills (brand, creative-direction, logo-design, design-principles, motion-design), impeccable, hallmark, Emil Kowalski's skills, frontend-design, web-design-guidelines, swiftui-pro, and the motion, 3D and game-dev skills. The full routing table is in `references/ux.md`.
+- **Security** (external, used if installed): Brie Russell's [cybersecurity-skills](https://github.com/briiirussell/cybersecurity-skills), routed by job in `references/trust.md`.
 - **analytics** and the **\*-performance-audit** skills: external specialists, used if installed.
 
 ## Notes on quality

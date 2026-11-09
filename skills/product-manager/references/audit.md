@@ -31,7 +31,7 @@ Every finding needs evidence: a `file:line`, an observed behavior, a log or metr
 
 1. **Product fit.** Do the critical journeys still serve the job in the brief? Look for missing journeys, dead features nobody reaches, and the effort on the top journey (steps, inputs, waits).
 2. **UX.** The state tables from `ux.md`: missing empty/denied/timeout/offline/recovery states, errors hidden in tooltips, missing contextual help, accessibility on essential journeys.
-3. **Trust.** The five outcomes from `trust.md`, starting with what the app ingests. Cross-tenant paths, secrets, uploads, webhooks, data lifecycle.
+3. **Trust.** The five outcomes from `trust.md`, starting with what the app ingests. Cross-tenant paths, secrets, uploads, webhooks, data lifecycle. Offer the matching security specialist from `trust.md` (owasp-audit, api-audit, secrets-audit, dependency-audit, prompt-injection) for depth.
 4. **Performance.** Existing evidence only (traces, logs, stats, Lighthouse runs). Anything unmeasured is a labeled hypothesis. Follow `performance.md`.
 5. **Proof.** Tests mapped to journeys, using the testing section of `readiness.md`: which critical journeys and invariants have no test? Is CI healthy? Route Actions cost and timing to **ci-audit**.
 6. **Agent-ready codebase.** Check the stack against `standards.md` (existing apps keep theirs). Can a coding agent work here safely? Documented invariants (`AGENTS.md` / `CLAUDE.md`), fast and legible checks, clear boundaries. For code-health depth (duplication, dead code, bug patterns), offer **improve** if it's installed instead of re-doing its job. It writes plan files, so it runs only with a yes.
