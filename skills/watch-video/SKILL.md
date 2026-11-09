@@ -104,6 +104,8 @@ awk '
 
 **Verify the transcript for Whisper hallucination loops before using it.** On long recordings (especially multi-speaker calls with silence/crosstalk), Whisper can fall into a repetition loop and emit the same caption for huge stretches — a real failure produced "Yep." for 95 of 105 minutes while looking like a successful run. Detect it by scanning for runs of ≥8 consecutive identical captions:
 
+The check needs timestamped captions, so have Whisper write SRT (`--output-format srt` on the mlx_whisper CLI).
+
 ```python
 # entries = [(start_sec, text), ...] parsed from the SRT
 i = 0
@@ -170,6 +172,7 @@ For working sessions, bug reviews, and product walkthroughs, a single uniform ca
 3. Re-extract those windows at **1 frame per 3s** and run a second, detail-focused vision pass over them, pairing with the transcript:
 
 ```bash
+mkdir -p "<workdir>/dense"
 # per hot window [A, B] seconds:
 ffmpeg -ss <A> -to <B> -i "<workdir>/video.mp4" -vf "fps=1/3,scale=1280:-2" "<workdir>/dense/w<NN>-%03d.png" -y
 ```
