@@ -115,7 +115,7 @@ Skills for running the business (or the life):
 - **`pm`** — Kanban + Eisenhower across the portfolio
 - **`personal-cfo`** — household financial scenarios
 - **`company-cfo`** — company monthly CFO cadence
-- **`build-app`** — plan, build, or check an app from brief through launch readiness
+- **`product-manager`** — plan, build, or check an app from brief through launch readiness
 - **`ci-audit`** — measure and cut GitHub Actions minutes and wait time
 - **`paste`** — clean terminal output for 9 destinations
 - **`social-fetch`** — normalized fetcher across 10 platforms

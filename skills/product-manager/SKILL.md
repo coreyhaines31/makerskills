@@ -1,11 +1,11 @@
 ---
-name: build-app
-description: "When you want to plan, build, or check an app from idea through launch readiness — web SaaS, macOS/iOS, mobile, or browser extension. Writes the brief, picks the stack (Next.js + TypeScript + Prisma + Better Auth by default, Swift for Apple platforms), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Three modes: spec (plan v1), check (audit an existing app), fleet (audit a named list of apps). Triggers on \"/build-app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), or CI cost (see ci-audit)."
+name: product-manager
+description: "When you want to plan, build, or check an app from idea through launch readiness — web SaaS, macOS/iOS, mobile, or browser extension. Writes the brief, picks the stack (Next.js + TypeScript + Prisma + Better Auth by default, Swift for Apple platforms), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Three modes: spec (plan v1), check (audit an existing app), fleet (audit a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see pm)."
 metadata:
   version: 0.1.0
 ---
 
-# /build-app — Build coherent apps through launch readiness
+# /product-manager — Take an app from idea to launch-ready
 
 Most apps that fail at launch don't fail on the main feature. They fail on what nobody specced: a client who can download another client's files, an invite button that sends twice on a slow network, a backup nobody ever restored, a cache keyed on project ID that leaks internal notes. This skill makes you decide those things up front, and then proves them before calling anything ready.
 
@@ -41,7 +41,7 @@ Ask which mode if it isn't obvious.
 
 Skipping a step under time pressure is fine. Its rows become *not assessed*, never pass.
 
-**Where output goes.** Spec: `docs/build-app/spec.md` in the app's repo. Show it before writing, and if there's no repo, show it in chat and ask where it should live. Check: show the report in chat and offer to save `docs/build-app/readiness-<YYYY-MM-DD>.md`. Fleet: one report per app plus a summary table in chat.
+**Where output goes.** Spec: `docs/product-manager/spec.md` in the app's repo. Show it before writing, and if there's no repo, show it in chat and ask where it should live. Check: show the report in chat and offer to save `docs/product-manager/readiness-<YYYY-MM-DD>.md`. Fleet: one report per app plus a summary table in chat.
 
 **Read-only and approvals.** In **check** and **fleet**, stay read-only unless the user asks for fixes. If they ask for a fix, draft it on a branch and keep the report's statuses unchanged until it's verified. Record the exact revision and environment: for web, branch/commit plus staging/prod; for native, OS version, hardware, and debug/release/signed build. When you lack access to something (deploy logs, production data), mark it *not assessed* instead of working around it. In **fleet**, use the list the user gives you. Don't go discovering every repo.
 
