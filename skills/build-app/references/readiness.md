@@ -39,7 +39,8 @@ Before calling it ready, exercise these failure modes: denied actor, revoked acc
 - Searching and not finding something is an observation, not a verified gap. But reading the whole relevant code path and confirming the mechanism isn't there (e.g. a webhook handler with no event-ID dedupe and no table to store processed events) *is* a verified gap.
 - Reading code can't make a mechanism that's present a pass. You have to exercise it.
 - A named manual run (who, when, which revision and environment) is a pass only for the paths actually exercised. The denial and recovery paths around them stay *not assessed*.
-- A *not assessed* row blocks when it's a critical control: tenant isolation, secrets, restore you rely on, or a release path that has never run.
+- A *not assessed* row on a critical control (tenant isolation, secrets, restore you rely on, a release path that has never run) is marked "not assessed, blocking". On its own it makes the verdict **unproven**. A verified blocking gap anywhere makes it **not ready**.
+- An approved exception on a blocking gap doesn't change the verdict. The exception is different when its control removes the exposure, e.g. the feature is flagged off for launch. Then the row becomes a non-blocking gap.
 - Absence of telemetry, confirmed by searching dependencies and network code, supports "justified N/A". Say it was a search.
 - An approved exception keeps the item as a gap. Record the owner, compensating control and review date.
 - No single numeric score.
