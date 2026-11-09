@@ -39,7 +39,7 @@ Every app gets checked against these. **Check whether each one applies to the pr
 
 Supporting checks: complete UX journeys (see `ux.md`), data lifecycle and conditional billing (`trust.md`), measured performance (`performance.md`), reproducible tests and release readiness (`readiness.md`).
 
-**Likely blockers:** authorization or tenant-isolation failures, data loss, exposed secrets, broken core journeys, unsafe billing, a release or rollback path that doesn't work. Accessibility failures on essential journeys need an explicit decision, not a silent deferral.
+**Likely blockers:** authorization or tenant-isolation failures, data loss, exposed secrets (including users' secrets the app captures and stores in plaintext), broken core journeys, unsafe billing, a release or rollback path that doesn't work. Accessibility failures on essential journeys need an explicit decision, not a silent deferral.
 
 **Not gates:** launch posts, SEO, landing-page conversion, acquisition, growth. Those are marketing work. Hand them off.
 
@@ -47,7 +47,7 @@ Supporting checks: complete UX journeys (see `ux.md`), data lifecycle and condit
 
 Pick a profile so the checks fit the product. Don't force one SaaS checklist onto every app. These examples are made up.
 
-**Personal single-user app** (e.g. a workout log for yourself, on web or iPhone). No accounts, orgs, billing, analytics or agent access, all justified N/A. O2 is N/A if you're the only user. Local data safety, export, and the recovery journey (app killed mid-task) still apply. Keep v1 small. If it ever gets shared, re-profile.
+**Personal single-user app** (e.g. a workout log for yourself, on web or iPhone). No accounts, orgs, billing, analytics or agent access, all justified N/A. O2 is N/A if you're the only user. Local data safety, export, and the recovery journey (app killed mid-task) still apply. Keep v1 small. If it ever gets shared, re-profile. **On the web, decide where data lives first.** In the browser only (local storage or a PWA) means no backend and no auth. A hosted DB means the app sits at a public URL, so it needs an owner gate under O3. Use platform deployment protection, or a single-owner Better Auth login with sign-up off. That's an access control, not multi-user accounts.
 
 **Collaborative web SaaS** (e.g. agency staff and clients reviewing shared work). O1–O4 apply. O5 applies when the audience automates. Owner/admin/member/client roles, where clients see less than members do. Billing per org. Caches keyed by tenant *and* audience. Restore drills. The first agent interface is "read a summary, draft an update". Publishing needs separate approval.
 
