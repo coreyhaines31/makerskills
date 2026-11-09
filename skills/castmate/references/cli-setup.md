@@ -21,7 +21,8 @@ If it prints nothing, you probably cloned makerskills somewhere else. Use `CASTM
 | [Codex](#codex) | `codex`, `codex-sol-*`, `codex-terra`, `codex-luna`, `codex-research` | enforced | **yes** | ChatGPT account or API key |
 | [Gemini CLI](#gemini-cli) | `gemini-flash`, `gemini-pro`, `gemini-argon` | enforced | no | **API key** (personal Google sign-in ended) |
 | [Antigravity](#antigravity) | `antigravity` | best-effort | no | Google account |
-| [Others](#other-clis) | `amp-smart`, `opencode`, `cursor`, `kiro` | best-effort, untested | no | varies |
+| [Grok](#grok) | `grok` | best-effort | no | **xAI API key** |
+| [Others](#other-clis) | `opencode` (tested), `amp-smart`, `cursor`, `kiro` | best-effort | no | varies |
 
 **Read-only levels:**
 - **enforced:** the CLI's own sandbox or permission settings block file writes, shell commands, MCP tools, and repo-level config such as hooks. This was tested against a repo that plants hooks and MCP servers.
@@ -122,6 +123,17 @@ python3 "$CASTMATE" test antigravity
 - **An `empty` result means a tool was denied.** When headless mode denies a tool call, Antigravity drops its whole answer. castmate tells it shell commands are unavailable, but a prompt that needs one can still come back empty.
 - It updates itself in the background.
 
+## Grok
+
+xAI has no official agent CLI, so `grok` runs Grok through OpenCode's xAI provider.
+
+1. Install OpenCode: `brew install opencode`.
+2. Create an API key at [console.x.ai](https://console.x.ai) and add `export XAI_API_KEY=...` to your shell profile (`~/.zshenv`), then restart your agent. Never paste the key into chat.
+3. `python3 "$CASTMATE" test grok`.
+
+- **Read-only is best-effort.** It uses OpenCode's `plan` agent (see [Other CLIs](#other-clis)).
+- **A newer Grok needs no update here.** `-c opencode:xai/<model-id>` works for any model on xAI's [model list](https://docs.x.ai/docs/models).
+
 ## Other CLIs
 
 These adapters are ported from counselors' open PRs and **haven't been tested yet**. Run `python3 "$CASTMATE" test <name>` first, and expect to adjust flags in `~/.config/makerskills/castmate/config.json` (same shape as the skill's `references/tools.json`; your entries merge on top).
@@ -129,7 +141,7 @@ These adapters are ported from counselors' open PRs and **haven't been tested ye
 | CLI | Install | Notes |
 |---|---|---|
 | Amp | [ampcode.com](https://ampcode.com) | Read-only uses castmate's `amp-readonly-settings.json`, but workspace settings can override it |
-| OpenCode | [opencode.ai/docs](https://opencode.ai/docs/) | Project `opencode.json` can override the read-only permissions |
+| OpenCode | [opencode.ai/docs](https://opencode.ai/docs/) | Needs 2.x (tested on 2.2.6). Read-only runs the built-in `plan` agent, which blocked writes and shell commands in testing; a project `opencode.json` can redefine that agent. castmate still sets the old `OPENCODE_PERMISSION` (denies reading `.env` files) for builds that honor it |
 | Cursor | [cursor.com/cli](https://cursor.com/cli) | Needs a build with `--mode ask`; older builds (2025) reject it. Update with `cursor-agent update` |
 | Kiro | [kiro.dev/docs/cli](https://kiro.dev/docs/cli/) | Tool names changed in Kiro V3, so the read-only list may need updating |
 
