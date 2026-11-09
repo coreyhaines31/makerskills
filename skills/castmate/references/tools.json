@@ -362,6 +362,11 @@
       "tool": "opencode",
       "note": "OpenCode default model"
     },
+    "grok": {
+      "tool": "opencode",
+      "model": "xai/grok-4.7",
+      "note": "Grok 4.7 via OpenCode (needs XAI_API_KEY)"
+    },
     "cursor": {
       "tool": "cursor",
       "note": "Cursor Agent default model"

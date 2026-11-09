@@ -21,6 +21,7 @@ If it prints nothing, you probably cloned makerskills somewhere else. Use `CASTM
 | [Codex](#codex) | `codex`, `codex-sol-*`, `codex-terra`, `codex-luna`, `codex-research` | enforced | **yes** | ChatGPT account or API key |
 | [Gemini CLI](#gemini-cli) | `gemini-flash`, `gemini-pro`, `gemini-argon` | enforced | no | **API key** (personal Google sign-in ended) |
 | [Antigravity](#antigravity) | `antigravity` | best-effort | no | Google account |
+| [Grok](#grok) | `grok` | best-effort | no | **xAI API key** |
 | [Others](#other-clis) | `amp-smart`, `opencode`, `cursor`, `kiro` | best-effort, untested | no | varies |
 
 **Read-only levels:**
@@ -121,6 +122,17 @@ python3 "$CASTMATE" test antigravity
 - **Read-only is best-effort.** Plan mode blocked file writes in testing, but Antigravity loads your user MCP servers and has no flag to turn them off.
 - **An `empty` result means a tool was denied.** When headless mode denies a tool call, Antigravity drops its whole answer. castmate tells it shell commands are unavailable, but a prompt that needs one can still come back empty.
 - It updates itself in the background.
+
+## Grok
+
+xAI has no official agent CLI, so `grok` runs Grok through OpenCode's xAI provider.
+
+1. Install OpenCode: `brew install opencode`.
+2. Create an API key at [console.x.ai](https://console.x.ai) and add `export XAI_API_KEY=...` to your shell profile (`~/.zshenv`), then restart your agent. Never paste the key into chat.
+3. `python3 "$CASTMATE" test grok`.
+
+- **Read-only is best-effort.** It uses OpenCode's `plan` agent (see [Other CLIs](#other-clis)).
+- **A newer Grok needs no update here.** `-c opencode:xai/<model-id>` works for any model on xAI's [model list](https://docs.x.ai/docs/models).
 
 ## Other CLIs
 
