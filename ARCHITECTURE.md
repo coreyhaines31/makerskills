@@ -23,7 +23,7 @@ Mental model for how the plugin is structured, why the personal-config pattern e
 │   jab-hook/properties.yaml         — your rotation portfolio     │
 │   jab-hook/typefully.yaml          — your Typefully workspace ID │
 │   jab-hook/voice.local.md          — your voice rules            │
-│   pm/boards.md                     — your kanban board configs   │
+│   project-manager/boards.md        — your kanban board configs   │
 │   decide/archive/                  — your decision log           │
 │   business-brainstorm/archive/     — your idea briefs            │
 │   deep-research/archive/           — your past research briefs   │
@@ -61,7 +61,7 @@ Full list in [INSTALL.md](./INSTALL.md).
 
 ## Skill families
 
-The 24 skills group into 6 families by job type:
+The 25 skills group into 6 families by job type:
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 
@@ -112,9 +112,10 @@ Common thread: **strong voice + brand-perfect output**. Never generic AI-slop; t
 
 Skills for running the business (or the life):
 
-- **`pm`** — Kanban + Eisenhower across the portfolio
+- **`project-manager`** — Kanban + Eisenhower across the portfolio
 - **`personal-cfo`** — household financial scenarios
 - **`company-cfo`** — company monthly CFO cadence
+- **`product-manager`** — plan, build, or check an app from brief through launch readiness
 - **`ci-audit`** — measure and cut GitHub Actions minutes and wait time
 - **`paste`** — clean terminal output for 9 destinations
 - **`social-fetch`** — normalized fetcher across 10 platforms

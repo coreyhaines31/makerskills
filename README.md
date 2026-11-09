@@ -65,7 +65,7 @@ Each skill is a workflow doc — you can invoke via `/decide` OR read the SKILL.
 
 It'll read your clipboard, strip formatting, warn if over 280 chars, and copy back the cleaned output. First invocation may prompt you to install `pbcopy`-adjacent deps if missing. No config file needed — this is a pure utility.
 
-**5. Now branch out.** Skim [The 24 skills](#the-24-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
+**5. Now branch out.** Skim [The 25 skills](#the-25-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
 
 ---
 
@@ -92,9 +92,10 @@ Routing table for common operator jobs. Match your intent → skill.
 | Plan / draft social content rotation across a portfolio | [`jab-hook`](./skills/jab-hook/SKILL.md) |
 | Draft, update, convert, or export a slide deck | [`slide-deck`](./skills/slide-deck/SKILL.md) |
 | Clean terminal output for Slack / LinkedIn / X / Notion etc. | [`paste`](./skills/paste/SKILL.md) |
-| Manage projects across businesses (kanban) | [`pm`](./skills/pm/SKILL.md) |
+| Manage projects across businesses (kanban) | [`project-manager`](./skills/project-manager/SKILL.md) |
 | Model personal financial scenarios (house, cash flow, etc.) | [`personal-cfo`](./skills/personal-cfo/SKILL.md) |
 | Run monthly / weekly CFO for a company or agency | [`company-cfo`](./skills/company-cfo/SKILL.md) |
+| Plan, build, or check an app through launch readiness | [`product-manager`](./skills/product-manager/SKILL.md) |
 | Cut GitHub Actions minutes and CI wait time | [`ci-audit`](./skills/ci-audit/SKILL.md) |
 | Create, adapt, or update a skill | [`skillify`](./skills/skillify/SKILL.md) |
 | Wire up an integration / API / MCP into a project | [`toolify`](./skills/toolify/SKILL.md) |
@@ -104,7 +105,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 
 ---
 
-## The 24 skills
+## The 25 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -142,9 +143,10 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 ### Operations & utilities
 | Skill | What |
 |---|---|
-| [`pm`](./skills/pm/SKILL.md) | Kanban (5-column) + Eisenhower across your portfolio. Tool-agnostic adapters (Notion, GitHub, Plane, Linear, Obsidian, manual). |
+| [`project-manager`](./skills/project-manager/SKILL.md) | Kanban (5-column) + Eisenhower across your portfolio. Tool-agnostic adapters (Notion, GitHub, Plane, Linear, Obsidian, manual). |
 | [`personal-cfo`](./skills/personal-cfo/SKILL.md) | Personal financial scenarios — house purchase + rental forecasting, monthly cash flow, big-purchase decisions. Household scope. |
 | [`company-cfo`](./skills/company-cfo/SKILL.md) | Company / agency CFO workflow — monthly snapshots, weekly cash pulse, scenario projector. Transaction-sum EOM methodology, categorization discipline, forward forecasting. Pulls from bank + payment processor + payroll + expense-mgmt via `toolify`-wired integrations. Team scope. |
+| [`product-manager`](./skills/product-manager/SKILL.md) | Take an app from brief to launch-ready across web, Apple, mobile and extensions. Spec / check / fleet modes. Better-model test, default stack (Next.js + TypeScript + Prisma + Better Auth, Swift on Apple), full UX state tables with contextual help, roles and agent access with negative tests, measure-before-cache performance, and a readiness report where missing evidence is never a pass. Stops at launch-ready; growth goes to marketing. |
 | [`ci-audit`](./skills/ci-audit/SKILL.md) | Find and fix wasted GitHub Actions time across a repo or portfolio. A stdlib script measures queue / setup / run per job, billed minutes (per-job rounding, macOS 10×) and cron runs per month. Checks for silently broken scheduled pipelines first, ranks fixes by minutes saved, and ships them as small PRs with warm-cache before/after numbers. |
 | [`paste`](./skills/paste/SKILL.md) | Clean terminal output for 9 destinations (Slack, Notion, Twitter, LinkedIn, email, GitHub, plain, HTML). Secret-detection first. |
 | [`social-fetch`](./skills/social-fetch/SKILL.md) | Pull any social post by URL across 10 platforms (X, LinkedIn, IG, TikTok, Bluesky, Reddit, Mastodon, Threads, HN). Strategy chain with free + paid fallbacks. |
@@ -158,7 +160,7 @@ Skills call each other by name. When a skill's job hits an adjacent job, it rout
 
 | Most referenced by siblings | Composes with... |
 |---|---|
-| **`watch-video`** (54 refs) | `second-brain` (capture summary), `skillify from-video`, `social-fetch` (X/IG/TikTok metadata), `pm` (action items), `decide` (flagged decisions) |
+| **`watch-video`** (54 refs) | `second-brain` (capture summary), `skillify from-video`, `social-fetch` (X/IG/TikTok metadata), `project-manager` (action items), `decide` (flagged decisions) |
 | **`skillify`** (51 refs) | `watch-video` (record → skill), `second-brain` (capture source), `compound-engineering:*` (Anthropic-official skill authoring) |
 | **`second-brain`** (48 refs) | `deep-research` (external gaps), `read-book` (highlights → wiki), `watch-video` (summaries → raw), `paste` (clean captures) |
 | **`slide-deck`** (38 refs) | `business-brainstorm` (pitch decks), `watch-video` (talk-recording → outline), `second-brain` (wiki as content) |

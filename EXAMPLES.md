@@ -388,11 +388,11 @@ Later: `/slide-deck export marketing-like-an-engineer pdf` → Playwright snapsh
 
 ---
 
-## `pm`
+## `project-manager`
 
 **You:** *"What should I work on next?"*
 
-**Pm (next mode):** Reads `~/.config/makerskills/pm/boards.md` (your business list + tool per business). Queries each board's Ready column via the appropriate adapter (Notion, GitHub, Plane, Linear, Obsidian, or manual). Applies Eisenhower matrix across the portfolio. Reports:
+**Project-manager (next mode):** Reads `~/.config/makerskills/project-manager/boards.md` (your business list + tool per business). Queries each board's Ready column via the appropriate adapter (Notion, GitHub, Plane, Linear, Obsidian, or manual). Applies Eisenhower matrix across the portfolio. Reports:
 
 ```markdown
 Next up: **Product B — brand refresh variants ready for review** (Q1: Urgent + Important)

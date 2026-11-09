@@ -6,6 +6,25 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.12.0] — 2026-11-09
+
+### Changed — breaking
+- **`pm` is now `project-manager`** (v0.2.0). This separates it from `product-manager`. Use `/project-manager`. Saying "pm" or "/pm setup" etc. still routes to it through its trigger phrases. Board configs move from `~/.config/makerskills/pm/` to `~/.config/makerskills/project-manager/`. If only the old directory exists, the skill reads it and offers to move it. Sibling skills and docs now point at `project-manager`.
+
+### Added
+- **New skill: `product-manager`** (v0.1.0). Plan, build, or check an app from brief through launch readiness. There are three modes: spec, check and fleet. The workflow:
+  - Brief with the better-model test.
+  - Default stack: Next.js + TypeScript + Prisma ORM + Prisma Postgres + Better Auth, or Swift for Apple platforms.
+  - UX state tables with a contextual-help contract.
+  - Five outcomes (roles, feedback, security, analytics, agent access), each checked for applicability.
+  - Measure-first performance with a cache contract.
+  - A readiness report using pass / gap / not assessed / justified N/A.
+
+  Stops at launch-ready; marketing and growth go to `launch`.
+- **`product-manager` v0.2.0: design routing.** Step 2 now reads `.agents/brand.md` and `.agents/design.md` first. It then routes to Zach Stevens' design skills ([zstvns/design-skills](https://github.com/zstvns/design-skills)), impeccable, hallmark, Emil Kowalski's skills, frontend-design, web-design-guidelines and swiftui-pro, plus motion, 3D and game-dev skills. All are linked, not copied, and used only if installed.
+
+---
+
 ## [v1.11.0] — 2026-11-04
 
 ### Added

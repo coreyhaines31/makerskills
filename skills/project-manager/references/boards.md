@@ -1,8 +1,8 @@
 # Boards — per-business config (TEMPLATE)
 
-This is the template. Your real board mappings live in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards.md` — not in this repo. Copy the schema below and populate it there.
+This is the template. Your real board mappings live in `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/project-manager/boards.md` — not in this repo. Copy the schema below and populate it there.
 
-One row per business. Populated by `/pm setup [business]` and edited freely.
+One row per business. Populated by `/project-manager setup [business]` and edited freely.
 
 When the skill targets a business not listed in your local config, it falls back to `manual` mode and prompts setup.
 
@@ -10,7 +10,7 @@ When the skill targets a business not listed in your local config, it falls back
 |---|---|---|---|---|
 | _example_project_a_ | _notion_ | _<db-id>_ | _default_ | _default_ |
 
-_No boards configured yet. Run `/pm setup <business>` to start._
+_No boards configured yet. Run `/project-manager setup <business>` to start._
 
 ---
 
@@ -32,4 +32,4 @@ Ready: soft cap 10
 
 ## Cross-portfolio WIP
 
-Max **5 In Progress** across all boards combined. Above that, `/pm next` (cross-board) recommends finishing something before pulling new work.
+Max **5 In Progress** across all boards combined. Above that, `/project-manager next` (cross-board) recommends finishing something before pulling new work.

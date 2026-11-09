@@ -100,7 +100,7 @@ For each fix:
 - `loopify` — schedule a monthly re-audit or a next-morning check of the first scheduled run.
 - `castmate` — get a second model's review on a risky workflow change.
 - `unstuck` — when a fix that should work measures slower, before giving up on it.
-- `pm` — track owner decisions (cron frequency, paid runners) that the audit surfaced but didn't make.
+- `project-manager` — track owner decisions (cron frequency, paid runners) that the audit surfaced but didn't make.
 
 ## Notes on quality
 
