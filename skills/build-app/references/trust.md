@@ -38,9 +38,9 @@ Credentials should be least-privilege and short-lived where possible, rotatable 
 
 ## Security (O3)
 
-Record the sensitive data, actors, trust boundaries, privileged operations, dependencies and likely abuse. Apply least privilege, parameterized queries, input validation, upload restrictions, session protection, and CSRF/XSS/SSRF defenses as relevant. Use docs that match your framework version. Size rate limits to your exposure. Scan dependencies and secrets. Name the residual risks. A checklist isn't a certification.
+Record the sensitive data, actors, trust boundaries, privileged operations, dependencies and likely abuse. Start with what the app **ingests** from users, not just what you meant to store. A clipboard manager will capture passwords unless it skips concealed or transient pasteboard types and excludes password managers. A screenshot tool captures whatever is on screen. An AI feature captures whatever gets pasted into the prompt. Then ask where that data ends up: on disk, in backups, in logs, in caches. Apply least privilege, parameterized queries, input validation, upload restrictions, session protection, and CSRF/XSS/SSRF defenses as relevant. Use docs that match your framework version. Size rate limits to your exposure. Scan dependencies and secrets. Name the residual risks. A checklist isn't a certification.
 
-Keep secrets out of URLs, client bundles, logs, analytics and traces. If a secret leaks, revoke and rotate it now. A list of rotations to do later isn't remediation.
+Keep secrets out of URLs, client bundles, logs, analytics and traces. If a secret leaks, revoke and rotate it now. A list of rotations to do later isn't remediation. A credential pasted into an agent chat counts as leaked: recommend rotating it, and work through a read-only, least-privilege role instead of the admin one.
 
 ## Data lifecycle
 
