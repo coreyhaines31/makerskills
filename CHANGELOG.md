@@ -6,6 +6,21 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Added
+- **New skill: `build-app`** (v0.1.0). Plan, build, or check an app from brief through launch readiness. There are three modes: spec, check and fleet. The workflow:
+  - Brief with the better-model test.
+  - Default stack: Next.js + TypeScript + Prisma ORM + Prisma Postgres + Better Auth, or Swift for Apple platforms.
+  - UX state tables with a contextual-help contract.
+  - Five outcomes (roles, feedback, security, analytics, agent access), each checked for applicability.
+  - Measure-first performance with a cache contract.
+  - A readiness report using pass / gap / not assessed / justified N/A.
+
+  Stops at launch-ready; marketing and growth go to `launch`.
+
+---
+
 ## [v1.11.0] — 2026-11-04
 
 ### Added
