@@ -22,7 +22,7 @@ If it prints nothing, you probably cloned makerskills somewhere else. Use `CASTM
 | [Gemini CLI](#gemini-cli) | `gemini-flash`, `gemini-pro`, `gemini-argon` | enforced | no | **API key** (personal Google sign-in ended) |
 | [Antigravity](#antigravity) | `antigravity` | best-effort | no | Google account |
 | [Grok](#grok) | `grok` | best-effort | no | **xAI API key** |
-| [Others](#other-clis) | `amp-smart`, `opencode`, `cursor`, `kiro` | best-effort, untested | no | varies |
+| [Others](#other-clis) | `opencode` (tested), `amp-smart`, `cursor`, `kiro` | best-effort | no | varies |
 
 **Read-only levels:**
 - **enforced:** the CLI's own sandbox or permission settings block file writes, shell commands, MCP tools, and repo-level config such as hooks. This was tested against a repo that plants hooks and MCP servers.
@@ -141,7 +141,7 @@ These adapters are ported from counselors' open PRs and **haven't been tested ye
 | CLI | Install | Notes |
 |---|---|---|
 | Amp | [ampcode.com](https://ampcode.com) | Read-only uses castmate's `amp-readonly-settings.json`, but workspace settings can override it |
-| OpenCode | [opencode.ai/docs](https://opencode.ai/docs/) | Tested on 2.2.6. Read-only runs the built-in `plan` agent, which blocked writes and shell commands in testing; a project `opencode.json` can redefine that agent |
+| OpenCode | [opencode.ai/docs](https://opencode.ai/docs/) | Needs 2.x (tested on 2.2.6). Read-only runs the built-in `plan` agent, which blocked writes and shell commands in testing; a project `opencode.json` can redefine that agent. castmate still sets the old `OPENCODE_PERMISSION` (denies reading `.env` files) for builds that honor it |
 | Cursor | [cursor.com/cli](https://cursor.com/cli) | Needs a build with `--mode ask`; older builds (2025) reject it. Update with `cursor-agent update` |
 | Kiro | [kiro.dev/docs/cli](https://kiro.dev/docs/cli/) | Tool names changed in Kiro V3, so the read-only list may need updating |
 
