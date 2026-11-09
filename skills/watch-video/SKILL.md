@@ -161,6 +161,21 @@ For scene-change detection (slide decks especially):
 ffmpeg -i "<workdir>/video.mp4" -vf "select='gt(scene,0.3)',showinfo" -vsync vfr "<workdir>/frames/scene-%04d.png" 2> "<workdir>/scene-detection.log"
 ```
 
+### Dense second pass on hot windows (bugs / changes being discussed)
+
+For working sessions, bug reviews, and product walkthroughs, a single uniform cadence misses the detail that matters. Do a **two-pass** analysis:
+
+1. **First pass** at the normal cadence identifies findings (bugs hit on screen, improvements discussed) with timestamps.
+2. Build **hot windows** from (a) the first pass's finding timestamps and (b) a transcript keyword scan (`bug|broken|doesn't work|error|glitch|stuck|failing|should change|fix|confusing|janky`), pad each ±20s, and merge overlaps. Keep windows tight — over-padding merges the whole video back into one window.
+3. Re-extract those windows at **1 frame per 3s** and run a second, detail-focused vision pass over them, pairing with the transcript:
+
+```bash
+# per hot window [A, B] seconds:
+ffmpeg -ss <A> -to <B> -i "<workdir>/video.mp4" -vf "fps=1/3,scale=1280:-2" "<workdir>/dense/w<NN>-%03d.png" -y
+```
+
+The dense pass is where exact repro sequences, on-screen error text, and short-lived UI states (a modal that flashes, a wrong redirect, a state mismatch) get captured — several real findings only exist at 3s cadence. Long videos: parallelize both passes with subagents, each taking a frame chunk + its transcript slice, then dedupe findings across passes at synthesis.
+
 ### Vision pass
 
 Pair each frame with the transcript chunk for the same timestamp window. Then batch-send to Claude vision for synthesis.
@@ -338,6 +353,7 @@ In chat:
 - **User picks depth, not the skill.** Transcript / visual / multimodal are 3 different cost + latency profiles. Long videos (>10 min) always confirm before spending on visual/multimodal.
 - **Platform transcript first, Whisper second.** YouTube auto-subs, Loom transcripts, Riverside built-in transcripts — all free + instant when they exist. Fall back to local Whisper only when nothing platform-provided works.
 - **Always verify Whisper output for repetition loops.** A hallucination loop can silently replace 90%+ of a long recording with one repeated caption while the run exits 0. Scan for runs of identical captions (Step 5); re-run with conditioning on previous text turned off if found.
+- **Densify around bugs and change discussions.** When the video is a working session or bug review, run the two-pass flow (Step 7): normal cadence to find the moments, then 1 frame/3s over ±20s hot windows around every bug/change timestamp + transcript keyword hit. Uniform cadence alone misses flash-frame UI states and exact repro sequences.
 - **Local Whisper is the fast path.** MLX on M-series Macs transcribes faster than real-time; faster-whisper is the equivalent elsewhere. Cloud Whisper is a distant second choice — costs money, network dependency, worse latency on typical durations.
 - **Frame cadence by source type.** Screen-share / demos need 1 frame per 5s (UI changes fast); talking-head podcasts need 1 per 30s (slow change). Default 15s if unsure. Wrong cadence = missed key moments OR wasted vision-pass cost.
 - **720p is plenty.** Downloading 1080p / 4K for transcription + frame analysis wastes bandwidth + storage. `yt-dlp -f "bv*[height<=720]+ba/b[height<=720]"` is the default.
