@@ -34,7 +34,7 @@ Every finding needs evidence: a `file:line`, an observed behavior, a log or metr
 3. **Trust.** The five outcomes from `trust.md`, starting with what the app ingests. Cross-tenant paths, secrets, uploads, webhooks, data lifecycle.
 4. **Performance.** Existing evidence only (traces, logs, stats, Lighthouse runs). Anything unmeasured is a labeled hypothesis. Follow `performance.md`.
 5. **Proof.** Tests mapped to journeys, using the testing section of `readiness.md`: which critical journeys and invariants have no test? Is CI healthy? Route Actions cost and timing to **ci-audit**.
-6. **Agent-ready codebase.** Check the stack against `standards.md` (existing apps keep theirs). Can a coding agent work here safely? Documented invariants (`AGENTS.md` / `CLAUDE.md`), fast and legible checks, clear boundaries. For code-health depth (duplication, dead code, bug patterns), run **improve** if it's installed instead of re-doing its job.
+6. **Agent-ready codebase.** Check the stack against `standards.md` (existing apps keep theirs). Can a coding agent work here safely? Documented invariants (`AGENTS.md` / `CLAUDE.md`), fast and legible checks, clear boundaries. For code-health depth (duplication, dead code, bug patterns), offer **improve** if it's installed instead of re-doing its job. It writes plan files, so it runs only with a yes.
 7. **The model lens.** Below. Always run it. For a non-AI app, keep it to one question: what could a model now do for this app's users that it couldn't before?
 
 ## The model lens
