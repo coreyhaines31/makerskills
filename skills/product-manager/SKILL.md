@@ -41,7 +41,7 @@ Ask which mode if it isn't obvious.
 
 Skipping a step under time pressure is fine. Its rows become *not assessed*, never pass.
 
-**Where output goes.** Spec: `docs/product-manager/spec.md` in the app's repo. Show it before writing, and if there's no repo, show it in chat and ask where it should live. Check: show the report in chat and offer to save `docs/product-manager/readiness-<YYYY-MM-DD>.md`. Fleet: one report per app plus a summary table in chat.
+**Where output goes.** Spec: `docs/product/spec.md` in the app's repo. Show it before writing, and if there's no repo, show it in chat and ask where it should live. Check: show the report in chat and offer to save `docs/product/readiness-<YYYY-MM-DD>.md`. Fleet: one report per app plus a summary table in chat.
 
 **Read-only and approvals.** In **check** and **fleet**, stay read-only unless the user asks for fixes. If they ask for a fix, draft it on a branch and keep the report's statuses unchanged until it's verified. Record the exact revision and environment: for web, branch/commit plus staging/prod; for native, OS version, hardware, and debug/release/signed build. When you lack access to something (deploy logs, production data), mark it *not assessed* instead of working around it. In **fleet**, use the list the user gives you. Don't go discovering every repo.
 
