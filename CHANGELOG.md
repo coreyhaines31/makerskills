@@ -18,6 +18,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
   - A readiness report using pass / gap / not assessed / justified N/A.
 
   Stops at launch-ready; marketing and growth go to `launch`.
+- **`product-manager` v0.2.0: design routing.** Step 2 now reads `.agents/brand.md` and `.agents/design.md` first. It then routes to Zach Stevens' design skills ([zstvns/design-skills](https://github.com/zstvns/design-skills)), impeccable, hallmark, Emil Kowalski's skills, frontend-design, web-design-guidelines and swiftui-pro, plus motion, 3D and game-dev skills. All are linked, not copied, and used only if installed.
 
 ---
 

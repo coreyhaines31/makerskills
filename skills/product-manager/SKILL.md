@@ -2,7 +2,7 @@
 name: product-manager
 description: "When you want to plan, build, or check an app from idea through launch readiness — web SaaS, macOS/iOS, mobile, or browser extension. Writes the brief, picks the stack (Next.js + TypeScript + Prisma + Better Auth by default, Swift for Apple platforms), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Three modes: spec (plan v1), check (audit an existing app), fleet (audit a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see pm)."
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /product-manager — Take an app from idea to launch-ready
@@ -75,7 +75,7 @@ Read `references/ux.md`. For each critical journey, name:
 - where contextual help goes: tooltips and helper text for unfamiliar metrics, settings, permissions and unavailable actions. **Errors and essential instructions stay inline, never only in a tooltip.**
 - the consequential actions that need preview, confirm or undo
 
-Minimize total effort, not raw clicks. For visual direction, route to **frontend-design**, **web-design-guidelines** or **swiftui-pro** if they're installed. Don't invent a house style. Output a short design record: chosen direction, the states table, and what's still a proposal.
+Minimize total effort, not raw clicks. Read `.agents/brand.md` / `.agents/design.md` if they exist. For visual direction, route to a design skill from the table in `references/ux.md`: Zach Stevens' **brand** / **creative-direction** when there's no identity yet, **impeccable** or **frontend-design** for direction, **hallmark** so it doesn't look generated, **Emil Kowalski's skills** for interaction craft, **web-design-guidelines** or **swiftui-pro** for review. Don't invent a house style. Output a short design record: chosen direction, the states table, and what's still a proposal.
 
 ## Step 3 — Define boundaries and trust
 
@@ -124,7 +124,8 @@ End with the verdict for the stated scope, blockers, unknowns, and **one** next 
 - **castmate**: an independent second-model review of the spec or readiness report.
 - **skillify**: turn a repeated build lesson into a skill.
 - **launch** (marketing skills): everything after launch-ready.
-- **frontend-design**, **web-design-guidelines**, **swiftui-pro**, **analytics**, and the **\*-performance-audit** skills: external specialists, used if installed.
+- **Design** (external, used if installed): Zach Stevens' design skills (brand, creative-direction, logo-design, design-principles, motion-design), impeccable, hallmark, Emil Kowalski's skills, frontend-design, web-design-guidelines, swiftui-pro, and the motion, 3D and game-dev skills. The full routing table is in `references/ux.md`.
+- **analytics** and the **\*-performance-audit** skills: external specialists, used if installed.
 
 ## Notes on quality
 
