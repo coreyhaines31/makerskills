@@ -102,6 +102,30 @@ awk '
 ' "<workdir>/transcript.en.vtt" | awk '!seen[$0]++' > "<workdir>/transcript.txt"
 ```
 
+**Verify the transcript for Whisper hallucination loops before using it.** On long recordings (especially multi-speaker calls with silence/crosstalk), Whisper can fall into a repetition loop and emit the same caption for huge stretches — a real failure produced "Yep." for 95 of 105 minutes while looking like a successful run. Detect it by scanning for runs of ≥8 consecutive identical captions:
+
+```python
+# entries = [(start_sec, text), ...] parsed from the SRT
+i = 0
+while i < len(entries):
+    j = i
+    while j+1 < len(entries) and entries[j+1][1] == entries[i][1]:
+        j += 1
+    if j - i >= 8:
+        print("hallucination run:", entries[i][0], "->", entries[j][0], repr(entries[i][1][:30]))
+    i = j + 1
+```
+
+If long runs appear, re-transcribe with conditioning disabled — this breaks the loop propagation:
+
+```bash
+mlx_whisper <file> --model mlx-community/whisper-large-v3-turbo --output-dir <workdir> --output-format srt --condition-on-previous-text False
+```
+
+On faster-whisper, pass `condition_on_previous_text=False` to `transcribe()`; on whisper.cpp, `--max-context 0`.
+
+Run this check BEFORE building any analysis on the transcript; a looped transcript silently poisons keyword scans and any vision pass that pairs frames with audio.
+
 Save final to `<workdir>/transcript.txt`.
 
 ## Step 6 — If `transcript` mode: stop here
@@ -313,6 +337,7 @@ In chat:
 
 - **User picks depth, not the skill.** Transcript / visual / multimodal are 3 different cost + latency profiles. Long videos (>10 min) always confirm before spending on visual/multimodal.
 - **Platform transcript first, Whisper second.** YouTube auto-subs, Loom transcripts, Riverside built-in transcripts — all free + instant when they exist. Fall back to local Whisper only when nothing platform-provided works.
+- **Always verify Whisper output for repetition loops.** A hallucination loop can silently replace 90%+ of a long recording with one repeated caption while the run exits 0. Scan for runs of identical captions (Step 5); re-run with conditioning on previous text turned off if found.
 - **Local Whisper is the fast path.** MLX on M-series Macs transcribes faster than real-time; faster-whisper is the equivalent elsewhere. Cloud Whisper is a distant second choice — costs money, network dependency, worse latency on typical durations.
 - **Frame cadence by source type.** Screen-share / demos need 1 frame per 5s (UI changes fast); talking-head podcasts need 1 per 30s (slow change). Default 15s if unsure. Wrong cadence = missed key moments OR wasted vision-pass cost.
 - **720p is plenty.** Downloading 1080p / 4K for transcription + frame analysis wastes bandwidth + storage. `yt-dlp -f "bv*[height<=720]+ba/b[height<=720]"` is the default.
