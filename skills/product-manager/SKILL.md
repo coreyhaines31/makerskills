@@ -1,8 +1,8 @@
 ---
 name: product-manager
-description: "When you want to plan, build, or check an app from idea through launch readiness — web SaaS, macOS/iOS, mobile, or browser extension. Writes the brief, picks the stack (Next.js + TypeScript + Prisma + Better Auth by default, Swift for Apple platforms), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Three modes: spec (plan v1), check (audit an existing app), fleet (audit a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
+description: "When you want to plan, build, or check an app from idea through launch readiness — web, Apple, mobile, or extensions. Writes the brief, picks the stack (Next.js + TypeScript + Prisma by default, Swift on Apple), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Four modes: spec (plan v1), check (launch readiness), audit (ranked improvements, including what a new model changes), fleet (a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship,\" \"do a comprehensive audit,\" \"how could we improve my app,\" \"a new model just came out.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
 metadata:
-  version: 0.3.0
+  version: 0.4.0
 ---
 
 # /product-manager — Take an app from idea to launch-ready
@@ -24,26 +24,27 @@ It ends at **launch-ready**, not launched. Promotion, SEO, launch posts and grow
 |---|---|---|
 | **spec** | New app or v1 plan | Brief, stack, UX states, access model, test plan |
 | **check** | Existing app, "are we ready?" | Readiness report (read-only by default) |
+| **audit** | Existing app, "how could this be better?", or a new model just shipped | Ranked findings, model lens, comparison with the last audit (read-only) |
 | **fleet** | A named list of apps | One short report per app + a cross-app summary |
 
 Ask which mode if it isn't obvious.
 
 **What each step does per mode:**
 
-| Step | spec | check / fleet |
-|---|---|---|
-| 1 Brief | Write it; pick profile + stack | Infer it from the repo, confirm the gaps; keep the existing stack |
-| 2 UX | Design the states | Audit the states that exist → report rows |
-| 3 Trust | Define the model | Audit it → report rows |
-| 4 Build + proof | Plan units and tests | Map existing tests to journeys; note gaps |
-| 5 Performance | Plan baselines only (nothing to measure yet) | Measure with existing evidence |
-| 6 Report | Baseline report, mostly *not assessed*, verdict *unproven* | Full readiness report |
+| Step | spec | check / fleet | audit |
+|---|---|---|---|
+| 1 Brief | Write it; pick profile + stack | Infer it from the repo, confirm the gaps; keep the existing stack | Load the brief and the last audit; infer if missing |
+| 2 UX | Design the states | Audit the states that exist → report rows | UX lens → findings |
+| 3 Trust | Define the model | Audit it → report rows | Trust lens → findings |
+| 4 Build + proof | Plan units and tests | Map existing tests to journeys; note gaps | Proof and agent-ready-codebase lenses → findings |
+| 5 Performance | Plan baselines only (nothing to measure yet) | Measure with existing evidence | Performance lens, existing evidence only |
+| 6 Report | Baseline report, mostly *not assessed*, verdict *unproven* | Full readiness report | Audit report from `references/audit.md`. No launch verdict |
 
 Skipping a step under time pressure is fine. Its rows become *not assessed*, never pass.
 
-**Where output goes.** Spec: `docs/product/spec.md` in the app's repo. Show it before writing, and if there's no repo, show it in chat and ask where it should live. Check: show the report in chat and offer to save `docs/product/readiness-<YYYY-MM-DD>.md`. Fleet: one report per app plus a summary table in chat.
+**Where output goes.** Spec: `docs/product/spec.md` in the app's repo. Show it before writing, and if there's no repo, show it in chat and ask where it should live. Check: show the report in chat and offer to save `docs/product/readiness-<YYYY-MM-DD>.md`. Audit: show it in chat and offer to save `docs/product/audits/<YYYY-MM-DD>-<model-slug>.md`. The next audit reads it to show what changed. Fleet: one report per app plus a summary table in chat.
 
-**Read-only and approvals.** In **check** and **fleet**, stay read-only unless the user asks for fixes. If they ask for a fix, draft it on a branch and keep the report's statuses unchanged until it's verified. Record the exact revision and environment: for web, branch/commit plus staging/prod; for native, OS version, hardware, and debug/release/signed build. When you lack access to something (deploy logs, production data), mark it *not assessed* instead of working around it. In **fleet**, use the list the user gives you. Don't go discovering every repo.
+**Read-only and approvals.** In **check**, **audit** and **fleet**, stay read-only unless the user asks for fixes. If they ask for a fix, draft it on a branch and keep the report's statuses unchanged until it's verified. Record the exact revision and environment: for web, branch/commit plus staging/prod; for native, OS version, hardware, and debug/release/signed build. When you lack access to something (deploy logs, production data), mark it *not assessed* instead of working around it. In **fleet**, use the list the user gives you. Don't go discovering every repo.
 
 | Action | Needs |
 |---|---|
@@ -53,6 +54,10 @@ Skipping a step under time pressure is fine. Its rows become *not assessed*, nev
 | Submitting or publishing anything (notarization, store, deploy, posts) | The user runs it, or gives a yes naming the exact command. Check mode never submits on its own. Hold off if the credential it relies on was just leaked |
 
 Check for live keys in the test env and real addresses in fixtures before calling anything sandboxed. If a composed skill isn't installed, say so and use this skill's references.
+
+## Audit mode
+
+Read `references/audit.md` and follow it. It runs Steps 1–5 as lenses on the existing app, plus a **model lens**: inventory every model call, get current model facts from the **claude-api** skill or official docs (never memory), and ask what the new model makes obsolete, newly possible, removable or stale. Findings are ranked by impact, confidence and effort, and each one cites evidence. If there's a previous audit, lead with what's fixed, still open, new, and changed because of the model. Picked findings can go to `/improve plan`. Nothing is implemented without a yes.
 
 ## Step 1 — Write the brief
 
@@ -126,7 +131,9 @@ In **check** mode, the gaps can become work. If **improve** is installed, offer 
 - **ci-audit**: GitHub Actions timing and cost once CI exists.
 - **improve** ([shadcn/improve](https://github.com/shadcn/improve), external, used if installed): turns build units and readiness gaps into executable plans for cheaper models, and audits a branch before a PR.
 - **decide**: when a stack or architecture choice is genuinely close.
-- **castmate**: an independent second-model review of the spec or readiness report.
+- **castmate**: an independent second-model review of the spec, readiness report or audit.
+- **claude-api**: current model IDs, context windows, pricing and capabilities for the audit's model lens.
+- **loopify**: an opt-in schedule that starts an audit when a new model ships.
 - **skillify**: turn a repeated build lesson into a skill.
 - **launch** (marketing skills): everything after launch-ready.
 - **Design** (external, used if installed): Zach Stevens' design skills (brand, creative-direction, logo-design, design-principles, motion-design), impeccable, hallmark, Emil Kowalski's skills, frontend-design, web-design-guidelines, swiftui-pro, and the motion, 3D and game-dev skills. The full routing table is in `references/ux.md`.
@@ -147,5 +154,7 @@ In **check** mode, the gaps can become work. If **improve** is installed, offer 
 - **An MCP endpoint doesn't make a codebase agent-friendly.** Agent-friendly development and agent operation are separate checks.
 - **A local app isn't a failed SaaS.** No orgs, no backend, no telemetry can all be justified N/A.
 - **No access means not assessed.** Never "probably fine", and never a credential workaround.
+- **An audit finding needs evidence.** A `file:line`, an observed behavior or a metric. Without one, it's a question, not a finding.
+- **Model facts come from docs, not memory.** Model IDs, prices and context limits go stale every release. Never swap a production model inside an audit. The proof is a small eval, run with a yes.
 - **Growth isn't a gate.** If asked to add launch posts or SEO to readiness, keep them out and hand off to marketing.
 - **Don't promise a moat.** The better-model test is a heuristic, not a guarantee.
