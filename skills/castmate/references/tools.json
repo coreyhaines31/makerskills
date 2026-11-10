@@ -156,7 +156,7 @@
       "verified": false,
       "args": [
         "run",
-        "--pure"
+        "--archived"
       ],
       "argsAfter": [
         "{prompt}"
@@ -168,12 +168,18 @@
       ],
       "readOnly": {
         "level": "best-effort",
+        "args": [
+          "--agent",
+          "plan"
+        ],
         "env": {
           "OPENCODE_PERMISSION": "{\"*\":\"deny\",\"bash\":\"deny\",\"edit\":\"deny\",\"read\":{\"*\":\"allow\",\"*.env\":\"deny\",\"*.env.*\":\"deny\",\"*.env.example\":\"allow\"},\"glob\":\"allow\",\"grep\":\"allow\",\"list\":\"allow\",\"webfetch\":\"allow\",\"websearch\":\"allow\",\"codesearch\":\"allow\",\"lsp\":\"allow\"}"
         }
       },
       "write": {
-        "args": []
+        "args": [
+          "--auto"
+        ]
       },
       "setup": "other-clis"
     },
@@ -358,6 +364,11 @@
     "opencode": {
       "tool": "opencode",
       "note": "OpenCode default model"
+    },
+    "grok": {
+      "tool": "opencode",
+      "model": "xai/grok-4.7",
+      "note": "Grok 4.7 via OpenCode (needs XAI_API_KEY)"
     },
     "cursor": {
       "tool": "cursor",
