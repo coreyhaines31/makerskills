@@ -42,6 +42,28 @@ Record the sensitive data, actors, trust boundaries, privileged operations, depe
 
 Keep secrets out of URLs, client bundles, logs, analytics and traces. If a secret leaks, revoke and rotate it now. A list of rotations to do later isn't remediation. A credential pasted into an agent chat counts as leaked: recommend rotating it, and work through a read-only, least-privilege role instead of the admin one.
 
+### Security specialists to route to
+
+For depth, use Brie Russell's **[cybersecurity-skills](https://github.com/briiirussell/cybersecurity-skills)** (MIT) if they're installed. If they aren't, name the skill with that install link and continue with this file. Never install them without asking.
+
+| Job | Skill |
+|---|---|
+| Not sure where to start | **security-start** |
+| Threat model a new feature or system (Step 3) | **threat-modeling** |
+| Review web app code against the OWASP Top 10 | **owasp-audit** |
+| APIs: object-level auth (BOLA), mass assignment, rate limits | **api-audit** |
+| Leaked keys and how secrets are managed | **secrets-audit** |
+| Vulnerable or outdated dependencies | **dependency-audit** |
+| Roles, permissions, auth providers (RBAC/ABAC) | **iam-audit** |
+| AI features and agents: prompt injection, permission boundaries | **prompt-injection** |
+| Logic abuse and race conditions (double-spend, double-invite) | **business-logic-testing** |
+| GDPR/CCPA: consent, deletion, data subject requests | **privacy-engineering** |
+| iOS and Android apps | **mobile-audit** |
+| GitHub Actions and other CI pipelines | **cicd-security** |
+| Before trusting a new skill, plugin or MCP server | **agent-supply-chain-audit** |
+
+Anything that actively probes a running system (**business-logic-testing**, web pentesting, fuzzing) runs only against systems you're authorized to test, in a sandbox, with a yes naming the target. That follows the approvals table in SKILL.md. Code review and audits are read-only and need no extra approval.
+
 ## Data lifecycle
 
 For each kind of data, classify what you collect, why, who sees it, where it's stored, how long you keep it, and how it's exported, transferred, deactivated, deleted, purged and backed up. Soft delete isn't purge. Removing a membership isn't deleting the account. Explain irreversible consequences before the user confirms. Don't promise immediate deletion from backups you can't actually purge.
