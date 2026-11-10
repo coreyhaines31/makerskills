@@ -45,11 +45,12 @@ Models change faster than apps. Code written around last year's model weaknesses
 
 **2. Get current model facts from a source, not memory.** Use the **claude-api** skill if it's installed, or fetch the provider's official docs: current model IDs, context windows, pricing, capabilities, deprecation dates. Record the source and date. Treat anything you "remember" about models as stale. If the user didn't name the new model, confirm which one before putting it in a yes.
 
-**3. Ask five questions:**
+**3. Ask six questions:**
 - **Obsolete:** which features exist only because the model used to be worse? If the model now does it natively, the feature may be dead weight or need a new angle.
 - **Newly possible:** what was too unreliable to hand to a model before, and isn't now? (Longer context, better tool use, vision, reliable structured output.) Tie each idea to a critical journey or the job in the brief, not to novelty.
 - **Removable scaffolding:** retry-on-refusal loops, JSON repair, chunking for small contexts, over-specified prompts written for a weaker model. Deleting these is often the cheapest win.
 - **Stale pins:** hardcoded model IDs (and deprecation dates), max-token limits, context sizes, pricing constants, cost guards, and **thresholds tuned to one model**: confidence cutoffs, scoring rubrics, routing rules. A model swap changes what these let through. When a threshold gates an autonomous action (auto-sending, auto-merging, auto-refunding), a swap changes what happens to real people without anyone reviewing it.
+- **Harness drift:** agent harnesses and protocols change too (MCP support, deferred tool search, server instructions). Workarounds written for last quarter's gaps (prompts that teach the agent a CLI exists, polling for missing events, duplicated auth shims) may now be removable, and new support may make an agent surface worth adding. Check against current harness docs, not memory.
 - **The better-model test, re-run:** does the product get more useful with this model, or less? Has what the product contributes changed?
 
 **4. Model changes are hypotheses until evals run.** Never swap the production model during an audit, even when the user insists. The order is: eval → if it passes, draft the swap on a branch → the user merges or pushes. If there are no evals, "add a small eval set for this call" is itself a finding.
@@ -103,7 +104,7 @@ Scope: <revision> · depth <quick|standard|deep> · journeys covered / not cover
 <ranked table>
 
 ## Model lens
-<inventory table, current facts with source and date, answers to the five questions>
+<inventory table, current facts with source and date, answers to the six questions>
 
 ## Eval
 <if one ran: the approved yes, inputs, models, cost, results table, what it does and doesn't prove>
