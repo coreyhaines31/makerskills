@@ -2,7 +2,7 @@
 name: castmate
 description: "When you want to pull in the right AI model for the right job: hand a task to another agent CLI (Codex, Claude, Gemini, Grok, Amp, OpenCode, Cursor, Kiro, Antigravity), or send one prompt to several at once for independent opinions, then synthesize. Delegate mode gives one castmate the job, optionally with write access ('have codex write the migration'). Fan-out mode runs read-only reviews in parallel. Rounds mode lets castmates build on and challenge each other's findings. Calls the official CLIs you already have installed and logged in (Gemini CLI needs an API key on personal accounts); no MCP. Triggers on '/castmate,' 'ask codex,' 'have gemini do this,' 'get a second opinion,' 'what would other models say,' 'fan this out,' 'cross-check this with another model,' 'delegate this to codex.' Advisor personas for founder questions go to maker-council. Personal models, casting rules, and run outputs live in ~/.config/makerskills/castmate/."
 metadata:
-  version: 0.1.0
+  version: 0.2.0
 ---
 
 # /castmate — the right model for the right job
