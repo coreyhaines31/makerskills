@@ -6,6 +6,17 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.15.0] — 2026-11-09
+
+### Added
+- **`castmate` v0.2.0: `grok` castmate.** Grok 4.7 through OpenCode's xAI provider (needs `XAI_API_KEY`). Setup steps are in `references/cli-setup.md`. Any newer Grok works with `-c opencode:xai/<model-id>`.
+- **`watch-video` v0.3.0: Whisper loop check.** Before using a Whisper transcript, it scans for runs of identical captions. One real run replaced 95 of 105 minutes of a call with "Yep." while exiting 0. If it finds a loop, it re-transcribes with conditioning off (flags given for MLX, faster-whisper, and whisper.cpp).
+- **`watch-video` v0.3.0: dense second pass.** For bug reviews and working sessions, it re-extracts ±20s windows around each bug or change at 1 frame/3s. This catches flash-frame UI states and exact repro steps that the normal cadence misses.
+
+### Fixed
+- **`castmate`: OpenCode 2.x.** Every OpenCode call failed on the removed `--pure` flag. Read-only runs also ignored the old permission setting and could write files. They now use OpenCode's `plan` agent, which blocked writes and shell commands in testing. The old setting is still passed, so builds that honor it keep blocking `.env` reads.
+- **`social-fetch` v0.1.3: ScrapeCreators key.** When `SCRAPECREATORS_API_KEY` looks unset, it retries through the shell profile before giving up, since agent shells often skip it. It also notes fxtwitter as a free first try.
+
 ## [v1.14.0] — 2026-11-09
 
 ### Added

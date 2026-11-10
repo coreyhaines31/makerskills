@@ -151,7 +151,9 @@ Older tweets often cached; recent ones rarely.
 
 ### Strategy 4 — ScrapeCreators API (PAID, recommended for X)
 
-Requires `$SCRAPECREATORS_API_KEY`. If unset, skip and surface a one-time setup prompt.
+Requires `$SCRAPECREATORS_API_KEY`. If it's exported in a shell profile (e.g. `~/.zshenv`), an agent's non-interactive shell may not load it, so retry through that shell (`zsh -c 'source ~/.zshenv; curl ...'`) before concluding it's unset. Only if it's missing there too, skip and surface a one-time setup prompt.
+
+The `tweet` endpoint returns the post (incl. `note_tweet` long text) but not replies. For a free first try, `https://api.fxtwitter.com/<user>/status/<id>` returns full text and counts with no key.
 
 ```bash
 curl -s "https://api.scrapecreators.com/v1/twitter/tweet?url=<encoded-url>" \

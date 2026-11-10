@@ -2,7 +2,7 @@
 name: watch-video
 description: When you want to extract content from a video — YouTube, Loom, Vimeo, Riverside, Zoom recording, local MP4, X/IG video, anything yt-dlp supports. Three depth modes user picks per invocation — transcript (just words, fast/free), visual (transcript + ffmpeg frame extraction + Claude vision pass on key moments), multimodal (Gemini native video ingestion if $GEMINI_API_KEY set, else dense Claude vision). Uses local Whisper for transcription (MLX-Whisper on Apple Silicon, faster-whisper elsewhere), falls back to platform-provided transcripts when available (Loom, Riverside, YouTube auto-subs). Saves to ~/Documents/videos/<source>-<slug>-<date>/ and optionally captures summary to second-brain raw/ as call-/meeting-/note-. Triggers on "/watch-video <url>," "watch this video," "transcribe this loom," "analyze this video," "summarize this recording," "key moments from this," "what happened in this video." For a post's text and engagement, use social-fetch.
 metadata:
-  version: 0.2.3
+  version: 0.3.0
 ---
 
 # /watch-video — Transcribe and analyze any video at the depth you choose
@@ -102,6 +102,32 @@ awk '
 ' "<workdir>/transcript.en.vtt" | awk '!seen[$0]++' > "<workdir>/transcript.txt"
 ```
 
+**Verify the transcript for Whisper hallucination loops before using it.** On long recordings (especially multi-speaker calls with silence/crosstalk), Whisper can fall into a repetition loop and emit the same caption for huge stretches — a real failure produced "Yep." for 95 of 105 minutes while looking like a successful run. Detect it by scanning for runs of ≥8 consecutive identical captions:
+
+The check needs timestamped captions, so have Whisper write SRT (`--output-format srt` on the mlx_whisper CLI).
+
+```python
+# entries = [(start_sec, text), ...] parsed from the SRT
+i = 0
+while i < len(entries):
+    j = i
+    while j+1 < len(entries) and entries[j+1][1] == entries[i][1]:
+        j += 1
+    if j - i >= 8:
+        print("hallucination run:", entries[i][0], "->", entries[j][0], repr(entries[i][1][:30]))
+    i = j + 1
+```
+
+If long runs appear, re-transcribe with conditioning disabled — this breaks the loop propagation:
+
+```bash
+mlx_whisper <file> --model mlx-community/whisper-large-v3-turbo --output-dir <workdir> --output-format srt --condition-on-previous-text False
+```
+
+On faster-whisper, pass `condition_on_previous_text=False` to `transcribe()`; on whisper.cpp, `--max-context 0`.
+
+Run this check BEFORE building any analysis on the transcript; a looped transcript silently poisons keyword scans and any vision pass that pairs frames with audio.
+
 Save final to `<workdir>/transcript.txt`.
 
 ## Step 6 — If `transcript` mode: stop here
@@ -136,6 +162,22 @@ For scene-change detection (slide decks especially):
 ```bash
 ffmpeg -i "<workdir>/video.mp4" -vf "select='gt(scene,0.3)',showinfo" -vsync vfr "<workdir>/frames/scene-%04d.png" 2> "<workdir>/scene-detection.log"
 ```
+
+### Dense second pass on hot windows (bugs / changes being discussed)
+
+For working sessions, bug reviews, and product walkthroughs, a single uniform cadence misses the detail that matters. Do a **two-pass** analysis:
+
+1. **First pass** at the normal cadence identifies findings (bugs hit on screen, improvements discussed) with timestamps.
+2. Build **hot windows** from (a) the first pass's finding timestamps and (b) a transcript keyword scan (`bug|broken|doesn't work|error|glitch|stuck|failing|should change|fix|confusing|janky`), pad each ±20s, and merge overlaps. Keep windows tight — over-padding merges the whole video back into one window.
+3. Re-extract those windows at **1 frame per 3s** and run a second, detail-focused vision pass over them, pairing with the transcript:
+
+```bash
+mkdir -p "<workdir>/dense"
+# per hot window [A, B] seconds:
+ffmpeg -ss <A> -to <B> -i "<workdir>/video.mp4" -vf "fps=1/3,scale=1280:-2" "<workdir>/dense/w<NN>-%03d.png" -y
+```
+
+The dense pass is where exact repro sequences, on-screen error text, and short-lived UI states (a modal that flashes, a wrong redirect, a state mismatch) get captured — several real findings only exist at 3s cadence. Long videos: parallelize both passes with subagents, each taking a frame chunk + its transcript slice, then dedupe findings across passes at synthesis.
 
 ### Vision pass
 
@@ -313,6 +355,8 @@ In chat:
 
 - **User picks depth, not the skill.** Transcript / visual / multimodal are 3 different cost + latency profiles. Long videos (>10 min) always confirm before spending on visual/multimodal.
 - **Platform transcript first, Whisper second.** YouTube auto-subs, Loom transcripts, Riverside built-in transcripts — all free + instant when they exist. Fall back to local Whisper only when nothing platform-provided works.
+- **Always verify Whisper output for repetition loops.** A hallucination loop can silently replace 90%+ of a long recording with one repeated caption while the run exits 0. Scan for runs of identical captions (Step 5); re-run with conditioning on previous text turned off if found.
+- **Densify around bugs and change discussions.** When the video is a working session or bug review, run the two-pass flow (Step 7): normal cadence to find the moments, then 1 frame/3s over ±20s hot windows around every bug/change timestamp + transcript keyword hit. Uniform cadence alone misses flash-frame UI states and exact repro sequences.
 - **Local Whisper is the fast path.** MLX on M-series Macs transcribes faster than real-time; faster-whisper is the equivalent elsewhere. Cloud Whisper is a distant second choice — costs money, network dependency, worse latency on typical durations.
 - **Frame cadence by source type.** Screen-share / demos need 1 frame per 5s (UI changes fast); talking-head podcasts need 1 per 30s (slow change). Default 15s if unsure. Wrong cadence = missed key moments OR wasted vision-pass cost.
 - **720p is plenty.** Downloading 1080p / 4K for transcription + frame analysis wastes bandwidth + storage. `yt-dlp -f "bv*[height<=720]+ba/b[height<=720]"` is the default.
