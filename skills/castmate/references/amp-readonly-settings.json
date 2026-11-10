@@ -1,0 +1,16 @@
+{
+  "amp.tools.enable": [
+    "Read",
+    "Grep",
+    "glob",
+    "finder",
+    "librarian",
+    "look_at",
+    "oracle",
+    "read_web_page",
+    "read_mcp_resource",
+    "read_thread",
+    "find_thread",
+    "web_search"
+  ]
+}

@@ -1,6 +1,6 @@
 # Adapters
 
-How `pm` reads from / writes to each PM tool. Add new adapters here as needed.
+How `project-manager` reads from / writes to each PM tool. Add new adapters here as needed.
 
 Each business board has a `tool` value in `boards.md` that selects one of these adapters.
 
@@ -159,12 +159,12 @@ Watch out: Obsidian Kanban supports embedded YAML metadata blocks per card (prio
 
 **Auth:** none.
 
-When no tool is connected (or the user doesn't want one for a particular business), `pm` works in conversation:
+When no tool is connected (or the user doesn't want one for a particular business), `project-manager` works in conversation:
 
 1. Ask the user to paste the current board state (or describe verbally)
 2. Run the requested mode against that snapshot
 3. Output recommended moves as plain text
-4. Optionally: persist a snapshot to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards-cache/<business>.md` so subsequent runs don't require re-pasting (with a clear warning that the cache is stale until next paste) — never inside the skill folder; upgrades wipe it
+4. Optionally: persist a snapshot to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/project-manager/boards-cache/<business>.md` so subsequent runs don't require re-pasting (with a clear warning that the cache is stale until next paste) — never inside the skill folder; upgrades wipe it
 
 The cache file uses the same Obsidian-style markdown format above so it's portable.
 

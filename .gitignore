@@ -21,3 +21,7 @@ MIGRATION-TO-PUBLIC.md
 # Guard against skills accidentally writing old-style in-repo archives:
 skills/*/references/*archive*/
 skills/*/references/decks-archive.md
+
+# Python bytecode
+__pycache__/
+*.pyc

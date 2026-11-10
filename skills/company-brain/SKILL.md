@@ -241,7 +241,7 @@ Verify the loop once per machine when onboarding: remote commit via API → loca
 - **`toolify`** — wire up integrations that feed the company brain (Fathom webhook receiver, Attio API, etc.).
 - **`deep-research`** — when `query` finds gaps, route external. Save deep-research results into `raw/` for future compilation.
 - **`decide`** — `decisions/` folder complements `decide`'s structured archive. `decide` records the *evaluation*; `decisions/` records the *narrative + outcome + review notes*.
-- **`pm`** — team task management sits in `Projects/` (reserved from company-brain). `pm` owns Projects/; company-brain reads it for context but doesn't modify.
+- **`project-manager`** — team task management sits in `Projects/` (reserved from company-brain). `project-manager` owns Projects/; company-brain reads it for context but doesn't modify.
 - **`jab-hook`** — `customer-language/` fuels social copy that resonates with actual prospect language.
 - A blog-drafting skill (yours or a companion plugin) — pulls from `customer-language/`, `recurring-questions/`, and `sops/` for authoritative blog drafts.
 
