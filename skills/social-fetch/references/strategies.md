@@ -206,7 +206,8 @@ curl -s "https://api.scrapecreators.com/v1/linkedin/post?url=<encoded-url>" \
 Requires `$APIFY_API_TOKEN`. Use the `johnvc/linkedin-posts-api` actor: `postUrls` for a post, or `profileUrls` (plus `maxPostsPerProfile`) for a profile's recent posts.
 
 ```bash
-curl -X POST "https://api.apify.com/v2/acts/johnvc~linkedin-posts-api/run-sync-get-dataset-items?token=$APIFY_API_TOKEN" \
+curl -X POST "https://api.apify.com/v2/acts/johnvc~linkedin-posts-api/run-sync-get-dataset-items" \
+  -H "Authorization: Bearer $APIFY_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"postUrls": ["<url>"]}'
 ```
