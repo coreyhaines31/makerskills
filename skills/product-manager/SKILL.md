@@ -2,7 +2,7 @@
 name: product-manager
 description: "When you want to plan, build, or check an app from idea through launch readiness — web, Apple, mobile, or extensions. Writes the brief, picks the stack (Next.js + TypeScript + Prisma by default, Swift on Apple), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Four modes: spec (plan v1), check (launch readiness), audit (ranked improvements, including what a new model changes), fleet (a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship,\" \"do a comprehensive audit,\" \"how could we improve my app,\" \"a new model just came out.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
 metadata:
-  version: 0.5.0
+  version: 0.6.0
 ---
 
 # /product-manager — Take an app from idea to launch-ready
@@ -90,7 +90,7 @@ Read `references/trust.md`. Check the five outcomes against the profile:
 2. **Feedback:** free text, screenshots, video, with consent and private uploads.
 3. **Security that fits the risk:** threat model, least privilege, secrets, sessions, webhooks. For depth, route to Brie Russell's **cybersecurity-skills** (threat-modeling, owasp-audit, api-audit, secrets-audit and more; table in `references/trust.md`).
 4. **Privacy-aware analytics:** decisions first, minimal payloads, or none at all.
-5. **Agent access:** one useful workflow through API/CLI/MCP, using the same policy as the UI.
+5. **Agent access:** one useful workflow through API/CLI/MCP, using the same policy as the UI. Pick the surface by the job (MCP to be discovered, CLI for bulk data an agent can grep); see `references/trust.md`.
 
 Mark each applies / justified N/A. Don't add infrastructure just to tick a box. Keep the two "agent-friendly" questions apart: a codebase a coding agent can safely change, and a product an external agent can safely operate.
 
