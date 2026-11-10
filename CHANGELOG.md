@@ -6,7 +6,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.16.0] — 2026-11-09
 
 ### Added
 - **`product-manager` v0.5.0: security routing.** Security work now routes to Brie Russell's [cybersecurity-skills](https://github.com/briiirussell/cybersecurity-skills) (MIT) when installed. The routing covers threat-modeling, owasp-audit, api-audit, secrets-audit, dependency-audit, iam-audit, prompt-injection, business-logic-testing, privacy-engineering, mobile-audit, cicd-security and agent-supply-chain-audit. Active testing still needs an authorized target, a sandbox and a yes.
