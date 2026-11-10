@@ -6,6 +6,19 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.17.0] — 2026-11-09
+
+### Fixed
+- **`social-fetch` v0.1.4: LinkedIn via Apify.** The `apify/linkedin-*` actors return 404, so the fallback now uses `johnvc/linkedin-posts-api` and `johnvc/linkedin-profile-api`. Apify examples send the token in an `Authorization` header instead of the URL (#60, thanks @johnisanerd).
+- **`watch-video` v0.3.1: pipeline fixes.** Changes:
+  - yt-dlp metadata comes back as one JSON object.
+  - English-only subtitle tracks avoid HTTP 429.
+  - `--merge-output-format mp4` and `-fps_mode` replace older flags.
+  - Lossless Python caption cleanup.
+  - faster-whisper is pinned to a compatible PyAV.
+  - A rule against `$` before a digit, which agent hosts replace with command arguments.
+  - The Whisper snippets now also write timestamped SRT for the loop check (#40, thanks @Albert-4096).
+
 ## [v1.16.0] — 2026-11-09
 
 ### Added
