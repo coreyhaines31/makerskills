@@ -75,25 +75,37 @@ Where:
 2. **MLX-Whisper local** (default on Apple Silicon Macs):
 ```bash
 # Install once: pip install mlx-whisper
-python3 -I - "<file>" "<workdir>/transcript.txt" <<'PY'
+python3 -I - "<file>" "<workdir>/transcript" <<'PY'
 import sys, mlx_whisper
-r = mlx_whisper.transcribe(sys.argv[1], path_or_hf_repo="mlx-community/whisper-large-v3-turbo")
-open(sys.argv[2], "w", encoding="utf-8").write("\n".join(s["text"].strip() for s in r["segments"]) + "\n")
+r = mlx_whisper.transcribe(sys.argv[1], path_or_hf_repo="mlx-community/whisper-large-v3-turbo", condition_on_previous_text=False)
+def ts(x):
+    h, m, s = int(x // 3600), int(x % 3600 // 60), x % 60
+    return f"{h:02}:{m:02}:{s:06.3f}".replace(".", ",")
+segs = r["segments"]
+open(sys.argv[2] + ".txt", "w", encoding="utf-8").write("\n".join(s["text"].strip() for s in segs) + "\n")
+with open(sys.argv[2] + ".srt", "w", encoding="utf-8") as f:
+    for i, s in enumerate(segs, 1):
+        f.write(f"{i}\n{ts(s['start'])} --> {ts(s['end'])}\n{s['text'].strip()}\n\n")
 PY
 ```
+   Both snippets write `transcript.txt` and a timestamped `transcript.srt`, which the loop check in Step 5 reads.
    Or via the CLI: `mlx_whisper <file> --model mlx-community/whisper-large-v3-turbo --output-dir <workdir>`
 
 3. **Not on Apple Silicon** (Linux, Intel Mac, Windows, cloud agents): `faster-whisper` (CPU or CUDA) or `whisper.cpp`. Same model size.
 ```bash
 # Install once: pip install faster-whisper "av>=17,<18"
-python3 -I - "<file>" "<workdir>/transcript.txt" <<'PY'
+python3 -I - "<file>" "<workdir>/transcript" <<'PY'
 import sys
 from faster_whisper import WhisperModel
 model = WhisperModel("large-v3-turbo", compute_type="int8")  # add device="cuda" on an NVIDIA GPU
-segments, info = model.transcribe(sys.argv[1], vad_filter=True)
-with open(sys.argv[2], "w", encoding="utf-8") as f:
-    for s in segments:
-        f.write(s.text.strip() + "\n")
+segments, info = model.transcribe(sys.argv[1], vad_filter=True, condition_on_previous_text=False)
+def ts(x):
+    h, m, s = int(x // 3600), int(x % 3600 // 60), x % 60
+    return f"{h:02}:{m:02}:{s:06.3f}".replace(".", ",")
+with open(sys.argv[2] + ".txt", "w", encoding="utf-8") as txt, open(sys.argv[2] + ".srt", "w", encoding="utf-8") as srt:
+    for i, s in enumerate(segments, 1):
+        txt.write(s.text.strip() + "\n")
+        srt.write(f"{i}\n{ts(s.start)} --> {ts(s.end)}\n{s.text.strip()}\n\n")
 PY
 ```
    Run it with whichever `python3` has the package (a venv's `bin/python` works). The `av` pin matters: faster-whisper 1.2.x passes an argument that PyAV 18+ removed, and transcription then dies with `TypeError: open() got an unexpected keyword argument 'metadata_errors'`.
