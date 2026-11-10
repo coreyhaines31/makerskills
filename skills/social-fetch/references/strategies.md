@@ -167,7 +167,8 @@ Endpoint exact path may differ — verify in ScrapeCreators docs on first use.
 Requires `$APIFY_API_TOKEN`. Use the `apify/twitter-scraper` actor or a community equivalent.
 
 ```bash
-curl -X POST "https://api.apify.com/v2/acts/<actor-id>/run-sync-get-dataset-items?token=$APIFY_API_TOKEN" \
+curl -X POST "https://api.apify.com/v2/acts/<actor-id>/run-sync-get-dataset-items" \
+  -H "Authorization: Bearer $APIFY_API_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"tweetUrls": ["<url>"], "maxItems": 1}'
 ```
