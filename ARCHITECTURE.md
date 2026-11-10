@@ -23,7 +23,7 @@ Mental model for how the plugin is structured, why the personal-config pattern e
 │   jab-hook/properties.yaml         — your rotation portfolio     │
 │   jab-hook/typefully.yaml          — your Typefully workspace ID │
 │   jab-hook/voice.local.md          — your voice rules            │
-│   pm/boards.md                     — your kanban board configs   │
+│   project-manager/boards.md        — your kanban board configs   │
 │   decide/archive/                  — your decision log           │
 │   business-brainstorm/archive/     — your idea briefs            │
 │   deep-research/archive/           — your past research briefs   │
@@ -32,6 +32,8 @@ Mental model for how the plugin is structured, why the personal-config pattern e
 │   unstuck/archive/                 — your wall-cracking library  │
 │   maker-council/archive/           — your council sessions       │
 │   maker-council/advisors/          — your custom bench members   │
+│   castmate/config.json             — your castmate models + groups │
+│   castmate/runs/                   — your castmate outputs       │
 │                                                                 │
 │   YOUR real data. Never leaves your machine.                    │
 └─────────────────────────────────────────────────────────────────┘
@@ -59,7 +61,7 @@ Full list in [INSTALL.md](./INSTALL.md).
 
 ## Skill families
 
-The 22 skills group into 6 families by job type:
+The 25 skills group into 6 families by job type:
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 
@@ -110,11 +112,14 @@ Common thread: **strong voice + brand-perfect output**. Never generic AI-slop; t
 
 Skills for running the business (or the life):
 
-- **`pm`** — Kanban + Eisenhower across the portfolio
+- **`project-manager`** — Kanban + Eisenhower across the portfolio
 - **`personal-cfo`** — household financial scenarios
 - **`company-cfo`** — company monthly CFO cadence
+- **`product-manager`** — plan, build, or check an app from brief through launch readiness
+- **`ci-audit`** — measure and cut GitHub Actions minutes and wait time
 - **`paste`** — clean terminal output for 9 destinations
 - **`social-fetch`** — normalized fetcher across 10 platforms
+- **`castmate`** — hand a job to another agent CLI (Codex, Claude, Gemini, …) or fan one prompt out to several for independent opinions
 
 Common thread: **cadence + discipline**. These skills reinforce the routines that keep an operator functional at scale.
 
@@ -227,3 +232,12 @@ The principles that shape every skill in the collection:
 | Descriptions over 1024 chars, or unquoted with `: ` inside | ≤1024 chars (spec limit); quote or use `—` |
 
 When a skill genuinely needs a Claude Code feature (loopify's scheduler), say so in the body and document the other-hosts path. `scripts/check_portability.py` enforces the mechanical rules.
+
+### Skills that ship scripts
+
+Most skills are markdown only. When a step needs real process control that an agent can't do reliably by hand (castmate's parallel dispatch, timeouts, and process-group cleanup), the skill can ship a script under `skills/<name>/scripts/`:
+
+- **Standard library only.** No `pip install` or `npm install`. Python 3.9+ or POSIX shell.
+- **No state beside the script.** Installers replace skill folders on upgrade, so config, caches, and outputs go under `$MAKERSKILLS_CONFIG/<skill>/`.
+- **Shipped data stays read-only.** Defaults live in `references/`, and user files merge on top of them.
+- **The SKILL.md does the thinking.** The script does mechanics only: no prompts, no judgment calls.

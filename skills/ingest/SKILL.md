@@ -109,7 +109,7 @@ Close with a compact recap: TLDR of the input (2–3 sentences), decisions, both
 - `second-brain` — captures land in its `raw/` schema for later compile
 - `paste` — channel formatting for the reply draft
 - `deep-research` — when an extracted question needs real research before it's answerable
-- `pm` — when a call produces enough work to deserve a project card, not just issues
+- `project-manager` — when a call produces enough work to deserve a project card, not just issues
 
 ## Notes on quality
 

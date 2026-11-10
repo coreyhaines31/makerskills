@@ -1,11 +1,11 @@
 ---
-name: pm
-description: When you want to manage projects across your businesses using a kanban + Eisenhower methodology. One kanban per business (whatever portfolio of businesses, projects, or initiatives you run). Tool-agnostic — connects via API/MCP to whatever PM tool each business uses (Notion, GitHub Projects, Plane, Linear, Obsidian file-based, or manual mode). Async-first output. Six modes — setup (scaffold a new board for a business), triage (Eisenhower-sort the backlog), next (pick the next thing to work on, single board or across all), status (paste-ready async snapshot), unblock (diagnose Review/Blocked column), weekly (Friday pulse + week planning). Triggers on "/pm," "/pm setup," "/pm triage," "/pm next," "/pm status," "/pm unblock," "/pm weekly," "what should I work on next," "kanban status," "Eisenhower this," "triage my backlog," "what's blocked."
+name: project-manager
+description: When you want to manage projects across your businesses using a kanban + Eisenhower methodology. One kanban per business (whatever portfolio of businesses, projects, or initiatives you run). Tool-agnostic — connects via API/MCP to whatever PM tool each business uses (Notion, GitHub Projects, Plane, Linear, Obsidian file-based, or manual mode). Async-first output. Six modes — setup (scaffold a new board for a business), triage (Eisenhower-sort the backlog), next (pick the next thing to work on, single board or across all), status (paste-ready async snapshot), unblock (diagnose Review/Blocked column), weekly (Friday pulse + week planning). Triggers on "/project-manager," "/pm," "/pm setup," "/pm triage," "/pm next," "/pm status," "/pm unblock," "/pm weekly," "project manager," "what should I work on next," "kanban status," "Eisenhower this," "triage my backlog," "what's blocked." Not for specing or launch-readiness checks on an app (see product-manager).
 metadata:
-  version: 0.1.1
+  version: 0.2.0
 ---
 
-# /pm — Project management across the portfolio
+# /project-manager — Project management across the portfolio
 
 Methodology-first project management. Kanban + Eisenhower + async. One board per business. Tool-agnostic via adapters.
 
@@ -39,20 +39,20 @@ Parse the invocation:
 
 | Invocation | Mode | Target |
 |---|---|---|
-| `/pm setup [business]` | setup | the named business |
-| `/pm triage [business]` | triage | the named business (or ask) |
-| `/pm next [business]` | next | the named business |
-| `/pm next` | next | **across all boards** (cross-portfolio) |
-| `/pm status [business]` | status | the named business (or ask) |
-| `/pm unblock [business]` | unblock | the named business (or ask) |
-| `/pm weekly` | weekly | all boards (Friday pulse) |
-| `/pm weekly [business]` | weekly | the named business |
+| `/project-manager setup [business]` | setup | the named business |
+| `/project-manager triage [business]` | triage | the named business (or ask) |
+| `/project-manager next [business]` | next | the named business |
+| `/project-manager next` | next | **across all boards** (cross-portfolio) |
+| `/project-manager status [business]` | status | the named business (or ask) |
+| `/project-manager unblock [business]` | unblock | the named business (or ask) |
+| `/project-manager weekly` | weekly | all boards (Friday pulse) |
+| `/project-manager weekly [business]` | weekly | the named business |
 
 ## Step 2 — Load board config + personal overlay
 
-Read `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards.md` (personal — real business list + tool mapping per business). Falls back to `references/boards.md` in the repo if the local file doesn't exist yet — that's a template.
+Read `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/project-manager/boards.md` (personal — real business list + tool mapping per business). If that directory doesn't exist but `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/` does (the skill was called `pm` before v0.2.0), read from `pm/` instead and offer once to move it: `mv "${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm" "${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/project-manager"`. Never move it without a yes. Falls back to `references/boards.md` in the repo if the local file doesn't exist yet — that's a template.
 
-Also try to load `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/team.local.md` if present — this is where the user lists partners, active clients, and typical blocker phrasings. Use it to make status output specific ("Waiting on <partner>'s review") instead of generic.
+Also try to load `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/project-manager/team.local.md` if present — this is where the user lists partners, active clients, and typical blocker phrasings. Use it to make status output specific ("Waiting on <partner>'s review") instead of generic.
 
 | Field | Example |
 |---|---|
@@ -85,7 +85,7 @@ Adapters use:
 ### setup
 - Ask which tool the business uses
 - Walk through column setup (default 5 columns; offer custom)
-- Save mapping to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/pm/boards.md` (NOT to `references/boards.md` in the repo — that's a template only). Create the parent directory if it doesn't exist yet.
+- Save mapping to `${MAKERSKILLS_CONFIG:-$HOME/.config/makerskills}/project-manager/boards.md` (NOT to `references/boards.md` in the repo — that's a template only). Create the parent directory if it doesn't exist yet.
 - Optionally seed the board with starter cards from a conversation about what's on the user's mind for that business
 
 ### triage
@@ -100,7 +100,7 @@ Adapters use:
 
 ### next
 - **Single board**: pull Ready, then In Progress. If WIP exceeded, surface what to finish first. If WIP available, recommend top Ready item by Eisenhower priority.
-- **Cross-portfolio** (`/pm next` with no business): pull Ready from every board, Eisenhower-rank, recommend top 1–3 across all businesses. Bias toward Q1 then Q2.
+- **Cross-portfolio** (`/project-manager next` with no business): pull Ready from every board, Eisenhower-rank, recommend top 1–3 across all businesses. Bias toward Q1 then Q2.
 
 ### status
 Generate an async-shareable snapshot:
@@ -176,4 +176,4 @@ When generating status / weekly outputs:
 - **No verbs without subjects.** Write status so the reader can pick up cold — 3 weeks later or forwarded to a partner who missed the last update.
 - **Blockers name the blocker.** "Waiting on designer's review of the homepage draft" — not "blocked." Blockers without names create no urgency.
 - **Open questions are explicit** — one bolded line per status that asks for what would unblock momentum. Async momentum lives or dies on how well open questions are surfaced.
-- **Tool-agnostic by design.** pm speaks Kanban + Eisenhower; the adapters (Notion / GitHub / Plane / Linear / Obsidian / manual) translate. Adding a new tool = one adapter file, not a rewrite.
+- **Tool-agnostic by design.** project-manager speaks Kanban + Eisenhower; the adapters (Notion / GitHub / Plane / Linear / Obsidian / manual) translate. Adding a new tool = one adapter file, not a rewrite.

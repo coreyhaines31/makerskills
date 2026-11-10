@@ -1,6 +1,6 @@
 ---
 name: second-brain
-description: When you want to capture into, compile, query, lint, or connect your personal Second Brain. Wraps the Karpathy LLM Wiki schema (Obsidian or any markdown vault) — raw/ (unprocessed sources), wiki/ (AI-compiled interlinked topic pages), outputs/ (generated artifacts). Tool-agnostic in design but defaults to a vault at ${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/. Six modes — capture (drop something into raw/), compile (process unprocessed raw files into wiki pages, update INDEX.md), query (answer a question from the wiki, save to outputs/), lint (orphans / contradictions / stale / unprocessed raw / topic gaps), connect (suggest new wikilinks between pages), search (quick lookup). Triggers on "/second-brain," "/sb," "capture this," "save this to my brain," "compile the wiki," "process raw notes," "query my wiki," "ask my brain," "lint the wiki," "find connections," "search my notes." Complements deep-research (external corpus) — this is the internal corpus.
+description: When you want to capture into, compile, query, lint, or connect your personal Second Brain. Wraps the Karpathy LLM Wiki schema (Obsidian or any markdown vault) — raw/ (unprocessed sources), wiki/ (AI-compiled interlinked topic pages), outputs/ (generated artifacts). Vault defaults to ${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/. Six modes — capture (drop something into raw/), compile (process unprocessed raw files into wiki pages, update INDEX.md), query (answer a question from the wiki, save to outputs/), lint (orphans / contradictions / stale / unprocessed raw / topic gaps), connect (suggest new wikilinks between pages), search (quick lookup). Triggers on "/second-brain," "/sb," "capture this," "save this to my brain," "compile the wiki," "process raw notes," "query my wiki," "ask my brain," "lint the wiki," "find connections," "search my notes." Complements deep-research (external corpus) — this is the internal corpus. Team knowledge goes to company-brain, not here.
 metadata:
   version: 0.2.1
 ---
@@ -153,7 +153,7 @@ Verify the loop once end-to-end when setting it up: remote commit via API → lo
 - `decide` — pull from `Personal Philosophy` / `Productivity & Systems` wiki for principles when scoring Q34 ("what principles are we bending"). New: a `Decision Log` wiki page accumulates the narrative form of decisions over time (the `decide` archive is the structured form; the wiki page is the story).
 - `jab-hook` — a `Content Ideas` wiki page hoppers hooks, frameworks, and stories. `/jab-hook` drafts pull candidates from there.
 - `slide-deck` — content drafted in `outputs/` becomes deck source; speaker notes can reference relevant wiki pages.
-- `pm` — Projects/ folder in the vault is off-limits to second-brain; pm owns it. But a `Workflow Docs` wiki page captures operational patterns that show up across multiple projects.
+- `project-manager` — Projects/ folder in the vault is off-limits to second-brain; project-manager owns it. But a `Workflow Docs` wiki page captures operational patterns that show up across multiple projects.
 
 ## Sibling implementations (reference)
 

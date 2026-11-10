@@ -6,6 +6,131 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.16.0] — 2026-11-09
+
+### Added
+- **`product-manager` v0.5.0: security routing.** Security work now routes to Brie Russell's [cybersecurity-skills](https://github.com/briiirussell/cybersecurity-skills) (MIT) when installed. The routing covers threat-modeling, owasp-audit, api-audit, secrets-audit, dependency-audit, iam-audit, prompt-injection, business-logic-testing, privacy-engineering, mobile-audit, cicd-security and agent-supply-chain-audit. Active testing still needs an authorized target, a sandbox and a yes.
+
+## [v1.15.0] — 2026-11-09
+
+### Added
+- **`castmate` v0.2.0: `grok` castmate.** Grok 4.7 through OpenCode's xAI provider (needs `XAI_API_KEY`). Setup steps are in `references/cli-setup.md`. Any newer Grok works with `-c opencode:xai/<model-id>`.
+- **`watch-video` v0.3.0: Whisper loop check.** Before using a Whisper transcript, it scans for runs of identical captions. One real run replaced 95 of 105 minutes of a call with "Yep." while exiting 0. If it finds a loop, it re-transcribes with conditioning off (flags given for MLX, faster-whisper, and whisper.cpp).
+- **`watch-video` v0.3.0: dense second pass.** For bug reviews and working sessions, it re-extracts ±20s windows around each bug or change at 1 frame/3s. This catches flash-frame UI states and exact repro steps that the normal cadence misses.
+
+### Fixed
+- **`castmate`: OpenCode 2.x.** Every OpenCode call failed on the removed `--pure` flag. Read-only runs also ignored the old permission setting and could write files. They now use OpenCode's `plan` agent, which blocked writes and shell commands in testing. The old setting is still passed, so builds that honor it keep blocking `.env` reads.
+- **`social-fetch` v0.1.3: ScrapeCreators key.** When `SCRAPECREATORS_API_KEY` looks unset, it retries through the shell profile before giving up, since agent shells often skip it. It also notes fxtwitter as a free first try.
+
+## [v1.14.0] — 2026-11-09
+
+### Added
+- **`product-manager` v0.4.0: audit mode.** Point an agent at a repo and ask "do a comprehensive audit and tell me how we could improve the app", for example on the day a new model ships. It runs seven lenses: product fit, UX, trust, performance, proof, an agent-ready codebase, and a **model lens**.
+  - **Model lens:** inventories every model call, gets current model facts from `claude-api` or the provider's docs, and asks what the new model makes obsolete, newly possible, removable or stale (including thresholds tuned to one model).
+  - **Findings:** ranked by impact, confidence and effort, each with evidence.
+  - **Memory between runs:** audits save to `docs/product/audits/<date>-<model>.md`, so the next run leads with what's fixed, still open, new, changed because of the model, and missed last time.
+  - **Guardrails:** never swaps a production model mid-audit. Evals need a yes naming the models, sample size, inputs and cost, with rules for customer data and judging.
+  - Read-only, with no launch verdict. Picked findings can go to `/improve plan`. Tested with 3 simulated scenarios.
+
+### Fixed
+- `product-manager` writes its output to `docs/product/` as documented. A rename had produced `docs/product-manager/`.
+
+## [v1.13.0] — 2026-11-09
+
+### Added
+- **`product-manager` v0.3.0:** routes to [shadcn/improve](https://github.com/shadcn/improve) when it's installed. Accepted build units and blocking readiness gaps become self-contained plans that cheaper models can execute. `/improve branch` runs before each PR.
+
+## [v1.12.0] — 2026-11-09
+
+### Changed — breaking
+- **`pm` is now `project-manager`** (v0.2.0). This separates it from `product-manager`. Use `/project-manager`. Saying "pm" or "/pm setup" etc. still routes to it through its trigger phrases. Board configs move from `~/.config/makerskills/pm/` to `~/.config/makerskills/project-manager/`. If only the old directory exists, the skill reads it and offers to move it. Sibling skills and docs now point at `project-manager`.
+
+### Added
+- **New skill: `product-manager`** (v0.1.0). Plan, build, or check an app from brief through launch readiness. There are three modes: spec, check and fleet. The workflow:
+  - Brief with the better-model test.
+  - Default stack: Next.js + TypeScript + Prisma ORM + Prisma Postgres + Better Auth, or Swift for Apple platforms.
+  - UX state tables with a contextual-help contract.
+  - Five outcomes (roles, feedback, security, analytics, agent access), each checked for applicability.
+  - Measure-first performance with a cache contract.
+  - A readiness report using pass / gap / not assessed / justified N/A.
+
+  Stops at launch-ready; marketing and growth go to `launch`.
+- **`product-manager` v0.2.0: design routing.** Step 2 now reads `.agents/brand.md` and `.agents/design.md` first. It then routes to Zach Stevens' design skills ([zstvns/design-skills](https://github.com/zstvns/design-skills)), impeccable, hallmark, Emil Kowalski's skills, frontend-design, web-design-guidelines and swiftui-pro, plus motion, 3D and game-dev skills. All are linked, not copied, and used only if installed.
+
+---
+
+## [v1.11.0] — 2026-11-04
+
+### Added
+- **New skill: `ci-audit`** (v0.1.0). Find and fix wasted GitHub Actions time across one repo or a whole portfolio. A stdlib Python script (`scripts/ci_audit.py`) does the measuring:
+  - `inventory`: which repos run Actions, private vs public.
+  - `month`: billable minutes by workflow, with per-job minute rounding and the macOS 10× multiplier.
+  - `jobs`: queue, setup and run time per job, failures, and runner labels.
+  - `steps`: per-step seconds for one run.
+  - `schedules`: every cron on the default branch as runs per month.
+
+  The SKILL.md checks for silently broken scheduled pipelines before timing anything, ranks fixes by minutes saved, and ships them as small PRs with warm-cache before/after numbers. `references/fixes.md` is the playbook, including what measured slower and why. `references/gotchas.md` covers billing, measurement and tooling traps. Built from a two-day audit of about 20 repos.
+
+---
+
+## [v1.10.1] — 2026-11-03
+
+### Added
+- **`castmate` setup guide** (#67). New `references/cli-setup.md` covers install, login, a test command, the read-only level, and gotchas for each CLI:
+  - **Gemini CLI:** personal Google sign-in ended in 2026-06, so it needs an API key. The guide covers recovering after a failed Google sign-in, and rotating a key that's also saved in the keychain.
+  - **Antigravity:** its installer edits shell profiles (with a PATH fix for Linux bash), sign-in can work without a browser, and `agy models` lists what your account can use.
+
+  It also explains how to find the script outside an agent. Two simulated new users (codex-sol-high and gemini-argon) walked through it before release, and their stumbling points are fixed.
+
+### Changed
+- **`castmate` first-run UX** (#67):
+  - Failed runs and `test` now print a `hint:` with the fix and the matching guide section, covering Gemini's ended sign-in, expired logins, unavailable models, and Antigravity's denied-tool empties.
+  - `test` shows the last stderr lines instead of Codex's startup banner.
+  - SKILL.md tests castmates before the first cast, never asks for API keys in chat, and no longer claims "no API keys."
+  - INSTALL no longer implies Codex is required.
+
+## [v1.10.0] — 2026-11-03
+
+### Added
+- **New skill: `castmate`** (v0.1.0, #61). Pull in the right model for the right job. Delegate mode hands one agent CLI a task, read-only or with `--write` ("have codex write the migration"). Fan-out mode sends one prompt to several CLIs for independent read-only reviews, and the host synthesizes agreements, disagreements, risks, and blind spots. Rounds mode repeats the fan-out, and castmates confirm, refine, or invalidate earlier findings. A stdlib Python script (`scripts/castmate.py`) handles the mechanics:
+  - prompts go over stdin;
+  - each castmate runs in its own process group, so timeouts and Ctrl+C also stop the processes it started;
+  - a timeout keeps the partial output;
+  - a heartbeat prints every 30 seconds;
+  - each run writes a `run.json` manifest.
+
+  Adapters are data, not code. Claude, Codex, Gemini CLI (API key; read-only enforced by an admin-tier policy, because plan mode alone let writes through), and Antigravity are verified; Amp, OpenCode, Cursor, and Kiro are ported but unverified. Personal aliases, groups, and adapters go in `$MAKERSKILLS_CONFIG/castmate/config.json`, and any model ID passes straight through (`-c codex:gpt-5.7@high`), so a new model release needs no update. The casting guide defers to the user's own dated `casting.local.md`. Six review presets are included: bughunt, security, regression, contracts, invariants, hotspots. Adapted from [counselors](https://github.com/aarondfrancis/counselors) by Aaron Francis (MIT). That repo is unmaintained, and this port fixes its open bugs: orphaned child processes, timeouts that wrote no output, base-URL env vars being dropped, and duplicate tool output colliding. 22 → 23 skills.
+- **`castmate` hardening** (#63), from a castmate self-review (codex-sol-high + gemini-argon), with each finding reproduced before fixing:
+  - **Claude:** read-only no longer runs repo hooks. A planted `SessionStart` hook ran under the old flags; it's blocked by `--safe-mode --setting-sources user`.
+  - **Codex:** read-only no longer loads user MCP servers or ChatGPT app connectors (`--ignore-user-config`). Live web search moves to a `codex-research` alias.
+  - **Gemini:** read-only blocks MCP tools and the plan-mode escape.
+  - **Downgraded to `best-effort`:** Antigravity, Amp, OpenCode, Cursor, and Kiro, until each one blocks repo and MCP config.
+  - **SIGTERM** now stops castmates like Ctrl+C does. Queued castmates never start after an abort, and interrupted runs exit 128+signal.
+  - **Smaller script fixes:**
+    - output labels stay unique;
+    - `config.json` overrides of `readOnly`/`write` merge key by key;
+    - `test` runs in an empty folder and needs a bare `OK`;
+    - `--out` must be new or empty, and outside the tree a read-only run reviews;
+    - more code-injection env vars are stripped.
+  - **SKILL.md** now says what `enforced` covers, and that only Codex limits writes to `--cwd`.
+- **ARCHITECTURE: skills that ship scripts.** Standard library only, no state stored next to the script, shipped defaults kept read-only in `references/`.
+
+### Changed
+- **`maker-council` v0.3.0** (#57). Council sessions run in rounds instead of one pass. Members write opening cards blind (parallel subagents where the host has them), then rebut, concede, and say whether they moved, then vote on the chair's draft. The brief always includes the user's lean, "don't do it," and a smaller option, with guesses marked `(assumed)`. If the openings all agree, the chair assigns members to argue the strongest unbacked option. Cards score every option and rate each one's reversibility and ruin risk; the verdict reports option scores and spread, and caps a recommendation that a member flags as ruinous or that most members call irreversible (the cheapest reversible test becomes a precondition, and members vote on it). The chair confirms swing assumptions before Round 1 and keeps the chat verdict under 200 words; every round is saved in a session folder. Round costs are stated (roughly 0.7–1.4M tokens for a four- or five-seat council in testing). Adapted from Nate Herk's Roast Room ([nateherkai/roast-room](https://github.com/nateherkai/roast-room), MIT).
+
+## [v1.9.0] — 2026-10-22
+
+### Added
+- **`skillify` v0.3.1 — TEST mode** (#41). Role-plays 3–6 quarantined scenarios through a skill (canonical, terse, boundary, refusal, lazy answerer, die-and-resume, missing config), judges each transcript against a fixed rubric (applied vs. recited, specific vs. generic, held the bar, refusal fired, tone vs. substance, pacing, artifacts, self-contained), and returns a verdict table plus patch list for UPDATE mode. New `references/test-rubric.md`. Adapted from Jason Cohen's `exercise-asb-skill` ([asmartbear/asb-skills](https://github.com/asmartbear/asb-skills), CC BY 4.0). v0.3.1 (#49): TEST is always a dry run (no writes, drafts, issues, pushes, or paid calls), and the version under test is pinned with a git worktree.
+- **`maker-council` v0.2.0 — Jason Cohen joins the bench** (#45). The pricing, positioning, and specificity lens, grounded in his A Smart Bear essays and *Hidden Multipliers*. A requested off-bench founder no longer gets a seat improvised from memory. 8 → 9 members.
+
+### Changed
+- **`decide` v0.5.0** (#42, #48). A Step 0 screen for already-decided input (retroactive log), validation-seeking, and no-options input. A hold-the-bar rule: two pushes with candidate answers, then tag `(unanswered)`. Weak inputs route to Wait or Decide smaller, and a test must have a pass/fail bar. A real-decision check (rejected alternative + accepted downside). The archive gains Rejected alternative / Accepted downside / Revised from / Weak spots, and INDEX lines flag `(N weak spots)`. The archive is now a working file created early with an in-progress marker carrying the remaining plan, so a dead session resumes where it stopped.
+- **`business-brainstorm` v0.4.0** (#42, #48). Hopes score ❓/❌, never 🟡, and are quoted. The Opposite Test applies to differentiation claims, threats must be present tense, and it refuses validation-seeking or already-committed ideas. The working file and resume work the same way as in decide. The quality notes now use the Build/Sleep/Pass verdict names.
+- **Descriptions** (#46). Seven skills that share triggers with a sibling now say which sibling takes the other case: second-brain ↔ company-brain, personal-cfo → company-cfo, deep-research → radar/social-fetch/watch-video, social-fetch ↔ watch-video, skillify → toolify/loopify.
+
+All of the above were tested with `/skillify test` before merging (baseline and after-patch runs are in each PR).
+
 ## [v1.8.0] — 2026-10-08
 
 ### Added

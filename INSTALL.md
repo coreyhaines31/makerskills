@@ -53,7 +53,7 @@ export SLIDE_DECK_DEV_HOST="localhost:3000"
 These contain your real data and are stored under `$MAKERSKILLS_CONFIG/` (default `~/.config/makerskills/`). They're gitignored — your personal data never leaves your machine.
 
 ```bash
-mkdir -p ~/.config/makerskills/{jab-hook,pm,decide,business-brainstorm,deep-research,personal-cfo,slide-deck,unstuck,maker-council}
+mkdir -p ~/.config/makerskills/{jab-hook,project-manager,decide,business-brainstorm,deep-research,personal-cfo,slide-deck,unstuck,maker-council,castmate}
 
 # Copy example configs and edit them with your real values
 cp ~/code/makerskills/skills/jab-hook/references/typefully-config.example.yaml \
@@ -83,21 +83,25 @@ sudo tlmgr update --self && sudo tlmgr install collection-fontsrecommended
 # Optional: for EPUB/MOBI conversion in read-book
 brew install --cask calibre                 # for ebook-convert
 
+# castmate: python3 (3.9+) plus ONE agent CLI you already use (Claude Code, Codex, Gemini CLI,
+# Antigravity, ...), installed and logged in. Install, login, and gotchas for each:
+# skills/castmate/references/cli-setup.md
+
 ```
 
 ## 5. API keys
 
-All skills work without these (free fallbacks); these unlock premium capability:
+All skills work without these (free fallbacks); these unlock premium capability. castmate needs no key unless you cast Gemini CLI, which requires one on personal accounts.
 
 ```bash
-# In ~/.zshenv
-export NOTION_API_KEY="..."                 # pm Notion adapter, deep-research
+# In ~/.zshenv (zsh) or ~/.bashrc (bash)
+export NOTION_API_KEY="..."                 # project-manager Notion adapter, deep-research
 export TYPEFULLY_API_KEY="..."              # jab-hook drafts
-export GEMINI_API_KEY="..."                 # watch-video multimodal mode
+export GEMINI_API_KEY="..."                 # watch-video multimodal mode; castmate via Gemini CLI (personal Google sign-in ended)
 export SCRAPECREATORS_API_KEY="..."         # social-fetch full data (X, IG, TikTok, LinkedIn posts)
 export BRAVE_API_KEY="..."                  # deep-research / last30days web search
-export PLANE_API_KEY="..."                  # pm Plane adapter (if you use Plane)
-export LINEAR_API_KEY="..."                 # pm Linear adapter (if you use Linear)
+export PLANE_API_KEY="..."                  # project-manager Plane adapter (if you use Plane)
+export LINEAR_API_KEY="..."                 # project-manager Linear adapter (if you use Linear)
 export DOMAINR_API_KEY="..."                # domain — Domainr aggregation (free at rapidapi.com/domainr/api/domainr)
 export NAMECHEAP_API_USER="..."             # domain — Namecheap availability + prices
 export NAMECHEAP_API_KEY="..."              # domain — pair with NAMECHEAP_API_USER
@@ -109,7 +113,7 @@ Free tiers exist for most. See each skill's `references/` directory for setup de
 ## 6. Verify
 
 ```bash
-# Should see 22 skills listed
+# Should see 23 skills listed
 ls ~/code/makerskills/skills/
 
 # In Claude Code, try:
@@ -123,7 +127,7 @@ ls ~/code/makerskills/skills/
 
 ## What's next
 
-Read the `README.md` for the skill catalog + composition map. Each skill's `SKILL.md` has its own usage docs. Most skills work the first time you invoke them; a few (`jab-hook`, `pm`, `personal-cfo`, `second-brain`) need the personal config from Step 3 before they're fully useful.
+Read the `README.md` for the skill catalog + composition map. Each skill's `SKILL.md` has its own usage docs. Most skills work the first time you invoke them; a few (`jab-hook`, `project-manager`, `personal-cfo`, `second-brain`) need the personal config from Step 3 before they're fully useful, and `castmate` needs one agent CLI logged in (see its setup guide).
 
 ## Architecture: where personal data lives
 

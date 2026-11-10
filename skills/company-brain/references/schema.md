@@ -21,7 +21,7 @@ raw/                   → Uncategorized fallback (minimize use)
 wiki/                  → AI-compiled knowledge base
   INDEX.md             → Master index
 outputs/               → Saved Q&A results, briefs, deliverables
-Projects/              → Team task management (DO NOT modify — pm owns it)
+Projects/              → Team task management (DO NOT modify — project-manager owns it)
 Team/                  → Internal team-only files (DO NOT modify)
 Templates/             → Note templates (DO NOT modify)
 Drafts/                → In-progress private drafts (DO NOT modify)

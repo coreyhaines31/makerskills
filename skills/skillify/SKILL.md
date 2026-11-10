@@ -1,13 +1,13 @@
 ---
 name: skillify
-description: When you want to create, adapt, or update an Agent Skill (Claude Code, Codex, Cursor, and other hosts) in one of your repos (listed in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Modes — CREATE (from chat, video, dump, or scratch) turns a workflow into a new skill. ADAPT ports an external skill with keep/adapt/add classification, license check, and attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver. Checks new skills for host portability. Triggers on "/skillify," "create a skill," "make this a skill," "skill from this chat," "adapt this skill," "port this skill," "fork this skill," "update X skill," "apply this to the relevant skills," "propagate this learning," "improve [skill]," "fix [skill]." Part of the -ify trifecta (skillify / toolify / loopify).
+description: When you want to create, adapt, or update an Agent Skill (Claude Code, Codex, Cursor, and other hosts) in one of your repos (listed in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Modes — CREATE (from chat, video, dump, or scratch) turns a workflow into a new skill. ADAPT ports an external skill with keep/adapt/add classification, license check, and attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver. TEST role-plays users through a skill and judges transcripts against a rubric. Checks new skills for host portability. Triggers on "/skillify," "create a skill," "make this a skill," "adapt this skill," "port this skill," "update X skill," "propagate this learning," "improve [skill]," "fix [skill]," "test this skill," "exercise [skill]." Part of the -ify trifecta — integrations and MCP servers go to toolify, schedules and loops to loopify.
 metadata:
-  version: 0.2.1
+  version: 0.3.1
 ---
 
 # /skillify — Create, adapt, or update a skill
 
-One skill, three modes. Routes automatically to the right one based on input signal.
+One skill, four modes. Routes automatically to the right one based on input signal.
 
 Consolidates and replaces the prior `create-skill`, `adapt-skill`, and `update-skill` (all merged as of v0.2.0 for vocabulary-moat consistency with the `-ify` trifecta).
 
@@ -25,6 +25,7 @@ Route by signal:
 | `/skillify <existing-skill> <change>` OR "update X skill" / "propagate this learning" | **UPDATE / targeted** |
 | `/skillify update` (mid-conversation) | **UPDATE / from-chat** — scan recent chat for learnings |
 | `/skillify usage <skill>` | **UPDATE / usage** — review recent runs, suggest improvements |
+| `/skillify test <skill-or-path>` OR "test this skill" / "exercise X" / "dry-run X" | **TEST** — simulated use against a rubric |
 
 If ambiguous, ask before proceeding. Never guess between CREATE and ADAPT if there's an external URL involved.
 
@@ -133,7 +134,7 @@ For deeper description-writing guidance, consult `compound-engineering:skill-cre
     └── ...
 ```
 
-Body follows existing skills' pattern (`pm`, `decide`, `second-brain`):
+Body follows existing skills' pattern (`project-manager`, `decide`, `second-brain`):
 - `# /<name> — <one-line purpose>`
 - Numbered `## Step N — <phase>` sections
 - Composes-with cross-references
@@ -151,6 +152,7 @@ Commit + push. Report new skill path, commit hash, and reminder that `/plugin in
 
 ### Step 8 — Offer follow-ups
 
+- *"Run TEST mode on the draft before we commit?"* (recommended for any skill that asks the user questions)
 - *"Flesh out a specific Step now, or come back to it?"*
 - *"Run through `compound-engineering:heal-skill` for a quality pass?"*
 - *"Should this compose with [adjacent skill]?"*
@@ -185,7 +187,7 @@ Read source SKILL.md + any `references/` it ships. Classify into three buckets p
 | Bucket | What | Example |
 |---|---|---|
 | **Keep verbatim** | Format, schema, mechanic, scripts, frameworks | Question banks, ffmpeg flags, regex patterns, JSON schemas |
-| **Adapt** | Tool defaults, paths, voice, naming, opinions | Their video tool → your `watch-video`, their kanban → your `pm`, their voice → your voice |
+| **Adapt** | Tool defaults, paths, voice, naming, opinions | Their video tool → your `watch-video`, their kanban → your `project-manager`, their voice → your voice |
 | **Add** | Cross-references to your existing skills, composition notes, your conventions | "Composes with `decide`," "Saves to `second-brain raw/`," "Uses MLX-Whisper local" |
 
 Output classification as a table for approval before writing anything. Don't silently rewrite — surface the changes.
@@ -214,7 +216,7 @@ Same table as CREATE Step 3.
 
 **Adapt:**
 - Naming: rename to verb-noun if not (matches `watch-video`, `read-book`, `paste`)
-- Tool swaps: their generic kanban → `pm`, their video tool → `watch-video`, their note system → `second-brain`, their decision framework → `decide`
+- Tool swaps: their generic kanban → `project-manager`, their video tool → `watch-video`, their note system → `second-brain`, their decision framework → `decide`
 - Voice: apply your voice rules — direct, conviction-coded. For social-adjacent skills, apply link-placement rule.
 - Paths: their `~/outputs/` → your `~/Documents/<skill>-<...>/` convention; their config → your `references/` pattern
 - Names + context: generic examples → your portfolio context where the skill needs it
@@ -388,6 +390,7 @@ Show:
 - Skill(s) updated (with version bumps)
 - Memory files written
 - Whether `compound-engineering:heal-skill` would be a useful QA pass
+- Whether a TEST run is worth it (substantial redesigns: yes — earlier passes certify the old text)
 - Anything flagged but skipped
 
 ### When NOT to use UPDATE mode
@@ -400,6 +403,46 @@ Don't add ceremony to surgical edits. If the user says "add this one bullet to X
 4. **Version discipline matters** (about to commit and want sane semver)
 
 For one-line updates with no cross-skill implications: just Edit.
+
+---
+
+## Mode: TEST
+
+Watch a skill run before real users do. Role-play realistic users through the SKILL.md, judge each transcript against a fixed rubric, and turn every failure into a patch. Works on published skills (regression check before/after an UPDATE) and on fresh CREATE/ADAPT drafts.
+
+Full scenario set, rubric, and judging rules: `references/test-rubric.md`. Read it before Step 2.
+
+### Step 1 — Resolve the target and quarantine
+
+- Skill name → `<repo>/skills/<name>/SKILL.md` (repo per CREATE Step 3)
+- Explicit path → that file
+- Neither → ask
+
+**Pin the version under test.** Subagents read from disk while they run. If the working tree can change underneath them (you switch branches, merge, edit), point them at a frozen copy: `git worktree add <scratch>/wt-<skill> <commit>` (remove it afterward), or a snapshot copy of the skill folder. Otherwise they test whatever's checked out when they get to it and report gaps that aren't real.
+
+Read the SKILL.md and every `references/` file it tells the agent to load — once. From here on the simulated wielder knows only those files. Anything it needs that isn't there is a finding, not something to fill in. If your host can spawn subagents, run each scenario in its own subagent whose prompt gives only the skill path, the scenario, and the dry-run rules, and tells it to read nothing else. Otherwise, play both sides yourself and state the quarantine in one line first.
+
+**Dry run, always.** Nothing a simulated wielder does leaves the transcript. That means no file writes, drafts, issues, commits, pushes, or paid API calls; show them instead. The full rules are in `references/test-rubric.md`.
+
+### Step 2 — Pick scenarios
+
+3–6 from the table in `references/test-rubric.md`: canonical, terse, and boundary always; refusal, lazy-answerer, die-and-resume, and missing-config when the skill's design calls for them. One-line persona each. Show the list; go unless the user swaps one.
+
+### Step 3 — Run transcripts
+
+6–12 turns each, `USER:` / `WIELDER:`. Realistic user (weak answers, pushback, shortcut attempts). Literal wielder (follows the files, flags ambiguity, never idealized). Stop once the scenario's question is answered.
+
+### Step 4 — Judge
+
+Every applicable rubric criterion gets PASS / WEAK / FAIL with a quoted line as evidence. No quote, no finding.
+
+### Step 5 — Report + patch
+
+1. Verdict table — scenarios × criteria
+2. Patch list — each FAIL/WEAK mapped to the section that caused it, labeled *missing/ambiguous* or *easy to drift from*, with a concrete edit
+3. Hand the patches to UPDATE mode (per-file approval, version bump), then re-run only the failed scenarios
+
+A clean pass is a real result. Say so and stop.
 
 ---
 
@@ -417,7 +460,7 @@ For one-line updates with no cross-skill implications: just Edit.
 
 - **Cite the source.** Whether chat, video, dump, external URL, or user-named learning — the SKILL.md body should reference where each decision came from. Makes revising easier.
 - **Don't over-engineer v0.1.** Ship a minimal SKILL.md + 1–2 references files. Iterate after first use. Most generated skills are over-scoped.
-- **Verb-noun naming** where possible (matches `watch-video`, `read-book`, `paste`). Single-word noun names are fine for distinctive concepts (`decide`, `pm`, `paste`, `skillify`).
+- **Verb-noun naming** where possible (matches `watch-video`, `read-book`, `paste`). Single-word noun names are fine for distinctive concepts (`decide`, `paste`, `skillify`).
 - **Always reference Anthropic's official guidance** for the schema — don't invent format conventions.
 - **Write for any agent host**, not just Claude Code:
   - Name capabilities, not tool names ("fetch the URL", not a host tool name like Claude Code's fetch tool; "the Typefully create-draft tool", not a raw MCP tool ID).
@@ -428,3 +471,4 @@ For one-line updates with no cross-skill implications: just Edit.
 - **Attribution is non-negotiable** for ADAPT mode. Every adapted skill ships with `references/attribution.md`.
 - **License is a hard gate.** Don't proceed on GPL/proprietary without explicit approval.
 - **Per-file approval in UPDATE mode.** Small changes are easy to OK; bundling forces all-or-nothing.
+- **Reading a skill isn't testing it.** A rule that reads well can still fail to fire. TEST mode judges transcripts, not prose — and when a live run fails in a way TEST missed, add the missing scenario or criterion to `references/test-rubric.md`.

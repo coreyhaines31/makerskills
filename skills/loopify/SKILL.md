@@ -206,7 +206,7 @@ Templates for frequent loop types (fill in as they're used):
 - **`skillify`** — sibling in `-ify` trifecta. Use `skillify` to author a new SKILL.md — use `loopify` when the goal is a scheduled task, not a skill.
 - **`toolify`** — sibling. Use `toolify` for adding an integration — use `loopify` when the goal is running something on top of an already-integrated tool on a schedule.
 - **`second-brain`** — many loops write to the vault (raw/ or outputs/). The vault auto-commit pattern applies.
-- **`pm`** — daily-brief and weekly-review loops often read from pm before generating output.
+- **`project-manager`** — daily-brief and weekly-review loops often read from project-manager before generating output.
 
 ## Notes on quality
 

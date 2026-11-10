@@ -66,7 +66,7 @@ You're likely running multiple businesses with partners and async clients. Async
 1. **Status visible without you.** Anyone should be able to look at the board and know where things stand. No "let me catch you up" calls.
 2. **Decisions documented.** When a card moves between columns, the why is in the card or a comment. Compose with `/decide` for big calls.
 3. **Cards read like messages.** Title = headline. Body = what a colleague would need to pick this up cold. No "see Slack thread" — link the thread *and* summarize.
-4. **Status updates are written, not spoken.** Use the `/pm status` output format. Send a Slack message. Don't call.
+4. **Status updates are written, not spoken.** Use the `/project-manager status` output format. Send a Slack message. Don't call.
 5. **Reduce back-and-forth.** Every card has owner + acceptance criteria so reviewers don't ping you to ask "what should I check for."
 
 ## Cross-portfolio prioritization

@@ -51,7 +51,7 @@ Who pays, how much, how often?
 Why is this hard to copy? Why won't bigger players crush it?
 
 - **✅ Strong:** Distribution advantage (the user's audience), brand-as-moat (their name), or compounding asset (data, network effect, content corpus).
-- **🟡 OK:** Some defensibility (speed, focus, design taste).
+- **🟡 OK:** Some defensibility from a real choice a funded copycat wouldn't make (one narrow niche, shipping speed over polish, taste that visibly shows in the output — not just "good taste").
 - **❌ Weak:** Pure execution play any well-funded team could replicate in 6 months.
 
 Note: the user's moats are usually *audience + voice + speed*, not tech. Honest scoring.

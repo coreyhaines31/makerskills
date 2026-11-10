@@ -18,12 +18,12 @@ The Second Brain vault location and tool.
 | `wiki/INDEX.md` | Master index | ✅ update |
 | `outputs/` | Generated artifacts (queries, slide decks, briefs) | ✅ create files |
 | `Inbox/` | Quick-capture inbox | ❌ off-limits — `Quick Capture.md` is for raw thoughts before they hit `raw/` |
-| `Projects/` | Project-specific notes | ❌ off-limits — `pm` skill territory |
+| `Projects/` | Project-specific notes | ❌ off-limits — `project-manager` skill territory |
 | `Daily/` | Daily notes | ❌ off-limits |
 | `Templates/` | Note templates | ❌ off-limits |
 | `Notes/` | Misc | ❌ off-limits |
 | `Tasks.md` | Task list | ❌ off-limits |
-| `Kanban.md` | Personal kanban | ❌ off-limits — `pm` skill territory |
+| `Kanban.md` | Personal kanban | ❌ off-limits — `project-manager` skill territory |
 | `Home.md` | Vault home | ❌ off-limits |
 
 ## Switching vaults

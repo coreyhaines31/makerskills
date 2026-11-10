@@ -1,6 +1,6 @@
 ---
 name: company-brain
-description: Your team's shared, AI-ready knowledge base — people, companies, meetings, SOPs, and decisions structured so an agent can answer on your team's behalf. Team-scope sibling to second-brain. Modes — capture, compile (wiki pages + INDEX.md), query (trust-weighted, saved to outputs/), review (verify / deprecate / supersede stale captures), lint, connect, search. Structured raw dirs (people/, companies/, meetings/, sops/, decisions/, customer-language/, sales-objections/). Every capture stamps author, timestamp, and trust status. Optional sync from call transcripts, Slack/email exports, CRM. Vault at ${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/. Triggers on "/company-brain," "/cb," "capture this into the team brain," "log this meeting," "save this SOP," "compile the company wiki," "query the team brain," "what does the team know about X," "review the company brain," "lint the company brain," "who's the internal expert on X."
+description: Your team's shared, AI-ready knowledge base — people, companies, meetings, SOPs, and decisions structured so an agent can answer on your team's behalf. Team-scope sibling to second-brain — personal notes go there, not here. Modes — capture, compile (wiki pages + INDEX.md), query (trust-weighted, saved to outputs/), review (verify / deprecate / supersede stale captures), lint, connect, search. Structured raw dirs (people/, companies/, meetings/, sops/, decisions/, customer-language/, sales-objections/). Every capture stamps author, timestamp, and trust status. Optional sync from call transcripts, Slack/email exports, CRM. Vault at ${COMPANY_BRAIN_VAULT:-$HOME/Documents/CompanyBrain}/. Triggers on "/company-brain," "/cb," "capture this into the team brain," "log this meeting," "save this SOP," "compile the company wiki," "query the team brain," "what does the team know about X," "review the company brain," "lint the company brain," "who's the internal expert on X."
 metadata:
   version: 0.4.0
 ---
@@ -241,7 +241,7 @@ Verify the loop once per machine when onboarding: remote commit via API → loca
 - **`toolify`** — wire up integrations that feed the company brain (Fathom webhook receiver, Attio API, etc.).
 - **`deep-research`** — when `query` finds gaps, route external. Save deep-research results into `raw/` for future compilation.
 - **`decide`** — `decisions/` folder complements `decide`'s structured archive. `decide` records the *evaluation*; `decisions/` records the *narrative + outcome + review notes*.
-- **`pm`** — team task management sits in `Projects/` (reserved from company-brain). `pm` owns Projects/; company-brain reads it for context but doesn't modify.
+- **`project-manager`** — team task management sits in `Projects/` (reserved from company-brain). `project-manager` owns Projects/; company-brain reads it for context but doesn't modify.
 - **`jab-hook`** — `customer-language/` fuels social copy that resonates with actual prospect language.
 - A blog-drafting skill (yours or a companion plugin) — pulls from `customer-language/`, `recurring-questions/`, and `sops/` for authoritative blog drafts.
 
