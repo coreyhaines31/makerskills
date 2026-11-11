@@ -161,7 +161,7 @@ Skills call each other by name. When a skill's job hits an adjacent job, it rout
 | Most referenced by siblings | Composes with... |
 |---|---|
 | **`watch-video`** (54 refs) | `second-brain` (capture summary), `skillify from-video`, `social-fetch` (X/IG/TikTok metadata), `project-manager` (action items), `decide` (flagged decisions) |
-| **`skillify`** (51 refs) | `watch-video` (record → skill), `second-brain` (capture source), `compound-engineering:*` (Anthropic-official skill authoring) |
+| **`skillify`** (51 refs) | `watch-video` (record → skill), `second-brain` (capture source), `skill-creator` from anthropics/skills (Anthropic-official skill authoring) |
 | **`second-brain`** (48 refs) | `deep-research` (external gaps), `read-book` (highlights → wiki), `watch-video` (summaries → raw), `paste` (clean captures) |
 | **`slide-deck`** (38 refs) | `business-brainstorm` (pitch decks), `watch-video` (talk-recording → outline), `second-brain` (wiki as content) |
 | **`company-brain`** (33 refs) | `toolify` (wire auto-sync), `loopify` (schedule sync), `deep-research` (external gaps), `decide` (structured archive) |

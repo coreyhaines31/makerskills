@@ -2,7 +2,7 @@
 name: skillify
 description: When you want to create, adapt, or update an Agent Skill (Claude Code, Codex, Cursor, and other hosts) in one of your repos (listed in ~/.config/makerskills/skillify/repos.yaml; defaults to makerskills). Modes — CREATE (from chat, video, dump, or scratch) turns a workflow into a new skill. ADAPT ports an external skill with keep/adapt/add classification, license check, and attribution. UPDATE improves existing skills from learnings with cross-skill propagation, memory-vs-skill triage, and semver. TEST role-plays users through a skill and judges transcripts against a rubric. Checks new skills for host portability. Triggers on "/skillify," "create a skill," "make this a skill," "adapt this skill," "port this skill," "update X skill," "propagate this learning," "improve [skill]," "fix [skill]," "test this skill," "exercise [skill]." Part of the -ify trifecta — integrations and MCP servers go to toolify, schedules and loops to loopify.
 metadata:
-  version: 0.3.1
+  version: 0.3.2
 ---
 
 # /skillify — Create, adapt, or update a skill
@@ -48,9 +48,7 @@ Build a new skill from chat / video / dump / scratch.
 
 Don't reinvent SKILL.md format rules. For frontmatter, description-writing, references/ structure, and skill best practices:
 
-- **`compound-engineering:create-agent-skill`** (agent) — expert guidance for creating + editing Claude Code skills
-- **`compound-engineering:skill-creator`** (skill) — deeper guide for effective skills
-- **`compound-engineering:heal-skill`** (skill) — for fixing existing skills
+- **[`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)** (skill, from anthropics/skills): Anthropic's official guide for creating new skills, improving existing ones, and measuring how they perform. Use it if installed; skillify still works without it.
 - **[anthropics/skills](https://github.com/anthropics/skills)** — official Anthropic examples
 - **[agentskills.io](https://agentskills.io)** — open Agent Skills spec
 
@@ -123,7 +121,7 @@ Description rules (load-bearing — agents route by description match):
 - Mention key references the skill loads
 - Keep under ~500 characters (the Agent Skills spec hard limit is 1024; stricter hosts may reject longer ones)
 
-For deeper description-writing guidance, consult `compound-engineering:skill-creator`.
+For deeper description-writing guidance, consult `skill-creator` (from anthropics/skills) if installed.
 
 ### Step 6 — Scaffold the directory
 
@@ -154,7 +152,7 @@ Commit + push. Report new skill path, commit hash, and reminder that `/plugin in
 
 - *"Run TEST mode on the draft before we commit?"* (recommended for any skill that asks the user questions)
 - *"Flesh out a specific Step now, or come back to it?"*
-- *"Run through `compound-engineering:heal-skill` for a quality pass?"*
+- *"Run through `skill-creator` for a quality pass?"* (if installed)
 - *"Should this compose with [adjacent skill]?"*
 
 ---
@@ -268,7 +266,7 @@ Same as CREATE Steps 6–7. Commit message: `"Adapt <name> skill from <source-na
 - Show three-bucket classification one more time so the diff is clear
 - Offer:
   - *"Flesh out the adaptations? Some defaults may still need your touch."*
-  - *"Run `compound-engineering:heal-skill` for a QA pass?"*
+  - *"Run `skill-creator` for a QA pass?"* (if installed)
   - *"Set up an upstream-check reminder via `loopify`?"*
 
 ---
@@ -389,7 +387,7 @@ Show:
 - Learnings extracted
 - Skill(s) updated (with version bumps)
 - Memory files written
-- Whether `compound-engineering:heal-skill` would be a useful QA pass
+- Whether a `skill-creator` QA pass would be useful (if installed)
 - Whether a TEST run is worth it (substantial redesigns: yes — earlier passes certify the old text)
 - Anything flagged but skipped
 
@@ -452,9 +450,7 @@ A clean pass is a real result. Say so and stop.
 - **`second-brain`** — optionally capture source video/dump as `raw/call-<slug>.md` or `raw/note-<slug>.md` so the source artifact lives alongside the skill it produced.
 - **`toolify`** — sibling in the `-ify` trifecta. Use `toolify` when the goal is adding an integration/MCP/API, not authoring a skill.
 - **`loopify`** — sibling in the `-ify` trifecta. Use `loopify` for agent-loop setup rather than a skill.
-- **`compound-engineering:create-agent-skill`** (agent) — call for format and best-practices expertise
-- **`compound-engineering:skill-creator`** (skill) — deeper best-practices reference
-- **`compound-engineering:heal-skill`** (skill) — QA pass after any mode
+- **[`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator)** (from anthropics/skills): format and best-practices expertise, plus a QA pass after any mode. Optional; skillify still works without it.
 
 ## Notes on quality
 
