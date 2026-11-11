@@ -32,6 +32,14 @@ For each action specify actor, tenant/resource scope, capability, audience, life
 
 Start with one useful workflow, not surface breadth. Document schemas, stable IDs, pagination, limits and auth. Errors should distinguish validation, permission, not-found, conflict, rate limit and retryable failures, without leaking that private resources exist. Writes need idempotency. Expect duplicate delivery.
 
+**Pick the surface by the job, not the debate.** MCP is discoverable: the agent finds and uses it without being told it exists. A CLI gives an agent in a sandbox a filesystem: for large or sequential data (logs, event streams, replays, exports), letting it fetch raw chunks to disk and grep or page through them beats any search endpoint you'd build. Start with whichever surface fits the first workflow; add the second when a real job needs it. If you ship both:
+
+- **One login.** The CLI signs in (device-code flow), and the MCP server it launches over stdio reuses those credentials. That sidesteps most MCP OAuth bugs, but you give up org-wide consolidated auth, so record it as a tradeoff. Store the shared token in the OS keychain or credential store, never a plaintext dotfile.
+- **Steer where every harness reads it.** Put usage guidance in tool descriptions and tool responses, not only in the server `instructions` field, which harnesses support unevenly. A response can name the next step ("full event log: `app events export <id>`").
+- **Build on the adopted core.** Tool calls work everywhere. Don't put customer-facing behavior on spec features few harnesses implement (events, for example). Test in at least two harnesses, including one that loads tools on demand through search, where names and descriptions decide whether the agent finds the tool.
+
+Example: Green Room (a macOS menu bar app) ships a `greenroom` CLI, and its Claude Desktop extension only runs the CLI's read-only subcommands. One implementation, two surfaces, one policy. *(Surface guidance adapted from David Cramer's "MCP or CLI? Yes." on how Sentry ships both, 2026-11.)*
+
 Human authority is explicit. Drafting isn't approval to publish, spend or contact anyone. Keep preview/plan separate from execute, and bind each approval to actor, target, payload and expiry. Treat tool output as data, never as a command source.
 
 Credentials should be least-privilege and short-lived where possible, rotatable and revocable, and never shown in examples or traces.

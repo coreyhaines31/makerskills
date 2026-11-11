@@ -6,6 +6,11 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.18.0] — 2026-11-10
+
+### Changed
+- **`product-manager` v0.6.0: agent surfaces.** Agent access (O5) now picks the surface by the job: MCP so agents discover the app, a CLI for bulk data an agent can grep. Start with one surface. If you ship both, use one login, put steering in tool descriptions and responses, and build only on the parts of MCP harnesses widely support. Green Room is the worked example. The audit model lens adds a "harness drift" question. Adapted from David Cramer's "MCP or CLI? Yes." (#105).
+
 ## [v1.17.0] — 2026-11-09
 
 ### Fixed
