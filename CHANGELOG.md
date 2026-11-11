@@ -6,6 +6,13 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Fixed
+- **`skillify` v0.3.2: current skill-authoring companion.** The old `compound-engineering:create-agent-skill`, `compound-engineering:skill-creator`, and `compound-engineering:heal-skill` names no longer exist upstream. skillify now points at one companion instead of three: Anthropic's [`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator), which creates new skills, improves existing ones, and runs QA. It stays optional. The README compose table says the same.
+- **`toolify` v0.1.3:** drops `compound-engineering:context7` from Composes with, since compound-engineering no longer ships it (the bundled Context7 MCP was removed too). Step 2 still prefers context7 if your agent has it.
+- **`decide` v0.5.1** and **`second-brain` v0.2.2:** revisit reminders and scheduled vault maintenance point at `loopify` instead of the retired `compound-engineering:schedule`.
+
 ## [v1.19.1] — 2026-11-11
 
 ### Changed
