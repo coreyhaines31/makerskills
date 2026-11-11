@@ -6,6 +6,14 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.19.0] — 2026-11-10
+
+### Added
+- **`product-manager` v0.7.0: defensibility.** New `references/defensibility.md`: the AI attacks on an app (customers building the three features they use, parity in months, platforms shipping your feature, shrinking seats), the moats that stopped working, and the 8 that still hold, each with a test question and the product decisions that build it. The brief records which moat v1 builds toward, and audits score each moat 0–10 with evidence. Adapted from Rob Walling's "The Only SaaS Moats Left in 2026" and Idea Browser's Fable 5.2 moats post (#108).
+
+### Changed
+- **`business-brainstorm` v0.5.0:** the Moat step checks the same 8 moats and the demand-side attacks (#108).
+
 ## [v1.18.0] — 2026-11-10
 
 ### Changed

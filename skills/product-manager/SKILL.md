@@ -2,7 +2,7 @@
 name: product-manager
 description: "When you want to plan, build, or check an app from idea through launch readiness — web, Apple, mobile, or extensions. Writes the brief, picks the stack (Next.js + TypeScript + Prisma by default, Swift on Apple), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Four modes: spec (plan v1), check (launch readiness), audit (ranked improvements, including what a new model changes), fleet (a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship,\" \"do a comprehensive audit,\" \"how could we improve my app,\" \"a new model just came out.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
 metadata:
-  version: 0.6.0
+  version: 0.7.0
 ---
 
 # /product-manager — Take an app from idea to launch-ready
@@ -57,7 +57,7 @@ Check for live keys in the test env and real addresses in fixtures before callin
 
 ## Audit mode
 
-Read `references/audit.md` and follow it. It runs Steps 1–5 as lenses on the existing app, plus a **model lens**: inventory every model call, get current model facts from the **claude-api** skill or official docs (never memory), and ask what the new model makes obsolete, newly possible, removable or stale. Findings are ranked by impact, confidence and effort, and each one cites evidence. If there's a previous audit, lead with what's fixed, still open, new, and changed because of the model. Picked findings can go to `/improve plan`. Nothing is implemented without a yes.
+Read `references/audit.md` and follow it. It runs Steps 1–5 as lenses on the existing app, plus a **model lens**: inventory every model call, get current model facts from the **claude-api** skill or official docs (never memory), and ask what the new model makes obsolete, newly possible, removable or stale. A **defensibility lens** scores the moats that still hold when code is cheap. Findings are ranked by impact, confidence and effort, and each one cites evidence. If there's a previous audit, lead with what's fixed, still open, new, and changed because of the model. Picked findings can go to `/improve plan`. Nothing is implemented without a yes.
 
 ## Step 1 — Write the brief
 
@@ -68,6 +68,7 @@ Ask the two questions that decide the most first: **which platform** (web, iPhon
 - **Critical journeys:** first use, return visit, recovery.
 - **v1 in / out**, and acceptance criteria.
 - **The better-model test:** if the next model is much better at the intelligence part, does this get more useful or less? Write down what the product contributes. For a non-AI app, one line is enough.
+- **Defensibility:** which AI attacks apply, and which moat (if any) v1 builds toward, with the decision that starts it. Read `references/defensibility.md`. "None, and that's fine" is a valid answer for a personal or free tool.
 
 Then pick a **platform profile** and **stack**. Read `references/standards.md`. Defaults for new web apps: Next.js + TypeScript + Tailwind + shadcn/ui + Prisma ORM + Prisma Postgres, plus Better Auth when there are accounts and Stripe when there's billing. Swift for Apple platforms. Existing apps keep their stack. Note any departure and why.
 
@@ -158,4 +159,4 @@ In **check** mode, the gaps can become work. If **improve** is installed, offer 
 - **An audit finding needs evidence.** A `file:line`, an observed behavior or a metric. Without one, it's a question, not a finding.
 - **Model facts come from docs, not memory.** Model IDs, prices and context limits go stale every release. Never swap a production model inside an audit. The proof is a small eval, run with a yes.
 - **Growth isn't a gate.** If asked to add launch posts or SEO to readiness, keep them out and hand off to marketing.
-- **Don't promise a moat.** The better-model test is a heuristic, not a guarantee.
+- **Don't promise a moat.** Score each one with evidence, and say when there's none. The better-model test is a heuristic, not a guarantee.
