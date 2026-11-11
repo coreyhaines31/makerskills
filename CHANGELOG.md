@@ -6,6 +6,11 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [v1.19.1] — 2026-11-11
+
+### Changed
+- **`product-manager` v0.7.1: theme tooling.** Design routing names Graphical (Josh Puckett) for building a shadcn theme between direction and screens, and the skill reads its `GUI.md` like `.agents/design.md` (#111).
+
 ## [v1.19.0] — 2026-11-10
 
 ### Added
