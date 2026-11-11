@@ -2,7 +2,7 @@
 name: product-manager
 description: "When you want to plan, build, or check an app from idea through launch readiness — web, Apple, mobile, or extensions. Writes the brief, picks the stack (Next.js + TypeScript + Prisma by default, Swift on Apple), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Four modes: spec (plan v1), check (launch readiness), audit (ranked improvements, including what a new model changes), fleet (a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship,\" \"do a comprehensive audit,\" \"how could we improve my app,\" \"a new model just came out.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
 metadata:
-  version: 0.7.0
+  version: 0.7.1
 ---
 
 # /product-manager — Take an app from idea to launch-ready
@@ -81,7 +81,7 @@ Read `references/ux.md`. For each critical journey, name:
 - where contextual help goes: tooltips and helper text for unfamiliar metrics, settings, permissions and unavailable actions. **Errors and essential instructions stay inline, never only in a tooltip.**
 - the consequential actions that need preview, confirm or undo
 
-Minimize total effort, not raw clicks. Read `.agents/brand.md` / `.agents/design.md` if they exist. For visual direction, route to a design skill from the table in `references/ux.md`: Zach Stevens' **brand** / **creative-direction** when there's no identity yet, **impeccable** or **frontend-design** for direction, **hallmark** so it doesn't look generated, **Emil Kowalski's skills** for interaction craft, **web-design-guidelines** or **swiftui-pro** for review. Don't invent a house style. Output a short design record: chosen direction, the states table, and what's still a proposal.
+Minimize total effort, not raw clicks. Read `.agents/brand.md` / `.agents/design.md` (and a Graphical `GUI.md`) if they exist. For visual direction, route to a design skill from the table in `references/ux.md`: Zach Stevens' **brand** / **creative-direction** when there's no identity yet, **impeccable** or **frontend-design** for direction, **hallmark** so it doesn't look generated, **Emil Kowalski's skills** for interaction craft, **web-design-guidelines** or **swiftui-pro** for review. Don't invent a house style. Output a short design record: chosen direction, the states table, and what's still a proposal.
 
 ## Step 3 — Define boundaries and trust
 
