@@ -77,7 +77,9 @@ Route to a specialized design skill rather than inventing a new method here. All
 
 **Read the brand first.** If the repo has `.agents/brand.md` or `.agents/design.md`, written by Zach's design skills, read them before choosing a direction. Use their colors, type, tokens and logo files, and never redraw the mark. If neither file exists and the product needs an identity, route to **brand** first.
 
-**Order for a new web UI:** brand docs if any → impeccable or frontend-design for direction → hallmark to check it doesn't look generated → Emil's skills for interaction craft → web-design-guidelines for the accessibility review. For SwiftUI, use swiftui-pro instead of the last step.
+**Theme tooling (an app, not a skill).** On a shadcn stack, **[Graphical](https://graphicalui.com)** (Josh Puckett) turns a chosen direction into a full theme: colors with light and dark values, type, spacing, icons, radii and shadows, component states, and motion. It installs through shadcn and can import the app's existing theme. If the repo has a `GUI.md` from it, read that before building UI, the same as `.agents/design.md`. It's an outside product, so name it and never install it or sign up without asking.
+
+**Order for a new web UI:** brand docs if any → impeccable or frontend-design for direction → Graphical for the theme, if the user uses it → hallmark to check it doesn't look generated → Emil's skills for interaction craft → web-design-guidelines for the accessibility review. For SwiftUI, use swiftui-pro instead of the last step.
 
 **Motion is earned.** Add it when it explains a state change (saved, moved, expanded). Always respect reduced-motion settings. Motion is never the only cue that something happened.
 
