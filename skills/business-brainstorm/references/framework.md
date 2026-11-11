@@ -50,11 +50,24 @@ Who pays, how much, how often?
 
 Why is this hard to copy? Why won't bigger players crush it?
 
-- **✅ Strong:** Distribution advantage (the user's audience), brand-as-moat (their name), or compounding asset (data, network effect, content corpus).
-- **🟡 OK:** Some defensibility from a real choice a funded copycat wouldn't make (one narrow niche, shipping speed over polish, taste that visibly shows in the output — not just "good taste").
-- **❌ Weak:** Pure execution play any well-funded team could replicate in 6 months.
+Assume code costs close to nothing: a competitor reaches feature parity in months, and a customer can have an agent build the three features they actually use. Check which moats could hold, each with its test question:
 
-Note: the user's moats are usually *audience + voice + speed*, not tech. Honest scoring.
+- **Buyers know and trust you:** who would build a business or career around recommending this?
+- **System of record:** what couldn't a leaving customer take with them?
+- **Allowed to act:** does it move the money or send the message, or only advise?
+- **Nobody checks your work:** would customers trust the output without verifying it?
+- **Someone official said yes:** what license or certification would a newcomer have to wait for?
+- **Everyone's already in it:** would a competitor have to move a whole team or community at once?
+- **Every customer makes it smarter:** does one customer's usage improve the product for the rest?
+- **Hard to keep running:** what ops burden would a copycat refuse to carry?
+
+Also check the demand side: will AI shrink the buyers (their own business replaced, fewer seats, an agent doing the user's job)?
+
+- **✅ Strong:** Distribution advantage (the user's audience), brand-as-moat (their name), or one of the moats above with a credible path to it in year one.
+- **🟡 OK:** Some defensibility from a real choice a funded copycat wouldn't make (one narrow niche, shipping speed over polish, taste that visibly shows in the output — not just "good taste").
+- **❌ Weak:** Pure execution play any well-funded team, or the customer's own agent, could replicate in months. Unique features, clever code and a long integrations list don't count anymore.
+
+Note: the user's moats are usually *audience + voice + speed*, not tech. Whatever is easy for them to enter is easy for everyone, so the realistic play is stacking: audience to enter a niche, then system of record, then a learning loop. Honest scoring. Sources: Rob Walling's "The Only SaaS Moats Left in 2026" (MicroConf) and Idea Browser's Fable 5.2 moats post. For an app's product-level moat plan, see **product-manager** (`references/defensibility.md`).
 
 ---
 
