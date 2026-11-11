@@ -4,7 +4,7 @@
 
 Before committing to a v1, ask: **if the next model is much better at the intelligence part, does this product get more useful or less?**
 
-Build things that complement frontier models, like context, permissions, integrations, workflows and reliable actions. Avoid features whose whole value is "our prompt beats the current model." Write down what the product contributes and what would make it obsolete. That's a design heuristic, not a moat claim.
+Build things that complement frontier models, like context, permissions, integrations, workflows and reliable actions. Avoid features whose whole value is "our prompt beats the current model." Write down what the product contributes and what would make it obsolete. That's a design heuristic, not a moat claim. For moats, see `defensibility.md`.
 
 ## Stack defaults
 
