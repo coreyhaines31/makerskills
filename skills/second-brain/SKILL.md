@@ -2,7 +2,7 @@
 name: second-brain
 description: When you want to capture into, compile, query, lint, or connect your personal Second Brain. Wraps the Karpathy LLM Wiki schema (Obsidian or any markdown vault) — raw/ (unprocessed sources), wiki/ (AI-compiled interlinked topic pages), outputs/ (generated artifacts). Vault defaults to ${SECOND_BRAIN_VAULT:-$HOME/Documents/SecondBrain}/. Six modes — capture (drop something into raw/), compile (process unprocessed raw files into wiki pages, update INDEX.md), query (answer a question from the wiki, save to outputs/), lint (orphans / contradictions / stale / unprocessed raw / topic gaps), connect (suggest new wikilinks between pages), search (quick lookup). Triggers on "/second-brain," "/sb," "capture this," "save this to my brain," "compile the wiki," "process raw notes," "query my wiki," "ask my brain," "lint the wiki," "find connections," "search my notes." Complements deep-research (external corpus) — this is the internal corpus. Team knowledge goes to company-brain, not here.
 metadata:
-  version: 0.2.1
+  version: 0.2.2
 ---
 
 # /second-brain — Karpathy LLM Wiki workflow
@@ -160,7 +160,7 @@ Verify the loop once end-to-end when setting it up: remote commit via API → lo
 Two other systems following the same raw → wiki → outputs pattern. Both are worth watching as upgrade paths.
 
 - **[Hermes' `llm-wiki` skill](https://hermes.team)** — off-the-shelf implementation of the 3-folder pattern. Pre-built workflows for compile / query / lint. Useful for comparing schema decisions.
-- **[Gbrain](https://github.com/garrytan/gbrain)** by Garry Tan — much more sophisticated. Treats the brain as a database (Postgres or PGLite) with synthesis, graph traversal, gap analysis, scheduled cron maintenance, and MCP integration. Powers a 146K-page deployment with 24K people entities. If the user's vault outgrows the markdown-only pattern, Gbrain is the upgrade direction. Borrows worth adopting today even without migrating: **people-as-entities** (the `person-` raw type + `People` wiki page) and **scheduled maintenance** (wire `compile` and `lint` to fire on a recurring schedule via the `loop` or `compound-engineering:schedule` skill).
+- **[Gbrain](https://github.com/garrytan/gbrain)** by Garry Tan — much more sophisticated. Treats the brain as a database (Postgres or PGLite) with synthesis, graph traversal, gap analysis, scheduled cron maintenance, and MCP integration. Powers a 146K-page deployment with 24K people entities. If the user's vault outgrows the markdown-only pattern, Gbrain is the upgrade direction. Borrows worth adopting today even without migrating: **people-as-entities** (the `person-` raw type + `People` wiki page) and **scheduled maintenance** (wire `compile` and `lint` to fire on a recurring schedule via the `loopify` skill).
 
 ## Notes on quality
 
