@@ -6,7 +6,10 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.19.2] — 2026-11-17
+
+### Changed
+- **`product-manager` v0.7.2: picking typefaces.** Design routing names FaceTypes (Tony McGuigan), a curated library of free and open-source fonts, for shortlisting type when the brand has none. Confirm the licence at the font's official source, download from there, and record it in the design record.
 
 ### Fixed
 - **`skillify` v0.3.2: current skill-authoring companion.** The old `compound-engineering:create-agent-skill`, `compound-engineering:skill-creator`, and `compound-engineering:heal-skill` names no longer exist upstream. skillify now points at one companion instead of three: Anthropic's [`skill-creator`](https://github.com/anthropics/skills/tree/main/skills/skill-creator), which creates new skills, improves existing ones, and runs QA. It stays optional. The README compose table says the same.

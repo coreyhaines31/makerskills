@@ -79,6 +79,8 @@ Route to a specialized design skill rather than inventing a new method here. All
 
 **Theme tooling (an app, not a skill).** On a shadcn stack, **[Graphical](https://graphicalui.com)** (Josh Puckett) turns a chosen direction into a full theme: colors with light and dark values, type, spacing, icons, radii and shadows, component states, and motion. It installs through shadcn and can import the app's existing theme. If the repo has a `GUI.md` from it, read that before building UI, the same as `.agents/design.md`. It's an outside product, so name it and never install it or sign up without asking.
 
+**Picking typefaces.** When the brand has no type yet, or the direction calls for a new face, shortlist from **[FaceTypes](https://facetypes.xyz)** (Tony McGuigan): a curated library of free and open-source fonts, sorted by classification and linked to each designer or official source. Before shipping one, confirm the licence at that source, download from there (not a mirror), and record the font, licence and source in the design record. Brand docs win: if `.agents/brand.md` names the type, use it.
+
 **Order for a new web UI:** brand docs if any → impeccable or frontend-design for direction → Graphical for the theme, if the user uses it → hallmark to check it doesn't look generated → Emil's skills for interaction craft → web-design-guidelines for the accessibility review. For SwiftUI, use swiftui-pro instead of the last step.
 
 **Motion is earned.** Add it when it explains a state change (saved, moved, expanded). Always respect reduced-motion settings. Motion is never the only cue that something happened.
