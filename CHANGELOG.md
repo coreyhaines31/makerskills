@@ -6,7 +6,7 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
-## [Unreleased]
+## [v1.19.2] — 2026-11-17
 
 ### Changed
 - **`product-manager` v0.7.2: picking typefaces.** Design routing names FaceTypes (Tony McGuigan), a curated library of free and open-source fonts, for shortlisting type when the brand has none. Confirm the licence at the font's official source, download from there, and record it in the design record.
