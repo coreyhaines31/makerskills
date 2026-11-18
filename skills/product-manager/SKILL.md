@@ -2,7 +2,7 @@
 name: product-manager
 description: "When you want to plan, build, or check an app from idea through launch readiness — web, Apple, mobile, or extensions. Writes the brief, picks the stack (Next.js + TypeScript + Prisma by default, Swift on Apple), designs complete UX states, defines roles and agent access, measures performance before optimizing, and produces a readiness report where missing evidence is never a pass. Four modes: spec (plan v1), check (launch readiness), audit (ranked improvements, including what a new model changes), fleet (a named list of apps). Triggers on \"/product-manager,\" \"act as my product manager,\" \"PM this app,\" \"build me an app,\" \"plan v1,\" \"spec this app,\" \"is this app ready to launch,\" \"launch readiness,\" \"audit my apps,\" \"what's missing before we ship,\" \"do a comprehensive audit,\" \"how could we improve my app,\" \"a new model just came out.\" Not for launch marketing or growth (see launch), integration plumbing (see toolify), CI cost (see ci-audit), or managing a project backlog/kanban (see project-manager)."
 metadata:
-  version: 0.7.2
+  version: 0.7.3
 ---
 
 # /product-manager — Take an app from idea to launch-ready
