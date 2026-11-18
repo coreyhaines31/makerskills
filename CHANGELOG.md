@@ -6,6 +6,11 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Added
+- **`product-manager` v0.8.0: agent feedback tool.** Every MCP server or agent-facing CLI ships a `submit_feedback` tool, so agents report missing, broken or confusing tools to the builder with typed fields (task, kind, impact, what was tried). Tool responses point at it only on unexpected failures or empty searches. Reports are scrubbed, routed to triage, and treated as untrusted input. Part of the O5 standard and the readiness check. Pattern from Sentry MCP's `submit_feedback_to_sentry_team` (getsentry/toolkit), via Matt Ambrogi and David Cramer.
+
 ## [v1.19.3] — 2026-11-17
 
 ### Changed
