@@ -11,7 +11,8 @@
 7. **Accessible by default.** Semantic controls, keyboard paths, visible focus, labels, contrast, zoom and text scaling, touch targets, non-color cues, reduced motion.
 8. **Reuse components, vocabulary and platform patterns.** A new interaction has to justify what it costs to learn. No universal house style.
 9. **No fake activity, urgency, traction or consent.** Label sample data. No dark-pattern cancellation.
-10. **Heuristics propose, observation proves.** Walk through first-use, return, keyboard and recovery journeys with realistic fixtures.
+10. **Light and dark means the user picks.** If the app or its marketing site ships both, give a visible Light / Dark / System control. Default to System (`prefers-color-scheme`, or the OS appearance on native). Save the choice to the account when signed in, otherwise locally, and apply it before first paint so the page doesn't flash the wrong theme. A marketing site gets the same override, in the header or footer. A product that ships one theme needs no toggle.
+11. **Heuristics propose, observation proves.** Walk through first-use, return, keyboard and recovery journeys with realistic fixtures.
 
 ## Contextual help: use it aggressively
 

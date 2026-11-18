@@ -12,7 +12,7 @@ Use synthetic or scrubbed fixtures. Before any test that could send mail, charge
 
 CI, as the profile warrants: typecheck, lint, tests, build, dependency and secret scans, and a migration compatibility review. Don't demand a web build from a native utility. Migrations need expand/contract compatibility where relevant, plus a rollback or forward-fix plan. For existing GitHub Actions cost and timing, use **ci-audit**.
 
-Before calling it ready, exercise these failure modes: denied actor, revoked access, double-submit, network timeout after a side effect, partial upload, stale cache, backend outage, recovery after interruption, and the key accessibility journey. Anything you didn't exercise is *not assessed*.
+Before calling it ready, exercise these failure modes: denied actor, revoked access, double-submit, network timeout after a side effect, partial upload, stale cache, backend outage, recovery after interruption, the key accessibility journey, and (if the app ships light and dark) switching Light / Dark / System and reloading. Anything you didn't exercise is *not assessed*.
 
 ## Readiness inventory
 
