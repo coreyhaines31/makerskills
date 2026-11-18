@@ -77,6 +77,7 @@ Scope: a collaborative web SaaS staging candidate at ref-17, checked from docs a
 | O3 private downloads | **gap, blocking** | Signed route served another audience's attachment | Security: block release |
 | O4 event privacy | not assessed | Only the event plan doc was available | Analytics: sandbox payload check |
 | O5 agent write retry | pass | Repeated draft creation returns the same result | Eng |
+| O5 agent feedback tool | gap | MCP has no `submit_feedback`; agent reports of missing tools go nowhere | Eng: add it, routed to the triage inbox |
 | Performance: summary read | not assessed | One cold lab run, so not comparable | Perf: bounded comparable trials |
 | Restore | not assessed, blocking | Backup-success flag only | Ops: isolated restore drill |
 | Extension permissions | justified N/A | No extension ships | — |
