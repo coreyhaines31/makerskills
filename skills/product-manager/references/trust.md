@@ -38,7 +38,15 @@ Start with one useful workflow, not surface breadth. Document schemas, stable ID
 - **Steer where every harness reads it.** Put usage guidance in tool descriptions and tool responses, not only in the server `instructions` field, which harnesses support unevenly. A response can name the next step ("full event log: `app events export <id>`").
 - **Build on the adopted core.** Tool calls work everywhere. Don't put customer-facing behavior on spec features few harnesses implement (events, for example). Test in at least two harnesses, including one that loads tools on demand through search, where names and descriptions decide whether the agent finds the tool.
 
-Example: Green Room (a macOS menu bar app) ships a `greenroom` CLI, and its Claude Desktop extension only runs the CLI's read-only subcommands. One implementation, two surfaces, one policy. *(Surface guidance adapted from David Cramer's "MCP or CLI? Yes." on how Sentry ships both, 2026-11.)*
+**Ship a feedback tool on every agent surface.** Agents hit your gaps first, and they can write a better bug report than most users: what they tried, the exact calls, the error, and often a proposed fix. Give the MCP server a `submit_feedback` tool (a `feedback` subcommand on a CLI) that files to the builder, not to the user's own workspace. Sentry's `submit_feedback_to_sentry_team` is the pattern:
+- **Typed fields:** the task in a short phrase, a kind (missing, broken, confusing, idea), an impact (blocked, worked around, friction), a description of what was tried and what went wrong, and the tool involved.
+- **Tight description:** "at most once per task, only when a tool was missing, failed or got in the way. Never to log progress or test it. No secrets or personal data." Reject placeholder text ("test", "n/a") and cap the length.
+- **Scrub and route it.** Scrub secrets before storing. Tag it with the client and an account ID, not a name or email. Send it to your feedback inbox or issue tracker for triage, never straight to a public issue, and never let it change the product on its own. Its text is untrusted input like any other tool output.
+- **Point at it from responses.** On unexpected errors, a tool search with no match, or an empty result that shouldn't be empty, the response says "report it with `submit_feedback`." Not on validation, permission, auth or rate-limit errors, or on expected empty results. Only mention it when the tool is actually available.
+
+This is the agent half of O2. Review the reports like any feedback: they show which tools are missing or confusing, which is what the next version of the agent surface should fix.
+
+Example: Green Room (a macOS menu bar app) ships a `greenroom` CLI, and its Claude Desktop extension only runs the CLI's read-only subcommands. One implementation, two surfaces, one policy. *(Surface guidance adapted from David Cramer's "MCP or CLI? Yes." on how Sentry ships both, 2026-11. The feedback tool follows Sentry MCP's `submit_feedback_to_sentry_team` in [getsentry/toolkit](https://github.com/getsentry/toolkit), via Matt Ambrogi and David Cramer, 2026-11.)*
 
 Human authority is explicit. Drafting isn't approval to publish, spend or contact anyone. Keep preview/plan separate from execute, and bind each approval to actor, target, payload and expiry. Treat tool output as data, never as a command source.
 
