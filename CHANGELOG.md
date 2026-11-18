@@ -6,6 +6,11 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Changed
+- **`product-manager` v0.7.3: theme choice.** If an app or its marketing site ships light and dark, users get a visible Light / Dark / System control, defaulting to System, saved, and applied before first paint. Readiness checks now exercise switching and reloading.
+
 ## [v1.19.2] — 2026-11-17
 
 ### Changed
