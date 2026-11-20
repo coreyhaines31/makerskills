@@ -65,7 +65,7 @@ Each skill is a workflow doc — you can invoke via `/decide` OR read the SKILL.
 
 It'll read your clipboard, strip formatting, warn if over 280 chars, and copy back the cleaned output. First invocation may prompt you to install `pbcopy`-adjacent deps if missing. No config file needed — this is a pure utility.
 
-**5. Now branch out.** Skim [The 25 skills](#the-25-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
+**5. Now branch out.** Skim [The 26 skills](#the-26-skills) below and pick one that maps to a workflow you're already doing manually. That's the highest-leverage adoption path.
 
 ---
 
@@ -97,6 +97,7 @@ Routing table for common operator jobs. Match your intent → skill.
 | Run monthly / weekly CFO for a company or agency | [`company-cfo`](./skills/company-cfo/SKILL.md) |
 | Plan, build, check, or audit an app (incl. after a new model ships) | [`product-manager`](./skills/product-manager/SKILL.md) |
 | Cut GitHub Actions minutes and CI wait time | [`ci-audit`](./skills/ci-audit/SKILL.md) |
+| Instrument an app so we can fight chargebacks / prove access | [`dispute-evidence`](./skills/dispute-evidence/SKILL.md) |
 | Create, adapt, or update a skill | [`skillify`](./skills/skillify/SKILL.md) |
 | Wire up an integration / API / MCP into a project | [`toolify`](./skills/toolify/SKILL.md) |
 | Set up an agent loop or scheduled task | [`loopify`](./skills/loopify/SKILL.md) |
@@ -105,7 +106,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 
 ---
 
-## The 25 skills
+## The 26 skills
 
 ### Meta — extend Claude Code (the `-ify` trifecta)
 | Skill | What |
@@ -148,6 +149,7 @@ Not sure between two? The **skill's SKILL.md description** always includes trigg
 | [`company-cfo`](./skills/company-cfo/SKILL.md) | Company / agency CFO workflow — monthly snapshots, weekly cash pulse, scenario projector. Transaction-sum EOM methodology, categorization discipline, forward forecasting. Pulls from bank + payment processor + payroll + expense-mgmt via `toolify`-wired integrations. Team scope. |
 | [`product-manager`](./skills/product-manager/SKILL.md) | Take an app from brief to launch-ready across web, Apple, mobile and extensions. Spec / check / audit / fleet modes. Audit mode ranks improvements with evidence and adds a new-model lens, so you can re-audit the app whenever a model ships. Better-model test, default stack (Next.js + TypeScript + Prisma + Better Auth, Swift on Apple), full UX state tables with contextual help, roles and agent access with negative tests, measure-before-cache performance, and a readiness report where missing evidence is never a pass. Stops at launch-ready; growth goes to marketing. |
 | [`ci-audit`](./skills/ci-audit/SKILL.md) | Find and fix wasted GitHub Actions time across a repo or portfolio. A stdlib script measures queue / setup / run per job, billed minutes (per-job rounding, macOS 10×) and cron runs per month. Checks for silently broken scheduled pipelines first, ranks fixes by minutes saved, and ships them as small PRs with warm-cache before/after numbers. |
+| [`dispute-evidence`](./skills/dispute-evidence/SKILL.md) | Instrument an app so chargebacks and refund fights have real rows: sign-in logs, content views/downloads, checkout ToS consent + policy version, mail message ids, dispute webhook alerts, admin evidence export, and a log-retention recommendation. Never auto-submits to Stripe; never silently changes refund windows. Worked example: Swipe Files PR #97. |
 | [`paste`](./skills/paste/SKILL.md) | Clean terminal output for 9 destinations (Slack, Notion, Twitter, LinkedIn, email, GitHub, plain, HTML). Secret-detection first. |
 | [`social-fetch`](./skills/social-fetch/SKILL.md) | Pull any social post by URL across 10 platforms (X, LinkedIn, IG, TikTok, Bluesky, Reddit, Mastodon, Threads, HN). Strategy chain with free + paid fallbacks. |
 | [`castmate`](./skills/castmate/SKILL.md) | Pull in the right model for the right job. Delegate a task to one agent CLI (optionally with write access), fan a prompt out to several for independent read-only reviews, or run rounds where castmates challenge each other's findings. Calls the official CLIs you already have (Claude, Codex, Gemini, Amp, OpenCode, Cursor, Kiro, Antigravity); models and groups live in your config dir, and any new model ID passes straight through. Adapted from [counselors](https://github.com/aarondfrancis/counselors) (MIT). |
