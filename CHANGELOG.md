@@ -6,6 +6,11 @@ All notable changes to `makerskills` are documented here. Format loosely follows
 
 ---
 
+## [Unreleased]
+
+### Added
+- **`dispute-evidence` v0.1.0:** Instrument any app so chargebacks and refund fights have real rows — sign-in logs, content views/downloads, checkout ToS consent + policy versioning, mail message ids, dispute webhook alerts, admin evidence export, and log-retention guidance. Hard rules: never auto-submit evidence to Stripe, never silently change refund windows, evidence writes are best-effort. Worked example from Swipe Files ([conversionfactory/swipefiles-nextjs#97](https://github.com/conversionfactory/swipefiles-nextjs/pull/97)). Checklist + worked-example references.
+
 ## [v1.20.0] — 2026-11-18
 
 ### Added
